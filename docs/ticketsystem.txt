@@ -35,9 +35,12 @@ tkt_hist = Ticket History/Log here (open, close, reply)
 	old_value		= The old value before the change. NULL if not valid or nothing regarding that history before (i.e. assigning a ticket when it wasn't assigned already)
 	new_value		= The new value after the change. NULL if not valid of nothing regarding the change to now (i.e. unassigning a ticket).
 
-tkt_notes = Ticket notes (invisible to users)
+tkt_notes = Ticket notes (invisible to users, so you shouldn't have to add anything on the front end for this)
 	noteid			= Unique 9 digit ID given to the note left
+	t_id			= Ticket ID to which this note belongs to.
 	deleted			= Boolean 0/1. 1 indicates the note is "deleted" (hidden from view on everyone's screen) 
+	note_content	= Content of the note.
+	author_id		= The user_id of the author of the note
 	
 	
 Ticket History Types are as follows.

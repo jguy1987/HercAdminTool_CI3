@@ -35,7 +35,7 @@ editpredef			= Manage Community Pre-defined Replies
 levellock			= Level Lock Tickets
 assigngm			= Assign GM to Ticket
 assigngm+			= Assign Higher GM to Ticket
-canreopen			= Reopen Tickets
+canreopen			= Close/Reopen Tickets
 
 // In-Game Setting related
 announcement		= Manage System Broadcasts
