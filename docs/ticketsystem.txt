@@ -1,0 +1,51 @@
+Here is the information you require for the HAT Ticket System.
+
+Ticket stuffs are stored in 5 tables in the database. 
+
+tkt_main = Main Ticket Storage.
+	t_id 			= Ticket ID. Starting with 1000, this is the unique ticket id referenced throughout the system (auto increment)
+	t_sender 		= The Nickname (user enterable, or you can choose to have it reference their character name) of the ticket sender.
+	t_subject 		= Ticket Subject. You can pretty much do anything you'd like here. Have a list of selectable things with 'other', just have user handfill in. Max length is VARCHAR 80 but could be changed.
+	t_folderid		= The folder ID or "category" the ticket belongs to. Anyone with editcategory permission can set a category up through the HercAdminTool. See table 'tkt_folders'
+	t_submittime	= Datetime stamp of when the ticket was submitted. Also the datetime for the first message on the ticket.
+	t_lastreply		= Datetime stamp of the last reply to the ticket.
+	t_status		= Int(2) of the status of the ticket. 1 = open, 2 = waiting for user feedback, 3 = closed, 4 = user reopened, 5 = locked to further replies (GM's with permission 'canreopen' can un/lock these)
+	t_groupid		= GroupID of the group which the ticket is assigned to.
+	t_userid		= UserID of the person who is assigned this ticket.
+	
+tkt_folders = Folder Storage. A couple are setup for your convenience. Can add/delete more. 
+	folderid		= Folder ID. Starting with 1, this is unique.
+	active			= Boolean 1/0. Folders with '0' as active are not selectable.
+	foldername		= Folder Name. Shortname (less than 60 chars) of the folder.
+	
+tkt_replies = All replies kept here. 
+	t_replyid		= Unique 7 digit ID for the individual reply.
+	t_id			= The ticket ID this reply belongs to.
+	r_date			= Datetime of the reply.
+	r_content		= The content of the reply (textfield)
+	r_user			= The user that created the reply (could be the GM name or the user's name)
+	r_groupid		= If the GM replies, this will fill in to match their GroupID (NOT the groupid of the ticket, the user that replies). NULL if the user replies, not the GM.
+	
+tkt_hist = Ticket History/Log here (open, close, reply)
+	histid			= Unique 9 digit ID of the history/log entry.
+	t_id			= The Ticket ID of this history entry
+	type_id			= the Type of History Entry (see below)
+	user			= User that performed the action.
+	hist_date		= Datetime stamp of the change.
+	old_value		= The old value before the change. NULL if not valid or nothing regarding that history before (i.e. assigning a ticket when it wasn't assigned already)
+	new_value		= The new value after the change. NULL if not valid of nothing regarding the change to now (i.e. unassigning a ticket).
+
+tkt_notes = Ticket notes (invisible to users)
+	noteid			= Unique 9 digit ID given to the note left
+	deleted			= Boolean 0/1. 1 indicates the note is "deleted" (hidden from view on everyone's screen) 
+	
+	
+Ticket History Types are as follows.
+1 = ticket opened
+2 = Ticket assigned to/from/off GM
+3 = Ticket Assigned to/from/off group
+4 = Ticket replied
+5 = Folder changed
+6 = Ticket status change
+7 = Note added (new_value in tkt_hist would then contain the noteid of the note)
+8 = Note removed (old_value in tkt_hist would then contain the noteid of the note)

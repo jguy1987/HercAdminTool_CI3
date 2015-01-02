@@ -1,0 +1,60 @@
+// Account related
+viewemail 			= View Email Address
+editaccemail 		= Edit Account Email Address
+resetacctpass 		= Reset Account Password
+editgender 			= Edit Account Gender
+addaccount			= Add Game Account
+usepurge			= Purge Inactive Accounts
+banaccount			= Ban Account
+unbanaccount		= Unban Account
+edittrust			= Edit Account Trust
+
+// Character Related
+editcharzeny		= Edit Character Zeny
+editcharlv			= Edit Character Levels
+editcharstats		= Edit Character Stats
+editcharjob			= Change Character Job
+delcharitem			= Delete Any Character Item
+senditem			= Send Item via Mail
+kickchar			= Kick Character from Server
+delcharacter		= Delete Individual Character
+restoredelchar		= Restore Deleted Character
+changeposition		= Reset Character Position
+
+// Admin Tool Admin related
+editgrouplist		= Edit Admin Groups
+addadmin			= Add Admin
+editadmin			= Edit Admin
+deladmin			= Remove Admin
+hatconfig			= AdminTool Configuration Access
+
+// Ticket system Related
+viewtickets			= View Tickets
+editcategory		= Manage Ticket Categories
+editpredef			= Manage Community Pre-defined Replies
+levellock			= Level Lock Tickets
+assigngm			= Assign GM to Ticket
+assigngm+			= Assign Higher GM to Ticket
+canreopen			= Reopen Tickets
+
+// In-Game Setting related
+announcement		= Manage System Broadcasts
+items				= Manage server items
+itemshop			= Manage Item Shop
+mobs				= Manage server mobs
+
+// Log Related
+atcmdlog			= View @command logs
+branchlog			= View Branch logs
+chatlog				= View Chat Logs
+loginlog			= View Login Logs
+mvplog				= View MVP Logs
+npclog				= View NPC Logs
+picklog				= View Item Pick Logs
+zenylog				= View Zeny Transaction Logs
+
+// Server Maintenance Related
+servermaint			= Start/Stop/Restart server
+backupdb			= Backup Database
+sftp				= Server SFTP Access
+serverconfig		= Server Configuration Access (View/Edit)
