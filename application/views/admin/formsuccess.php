@@ -9,10 +9,12 @@
                 </div>
                 <!-- /.row -->
 				<div class="col-lg-3">
-					Admin account changes processed successfully. Return to 
 					<?php switch( $referpage ) {
 						case "useredit":
-							echo "the <a href='/admin/users'>user management page</a>";
+							echo "Admin user edit processed successfully. Return to the <a href='/admin/users'>user management page</a>";
+							break;
+						case "groupadd":
+							echo "Group Addition processed successfully. Return to the <a href='/admin/groups'>group management page</a>";
 							break;
 						default:
 							echo "the <a href='/'>dashboard</a>";

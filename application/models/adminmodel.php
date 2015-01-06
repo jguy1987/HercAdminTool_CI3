@@ -47,4 +47,13 @@ Class Adminmodel extends CI_Model {
 		$this->db->where('id', $data['id']);
 		$this->db->update('users', $data);
 	}
+	
+	/*function addgroup($data) {
+		// First get the list of permissions we need to insert into the database and set all those values to 1 so that we can insert them
+		array_fill_keys($data['perms'], 1);
+		foreach($data['perms'] as $data) {
+		// Then, insert them.
+		
+		$this->db->insert
+		}*/
 }

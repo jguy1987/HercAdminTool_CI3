@@ -16,5 +16,10 @@ Class Usermodel extends CI_Model {
 		  return false;
 		}
 	}
+	
+	function update_user_module($userid,$module) {
+		$this->db->where('id', $userid);
+		$this->db->update('users', array('lastmodule' => $module));
+	}
 }
 ?>

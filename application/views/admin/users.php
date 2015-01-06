@@ -18,6 +18,7 @@
 									<th style="width: 38px;">UserID</th>
 									<th style="width: 150px;">Username</th>
 									<th style="width: 230px;">Private Email</th>
+									<th style="width: 100px;">In-game Acct ID</th>
 									<th style="width: 100px;">Created On</th>
 									<th style="width: 100px;">Last Active</th>
 									<th style="width: 30px;">Disable login?</th>
@@ -31,6 +32,7 @@
 									<td><?php echo $admin_entry->userid; ?></td>
 									<td><?php echo $admin_entry->username; ?></td>
 									<td><?php echo $admin_entry->pemail; ?></td>
+									<td><?php echo "<a href='/accounts/edit/".$admin_entry->gameacctid."'>".$admin_entry->gameacctid."</a>"; ?></td>
 									<td><?php echo $admin_entry->createdate; ?></td>
 									<td><?php echo $admin_entry->lastlogin; ?></td>
 									<?php if ($admin_entry->disablelogin == 1) { ?>

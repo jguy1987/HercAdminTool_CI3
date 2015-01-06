@@ -10,7 +10,7 @@
                 <!-- /.row -->
 				<div class="col-lg-3">
 					<?php echo validation_errors(); ?>
-					<?php echo form_open('/admin/verifyuseredit', '', array('userid' => $userinfo->id)); ?>
+					<?php echo form_open('/admin/verifyuser', '', array('userid' => $userinfo->id)); ?>
 					<fieldset>
 						<div class="form-group">
 							<label>Account Name</label>
