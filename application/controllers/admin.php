@@ -105,7 +105,8 @@ class Admin extends CI_Controller {
 					'genpass'		=> $this->input->post('genpass')
 				);
 				$this->adminmodel->editadminuser($data);
-				$this->load->view('admin/formsuccess');
+				$data['referpage'] = "useredit";
+				$this->load->view('admin/formsuccess', $data);
 				$this->load->view('footer-nocharts');
 			}
 		}

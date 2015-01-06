@@ -31,15 +31,15 @@
 						<div class="checkbox">
 							<label>
 								<?php if ($userinfo->disablelogin != 0) { ?>
-									<input type="checkbox" value="" id="active" checked />Disable Login?
+									<input type="checkbox" value="1" name="active" checked />Disable Login?
 								<?php } else { ?>
-									<input type="checkbox" value="" id="active" />Disable Login?
+									<input type="checkbox" value="1" name="active" />Disable Login?
 								<?php } ?>
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" value="" id="genpass"/>Generate new password?
+								<input type="checkbox" value="true" name="genpass"/>Generate new password?
 							</label><br />
 							<i>Checking this will generate a new 15 character password and send to user</i>
 						</div>

@@ -28,32 +28,23 @@ Class Adminmodel extends CI_Model {
 		return $query->row();
 	}
 	
-	/*function check_user_if_exists($username) {
-		$query = $this->db->get_where('users', array('name' => $username));
-		if ($query->num_rows() > 0) {
-			return True; //Username exists already
-		}
-		else {
-			return False; // Username does not exist
-		}
-	}*/
-	
 	function editadminuser($data) {
-		$this->db->where('id', $data['id']);
 		// First, check to see if we need to generate a new pass:
-		if ($data['genpass'] == True) {
+		if ($data['genpass'] == true) {
 			// Generate new 15 char password, convert to MD5 and store it for email
-			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
-			$charactersLength = strlen($characters);
-			$randomString = '';
+			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
+			$string = '';
 			for ($i = 0; $i < 15; $i++) {
-				$randomString .= $characters[rand(0, $charactersLength - 1)];
+				$string .= $chars[rand(0, strlen($chars) - 1)];
 			}
-			$newPass = md5($randomString);
+			$newPass = md5($string);
+			unset($data['genpass']);
+			$this->db->where('id', $data['id']);
 			$this->db->update('users',array('passwd' => $newPass));
 		}
 		// Update the data:
 		unset($data['genpass']);
+		$this->db->where('id', $data['id']);
 		$this->db->update('users', $data);
 	}
 }
