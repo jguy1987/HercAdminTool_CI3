@@ -4,8 +4,8 @@ class Admin extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->database('admin');
-		$this->load->model('adminmodel','',TRUE);
+		$this->load->database('admintool');
+		$this->load->model('adminmodel');
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}

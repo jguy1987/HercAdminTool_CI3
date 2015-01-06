@@ -22,7 +22,7 @@
 									<a href="/accounts/search">Search Accounts</a>
 								</li>
 								<li>
-									<a href="/accounts/list">List Accounts</a>
+									<a href="/accounts/listaccts">List Accounts</a>
 								</li>
 								<li>
 									<a href="/accounts/create">Create New</a>

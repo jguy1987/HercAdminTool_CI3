@@ -7,6 +7,8 @@ class Accounts extends CI_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
+		$this->load->database('ragnarok');
+		$this->load->model('accountmodel','',TRUE);
 	}
 
 	public function create() {
@@ -19,13 +21,15 @@ class Accounts extends CI_Controller {
 		$this->load->view('accounts/create');
 		$this->load->view('footer-nocharts');
 	}
-	public function list() {
+	
+	public function listaccts() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
-		$this->load->view('accounts/list');
-		#this->load->view('footer-nocharts');
+		$data['accts'] = $this->accountmodel->list_accounts();
+		$this->load->view('accounts/listaccts', $data);
+		$this->load->view('footer-nocharts');
 	}
 }
