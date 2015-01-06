@@ -21,6 +21,11 @@
 							<input class="form-control" size="40px" name="pemail" value="<?php echo $userinfo->pemail; ?>" />
 						</div>
 						<div class="form-group">
+							<label>Linked Account ID</label>
+							<input class="form-control" size="40px" name="pemail" value="<?php echo $userinfo->gameacctid; ?>" />
+							<i>Enter the account ID of the game account for this admin</i>
+						</div>
+						<div class="form-group">
 							<label>Group Membership</label>
 							<select class="form-control" name="group-select">
 								<?php foreach ($grouplist as $grpitem): ?>

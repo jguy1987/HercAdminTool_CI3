@@ -1,0 +1,9 @@
+A rundown of all the "types" ID's in the database.
+
+Admin logs:
+
+field `log_type`:
+1 = Admin User Edit
+2 = Admin Group Edit
+3 = Admin Setting Change
+4 = 
