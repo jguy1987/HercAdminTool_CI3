@@ -41,36 +41,49 @@
 									</li>
                             </ul>
                         </li>
+						<li>
+							<a href="#"><i class="fa fa-fw"></i> Game Logs<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
 								<li>
-									<a href="#"><i class="fa fa-fw"></i> Game Logs<span class="fa arrow"></span></a>
-									<ul class="nav nav-second-level">
-										<li>
-											<a href="/gamelogs/atcmd/search">@command</a>
-										</li>
-										<li>
-											<a href="/gamelogs/branch/search">branch</a>
-										</li>
-										<li>
-											<a href="/gamelogs/chat/search">chat</a>
-										</li>
-										<li>
-											<a href="/gamelogs/login/search">login</a>
-										</li>	
-										<li>
-											<a href="/gamelogs/mvp/search">mvp</a>
-										</li>
-										<li>
-											<a href="/gamelogs/npc/search">npc</a>
-										</li>
-										<li>
-											<a href="/gamelogs/pick/search">pick</a>
-										</li>		
-										<li>
-											<a href="/gamelogs/zeny/search">zeny</a>
-										</li>	
-									</ul>
+									<a href="/gamelogs/atcmd/search">@command</a>
 								</li>
-								
+								<li>
+									<a href="/gamelogs/branch/search">branch</a>
+								</li>
+								<li>
+									<a href="/gamelogs/chat/search">chat</a>
+								</li>
+								<li>
+									<a href="/gamelogs/login/search">login</a>
+								</li>	
+								<li>
+									<a href="/gamelogs/mvp/search">mvp</a>
+								</li>
+								<li>
+									<a href="/gamelogs/npc/search">npc</a>
+								</li>
+								<li>
+									<a href="/gamelogs/pick/search">pick</a>
+								</li>		
+								<li>
+									<a href="/gamelogs/zeny/search">zeny</a>
+								</li>	
+							</ul>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-fw"></i> Panel Admin<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a href="/admin/users">User Management</a>
+								</li>
+								<li>
+									<a href="/admin/groups">Group Management</a>
+								</li>
+								<li>
+									<a href="/admin/logs">Log Management</a>
+								</li>	
+							</ul>
+						</li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

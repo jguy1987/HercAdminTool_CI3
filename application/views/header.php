@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://admin.aesiraonline.com">Aesira OPTool v0.02</a>
+                <a class="navbar-brand" href="http://admin.aesiraonline.com">HercAdminTool</a>
             </div>
             <!-- /.navbar-header -->
 

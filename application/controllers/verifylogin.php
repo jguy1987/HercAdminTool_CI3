@@ -4,7 +4,8 @@ class VerifyLogin extends CI_Controller {
  
 	function __construct() {
 		parent::__construct();
-		$this->load->model('user','',TRUE);
+		$this->load->database('admin');
+		$this->load->model('usermodel','',TRUE);
 	}
 	 
 	function index() {
@@ -15,12 +16,12 @@ class VerifyLogin extends CI_Controller {
 		$this->form_validation->set_rules('passwd', 'Password', 'trim|required|xss_clean|callback_check_database');
 	 
 		if($this->form_validation->run() == FALSE) {
-		  //Field validation failed.  User redirected to login page
-		  $this->load->view('login');
+			//Field validation failed.  User redirected to login page
+			$this->load->view('user/login');
 		}
 		else {
-		  //Go to private area
-		  redirect('/', 'refresh');
+			//Go to private area
+			redirect('/', 'refresh');
 		}
 	 
 	}
@@ -30,23 +31,28 @@ class VerifyLogin extends CI_Controller {
 		$username = $this->input->post('username');
 	 
 		//query the database
-		$result = $this->user->login($username, $passwd);
+		$result = $this->usermodel->login($username, $passwd);
 	 
 		if($result) {
-		  $sess_array = array();
-		  foreach($result as $row) {
-			 $sess_array = array(
-				'id' => $row->id,
-				'username' => $row->username,
-				'group' => $row->groupid
-			 );
-			 $this->session->set_userdata('loggedin', $sess_array);
-		  }
-		  return true;
+			$sess_array = array();
+			foreach($result as $row) {
+				$sess_array = array(
+					'id' => $row->id,
+					'username' => $row->username,
+					'group' => $row->groupid,
+					'disablelogin' => $row->disablelogin
+				);
+				if ($sess_array['disablelogin'] == 1) {
+					$this->form_validation->set_message('check_database', 'This user account is not authorized to login. Contact an administrator');
+					return false;
+				}
+				$this->session->set_userdata('loggedin', $sess_array);
+			}
+			return true;
 		}
 		else {
-		  $this->form_validation->set_message('check_database', 'Invalid username or password');
-		  return false;
+			$this->form_validation->set_message('check_database', 'Invalid username or password');
+			return false;
 		}
 	}
 }
