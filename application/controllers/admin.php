@@ -201,6 +201,17 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function groupid_check($groupid) {
+		$q = $this->db->get_where('groups', array('id' => $groupid));
+		if ($q->num_rows() < 1) {
+			return True; // Group name AND ID are free.
+		}
+		elseif ($q->num_rows() > 0) { // 
+			$this->form_validation->set_message('group_check','The group ID already exists.');
+			return False;
+		}
+	}
+	
 	public function list_permissions() {
 		$permissions['viewemail'] 		= "View Email Address";
 		$permissions['editaccemail'] 	= "Edit Account Email Address";
