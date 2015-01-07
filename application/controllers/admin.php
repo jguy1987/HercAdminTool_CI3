@@ -179,9 +179,32 @@ class Admin extends CI_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	// Validation Functions
-	public function username_check($username) {
-		return True;
+	public function lockusers() {
+		$session_data = $this->session->userdata('loggedin');
+		$data['username'] = $session_data['username'];
+		$this->load->library('form_validation');
+		
+		$this->load->view('header', $data);
+		$this->load->view('sidebar');
+		
+		$this->adminmodel->users_login_status($session_data['id'], 'lock');
+		$data['referpage'] = "lockusers";
+		$this->load->view('admin/formsuccess', $data);
+		$this->load->view('footer-nocharts');
+	}
+		
+	public function unlockusers() {
+		$session_data = $this->session->userdata('loggedin');
+		$data['username'] = $session_data['username'];
+		$this->load->library('form_validation');
+		
+		$this->load->view('header', $data);
+		$this->load->view('sidebar');
+		
+		$this->adminmodel->users_login_status($session_data['id'], 'unlock');
+		$data['referpage'] = "unlockusers";
+		$this->load->view('admin/formsuccess', $data);
+		$this->load->view('footer-nocharts');
 	}
 	
 	public function group_check($grpname) {

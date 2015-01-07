@@ -48,6 +48,24 @@ Class Adminmodel extends CI_Model {
 		$this->db->update('users', $data);
 	}
 	
+	function users_login_status($userid, $do) {
+		// This function will lock or unlock all users except the one who initiated the command.
+		
+		switch( $do ) {
+			case "lock": // Lock all users
+				$query = array(
+					'disablelogin' => 1);
+				$this->db->where('id <>', $userid);
+				$this->db->update('users', $query);
+				break;
+			case "unlock": // Unlock all users
+				$query = array(
+					'disablelogin' => 0);
+				$this->db->update('users', $query);
+				break;
+		}
+	}
+		
 	/*function addgroup($data) {
 		// First get the list of permissions we need to insert into the database and set all those values to 1 so that we can insert them
 		array_fill_keys($data['perms'], 1);

@@ -19,8 +19,14 @@
 						case "useradd":
 							echo "Admin user added successfully. Return to the <a href='/admin/users'>user management page</a>";
 							break;
+						case "lockusers":
+							echo "All admin user accounts locked from login. Return to the <a href='/admin/users'>user management page</a>";
+							break;
+						case "unlockusers":
+							echo "All admin user accounts enabled to login. Return to the <a href='/admin/users'>user management page</a>";
+							break;
 						default:
-							echo "the <a href='/'>dashboard</a>";
+							echo "Return to the <a href='/'>dashboard</a>";
 							break;
 					} ?>
 				</div>

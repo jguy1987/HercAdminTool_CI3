@@ -16,8 +16,8 @@
 							<thead>
 								<tr>
 									<th style="width: 38px;">GroupID</th>
-									<th style="width: 150px;">Group Name</th>
-									<th style="width: 40px;">Users Assigned</th>
+									<th style="width: 100px;">Group Name</th>
+									<th style="width: 150px;">Users Assigned</th>
 									<th style="width: 100px;">Options</th>
 								</tr>
 							</thead>
@@ -30,7 +30,7 @@
 									<?php foreach ($name_results[$group_entry['id']] as $name): ?>
 										<?php echo "<a href='/admin/edituser/".$name['id']."'>".$name['username']."</a>,&nbsp;"; ?>
 									<?php endforeach; ?></td>
-									<td><a href="/admin/editgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/admin/delgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-danger">Delete</button></a></td>
+									<td><a href="/admin/editgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/admin/delgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-danger">Delete</button></a>&nbsp;<a href="/sendemail/admingroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-info">Send Email</button></a></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

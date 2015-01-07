@@ -20,14 +20,14 @@
 					<thead>
 						<tr>
 							<th style="width: 38px;">UserID</th>
-							<th style="width: 150px;">Username</th>
-							<th style="width: 230px;">Private Email</th>
-							<th style="width: 100px;">In-game Acct ID</th>
+							<th style="width: 125px;">Username</th>
+							<th style="width: 200px;">Private Email</th>
+							<th style="width: 75px;">In-game<br />Acct ID</th>
 							<th style="width: 100px;">Created On</th>
 							<th style="width: 100px;">Last Active</th>
-							<th style="width: 30px;">Disable login?</th>
-							<th style="width: 200px;">Group</th>
-							<th style="width: 150px;">Options</th>
+							<th style="width: 25px;">Disable login?</th>
+							<th style="width: 180px;">Group</th>
+							<th style="width: 250px;">Options</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -45,7 +45,7 @@
 								<td>No</td>
 							<?php } ?>
 							<td><?php echo $admin_entry->group_name; ?></td>
-							<td><a href="/admin/edituser/<?php echo $admin_entry->userid; ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/admin/deluser/<?php echo $admin_entry->userid; ?>"><button type="button" class="btn btn-danger">Delete</button></a></td>
+							<td><a href="/admin/edituser/<?php echo $admin_entry->userid; ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/admin/deluser/<?php echo $admin_entry->userid; ?>"><button type="button" class="btn btn-danger">Delete</button></a>&nbsp;<a href="/sendemail/adminuser/<?php echo $admin_entry->userid; ?>"><button type="button" class="btn btn-info">Send Email</button></a></td>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
