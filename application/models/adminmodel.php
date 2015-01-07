@@ -33,19 +33,22 @@ Class Adminmodel extends CI_Model {
 		if ($data['genpass'] == true) {
 			// Generate new 15 char password, convert to MD5 and store it for email
 			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
-			$string = '';
+			$newPass = '';
 			for ($i = 0; $i < 15; $i++) {
-				$string .= $chars[rand(0, strlen($chars) - 1)];
+				$newPass .= $chars[rand(0, strlen($chars) - 1)];
 			}
-			$newPass = md5($string);
+			$newPassMD5 = md5($newPass);
 			unset($data['genpass']);
 			$this->db->where('id', $data['id']);
-			$this->db->update('users',array('passwd' => $newPass));
+			$this->db->update('users',array('passwd' => $newPassMD5));
 		}
 		// Update the data:
 		unset($data['genpass']);
 		$this->db->where('id', $data['id']);
 		$this->db->update('users', $data);
+		if (isset($newPass)) {
+			return $newPass;
+		}
 	}
 	
 	function users_login_status($userid, $do) {
@@ -77,11 +80,11 @@ Class Adminmodel extends CI_Model {
 		
 	function addadminuser($data) {
 		$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
-		$string = '';
+		$newPass = '';
 		for ($i = 0; $i < 15; $i++) {
-			$string .= $chars[rand(0, strlen($chars) - 1)];
+			$newPass .= $chars[rand(0, strlen($chars) - 1)];
 		}
-		$newPass = md5($string);
+		$newPassMD5 = md5($newPass);
 		
 		$this->db->set('username', $data['username']);
 		$this->db->set('pemail', $data['pemail']);
@@ -89,9 +92,10 @@ Class Adminmodel extends CI_Model {
 		if (isset($data['gameacctid'])) {
 			$this->db->set('gameacctid', $data['gameacctid']);
 		}
-		$this->db->set('passwd', $newPass);
+		$this->db->set('passwd', $newPassMD5);
 		$this->db->set('disablelogin', '1');
 		$this->db->set('createdate', 'NOW()', FALSE);
 		$this->db->insert('users');
+		return $newPass;
 	}
 }

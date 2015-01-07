@@ -92,7 +92,15 @@ class Admin extends CI_Controller {
 				'disablelogin'	=> $this->input->post('active'),
 				'genpass'		=> $this->input->post('genpass')
 			);
-			$this->adminmodel->editadminuser($data);
+			$newPass = $this->adminmodel->editadminuser($data);
+			if (isset($newPass)) {
+				$email_data = array(
+					'passwd' => $newPass,
+					'username'	=> $this->input->post('username'),
+					'pemail' => $this->input->post('pemail')
+				);
+				$data['emaildebug'] = $this->send_admin_email('useredit',$email_data);
+			}
 			$data['referpage'] = "useredit";
 			$this->load->view('admin/formsuccess', $data);
 		}
@@ -121,7 +129,13 @@ class Admin extends CI_Controller {
 				'groupid'		=> $this->input->post('group-select'),
 				'gameacctid'	=> $this->input->post('gameacctid')
 			);
-			$this->adminmodel->addadminuser($data);
+			$newPass = $this->adminmodel->addadminuser($data);
+			$email_data = array(
+				'passwd' => $newPass,
+				'username'	=> $this->input->post('username'),
+				'pemail' => $this->input->post('pemail')
+			);
+			$data['emaildebug'] = $this->send_admin_email('useradd',$email_data);
 			$data['referpage'] = "useradd";
 			$this->load->view('admin/formsuccess', $data);
 		}
@@ -179,7 +193,7 @@ class Admin extends CI_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function lockusers() {
+	function lockusers() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		$this->load->library('form_validation');
@@ -193,7 +207,7 @@ class Admin extends CI_Controller {
 		$this->load->view('footer-nocharts');
 	}
 		
-	public function unlockusers() {
+	function unlockusers() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		$this->load->library('form_validation');
@@ -207,7 +221,7 @@ class Admin extends CI_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function group_check($grpname) {
+	function group_check($grpname) {
 		$q = $this->db->get_where('groups', array('name' => $grpname));
 		if ($q->num_rows() < 1) {
 			return True; // Group name AND ID are free.
@@ -218,7 +232,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function groupid_check($groupid) {
+	function groupid_check($groupid) {
 		$q = $this->db->get_where('groups', array('id' => $groupid));
 		if ($q->num_rows() < 1) {
 			return True; // Group name AND ID are free.
@@ -227,6 +241,31 @@ class Admin extends CI_Controller {
 			$this->form_validation->set_message('group_check','The group ID already exists.');
 			return False;
 		}
+	}
+	
+	function send_admin_email($type,$email_data) {
+		$this->email->from($this->config->item('emailfrom'), $this->config->item('panelname'));
+		$this->email->to($email_data['pemail']); 
+		if ($type = "useredit") {
+			$this->email->subject('Your admin account has been updated.');
+			$this->email->message("Hello {$email_data['username']},
+Your administration password has been updated. Your new password is {$email_data['passwd']}. Effective immediately you will use this new password to login.
+
+Thank you.");
+		}
+		elseif ($type = "useradd") {
+			$this->email->subject('Your admin account has been created.');
+			$this->email->message("Hello {$email_data['username']},
+Your administration account has been created for the admin panel on {$this->config->item('servername')}. You will use the following information to login:
+			
+URL: {$this->config->item('base_url')}
+Username: {$email_data['username']}
+Password: {$email_data['passwd']}
+			
+Thank you.");
+		}
+		$this->email->send();
+		return $this->email->print_debugger();
 	}
 	
 	public function list_permissions() {

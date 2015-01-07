@@ -12,6 +12,7 @@
 					<?php switch( $referpage ) {
 						case "useredit":
 							echo "Admin user edit processed successfully. Return to the <a href='/admin/users'>user management page</a>";
+							
 							break;
 						case "groupadd":
 							echo "Group Addition processed successfully. Return to the <a href='/admin/groups'>group management page</a>";
