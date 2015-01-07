@@ -14,7 +14,7 @@
 					<fieldset>
 						<div class="form-group">
 							<label>Account Name</label>
-							<input class="form-control" size="40px" name="username" value="<?php echo $userinfo->username; ?>" />
+							<input class="form-control" id="disabledInput" size="40px" name="username" value="<?php echo $userinfo->username; ?>" disabled />
 						</div>
 						<div class="form-group">
 							<label>Private Email Address</label>
@@ -22,7 +22,7 @@
 						</div>
 						<div class="form-group">
 							<label>Linked Account ID</label>
-							<input class="form-control" size="40px" name="pemail" value="<?php echo $userinfo->gameacctid; ?>" />
+							<input class="form-control" size="40px" name="gameacctid" value="<?php echo $userinfo->gameacctid; ?>" />
 							<i>Enter the account ID of the game account for this admin</i>
 						</div>
 						<div class="form-group">

@@ -39,9 +39,11 @@ class Admin extends CI_Controller {
 	public function adduser() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
+		$this->load->library('form_validation');
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
+		$data['grouplist'] = $this->adminmodel->list_groups();
 		$this->load->view('admin/adduser', $data);
 		$this->load->view('footer-nocharts');
 	}
@@ -67,7 +69,6 @@ class Admin extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
 		// Validate input on form.
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[users.username]');
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
 		if ($this->form_validation->run() == FALSE) {
 			$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
@@ -77,8 +78,8 @@ class Admin extends CI_Controller {
 		else {
 			$data = array(
 				'id'			=> $this->input->post('userid'),
-				'username' 		=> $this->input->post('username'),
 				'pemail'		=> $this->input->post('pemail'),
+				'gameacctid'	=> $this->input->post('gameacctid'),
 				'groupid'		=> $this->input->post('group-select'),
 				'disablelogin'	=> $this->input->post('active'),
 				'genpass'		=> $this->input->post('genpass')
@@ -86,14 +87,45 @@ class Admin extends CI_Controller {
 			$this->adminmodel->editadminuser($data);
 			$data['referpage'] = "useredit";
 			$this->load->view('admin/formsuccess', $data);
-			$this->load->view('footer-nocharts');
 		}
+		$this->load->view('footer-nocharts');
 	}
+	
+	public function verifyadduser() {
+		$session_data = $this->session->userdata('loggedin');
+		$data['username'] = $session_data['username'];
+		$this->load->library('form_validation');
+		
+		$this->load->view('header', $data);
+		$this->load->view('sidebar');
+		// Validate input on form.
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[users.username]');
+		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('gameacctid', 'Game Account ID', 'trim|min_length[2000000]|xss_clean|is_unique[users.gameacctid]');
+		if ($this->form_validation->run() == FALSE) {
+			$data['grouplist'] = $this->adminmodel->list_groups();
+			$this->load->view('admin/adduser', $data);
+		}
+		else {
+			$data = array(
+				'username' 		=> $this->input->post('username'),
+				'pemail'		=> $this->input->post('pemail'),
+				'groupid'		=> $this->input->post('group-select'),
+				'gameacctid'	=> $this->input->post('gameacctid')
+			);
+			$this->adminmodel->addadminuser($data);
+			$data['referpage'] = "useradd";
+			$this->load->view('admin/formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+		
 	
 	//Below not done
 	public function addgroup() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
+		$this->load->library('form_validation');
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
@@ -135,8 +167,8 @@ class Admin extends CI_Controller {
 			$this->adminmodel->addgroup($data);
 			$data['referpage'] = "groupadd";
 			$this->load->view('admin/formsuccess', $data);
-			$this->load->view('footer-nocharts');
 		}
+		$this->load->view('footer-nocharts');
 	}
 	
 	// Validation Functions

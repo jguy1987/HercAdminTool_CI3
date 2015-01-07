@@ -56,4 +56,24 @@ Class Adminmodel extends CI_Model {
 		
 		$this->db->insert
 		}*/
+		
+	function addadminuser($data) {
+		$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
+		$string = '';
+		for ($i = 0; $i < 15; $i++) {
+			$string .= $chars[rand(0, strlen($chars) - 1)];
+		}
+		$newPass = md5($string);
+		
+		$this->db->set('username', $data['username']);
+		$this->db->set('pemail', $data['pemail']);
+		$this->db->set('groupid', $data['groupid']);
+		if (isset($data['gameacctid'])) {
+			$this->db->set('gameacctid', $data['gameacctid']);
+		}
+		$this->db->set('passwd', $newPass);
+		$this->db->set('disablelogin', '1');
+		$this->db->set('createdate', 'NOW()', FALSE);
+		$this->db->insert('users');
+	}
 }
