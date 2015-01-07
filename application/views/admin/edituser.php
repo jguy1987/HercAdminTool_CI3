@@ -14,7 +14,7 @@
 					<fieldset>
 						<div class="form-group">
 							<label>Account Name</label>
-							<input class="form-control" id="disabledInput" size="40px" name="username" value="<?php echo $userinfo->username; ?>" disabled />
+							<input class="form-control" size="40px" name="username" value="<?php echo $userinfo->username; ?>" />
 						</div>
 						<div class="form-group">
 							<label>Private Email Address</label>

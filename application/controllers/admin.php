@@ -68,16 +68,24 @@ class Admin extends CI_Controller {
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
+		$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
 		// Validate input on form.
+		if ($data['userinfo']->username != $this->input->post('username')) {
+			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[users.username]";
+		}
+		else {
+			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean";
+		}
+		$this->form_validation->set_rules('username', 'Username', $userRules);
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
 		if ($this->form_validation->run() == FALSE) {
-			$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/edituser', $data);
 		}
 		else {
 			$data = array(
 				'id'			=> $this->input->post('userid'),
+				'username'	=> $this->input->post('username'),
 				'pemail'		=> $this->input->post('pemail'),
 				'gameacctid'	=> $this->input->post('gameacctid'),
 				'groupid'		=> $this->input->post('group-select'),
