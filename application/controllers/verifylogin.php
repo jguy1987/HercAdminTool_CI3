@@ -42,6 +42,8 @@ class VerifyLogin extends CI_Controller {
 					'group' => $row->groupid,
 					'disablelogin' => $row->disablelogin
 				);
+				// Update the database with active login
+				$this->usermodel->update_active($sess_array['id']);
 				if ($sess_array['disablelogin'] == 1) {
 					$this->form_validation->set_message('check_database', 'This user account is not authorized to login. Contact an administrator');
 					return false;

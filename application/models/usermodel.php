@@ -21,5 +21,12 @@ Class Usermodel extends CI_Model {
 		$this->db->where('id', $userid);
 		$this->db->update('users', array('lastmodule' => $module));
 	}
+	
+	function update_active($uid) {
+		// Update the active date to now.
+		$this->db->where('id', $uid);
+		$this->db->set('lastlogin', 'NOW()', FALSE);
+		$this->db->update('users');
+	}
 }
 ?>
