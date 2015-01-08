@@ -98,4 +98,29 @@ Class Adminmodel extends CI_Model {
 		$this->db->insert('users');
 		return $newPass;
 	}
+	
+	function resetallpwd() {
+		$this->db->select('id, username, pemail');
+		$q = $this->db->get('users');
+		$passwd = array();
+		foreach ($q->result_array() as $r) {
+			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
+			$newPass = '';
+			for ($i = 0; $i < 15; $i++) {
+				$newPass .= $chars[rand(0, strlen($chars) - 1)];
+			}
+			$newPassMD5 = md5($newPass);
+			
+			$this->db->where('id', $r['id']);
+			$this->db->update('users', array('passwd' => $newPassMD5));
+			$passwd += array(
+				$r['id'] => array(
+					'username' 	=> $r['username'],
+					'passwd'	=> $newPass,
+					'pemail'		=> $r['pemail']
+				)
+			);
+		}
+		return $passwd;
+	}
 }

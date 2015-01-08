@@ -25,6 +25,9 @@
 						case "unlockusers":
 							echo "All admin user accounts enabled to login. Return to the <a href='/admin/users'>user management page</a>";
 							break;
+						case "resetallpw":
+							echo "All admin user accounts have had their passwords reset and have received emails with their new passwords. Return to the <a href='/admin/users'>user management page</a>";
+							break;
 						default:
 							echo "Return to the <a href='/'>dashboard</a>";
 							break;

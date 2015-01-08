@@ -100,7 +100,7 @@ class Admin extends CI_Controller {
 					'pemail' => $this->input->post('pemail'),
 					'type'	=> "useredit"
 				);
-				$this->send_admin_email($email_data);
+				$this->send_admin_email($email_data,"useredit");
 			}
 			$data['referpage'] = "useredit";
 			$this->load->view('admin/formsuccess', $data);
@@ -137,10 +137,26 @@ class Admin extends CI_Controller {
 				'pemail' => $this->input->post('pemail'),
 				'type'	=> "useradd"
 			);
-			$this->send_admin_email($email_data);
+			$this->send_admin_email($email_data,"useradd");
 			$data['referpage'] = "useradd";
 			$this->load->view('admin/formsuccess', $data);
 		}
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function resetusers() {
+		$session_data = $this->session->userdata('loggedin');
+		$data['username'] = $session_data['username'];
+		$this->load->library('form_validation');
+		
+		$this->load->view('header', $data);
+		$this->load->view('sidebar');
+		$passwds = $this->adminmodel->resetallpwd();
+		foreach($passwds as $email_data) {
+			$this->send_admin_email($email_data,"useredit");
+		}
+		$data['referpage'] = "resetallpw";
+		$this->load->view('admin/formsuccess', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
@@ -243,17 +259,17 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	function send_admin_email($email_data) {
+	function send_admin_email($email_data,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('panelname'));
 		$this->email->to($email_data['pemail']); 
-		if ($email_data['type'] == "useredit") {
+		if ($type == "useredit") {
 			$this->email->subject('Your admin account has been updated.');
 			$this->email->message("Hello {$email_data['username']},
 Your administration password for {$this->config->item('panelname')} has been updated. Your new password is {$email_data['passwd']}. Effective immediately you will use this new password to login.
 
 Thank you.");
 		}
-		elseif ($email_data['type'] == "useradd") {
+		elseif ($type == "useradd") {
 			$this->email->subject('Your admin account has been created.');
 			$this->email->message("Hello {$email_data['username']},
 Your administration account has been created for the admin panel on {$this->config->item('servername')}. You will use the following information to login:
