@@ -17,8 +17,7 @@
 							echo "Group Addition processed successfully. Return to the <a href='/admin/groups'>group management page</a><br /><br />";
 							break;
 						case "useradd":
-							echo "Admin user added successfully. Return to the <a href='/admin/users'>user management page</a><br /><br />";
-							echo $emaildebug;
+							echo "Admin user added successfully. The user has received an email with their login details. Return to the <a href='/admin/users'>user management page</a><br /><br />";
 							break;
 						case "lockusers":
 							echo "All admin user accounts locked from login. Return to the <a href='/admin/users'>user management page</a>";

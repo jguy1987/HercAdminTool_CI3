@@ -100,7 +100,7 @@ class Admin extends CI_Controller {
 					'pemail' => $this->input->post('pemail'),
 					'type'	=> "useredit"
 				);
-				$data['emaildebug'] = $this->send_admin_email($email_data);
+				$this->send_admin_email($email_data);
 			}
 			$data['referpage'] = "useredit";
 			$this->load->view('admin/formsuccess', $data);
@@ -137,7 +137,7 @@ class Admin extends CI_Controller {
 				'pemail' => $this->input->post('pemail'),
 				'type'	=> "useradd"
 			);
-			$data['emaildebug'] = $this->send_admin_email($email_data);
+			$this->send_admin_email($email_data);
 			$data['referpage'] = "useradd";
 			$this->load->view('admin/formsuccess', $data);
 		}
@@ -251,9 +251,7 @@ class Admin extends CI_Controller {
 			$this->email->message("Hello {$email_data['username']},
 Your administration password for {$this->config->item('panelname')} has been updated. Your new password is {$email_data['passwd']}. Effective immediately you will use this new password to login.
 
-Thank you.
-
-Debug: {$email_data['type']}");
+Thank you.");
 		}
 		elseif ($email_data['type'] == "useradd") {
 			$this->email->subject('Your admin account has been created.');
@@ -265,9 +263,6 @@ Username: {$email_data['username']}
 Password: {$email_data['passwd']}
 			
 Thank you.");
-		}
-		else {
-			return "Fail";
 		}
 		$this->email->send();
 		return $this->email->print_debugger();
