@@ -1,10 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 session_start();
-class VerifyLogin extends CI_Controller {
+class VerifyLogin extends MY_Controller {
  
 	function __construct() {
 		parent::__construct();
-		$this->load->database('admintool');
 		$this->load->model('usermodel');
 	}
 	 

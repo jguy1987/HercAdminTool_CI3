@@ -1,14 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Accounts extends CI_Controller {
+class Accounts extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->database('ragnarok');
-		$this->load->model('accountmodel','',TRUE);
+		$this->load->model('accountmodel');
 	}
 
 	public function create() {
