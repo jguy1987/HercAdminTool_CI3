@@ -36,6 +36,7 @@ at the minimum:
 * PHP5
 * MySQL
 * git
+* sendmail
 * An RO Server running Hercules.
 
 The above is tested to function. Ngix, Lighthttpd and the likes are untested, but I would appreciate
