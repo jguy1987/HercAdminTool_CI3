@@ -11,14 +11,14 @@
 				<div class="col-lg-6">
 					<?php switch( $referpage ) {
 						case "useredit":
-							echo "Admin user edit processed successfully. Return to the <a href='/admin/users'>user management page</a>";
-							
+							echo "Admin user edit processed successfully. Return to the <a href='/admin/users'>user management page</a><br /><br />";
 							break;
 						case "groupadd":
-							echo "Group Addition processed successfully. Return to the <a href='/admin/groups'>group management page</a>";
+							echo "Group Addition processed successfully. Return to the <a href='/admin/groups'>group management page</a><br /><br />";
 							break;
 						case "useradd":
-							echo "Admin user added successfully. Return to the <a href='/admin/users'>user management page</a>";
+							echo "Admin user added successfully. Return to the <a href='/admin/users'>user management page</a><br /><br />";
+							echo $emaildebug;
 							break;
 						case "lockusers":
 							echo "All admin user accounts locked from login. Return to the <a href='/admin/users'>user management page</a>";

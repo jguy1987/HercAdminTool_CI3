@@ -97,9 +97,10 @@ class Admin extends CI_Controller {
 				$email_data = array(
 					'passwd' => $newPass,
 					'username'	=> $this->input->post('username'),
-					'pemail' => $this->input->post('pemail')
+					'pemail' => $this->input->post('pemail'),
+					'type'	=> "useredit"
 				);
-				$data['emaildebug'] = $this->send_admin_email('useredit',$email_data);
+				$data['emaildebug'] = $this->send_admin_email($email_data);
 			}
 			$data['referpage'] = "useredit";
 			$this->load->view('admin/formsuccess', $data);
@@ -133,17 +134,16 @@ class Admin extends CI_Controller {
 			$email_data = array(
 				'passwd' => $newPass,
 				'username'	=> $this->input->post('username'),
-				'pemail' => $this->input->post('pemail')
+				'pemail' => $this->input->post('pemail'),
+				'type'	=> "useradd"
 			);
-			$data['emaildebug'] = $this->send_admin_email('useradd',$email_data);
+			$data['emaildebug'] = $this->send_admin_email($email_data);
 			$data['referpage'] = "useradd";
 			$this->load->view('admin/formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}
-		
 	
-	//Below not done
 	public function addgroup() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
@@ -243,17 +243,19 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	function send_admin_email($type,$email_data) {
+	function send_admin_email($email_data) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('panelname'));
 		$this->email->to($email_data['pemail']); 
-		if ($type = "useredit") {
+		if ($email_data['type'] == "useredit") {
 			$this->email->subject('Your admin account has been updated.');
 			$this->email->message("Hello {$email_data['username']},
-Your administration password has been updated. Your new password is {$email_data['passwd']}. Effective immediately you will use this new password to login.
+Your administration password for {$this->config->item('panelname')} has been updated. Your new password is {$email_data['passwd']}. Effective immediately you will use this new password to login.
 
-Thank you.");
+Thank you.
+
+Debug: {$email_data['type']}");
 		}
-		elseif ($type = "useradd") {
+		elseif ($email_data['type'] == "useradd") {
 			$this->email->subject('Your admin account has been created.');
 			$this->email->message("Hello {$email_data['username']},
 Your administration account has been created for the admin panel on {$this->config->item('servername')}. You will use the following information to login:
@@ -263,6 +265,9 @@ Username: {$email_data['username']}
 Password: {$email_data['passwd']}
 			
 Thank you.");
+		}
+		else {
+			return "Fail";
 		}
 		$this->email->send();
 		return $this->email->print_debugger();
