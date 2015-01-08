@@ -182,7 +182,7 @@ class Admin extends CI_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function verifygroup() {
+	public function verifygroupadd() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		$this->load->library('form_validation');
@@ -191,7 +191,7 @@ class Admin extends CI_Controller {
 		$this->load->view('sidebar');
 		// Validate input on form.
 		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|callback_group_check');
-		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|callback_groupid_check|greater_than[98]|less_than[2]|numeric');
+		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|callback_groupid_check|greater_than[2]|less_than[98]|numeric');
 		if ($this->form_validation->run() == FALSE) {
 			$data['permissions'] = $this->list_permissions();
 			$this->load->view('admin/addgroup', $data);
@@ -200,7 +200,7 @@ class Admin extends CI_Controller {
 			$data = array(
 				'id'			=> $this->input->post('groupid'),
 				'name' 			=> $this->input->post('grpname'),
-				'perms'			=> $this->input->post('perms')
+				'perms'			=> $this->input->post('perm')
 			);
 			$this->adminmodel->addgroup($data);
 			$data['referpage'] = "groupadd";
@@ -286,7 +286,7 @@ Thank you.");
 	
 	public function list_permissions() {
 		$permissions['viewemail'] 		= "View Email Address";
-		$permissions['editaccemail'] 	= "Edit Account Email Address";
+		$permissions['editacctemail'] 	= "Edit Account Email Address";
 		$permissions['resetacctpass'] 	= "Reset Account Password";
 		$permissions['editgender'] 		= "Edit Account Gender";
 		$permissions['addaccount']		= "Add Game Account";

@@ -53,7 +53,6 @@ Class Adminmodel extends CI_Model {
 	
 	function users_login_status($userid, $do) {
 		// This function will lock or unlock all users except the one who initiated the command.
-		
 		switch( $do ) {
 			case "lock": // Lock all users
 				$query = array(
@@ -69,14 +68,14 @@ Class Adminmodel extends CI_Model {
 		}
 	}
 		
-	/*function addgroup($data) {
+	function addgroup($data) {
 		// First get the list of permissions we need to insert into the database and set all those values to 1 so that we can insert them
 		array_fill_keys($data['perms'], 1);
-		foreach($data['perms'] as $data) {
-		// Then, insert them.
-		
-		$this->db->insert
-		}*/
+		$this->db->set('id', $data['id']);
+		$this->db->set('name', $data['name']);
+		$this->db->set($data['perms']);
+		$this->db->insert('groups');
+	}
 		
 	function addadminuser($data) {
 		$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';

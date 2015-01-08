@@ -10,7 +10,7 @@
                 <!-- /.row -->
 				<div class="col-lg-6">
 					<?php echo validation_errors(); ?>
-					<?php echo form_open('/admin/verifygroup'); ?>
+					<?php echo form_open('/admin/verifygroupadd'); ?>
 					<fieldset>
 						<div class="form-group">
 							<label>Group Name</label>
@@ -23,7 +23,7 @@
 						<div class="form-group col-lg-6">
 							<label>Permissions for this group</label><br />
 							<?php foreach($permissions as $perm=>$text): ?>
-								<input type="checkbox" name="perms[]" value="<?php echo $perm; ?>" />&nbsp;<?php echo $text; ?><br />
+								<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
 							<?php endforeach; ?>
 						</div>
 						<button type="submit" class="btn btn-default">Add Group</button>
