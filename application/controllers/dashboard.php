@@ -6,16 +6,16 @@ class Dashboard extends MY_Controller {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
-		}
-	}
-
-
-	public function index() {
+		}		
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
+	}
+
+
+	public function index() {
 		$this->load->view('index');
 		$this->load->view('footer');
 	}

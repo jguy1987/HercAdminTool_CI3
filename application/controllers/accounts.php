@@ -8,25 +8,20 @@ class Accounts extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$this->load->model('accountmodel');
-	}
-
-	public function create() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
+	}
+
+	public function create() {
 		$this->load->helper(array('form'));
 		$this->load->view('accounts/create');
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function listaccts() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$data['accts'] = $this->accountmodel->list_accounts();
 		$this->load->view('accounts/listaccts', $data);
 		$this->load->view('footer-nocharts');

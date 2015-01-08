@@ -8,25 +8,21 @@ class Admin extends MY_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-	}
-	
-	public function users() {
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
+		$this->load->library('form_validation');
+	}
+	
+	public function users() {
 		$data['admin_results'] = $this->adminmodel->list_admins();
 		$this->load->view('admin/users', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function groups() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$data['group_results'] = $this->adminmodel->list_groups();
 		foreach ($data['group_results'] as $group_results) {
 			$data['name_results'][$group_results['id']] = $this->adminmodel->list_users_in_group($group_results['id']);
@@ -36,24 +32,12 @@ class Admin extends MY_Controller {
 	}
 	
 	public function adduser() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$data['grouplist'] = $this->adminmodel->list_groups();
 		$this->load->view('admin/adduser', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function edituser($userid) {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$data['userinfo'] = $this->adminmodel->get_user_data($userid);
 		$data['grouplist'] = $this->adminmodel->list_groups();
 		$this->load->view('admin/edituser', $data);
@@ -61,12 +45,6 @@ class Admin extends MY_Controller {
 	}
 	
 	public function verifyuser() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
 		// Validate input on form.
 		if ($data['userinfo']->username != $this->input->post('username')) {
@@ -108,12 +86,6 @@ class Admin extends MY_Controller {
 	}
 	
 	public function verifyadduser() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		// Validate input on form.
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[users.username]');
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
@@ -144,12 +116,6 @@ class Admin extends MY_Controller {
 	}
 	
 	public function resetusers() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$passwds = $this->adminmodel->resetallpwd();
 		foreach($passwds as $email_data) {
 			$this->send_admin_email($email_data,"useredit");
@@ -160,34 +126,17 @@ class Admin extends MY_Controller {
 	}
 	
 	public function addgroup() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$data['permissions'] = $this->list_permissions();
 		$this->load->view('admin/addgroup', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function editgroup() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		$this->load->view('admin/editgroup', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function verifygroupadd() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
 		// Validate input on form.
 		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|callback_group_check');
 		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|callback_groupid_check|greater_than[2]|less_than[98]|numeric');
@@ -208,14 +157,7 @@ class Admin extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	function lockusers() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
-		
+	function lockusers() {		
 		$this->adminmodel->users_login_status($session_data['id'], 'lock');
 		$data['referpage'] = "lockusers";
 		$this->load->view('admin/formsuccess', $data);
@@ -223,13 +165,6 @@ class Admin extends MY_Controller {
 	}
 		
 	function unlockusers() {
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
-		$this->load->library('form_validation');
-		
-		$this->load->view('header', $data);
-		$this->load->view('sidebar');
-		
 		$this->adminmodel->users_login_status($session_data['id'], 'unlock');
 		$data['referpage'] = "unlockusers";
 		$this->load->view('admin/formsuccess', $data);
