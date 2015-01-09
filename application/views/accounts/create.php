@@ -1,59 +1,54 @@
 <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">Create Account</h1>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-				<p>This page is used to create an account for the GAME through the backend. Such an account will not require email authorization. The password will be automatically generated and sent to the user.</p>
-				<div class="col-lg-3">
-					<?php echo validation_errors(); ?>
-					<?php echo form_open('verifyacccreate'); ?>
-					<fieldset>
-						<div class="form-group">
-							<label>Account Name</label>
-							<input class="form-control" size="40px" id="acctname" />
-						</div>
-						<div class="form-group">
-							<label>Email Address</label>
-							<input class="form-control" size="40px" id="email" />
-						</div>
-						<div class="form-group">
-							<label>Account Gender</label>
-							<label class="radio-inline">
-								<input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" />Male
-							</label>
-							<label class="radio-inline">
-								<input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2" />Female
-							</label>
-						</div>
-						<div class="form-group">
-							<label>Group ID</label>
-							<select class="form-control" id="groupid">
-								<option>0 - Player</option>
-								<option>1 - Super Player</option>
-								<option>2 - Support</option>
-								<option>3 - Script Manager</option>
-								<option>4 - Event Manager</option>
-								<option>10 - Law Enforcement</option>
-								<option>99 - Administrator</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>Birthdate</label>
-							<input type="text" class="form-control" value="mm-dd-yyyy" data-date-format="mm-dd-yyyy" id="birthdate" />
-						</div>
-						<div class="form-group">
-							<label>Slots Available</label>
-							<input type="number" class="form-control" min="1" max="9" value="9"/>
-						</div>
-					</fieldset>
-				</div>
-				<!-- /.container-fluid -->
+<div id="page-wrapper">
+	<div class="container-fluid">
+		 <div class="row">
+			  <div class="col-lg-12">
+					<h1 class="page-header">Create Account</h1>
+			  </div>
+			  <!-- /.col-lg-12 -->
+		 </div>
+		 <!-- /.row -->
+	<p>This page is used to create an account for the GAME through the backend. Such an account will not require email authorization. The password and pincode will be automatically generated and sent to the user.</p>
+	<div class="col-lg-3">
+		<?php echo validation_errors(); ?>
+		<?php echo form_open('/accounts/verifyacccreate'); ?>
+		<fieldset>
+			<div class="form-group">
+				<label>Account Name</label>
+				<input class="form-control" size="40px" name="acctname" />
 			</div>
-			<!-- /#page-wrapper -->
+			<div class="form-group">
+				<label>Email Address</label>
+				<input class="form-control" size="40px" name="email" />
 			</div>
-		<!-- /#wrapper -->
+			<div class="form-group">
+				<label>Account Gender</label>
+				<label class="radio-inline">
+				<input type="radio" name="gender" id="optionsRadiosInline1" value="M" />Male
+				</label>
+				<label class="radio-inline">
+				<input type="radio" name="gender" id="optionsRadiosInline2" value="F" />Female
+				</label>
+			</div>
+			<div class="form-group">
+			<!-- todo: Function to take the groups you have configured in the emulator and list them here -->
+				<label>Group ID</label>
+				<input type="number" class="form-control" name="groupid" min="0" max="99" value="0"/>
+			</div>
+			<div class="form-group">
+				<label>Birthdate</label>
+				<input type="text" class="form-control" value="mm-dd-yyyy" data-date-format="mm-dd-yyyy" name="birthdate" />
+			</div>
+			<div class="form-group">
+				<label>Slots Available</label>
+				<input type="number" class="form-control" name="slots" min="1" max="9" value="9"/>
+			</div>
+			<button type="submit" class="btn btn-default">Register Account</button><br />
+		</fieldset>
+		<?php echo form_close(); ?>
+	</div>
+	<!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
