@@ -51,7 +51,7 @@ Class Adminmodel extends CI_Model {
 		}
 	}
 	
-	function hat_users_login_status($userid, $do) {
+	function users_login_status($userid, $do) {
 		// This function will lock or unlock all hat_users except the one who initiated the command.
 		switch( $do ) {
 			case "lock": // Lock all hat_users
