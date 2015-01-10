@@ -48,7 +48,7 @@ class Admin extends MY_Controller {
 		$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
 		// Validate input on form.
 		if ($data['userinfo']->username != $this->input->post('username')) {
-			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[users.username]";
+			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_users.username]";
 		}
 		else {
 			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean";
@@ -87,9 +87,9 @@ class Admin extends MY_Controller {
 	
 	public function verifyadduser() {
 		// Validate input on form.
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[users.username]');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_users.username]');
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('gameacctid', 'Game Account ID', 'trim|min_length[2000000]|xss_clean|is_unique[users.gameacctid]');
+		$this->form_validation->set_rules('gameacctid', 'Game Account ID', 'trim|min_length[2000000]|xss_clean|is_unique[hat_users.gameacctid]');
 		if ($this->form_validation->run() == FALSE) {
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/adduser', $data);
@@ -138,8 +138,8 @@ class Admin extends MY_Controller {
 	
 	public function verifygroupadd() {
 		// Validate input on form.
-		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|callback_group_check');
-		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|callback_groupid_check|greater_than[2]|less_than[98]|numeric');
+		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_groups.name]');
+		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|greater_than[2]|less_than[98]|numeric|is_unique[hat_groups.name]');
 		if ($this->form_validation->run() == FALSE) {
 			$data['permissions'] = $this->list_permissions();
 			$this->load->view('admin/addgroup', $data);
@@ -169,28 +169,6 @@ class Admin extends MY_Controller {
 		$data['referpage'] = "unlockusers";
 		$this->load->view('admin/formsuccess', $data);
 		$this->load->view('footer-nocharts');
-	}
-	
-	function group_check($grpname) {
-		$q = $this->db->get_where('groups', array('name' => $grpname));
-		if ($q->num_rows() < 1) {
-			return True; // Group name AND ID are free.
-		}
-		elseif ($q->num_rows() > 0) { // 
-			$this->form_validation->set_message('group_check','The group name already exists.');
-			return False;
-		}
-	}
-	
-	function groupid_check($groupid) {
-		$q = $this->db->get_where('groups', array('id' => $groupid));
-		if ($q->num_rows() < 1) {
-			return True; // Group name AND ID are free.
-		}
-		elseif ($q->num_rows() > 0) { // 
-			$this->form_validation->set_message('group_check','The group ID already exists.');
-			return False;
-		}
 	}
 	
 	function send_admin_email($email_data,$type) {
