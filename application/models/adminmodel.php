@@ -8,14 +8,14 @@ Class Adminmodel extends CI_Model {
 		return $query->result();
 	}
 	
-	function list_hat_groups() {
+	function list_groups() {
 		$this->db_admin->select('id, name');
 		$this->db_admin->from('hat_groups')->order_by('id','asc');
 		$query = $this->db_admin->get();
 		return $query->result_array();
 	}
 	
-	function list_hat_users_in_group($groupid) {
+	function list_users_in_group($groupid) {
 		$this->db_admin->select('hat_users.username, hat_users.id, hat_users.groupid');
 		$this->db_admin->from('hat_users')->order_by('hat_users.username','asc');
 		$this->db_admin->where('hat_users.groupid', $groupid);
