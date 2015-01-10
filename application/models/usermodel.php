@@ -2,7 +2,7 @@
 Class Usermodel extends CI_Model {
 	function login($username, $passwd) {
 		$this->db_admin->select('id, username, passwd, groupid, lastlogin, disablelogin');
-		$this->db_admin->from('users');
+		$this->db_admin->from('hat_users');
 		$this->db_admin->where('username', $username);
 		$this->db_admin->where('passwd', MD5($passwd));
 		$this->db_admin->limit(1);
@@ -19,14 +19,14 @@ Class Usermodel extends CI_Model {
 	
 	function update_user_module($userid,$module) {
 		$this->db_admin->where('id', $userid);
-		$this->db_admin->update('users', array('lastmodule' => $module));
+		$this->db_admin->update('hat_users', array('lastmodule' => $module));
 	}
 	
 	function update_active($uid) {
 		// Update the active date to now.
 		$this->db_admin->where('id', $uid);
 		$this->db_admin->set('lastlogin', 'NOW()', FALSE);
-		$this->db_admin->update('users');
+		$this->db_admin->update('hat_users');
 	}
 }
 ?>

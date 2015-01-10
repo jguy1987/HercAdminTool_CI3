@@ -1,30 +1,30 @@
 <?php
 Class Adminmodel extends CI_Model {
 	function list_admins() {
-		$this->db_admin->select('*, groups.name AS group_name, users.id AS userid');
-		$this->db_admin->from('users')->order_by('users.id','asc');
-		$this->db_admin->join('groups', 'users.groupid = groups.id');
+		$this->db_admin->select('*, hat_groups.name AS group_name, hat_users.id AS userid');
+		$this->db_admin->from('hat_users')->order_by('hat_users.id','asc');
+		$this->db_admin->join('hat_groups', 'hat_users.groupid = hat_groups.id');
 		$query = $this->db_admin->get();
 		return $query->result();
 	}
 	
-	function list_groups() {
+	function list_hat_groups() {
 		$this->db_admin->select('id, name');
-		$this->db_admin->from('groups')->order_by('id','asc');
+		$this->db_admin->from('hat_groups')->order_by('id','asc');
 		$query = $this->db_admin->get();
 		return $query->result_array();
 	}
 	
-	function list_users_in_group($groupid) {
-		$this->db_admin->select('users.username, users.id, users.groupid');
-		$this->db_admin->from('users')->order_by('users.username','asc');
-		$this->db_admin->where('users.groupid', $groupid);
+	function list_hat_users_in_group($groupid) {
+		$this->db_admin->select('hat_users.username, hat_users.id, hat_users.groupid');
+		$this->db_admin->from('hat_users')->order_by('hat_users.username','asc');
+		$this->db_admin->where('hat_users.groupid', $groupid);
 		$query = $this->db_admin->get();
 		return $query->result_array();
 	}
 	
 	function get_user_data($userid) {
-		$query = $this->db_admin->get_where('users', array('id' => $userid));
+		$query = $this->db_admin->get_where('hat_users', array('id' => $userid));
 		return $query->row();
 	}
 	
@@ -40,30 +40,30 @@ Class Adminmodel extends CI_Model {
 			$newPassMD5 = md5($newPass);
 			unset($data['genpass']);
 			$this->db_admin->where('id', $data['id']);
-			$this->db_admin->update('users',array('passwd' => $newPassMD5));
+			$this->db_admin->update('hat_users',array('passwd' => $newPassMD5));
 		}
 		// Update the data:
 		unset($data['genpass']);
 		$this->db_admin->where('id', $data['id']);
-		$this->db_admin->update('users', $data);
+		$this->db_admin->update('hat_users', $data);
 		if (isset($newPass)) {
 			return $newPass;
 		}
 	}
 	
-	function users_login_status($userid, $do) {
-		// This function will lock or unlock all users except the one who initiated the command.
+	function hat_users_login_status($userid, $do) {
+		// This function will lock or unlock all hat_users except the one who initiated the command.
 		switch( $do ) {
-			case "lock": // Lock all users
+			case "lock": // Lock all hat_users
 				$query = array(
 					'disablelogin' => 1);
 				$this->db_admin->where('id <>', $userid);
-				$this->db_admin->update('users', $query);
+				$this->db_admin->update('hat_users', $query);
 				break;
-			case "unlock": // Unlock all users
+			case "unlock": // Unlock all hat_users
 				$query = array(
 					'disablelogin' => 0);
-				$this->db_admin->update('users', $query);
+				$this->db_admin->update('hat_users', $query);
 				break;
 		}
 	}
@@ -74,7 +74,7 @@ Class Adminmodel extends CI_Model {
 		$this->db_admin->set('id', $data['id']);
 		$this->db_admin->set('name', $data['name']);
 		$this->db_admin->set($data['perms']);
-		$this->db_admin->insert('groups');
+		$this->db_admin->insert('hat_groups');
 	}
 		
 	function addadminuser($data) {
@@ -94,13 +94,13 @@ Class Adminmodel extends CI_Model {
 		$this->db_admin->set('passwd', $newPassMD5);
 		$this->db_admin->set('disablelogin', '1');
 		$this->db_admin->set('createdate', 'NOW()', FALSE);
-		$this->db_admin->insert('users');
+		$this->db_admin->insert('hat_users');
 		return $newPass;
 	}
 	
 	function resetallpwd() {
 		$this->db_admin->select('id, username, pemail');
-		$q = $this->db_admin->get('users');
+		$q = $this->db_admin->get('hat_users');
 		$passwd = array();
 		foreach ($q->result_array() as $r) {
 			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
@@ -111,7 +111,7 @@ Class Adminmodel extends CI_Model {
 			$newPassMD5 = md5($newPass);
 			
 			$this->db_admin->where('id', $r['id']);
-			$this->db_admin->update('users', array('passwd' => $newPassMD5));
+			$this->db_admin->update('hat_users', array('passwd' => $newPassMD5));
 			$passwd += array(
 				$r['id'] => array(
 					'username' 	=> $r['username'],
