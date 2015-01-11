@@ -18,7 +18,7 @@
 						</div>
 						<div class="form-group">
 							<label>Group ID</label>
-							<input type="number" class="form-control" min="2" max="98" value="" name="groupid" />
+							<input type="number" class="form-control" min="1" max="99" value="" name="groupid" />
 						</div>
 						<div class="form-group col-lg-6">
 							<label>Permissions for this group</label><br />

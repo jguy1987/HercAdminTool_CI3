@@ -45,24 +45,8 @@
 | the active record class
 */
 
-$active_group = 'admintool';
+$active_group = 'ragnarok';
 $active_record = TRUE;
-
-$db['admintool']['hostname'] = '';
-$db['admintool']['username'] = '';
-$db['admintool']['password'] = '';
-$db['admintool']['database'] = '';
-$db['admintool']['dbdriver'] = 'mysql';
-$db['admintool']['dbprefix'] = '';
-$db['admintool']['pconnect'] = FALSE;
-$db['admintool']['db_debug'] = TRUE;
-$db['admintool']['cache_on'] = FALSE;
-$db['admintool']['cachedir'] = '';
-$db['admintool']['char_set'] = 'utf8';
-$db['admintool']['dbcollat'] = 'utf8_general_ci';
-$db['admintool']['swap_pre'] = '';
-$db['admintool']['autoinit'] = TRUE;
-$db['admintool']['stricton'] = FALSE;
 
 $db['ragnarok']['hostname'] = '';
 $db['ragnarok']['username'] = '';

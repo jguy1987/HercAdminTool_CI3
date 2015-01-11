@@ -3,7 +3,6 @@
 class MY_Controller extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->db_admin = $this->load->database('admintool',TRUE);
 		$this->db_ragnarok = $this->load->database('ragnarok',TRUE);
     }
 }

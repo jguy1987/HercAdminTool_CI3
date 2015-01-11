@@ -139,7 +139,7 @@ class Admin extends MY_Controller {
 	public function verifygroupadd() {
 		// Validate input on form.
 		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_groups.name]');
-		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|greater_than[2]|less_than[98]|numeric|is_unique[hat_groups.id]');
+		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|greater_than[0]|less_than[100]|numeric|is_unique[hat_groups.id]');
 		if ($this->form_validation->run() == FALSE) {
 			$data['permissions'] = $this->list_permissions();
 			$this->load->view('admin/addgroup', $data);
@@ -225,7 +225,6 @@ Thank you.");
 		$permissions['editpredef']		= "Manage Community Pre-defined Replies";
 		$permissions['levellock']		= "Level Lock Tickets";
 		$permissions['assigngm']			= "Assign GM to Ticket";
-		$permissions['assigngm+']		= "Assign Higher GM to Ticket";
 		$permissions['canreopen']		= "Reopen Tickets";
 		$permissions['announcement']		= "Manage System Broadcasts";
 		$permissions['items']			= "Manage server items";
