@@ -3,7 +3,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Admin Account Processed</h1>
+                        <h1 class="page-header">Changes processed</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -27,6 +27,9 @@
 							break;
 						case "resetallpw":
 							echo "All admin user accounts have had their passwords reset and have received emails with their new passwords. Return to the <a href='/admin/users'>user management page</a>";
+							break;
+						case "acctadd":
+							echo "User's game account processed successfully. User has received an email with their password and pincode. Return to the <a href='/account/listaccts'>account management page</a>";
 							break;
 						default:
 							echo "Return to the <a href='/'>dashboard</a>";

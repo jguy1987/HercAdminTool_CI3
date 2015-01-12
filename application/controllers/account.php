@@ -39,7 +39,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function verifycreate() {
-		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[login.user_id]');
+		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[login.userid]');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
 		$this->form_validation->set_rules('gender', "Gender", 'required');
 		if ($this->form_validation->run() == FALSE) {
@@ -47,38 +47,38 @@ class Account extends MY_Controller {
 		}
 		else {
 			$newAcct = array(
-				'user_id'			=> $this->input->post('acctname'),
+				'userid'			=> $this->input->post('acctname'),
 				'email'				=> $this->input->post('email'),
 				'sex'					=> $this->input->post('gender'),
 				'group_id'			=> $this->input->post('groupid'),
 				'birthdate'			=> $this->input->post('birthdate'),
 				'character_slots'	=> $this->input->post('slots')
 			);
-			$newAcct = $this->accountmodel->add_account($data);
+			$data = $this->accountmodel->add_account($newAcct);
 			$this->send_acct_email($data,$newAcct,'newacct');
-			$data['referpage'] = "useradd";
-			$this->load->view('account/formsuccess', $data);
+			$data['referpage'] = "acctadd";
+			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
-		$this->email->to($data['email']);
+		$this->email->to($newAcct['email']);
 		switch( $type ) {
 			case "newacct":
 				$this->email->subject("Your game account for {$this->config->item('servername')} has been created.");
-				$this->email->message("Hello {$data['user_id']},
+				$this->email->message("Hello {$newAcct['userid']},
 Your game account for {$this->config->item('servername')} has been created. You may use these details to immediately login to the game and start playing!
 
-Username: {$data['user_id']}
-Password: {$newAcct['passwd']}
-Pincode: {$newAcct['pincode']}
+Username: {$newAcct['userid']}
+Password: {$data['passwd']}
+Pincode: {$data['pincode']}
 
 Thank you.");
+				$this->email->send();
+				return $this->email->print_debugger();
 				break;
 		}
-	}
-	
-		
+	}	
 }

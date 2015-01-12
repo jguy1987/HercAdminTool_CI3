@@ -3,6 +3,7 @@ Class Accountmodel extends CI_Model {
 	
 	function list_accounts() {
 		$this->db_ragnarok->where('sex !=', 'S');
+		$this->db_ragnarok->order_by('account_id','asc');
 		$query = $this->db_ragnarok->get('login');
 		return $query->result();
 	}
@@ -28,10 +29,13 @@ Class Accountmodel extends CI_Model {
 		
 		$newAcct = array(
 			'passwd'		=> $newPass,
-			'pincode'	=> $pincod,
+			'pincode'	=> $pincode,
 		);	
 		$this->db_ragnarok->set('user_pass', $newPassMD5);
+		$this->db_ragnarok->set('pincode', $pincode);
 		$this->db_ragnarok->set('createdate', 'NOW()', FALSE);
+		$this->db_ragnarok->set('register_ip', '127.0.0.1', TRUE);
+		$this->db_ragnarok->set('auth_ip', '127.0.0.1', TRUE);
 		$this->db_ragnarok->insert('login', $data);
 		return $newAcct;
 	}

@@ -37,7 +37,7 @@
 			</div>
 			<div class="form-group">
 				<label>Birthdate</label>
-				<input type="text" class="form-control" value="mm-dd-yyyy" data-date-format="mm-dd-yyyy" name="birthdate" />
+				<input type="text" class="form-control" name="birthdate" value="yyyy-mm-dd" data-date-format="yyyy-mm-dd"  />
 			</div>
 			<div class="form-group">
 				<label>Slots Available</label>

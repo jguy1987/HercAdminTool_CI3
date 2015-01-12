@@ -108,7 +108,7 @@ class Admin extends MY_Controller {
 				$this->send_admin_email($email_data,"useredit");
 			}
 			$data['referpage'] = "useredit";
-			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}
@@ -138,7 +138,7 @@ class Admin extends MY_Controller {
 			);
 			$this->send_admin_email($email_data,"useradd");
 			$data['referpage'] = "useradd";
-			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}
@@ -151,7 +151,7 @@ class Admin extends MY_Controller {
 				$this->send_admin_email($email_data,"useredit");
 			}
 			$data['referpage'] = "resetallpw";
-			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('formsuccess', $data);
 		}
 		else {
 			$this->load->view('accessdenied');
@@ -201,7 +201,7 @@ class Admin extends MY_Controller {
 			);
 			$this->adminmodel->addgroup($data);
 			$data['referpage'] = "groupadd";
-			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}
@@ -211,7 +211,7 @@ class Admin extends MY_Controller {
 		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
 			$this->adminmodel->users_login_status($session_data['id'], 'lock');
 			$data['referpage'] = "lockusers";
-			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('formsuccess', $data);
 			$this->load->view('footer-nocharts');
 		}
 		else {
@@ -225,7 +225,7 @@ class Admin extends MY_Controller {
 		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
 			$this->adminmodel->users_login_status($session_data['id'], 'unlock');
 			$data['referpage'] = "unlockusers";
-			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('formsuccess', $data);
 			$this->load->view('footer-nocharts');
 		}
 		else {
