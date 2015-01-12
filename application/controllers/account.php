@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Accounts extends MY_Controller {
+class Account extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -17,23 +17,30 @@ class Accounts extends MY_Controller {
 	}
 
 	public function create() {
-		$this->load->view('accounts/create');
+		$this->load->view('account/create');
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function details($aid) {
+		$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
+		$data['char_list'] = $this->accountmodel->get_char_list($aid);
+		$data['class_list'] = $this->config->item('jobs');
+		$this->load->view('account/details',$data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function listaccts() {
 		$data['accts'] = $this->accountmodel->list_accounts();
-		$this->load->view('accounts/listaccts', $data);
+		$this->load->view('account/listaccts', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
-	
-	public function verifyacccreate() {
+	public function verifycreate() {
 		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[login.user_id]');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
 		$this->form_validation->set_rules('gender', "Gender", 'required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('accounts/create');
+			$this->load->view('account/create');
 		}
 		else {
 			$newAcct = array(
@@ -47,8 +54,9 @@ class Accounts extends MY_Controller {
 			$newAcct = $this->accountmodel->add_account($data);
 			$this->send_acct_email($data,$newAcct,'newacct');
 			$data['referpage'] = "useradd";
-			$this->load->view('accounts/formsuccess', $data);
+			$this->load->view('account/formsuccess', $data);
 		}
+		$this->load->view('footer-nocharts');
 	}
 	
 	function send_acct_email($data,$newAcct,$type) {
@@ -68,5 +76,6 @@ Thank you.");
 				break;
 		}
 	}
+	
 		
 }

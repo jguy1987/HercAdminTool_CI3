@@ -28,7 +28,7 @@
 							<tbody>
 								<?php foreach ($accts as $acct_data): ?>
 								<tr class="odd gradeX">
-									<td><a href="/accounts/edit/<?php echo $acct_data->account_id; ?>"><?php echo $acct_data->account_id; ?></td>
+									<td><a href="/account/details/<?php echo $acct_data->account_id; ?>"><?php echo $acct_data->account_id; ?></td>
 									<td><?php echo $acct_data->userid; ?></td>
 									<td><?php echo $acct_data->sex; ?></td>
 									<td><?php echo $acct_data->email; ?></td>
@@ -36,7 +36,7 @@
 									<td><?php echo $acct_data->lastlogin; ?></td>
 									<td><?php echo $acct_data->state; ?></td>
 									<td><?php echo $acct_data->logincount; ?></td>
-									<td>Edit Delete</td>
+									<td>Delete</td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

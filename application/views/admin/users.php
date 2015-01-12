@@ -36,7 +36,7 @@
 							<td><?php echo $admin_entry->userid; ?></td>
 							<td><?php echo $admin_entry->username; ?></td>
 							<td><?php echo $admin_entry->pemail; ?></td>
-							<td><?php echo "<a href='/accounts/edit/".$admin_entry->gameacctid."'>".$admin_entry->gameacctid."</a>"; ?></td>
+							<td><?php echo "<a href='/account/details/".$admin_entry->gameacctid."'>".$admin_entry->gameacctid."</a>"; ?></td>
 							<td><?php echo $admin_entry->createdate; ?></td>
 							<td><?php echo $admin_entry->lastlogin; ?></td>
 							<?php if ($admin_entry->disablelogin == 1) { ?>

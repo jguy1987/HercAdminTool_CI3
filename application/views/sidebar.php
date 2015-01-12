@@ -19,13 +19,13 @@
                             <a href="#"><i class="fa fa-fw"></i> Accounts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
-									<a href="/accounts/search">Search Accounts</a>
+									<a href="/account/search">Search Accounts</a>
 								</li>
 								<li>
-									<a href="/accounts/listaccts">List Accounts</a>
+									<a href="/account/listaccts">List Accounts</a>
 								</li>
 								<li>
-									<a href="/accounts/create">Create New</a>
+									<a href="/account/create">Create New</a>
 								</li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -34,10 +34,10 @@
                             <a href="#"><i class="fa fa-fw"></i> Characters<span class="fa arrow"></span></a>
 							 <ul class="nav nav-second-level">
 									<li>
-										<a href="/characters/search">Search Characters</a>
+										<a href="/character/search">Search Characters</a>
 									</li>
 									<li>
-										<a href="/characters/list">List Characters</a>
+										<a href="/character/list">List Characters</a>
 									</li>
                             </ul>
                         </li>

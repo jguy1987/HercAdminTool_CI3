@@ -7,6 +7,11 @@ Class Accountmodel extends CI_Model {
 		return $query->result();
 	}
 	
+	function get_acct_details($aid) {
+		$query = $this->db_ragnarok->get_where('login', array('account_id' => $aid));
+		return $query->row();
+	}
+	
 	function add_account($data) {
 		// First, need to generate new password.
 		$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
@@ -29,5 +34,14 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->set('createdate', 'NOW()', FALSE);
 		$this->db_ragnarok->insert('login', $data);
 		return $newAcct;
+	}
+	
+	function get_char_list($aid) {
+		$this->db_ragnarok->select('char.char_id,char.account_id,char.char_num,char.name,char.class,char.base_level,char.job_level,char.guild_id AS char_guid,char.online,char.sex,guild.guild_id,guild.name AS guild_name');
+		$this->db_ragnarok->from('char')->order_by('char.char_num','asc');
+		$this->db_ragnarok->where('char.account_id',$aid);
+		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id');
+		$query = $this->db_ragnarok->get();
+		return $query->result_array();
 	}
 }
