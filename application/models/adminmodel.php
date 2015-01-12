@@ -122,4 +122,16 @@ Class Adminmodel extends CI_Model {
 		}
 		return $passwd;
 	}
+	
+	function check_perm($sdata,$perm) {
+		$this->db_ragnarok->select($perm);
+		$query = $this->db_ragnarok->get_where('hat_groups', array('id' => $sdata));
+		$perm_lv = $query->row();
+		if ($perm_lv->$perm == 1) {
+			return True;
+		}
+		elseif ($perm_lv->$perm == 0) {
+			return False;
+		}
+	}
 }

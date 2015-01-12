@@ -17,31 +17,56 @@ class Admin extends MY_Controller {
 	}
 	
 	public function users() {
-		$data['admin_results'] = $this->adminmodel->list_admins();
-		$this->load->view('admin/users', $data);
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+			$data['admin_results'] = $this->adminmodel->list_admins();
+			$this->load->view('admin/users', $data);
+			$this->load->view('footer-nocharts');
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function groups() {
-		$data['group_results'] = $this->adminmodel->list_groups();
-		foreach ($data['group_results'] as $group_results) {
-			$data['name_results'][$group_results['id']] = $this->adminmodel->list_users_in_group($group_results['id']);
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+			$data['group_results'] = $this->adminmodel->list_groups();
+			foreach ($data['group_results'] as $group_results) {
+				$data['name_results'][$group_results['id']] = $this->adminmodel->list_users_in_group($group_results['id']);
+			}
+			$this->load->view('admin/groups', $data);	
 		}
-		$this->load->view('admin/groups', $data);
+		else {
+			$this->load->view('accessdenied');
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function adduser() {
-		$data['grouplist'] = $this->adminmodel->list_groups();
-		$this->load->view('admin/adduser', $data);
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'addadmin') == True) {
+			$data['grouplist'] = $this->adminmodel->list_groups();
+			$this->load->view('admin/adduser', $data);
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function edituser($userid) {
-		$data['userinfo'] = $this->adminmodel->get_user_data($userid);
-		$data['grouplist'] = $this->adminmodel->list_groups();
-		$this->load->view('admin/edituser', $data);
-		$this->load->view('footer-nocharts');
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+			$data['userinfo'] = $this->adminmodel->get_user_data($userid);
+			$data['grouplist'] = $this->adminmodel->list_groups();
+			$this->load->view('admin/edituser', $data);
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
+			$this->load->view('footer-nocharts');
 	}
 	
 	public function verifyuser() {
@@ -116,23 +141,43 @@ class Admin extends MY_Controller {
 	}
 	
 	public function resetusers() {
-		$passwds = $this->adminmodel->resetallpwd();
-		foreach($passwds as $email_data) {
-			$this->send_admin_email($email_data,"useredit");
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+			$passwds = $this->adminmodel->resetallpwd();
+			foreach($passwds as $email_data) {
+				$this->send_admin_email($email_data,"useredit");
+			}
+			$data['referpage'] = "resetallpw";
+			$this->load->view('admin/formsuccess', $data);
 		}
-		$data['referpage'] = "resetallpw";
-		$this->load->view('admin/formsuccess', $data);
+		else {
+			$this->load->view('accessdenied');
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function addgroup() {
-		$data['permissions'] = $this->list_permissions();
-		$this->load->view('admin/addgroup', $data);
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+			$data['permissions'] = $this->list_permissions();
+			$this->load->view('admin/addgroup', $data);
+			
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function editgroup() {
-		$this->load->view('admin/editgroup', $data);
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+			$this->load->view('admin/editgroup', $data);
+			$this->load->view('footer-nocharts');
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
@@ -158,17 +203,31 @@ class Admin extends MY_Controller {
 	}
 	
 	function lockusers() {		
-		$this->adminmodel->users_login_status($session_data['id'], 'lock');
-		$data['referpage'] = "lockusers";
-		$this->load->view('admin/formsuccess', $data);
-		$this->load->view('footer-nocharts');
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+			$this->adminmodel->users_login_status($session_data['id'], 'lock');
+			$data['referpage'] = "lockusers";
+			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('footer-nocharts');
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
+		$this->load->view('footer-nocharts');		
 	}
 		
 	function unlockusers() {
-		$this->adminmodel->users_login_status($session_data['id'], 'unlock');
-		$data['referpage'] = "unlockusers";
-		$this->load->view('admin/formsuccess', $data);
-		$this->load->view('footer-nocharts');
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+			$this->adminmodel->users_login_status($session_data['id'], 'unlock');
+			$data['referpage'] = "unlockusers";
+			$this->load->view('admin/formsuccess', $data);
+			$this->load->view('footer-nocharts');
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
+		$this->load->view('footer-nocharts');		
 	}
 	
 	function send_admin_email($email_data,$type) {
@@ -216,7 +275,7 @@ Thank you.");
 		$permissions['delcharacter']		= "Delete Individual Character";
 		$permissions['restoredelchar']	= "Restore Deleted Character";
 		$permissions['changeposition']	= "Reset Character Position";
-		$permissions['editgrouplist']	= "Edit Admin Groups";
+		$permissions['editgroups']	= "Edit Admin Groups";
 		$permissions['addadmin']			= "Add Admin";
 		$permissions['editadmin']		= "Edit Admin";
 		$permissions['deladmin']			= "Remove Admin";
