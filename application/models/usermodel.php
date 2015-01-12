@@ -28,5 +28,19 @@ Class Usermodel extends CI_Model {
 		$this->db_ragnarok->set('lastlogin', 'NOW()', FALSE);
 		$this->db_ragnarok->update('hat_users');
 	}
+	
+	function get_perms($gid,$perms) {
+		$perm_list = array();
+		foreach ($perms as $k=>$v) {
+			$this->db_ragnarok->select($k);
+			$this->db_ragnarok->where('id', $gid);
+			$query = $this->db_ragnarok->get('hat_groups');
+			$q2 = $query->row();
+			$perm_list += array(
+				$k => $q2->{$k},
+			);
+		}
+		return $perm_list;
+	}
 }
 ?>

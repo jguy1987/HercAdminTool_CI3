@@ -12,7 +12,10 @@ class Admin extends MY_Controller {
 		$data['username'] = $session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->view('sidebar');
+		$this->load->model('usermodel');
+		$data['perm_list'] = $this->config->item('permissions');
+		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
 	
@@ -159,7 +162,7 @@ class Admin extends MY_Controller {
 	public function addgroup() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
-			$data['permissions'] = $this->list_permissions();
+			$data['permissions'] = $this->config->item('permissions');
 			$this->load->view('admin/addgroup', $data);
 			
 		}
@@ -172,6 +175,7 @@ class Admin extends MY_Controller {
 	public function editgroup() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+			$data['permissions'] = $this->config->item('permissions');
 			$this->load->view('admin/editgroup', $data);
 			$this->load->view('footer-nocharts');
 		}
@@ -186,7 +190,7 @@ class Admin extends MY_Controller {
 		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_groups.name]');
 		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|greater_than[0]|less_than[100]|numeric|is_unique[hat_groups.id]');
 		if ($this->form_validation->run() == FALSE) {
-			$data['permissions'] = $this->list_permissions();
+			$data['permissions'] = $this->config->item('permissions');
 			$this->load->view('admin/addgroup', $data);
 		}
 		else {
@@ -253,55 +257,5 @@ Thank you.");
 		}
 		$this->email->send();
 		return $this->email->print_debugger();
-	}
-	
-	public function list_permissions() {
-		$permissions['viewemail'] 		= "View Email Address";
-		$permissions['editacctemail'] 	= "Edit Account Email Address";
-		$permissions['resetacctpass'] 	= "Reset Account Password";
-		$permissions['editgender'] 		= "Edit Account Gender";
-		$permissions['addaccount']		= "Add Game Account";
-		$permissions['usepurge']			= "Purge Inactive Accounts";
-		$permissions['banaccount']		= "Ban Account";
-		$permissions['unbanaccount']		= "Unban Account";
-		$permissions['edittrust']		= "Edit Account Trust";
-		$permissions['editcharzeny']		= "Edit Character Zeny";
-		$permissions['editcharlv']		= "Edit Character Levels";
-		$permissions['editcharstats']	= "Edit Character Stats";
-		$permissions['editcharjob']		= "Change Character Job";
-		$permissions['delcharitem']		= "Delete Any Character Item";
-		$permissions['senditem']			= "Send Item via Mail";
-		$permissions['kickchar']			= "Kick Character from Server";
-		$permissions['delcharacter']		= "Delete Individual Character";
-		$permissions['restoredelchar']	= "Restore Deleted Character";
-		$permissions['changeposition']	= "Reset Character Position";
-		$permissions['editgroups']	= "Edit Admin Groups";
-		$permissions['addadmin']			= "Add Admin";
-		$permissions['editadmin']		= "Edit Admin";
-		$permissions['deladmin']			= "Remove Admin";
-		$permissions['viewtickets']		= "View Tickets";
-		$permissions['editcategory']		= "Manage Ticket Categories";
-		$permissions['editpredef']		= "Manage Community Pre-defined Replies";
-		$permissions['levellock']		= "Level Lock Tickets";
-		$permissions['assigngm']			= "Assign GM to Ticket";
-		$permissions['canreopen']		= "Reopen Tickets";
-		$permissions['announcement']		= "Manage System Broadcasts";
-		$permissions['items']			= "Manage server items";
-		$permissions['itemshop']			= "Manage Item Shop";
-		$permissions['mobs']				= "Manage server mobs";
-		$permissions['servermaint']		= "Start/Stop/Restart server";
-		$permissions['backupdb']			= "Backup Database";
-		$permissions['atcmdlog']			= "View @command logs";
-		$permissions['branchlog']		= "View Branch logs";
-		$permissions['chatlog']			= "View Chat Logs";
-		$permissions['loginlog']			= "View Login Logs";
-		$permissions['mvplog']			= "View MVP Logs";
-		$permissions['npclog']			= "View NPC Logs";
-		$permissions['picklog']			= "View Item Pick Logs";
-		$permissions['zenylog']			= "View Zeny Transaction Logs";
-		$permissions['sftp']				= "Server SFTP Access";
-		$permissions['serverconfig']		= "Server Configuration Access (View/Edit)";
-		$permissions['hatconfig']		= "AdminTool Configuration Access";
-		return $permissions;
 	}
 }
