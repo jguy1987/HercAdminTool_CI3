@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="John Mish" >
 
     <title>Aesira Online OPTool</title>
 
@@ -24,10 +24,36 @@
     <link href="<?php echo base_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="<?php echo base_url('assets/css/plugins/morris.css'); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
     <!-- Custom Fonts -->
     <link href="<?php echo base_url('assets/font-awesome-4.1.0/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
+    
+        <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<?php echo base_url('assets/js/plugins/metisMenu/metisMenu.min.js'); ?>"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<?php echo base_url('assets/js/sb-admin-2.js'); ?>"></script>
+	
+	<!-- Date Picker -->
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js'); ?>"></script>
+	
+	<script>
+		$('#birthdate input').datepicker({
+    });
+	</script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

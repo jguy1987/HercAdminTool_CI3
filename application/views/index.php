@@ -101,33 +101,31 @@
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Account Registrations Past 7 days
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="morris-area-chart"></div>
+                            <div id="acct-regs" style="height: 250px;"></div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
+                    	<script>
+                    	new Morris.Line({
+  								// ID of the element in which to draw the chart.
+  								element: 'acct-regs',
+  								// Chart data records -- each entry in this array corresponds to a point on
+  								// the chart.
+  								data:
+  									<?php echo json_encode($acct_regs); ?>,
+  								// The name of the data record attribute that contains x-values.
+  								xkey: 'date',
+  								// A list of names of data record attributes that contain y-values.
+  								ykeys: ['value'],
+  								// Labels for the ykeys -- will be displayed when you hover over the
+  								// chart.
+  								labels: ['Value']
+								});
+							</script>
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">

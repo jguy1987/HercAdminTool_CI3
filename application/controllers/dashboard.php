@@ -6,7 +6,8 @@ class Dashboard extends MY_Controller {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
-		}		
+		}
+		$this->load->model('dashboardmodel');	
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
@@ -19,7 +20,8 @@ class Dashboard extends MY_Controller {
 
 
 	public function index() {
-		$this->load->view('index');
+		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
+		$this->load->view('index',$data);
 		$this->load->view('footer');
 	}
 }
