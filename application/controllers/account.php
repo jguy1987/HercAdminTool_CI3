@@ -28,6 +28,7 @@ class Account extends MY_Controller {
 		$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
 		$data['char_list'] = $this->accountmodel->get_char_list($aid);
 		$data['class_list'] = $this->config->item('jobs');
+		$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
 		$this->load->view('account/details',$data);
 		$this->load->view('footer-nocharts');
 	}
@@ -62,6 +63,20 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function addnote() {
+		$this->form_validation->set_rules('note', 'Note','trim|required');
+		$session_data = $this->session->userdata('loggedin');
+		$newNote = array(
+			'acct_id'		=> $this->input->post('acct_id'),
+			'userid'			=> $session_data['userid'],
+			'note'			=> $this->input->post('note')
+		);
+		$this->accountmodel->add_note($newNote);
+		$data['referpage'] = "acctnoteadd";
+		$this->load->view('formsuccess', $data);
+		$this->load->view('footer-nocharts');
+	}
+	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
 		$this->email->to($newAcct['email']);
@@ -80,5 +95,6 @@ Thank you.");
 				return $this->email->print_debugger();
 				break;
 		}
-	}	
+	}
+
 }

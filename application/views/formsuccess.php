@@ -31,6 +31,9 @@
 						case "acctadd":
 							echo "User's game account processed successfully. User has received an email with their password and pincode. Return to the <a href='/account/listaccts'>account management page</a>";
 							break;
+						case "acctnoteadd":
+							echo "Note added successfully. Return to the <a href='/account/listaccts'>account management page</a>";
+							break;
 						default:
 							echo "Return to the <a href='/'>dashboard</a>";
 							break;

@@ -154,7 +154,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Ban Expiration Time</label></td>
-									<td width="200px"><?php if ($acct_data->state == 0) { echo "Not banned"; } else { echo $acct_data->unabn_time; } ?></td>
+									<td width="200px"><?php if ($acct_data->state == 0) { echo "Not banned"; } else { echo $acct_data->unban_time; } ?></td>
 								</tr>
 								</table>
 							</div>
@@ -224,7 +224,35 @@
 				</fieldset>
 				<?php echo form_close(); ?>
 			</div>
-			
+			<div class="tab-pane fade" id="notes">
+				<h4>Notes for Account</h4>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="form-group">
+							<?php form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
+							<fieldset>
+								<textarea class="form-control" rows="3" name="note"></textarea>
+								<button type="submit" class="btn btn-default">Add note</button><br />
+							</fieldset>
+							<?php form_close(); ?>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-md-offset-3">
+				<?php foreach($acct_notes as $k): ?>
+					<div class="row">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<?php echo $k['username']; ?><div align="right"><?php echo $k['datetime']; ?></div>
+							</div>
+							<div class="panel-body">
+								<p><?php echo $k['note']; ?></p>
+							</div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+				</div>
+			</div>
 			<div class="tab-pane fade" id="characters">
 				<h4>Characters on this Account</h4>
 				<div class="panel-body">
@@ -263,6 +291,7 @@
 				</div>
 			</div>
 		</div>
-		
+	</div>
+</div>
 
 			
