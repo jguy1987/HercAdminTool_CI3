@@ -8,7 +8,7 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-				<div class="col-lg-6">
+				<div class="col-lg-12">
 					<?php echo validation_errors(); ?>
 					<?php echo form_open('/admin/verifygroupadd'); ?>
 					<fieldset>
@@ -20,9 +20,20 @@
 							<label>Group ID</label>
 							<input type="number" class="form-control" min="1" max="99" value="" name="groupid" />
 						</div>
-						<div class="form-group col-lg-6">
-							<label>Permissions for this group</label><br />
-							<?php foreach($permissions as $perm=>$text): ?>
+						<label>Permissions for this group</label><br />
+						<?php $list_perms = array_chunk($permissions, ceil(count($permissions) / 3)); ?>
+						<div class="col-lg-4">
+							<?php foreach($list_perms[0] as $perm=>$text): ?>
+								<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+							<?php endforeach; ?>
+						</div>
+						<div class="col-lg-4">
+							<?php foreach($list_perms[1] as $perm=>$text): ?>
+								<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+							<?php endforeach; ?>
+						</div>
+						<div class="col-lg-4">
+							<?php foreach($list_perms[2] as $perm=>$text): ?>
 								<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
 							<?php endforeach; ?>
 						</div>

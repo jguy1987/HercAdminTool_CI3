@@ -164,7 +164,6 @@ class Admin extends MY_Controller {
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
 			$data['permissions'] = $this->config->item('permissions');
 			$this->load->view('admin/addgroup', $data);
-			
 		}
 		else {
 			$this->load->view('accessdenied');
