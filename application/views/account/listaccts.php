@@ -3,7 +3,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Admin Accounts</h1>
+                        <h1 class="page-header">Game Accounts</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -16,12 +16,11 @@
 								<tr>
 									<th style="width: 50px;">Account ID</th>
 									<th style="width: 100px;">Username</th>
-									<th style="width: 50px;">Gender</th>
+									<th style="width: 35px;">Gender</th>
 									<th style="width: 100px;">Email</th>
 									<th style="width: 75px;">Registered</th>
-									<th style="width: 75px;">Last Login</th>
-									<th style="width: 100px;">Banned?</th>
-									<th style="width: 30px;">Login Count</th>
+									<th style="width: 125px;">Last Login</th>
+									<th style="width: 75px;">Banned?</th>
 									<th style="width: 100px;">Options</th>
 								</tr>
 							</thead>
@@ -35,7 +34,6 @@
 									<td><?php echo $acct_data->createdate; ?></td>
 									<td><?php echo $acct_data->lastlogin; ?></td>
 									<td><?php echo $acct_data->state; ?></td>
-									<td><?php echo $acct_data->logincount; ?></td>
 									<td>Delete</td>
 								</tr>
 								<?php endforeach; ?>
