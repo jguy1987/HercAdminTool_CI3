@@ -10,8 +10,8 @@
     <meta name="author" content="John Mish" >
 
     <title>Aesira Online OPTool</title>
-
-    <!-- Bootstrap Core CSS -->
+	
+	<!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -24,25 +24,21 @@
     <link href="<?php echo base_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link href="<?php echo base_url('assets/css/morris.css'); ?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<?php echo base_url('assets/font-awesome-4.1.0/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
-    
-        <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?php echo base_url('assets/js/plugins/metisMenu/metisMenu.min.js'); ?>"></script>
+	
+	<!-- jQuery -->
+    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+	
+	<!-- Bootstrap Core JavaScript -->
+    <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/plugins/metisMenu/metisMenu.min.js'); ?>"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo base_url('assets/js/sb-admin-2.js'); ?>"></script>
@@ -51,7 +47,7 @@
 	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js'); ?>"></script>
 	
 	<script>
-		$('#birthdate input').datepicker({
+		$('#birthdate').datepicker({
     });
 	</script>
 
