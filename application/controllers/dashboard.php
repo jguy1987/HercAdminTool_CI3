@@ -21,7 +21,7 @@ class Dashboard extends MY_Controller {
 
 	public function index() {
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
-		$this->load->view('index',$data);
-		$this->load->view('footer');
+		$this->load->view('index');
+		$this->load->view('footer',$data);
 	}
 }
