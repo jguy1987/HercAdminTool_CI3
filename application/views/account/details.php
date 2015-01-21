@@ -231,12 +231,12 @@
 					<div class="col-md-6 col-md-offset-3">
 						<div class="form-group">
 							<?php echo validation_errors(); ?>
-							<?php form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
+							<?php echo form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
 							<fieldset>
 								<textarea class="form-control" rows="3" name="note"></textarea>
 								<button type="submit" class="btn btn-default">Add note</button><br />
 							</fieldset>
-							<?php form_close(); ?>
+							<?php echo form_close(); ?>
 						</div>
 					</div>
 				</div>

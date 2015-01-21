@@ -68,8 +68,8 @@ class Account extends MY_Controller {
 		$session_data = $this->session->userdata('loggedin');
 		$newNote = array(
 			'acct_id'		=> $this->input->post('acct_id'),
-			'userid'			=> $session_data['userid'],
-			'note'			=> $this->input->post('note')
+			'userid'				=> $session_data['id'],
+			'note'			=> nl2br($this->input->post('note'))
 		);
 		$this->accountmodel->add_note($newNote);
 		$data['referpage'] = "acctnoteadd";
