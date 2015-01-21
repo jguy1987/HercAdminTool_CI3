@@ -8,7 +8,7 @@
 			<!-- /.col-lg-12 -->
 		</div>
 		<!-- /.row -->
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs" id="myTabs">
 			<li class="active"><a href="#details" data-toggle="tab">Basic Info</a></li>
 			<li><a href="#blocks" data-toggle="tab">Account Blocks</a></li>
 			<li><a href="#notes" data-toggle="tab">Notes</a></li>
