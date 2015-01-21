@@ -279,17 +279,25 @@
 				<h4>Notes for Account</h4>
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
-						<div class="form-group">
-							<?php echo validation_errors(); ?>
-							<?php echo form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
-							<fieldset>
-								<textarea class="form-control" rows="3" name="note"></textarea>
-								<button type="submit" class="btn btn-default">Add note</button><br />
-							</fieldset>
-							<?php echo form_close(); ?>
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNotes">Add Note</a>
+						</h4>
+						<div id="collapseNotes" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="form-group">
+									<?php echo validation_errors(); ?>
+									<?php echo form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
+									<fieldset>
+										<textarea class="form-control" rows="3" name="note"></textarea>
+										<button type="submit" class="btn btn-default">Add note</button><br />
+									</fieldset>
+									<?php echo form_close(); ?>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				<br />
 				<div class="col-md-6 col-md-offset-3">
 				<?php foreach($acct_notes as $k): ?>
 					<div class="row">
