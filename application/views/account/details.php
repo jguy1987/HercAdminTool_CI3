@@ -293,9 +293,9 @@
 				<div class="col-md-6 col-md-offset-3">
 				<?php foreach($acct_notes as $k): ?>
 					<div class="row">
-						<div class="panel panel-default">
+						<div class="panel panel-info">
 							<div class="panel-heading">
-								<?php echo $k['username']; ?><div align="right"><?php echo $k['datetime']; ?></div>
+								<?php echo $k['username']; ?><div style="float: right;"><?php echo $k['datetime']; ?></div>
 							</div>
 							<div class="panel-body">
 								<p><?php echo $k['note']; ?></p>
