@@ -8,7 +8,6 @@ class Account extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$this->load->model('accountmodel');
-		$this->load->library('form_validation');
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
@@ -17,6 +16,7 @@ class Account extends MY_Controller {
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$this->load->view('sidebar', $data);
+		$this->load->library('form_validation');
 	}
 
 	public function create() {
@@ -96,5 +96,4 @@ Thank you.");
 				break;
 		}
 	}
-
 }

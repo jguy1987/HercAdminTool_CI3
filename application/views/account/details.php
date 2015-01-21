@@ -221,6 +221,7 @@
 							</div>
 						</div>
 					</div>
+					<button type="submit" class="btn btn-default">Submit changes</button><br />
 				</fieldset>
 				<?php echo form_close(); ?>
 			</div>
@@ -229,6 +230,7 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="form-group">
+							<?php echo validation_errors(); ?>
 							<?php form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
 							<fieldset>
 								<textarea class="form-control" rows="3" name="note"></textarea>

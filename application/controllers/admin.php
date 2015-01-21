@@ -4,10 +4,10 @@ class Admin extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('adminmodel');
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
+		$this->load->model('adminmodel');
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
