@@ -73,6 +73,7 @@ class Account extends MY_Controller {
 		);
 		$this->accountmodel->add_note($newNote);
 		$data['referpage'] = "acctnoteadd";
+		$data['acct_id'] = $newNote['acct_id'];
 		$this->load->view('formsuccess', $data);
 		$this->load->view('footer-nocharts');
 	}
