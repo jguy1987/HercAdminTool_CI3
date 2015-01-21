@@ -29,6 +29,7 @@ class Account extends MY_Controller {
 		$data['char_list'] = $this->accountmodel->get_char_list($aid);
 		$data['class_list'] = $this->config->item('jobs');
 		$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
+		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
 		$this->load->view('account/details',$data);
 		$this->load->view('footer-nocharts');
 	}

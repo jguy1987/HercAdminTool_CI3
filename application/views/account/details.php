@@ -225,6 +225,56 @@
 				</fieldset>
 				<?php echo form_close(); ?>
 			</div>
+			<div class="tab-pane fade" id="blocks">
+				<h4>Block History for Account</h4>
+				<div class="row">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+								<tr>
+									<th style="width: 125px;">Block Date</th>
+									<th style="width: 100px;">Blocked By</th>
+									<th style="width: 125px;">Expiry Date</th>
+									<th style="width: 100px;">Reason</th>
+									<th style="width: 100px;">Unblocked By</th>
+									<th style="width: 125px;">Unblocked Date</th>
+									<th style="width: 30px;">Block<br />Comment</th>
+									<th style="width: 30px;">Unblock<br />Comment</th>
+									<th style="width: 100px;">Options</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if (empty($block_list)) { echo "<tr class='odd gradeX'><td colspan='9'><center>No data!</center></td></tr>"; } ?>
+								<?php foreach ($block_list as $bd): ?>
+									<tr class="odd gradeX">
+										<td><?php echo $bd['blockdate']; ?></td>
+										<td><?php echo $bd['blockname']; ?></td>
+										<td><?php echo $bd['expiredate']; ?></td>
+										<td><?php echo $bd['reason']; ?></td>
+										<td><?php echo $bd['ublockname']; ?></td>
+										<td><?php echo $bd['unblock_date']; ?></td>
+										<td><center><a data-toggle="collapse" data-parent="#accordion" href="#blockcomment"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center></td>
+										<td><?php if (isset($bd['unblock_date']) == TRUE) { ?><center><a data-toggle="collapse" data-parent="#accordion" href="#ublockcomment"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center><?php } ?></td>
+										<td></td>
+									</tr>
+									<tr><td colspan="9">
+										<div id="blockcomment" class="panel-collapse collapse">
+											<div class="panel-body">
+												<strong>Block Comment:</strong><br /><?php echo $bd['block_comment']; ?>
+											</div>
+										</div>
+										<div id="ublockcomment" class="panel-collapse collapse">
+											<div class="panel-body">
+												<strong>Unblock Comment:</strong><br /><?php echo $bd['unblock_comment']; ?>
+											</div>
+										</div>
+									</td></tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 			<div class="tab-pane fade" id="notes">
 				<h4>Notes for Account</h4>
 				<div class="row">

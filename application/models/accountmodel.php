@@ -58,6 +58,16 @@ Class Accountmodel extends CI_Model {
 		return $q->result_array();
 	}
 	
+	function get_block_hist($aid) {
+		$this->db_ragnarok->select('hat_blockinfo.*,p1.username AS blockname,p2.username AS ublockname');
+		$this->db_ragnarok->from('hat_blockinfo')->order_by('hat_blockinfo.blockid','desc');
+		$this->db_ragnarok->join('hat_users AS p1', 'hat_blockinfo.block_user = p1.id','left');
+		$this->db_ragnarok->join('hat_users AS p2', 'hat_blockinfo.unblock_user = p2.id','left');
+		$this->db_ragnarok->where('hat_blockinfo.acct_id',$aid);
+		$q = $this->db_ragnarok->get();
+		return $q->result_array();
+	}
+	
 	function add_note($newNote) {
 		$newNote['datetime'] = date("Y-m-d H:i:s");
 		$this->db_ragnarok->insert('hat_acctnotes', $newNote);
