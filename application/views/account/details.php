@@ -173,7 +173,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="cold-lg-12">
+						<div class="col-lg-12">
 							<center><h3>Loginlog Information</h3></center>
 						</div>
 					</div>

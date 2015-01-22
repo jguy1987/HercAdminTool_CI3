@@ -18,10 +18,10 @@ class Dashboard extends MY_Controller {
 		$this->load->view('sidebar', $data);
 	}
 
-
 	public function index() {
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
-		$this->load->view('index');
+		$data2['server_stats'] = $this->dashboardmodel->get_server_stats();
+		$this->load->view('index',$data2);
 		$this->load->view('footer',$data);
 	}
 }
