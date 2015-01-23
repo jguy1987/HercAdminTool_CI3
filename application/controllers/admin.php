@@ -63,11 +63,16 @@ class Admin extends MY_Controller {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
 			$data['userinfo'] = $this->adminmodel->get_user_data($userid);
+			if ($data['userinfo']->groupid >= $session_data['group']) {
+				$data['referpage'] = "groupdeny";
+				$this->load->view('accessdenied',$data);
+			}
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/edituser', $data);
 		}
 		else {
-			$this->load->view('accessdenied');
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied',$data);
 		}
 			$this->load->view('footer-nocharts');
 	}

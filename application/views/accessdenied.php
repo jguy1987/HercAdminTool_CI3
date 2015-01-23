@@ -8,8 +8,15 @@
 			<!-- /.col-lg-12 -->
 		</div>
 		<!-- /.row -->
-		<div class="col-lg-6">
-			<p>Sorry, your group does not give you adequate permission to use this function. <a href="<?php echo base_url(); ?>">Return to the dashboard</a></p>
+		<div class="col-lg-12">
+			<?php switch( $referpage ) { 
+				case "noperm": 
+					echo "<p>Sorry, your group does not give you adequate permission to use this function. Return to the <a href='/'>dashboard</a>.";
+					break;
+				case "groupdeny": 
+					echo "<p>You may not edit a user who's group is equal to or higher than your own! Return to the <a href='/'>dashboard</a>.";
+					 break;
+			} ?>
 		</div>
 	<!-- /.container-fluid -->
 	</div>
