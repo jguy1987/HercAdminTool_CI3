@@ -52,12 +52,12 @@ Class Dashboardmodel extends CI_Model {
 
 		$data = array(
 			'Server Uptime'				=> $sinceStartf,
-			'Players Online'				=> $q7->num_rows(),
-			'Accounts Registered'		=> $q->num_rows(),
-			'Characters Created'			=> $q2,
-			'Guilds Established'			=> $q3,
-			'Characters in guilds'		=> $q4->num_rows(),
-			'Zeny in Circulation'		=> $zeny->zeny,
+			'<a href="/character/whosonline">Players Online</a>'				=> number_format($q7->num_rows()),
+			'Accounts Registered'		=> number_format($q->num_rows()),
+			'Characters Created'			=> number_format($q2),
+			'Guilds Established'			=> number_format($q3),
+			'Characters in guilds'		=> number_format($q4->num_rows()),
+			'Zeny in Circulation'		=> number_format($zeny->zeny),
 		);
 		return $data;
 	}
