@@ -21,6 +21,7 @@ class User extends MY_Controller {
 			$data['perm_list'] = $this->config->item('permissions');
 			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 			$this->load->view('sidebar', $data);
+			$this->usermodel->update_user_module($session_data['id'],"user/settings");
 			$this->load->view('user/settings');
 			$this->load->view('footer-nocharts');
 		}

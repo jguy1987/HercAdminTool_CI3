@@ -21,7 +21,9 @@ class Admin extends MY_Controller {
 	
 	public function users() {
 		$session_data = $this->session->userdata('loggedin');
+		
 		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+			$this->usermodel->update_user_module($session_data['id'],"admin/users");
 			$data['admin_results'] = $this->adminmodel->list_admins();
 			$this->load->view('admin/users', $data);
 			$this->load->view('footer-nocharts');
@@ -35,6 +37,7 @@ class Admin extends MY_Controller {
 	public function groups() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+			$this->usermodel->update_user_module($session_data['id'],"admin/groups");
 			$data['group_results'] = $this->adminmodel->list_groups();
 			foreach ($data['group_results'] as $group_results) {
 				$data['name_results'][$group_results['id']] = $this->adminmodel->list_users_in_group($group_results['id']);
@@ -50,6 +53,7 @@ class Admin extends MY_Controller {
 	public function adduser() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'addadmin') == True) {
+			$this->usermodel->update_user_module($session_data['id'],"admin/adduser");
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/adduser', $data);
 		}
@@ -67,6 +71,7 @@ class Admin extends MY_Controller {
 				$data['referpage'] = "groupdeny";
 				$this->load->view('accessdenied',$data);
 			}
+			$this->usermodel->update_user_module($session_data['id'],"admin/edituser");
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/edituser', $data);
 		}
@@ -168,6 +173,7 @@ class Admin extends MY_Controller {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
 			$data['permissions'] = $this->config->item('permissions');
+			$this->usermodel->update_user_module($session_data['id'],"admin/addgroup");
 			$this->load->view('admin/addgroup', $data);
 		}
 		else {
@@ -180,6 +186,7 @@ class Admin extends MY_Controller {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
 			$data['permissions'] = $this->config->item('permissions');
+			$this->usermodel->update_user_module($session_data['id'],"admin/editgroup");
 			$this->load->view('admin/editgroup', $data);
 			$this->load->view('footer-nocharts');
 		}

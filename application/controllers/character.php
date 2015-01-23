@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Dashboard extends MY_Controller {
+class Character extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('dashboardmodel');	
+		$this->load->model('charmodel');	
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
@@ -17,14 +17,17 @@ class Dashboard extends MY_Controller {
 		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$this->load->view('sidebar', $data);
 	}
-
-	public function index() {
+	
+	function listchars() {
+	
+	}
+	
+	function whosonline() {
 		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_module($session_data['id'],"dashboard");
-		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
-		$data2['server_stats'] = $this->dashboardmodel->get_server_stats();
-		$data2['active_admins']	= $this->dashboardmodel->get_active_admins();
-		$this->load->view('index',$data2);
-		$this->load->view('footer-nocharts',$data);
+		$this->usermodel->update_user_module($session_data['id'],"character/whosonline");
+		$data['online_list'] = $this->charmodel->list_online();
+		$data['class_list'] = $this->config->item('jobs');
+		$this->load->view('character/online',$data);
+		$this->load->view('footer-nocharts');
 	}
 }

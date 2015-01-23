@@ -47,9 +47,12 @@ Class Dashboardmodel extends CI_Model {
 		$now = date('Y-m-d H:i:s');
 		$sinceStart = $serverstart->diff(new DateTime($now));
 		$sinceStartf = $sinceStart->d."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
-		
+		// Get users online
+		$q7 = $this->db_ragnarok->get_where('char', array('online' => 1));
+
 		$data = array(
 			'Server Uptime'				=> $sinceStartf,
+			'Players Online'				=> $q7->num_rows(),
 			'Accounts Registered'		=> $q->num_rows(),
 			'Characters Created'			=> $q2,
 			'Guilds Established'			=> $q3,

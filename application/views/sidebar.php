@@ -33,7 +33,10 @@
 				<a href="#"><i class="fa fa-fw"></i> Characters<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li>
-						<a href="/character/search">List/Search Characters</a>
+						<a href="/character/listchars">List/Search Characters</a>
+					</li>
+					<li>
+						<a href="/character/whosonline">View Online</a>
 					</li>
 				</ul>
 			</li>

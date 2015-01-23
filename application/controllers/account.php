@@ -25,6 +25,8 @@ class Account extends MY_Controller {
 	}
 	
 	public function details($aid) {
+		$session_data = $this->session->userdata('loggedin');
+		$this->usermodel->update_user_module($session_data['id'],"accounts/details");
 		$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
 		$data['char_list'] = $this->accountmodel->get_char_list($aid);
 		$data['class_list'] = $this->config->item('jobs');
@@ -35,6 +37,8 @@ class Account extends MY_Controller {
 	}
 	
 	public function listaccts() {
+		$session_data = $this->session->userdata('loggedin');
+		$this->usermodel->update_user_module($session_data['id'],"accounts/listaccts");
 		$data['accts'] = $this->accountmodel->list_accounts();
 		$this->load->view('account/listaccts', $data);
 		$this->load->view('footer-nocharts');
