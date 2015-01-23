@@ -46,7 +46,7 @@ Class Dashboardmodel extends CI_Model {
 		$serverstart = new DateTime($laststartdate->starttime);
 		$now = date('Y-m-d H:i:s');
 		$sinceStart = $serverstart->diff(new DateTime($now));
-		$sinceStartf = $sinceStart->d."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->m."m&nbsp;".$sinceStart->s."s&nbsp;";
+		$sinceStartf = $sinceStart->d."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
 		
 		$data = array(
 			'Server Uptime'				=> $sinceStartf,
