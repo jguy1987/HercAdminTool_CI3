@@ -19,8 +19,11 @@ class Dashboard extends MY_Controller {
 	}
 
 	public function index() {
+		$session_data = $this->session->userdata('loggedin');
+		$this->usermodel->update_user_module($session_data['id'],"dashboard");
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
 		$data2['server_stats'] = $this->dashboardmodel->get_server_stats();
+		$data2['active_admins']	= $this->dashboardmodel->get_active_admins();
 		$this->load->view('index',$data2);
 		$this->load->view('footer',$data);
 	}

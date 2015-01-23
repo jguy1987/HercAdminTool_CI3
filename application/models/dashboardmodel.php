@@ -58,4 +58,10 @@ Class Dashboardmodel extends CI_Model {
 		);
 		return $data;
 	}
+	
+	function get_active_admins() {
+		$this->db_ragnarok->select('username, active, lastmodule');
+		$query = $this->db_ragnarok->get_where('hat_users', array('active' => 1));
+		return $query->result_array();
+	}
 }

@@ -110,9 +110,29 @@
 				<!-- /.panel-body -->
 			</div>
 		</div>
-		<!-- /.col-lg-8 -->
+		<div class="col-lg-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Active Admins
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<th>User</th>
+							<th>Last Module</th>
+							<?php foreach($active_admins as $aAdmin): ?>
+							<tr>
+								<td><?php echo $aAdmin['username']; ?></td>
+								<td><?php echo $aAdmin['lastmodule']; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
 		<!-- /.row -->
-		<div class="col-lg-3 col-md-offset-3">
+		<div class="col-lg-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Server Statistics

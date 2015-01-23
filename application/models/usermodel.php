@@ -26,6 +26,7 @@ Class Usermodel extends CI_Model {
 		// Update the active date to now.
 		$this->db_ragnarok->where('id', $uid);
 		$this->db_ragnarok->set('lastlogin', 'NOW()', FALSE);
+		$this->db_ragnarok->set('active', "1");
 		$this->db_ragnarok->update('hat_users');
 	}
 	
