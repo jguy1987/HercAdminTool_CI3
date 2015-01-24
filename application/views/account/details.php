@@ -321,13 +321,13 @@
 							<thead>
 								<tr>
 									<th style="width: 50px;">Slot</th>
-									<th style="width: 100px;">CharID</th>
-									<th style="width: 50px;">Name</th>
+									<th style="width: 75px;">CharID</th>
+									<th style="width: 100px;">Name</th>
 									<th style="width: 30px;">Gender</th>
 									<th style="width: 100px;">Class</th>
 									<th style="width: 75px;">Base/Job Level</th>
-									<th style="width: 75px;">Guild</th>
-									<th style="width: 100px;">Online?</th>
+									<th style="width: 100px;">Guild</th>
+									<th style="width: 50px;">Online?</th>
 									<th style="width: 100px;">Options</th>
 								</tr>
 							</thead>

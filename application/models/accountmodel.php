@@ -44,7 +44,7 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->select('char.char_id,char.account_id,char.char_num,char.name,char.class,char.base_level,char.job_level,char.guild_id AS char_guid,char.online,char.sex,guild.guild_id,guild.name AS guild_name');
 		$this->db_ragnarok->from('char')->order_by('char.char_num','asc');
 		$this->db_ragnarok->where('char.account_id',$aid);
-		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id');
+		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id', 'left');
 		$query = $this->db_ragnarok->get();
 		return $query->result_array();
 	}

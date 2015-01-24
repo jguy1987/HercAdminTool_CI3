@@ -13,14 +13,14 @@
 					<thead>
 						<tr>
 							<th style="width: 50px;">Account ID</th>
-							<th style="width: 100px;">Char ID</th>
-							<th style="width: 35px;">Char Name</th>
+							<th style="width: 50px;">Char ID</th>
+							<th style="width: 100px;">Char Name</th>
 							<th style="width: 100px;">Class</th>
-							<th style="width: 75px;">Base Level</th>
-							<th style="width: 125px;">Job Level</th>
+							<th style="width: 60px;">Base Level</th>
+							<th style="width: 60px;">Job Level</th>
 							<th style="width: 75px;">Zeny</th>
 							<th style="width: 100px;">Guild</th>
-							<th style="width: 150px;">Last location</th>
+							<th style="width: 125px;">Last location</th>
 							<th style="width: 100px;">Options</th>
 						<tr>
 					</thead>
