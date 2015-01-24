@@ -14,6 +14,8 @@ $config['panelname'] = "HercAdminTool";
 // Server Name. 
 $config['servername'] = "YourRO";
 
+// Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
+$config['inactive_time'] = 15;
 
 
 /* Email Settings. Settings for email here. */

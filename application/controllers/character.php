@@ -24,7 +24,7 @@ class Character extends MY_Controller {
 	
 	function whosonline() {
 		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_module($session_data['id'],"character/whosonline");
+		$this->usermodel->update_user_active($session_data['id'],"character/whosonline");
 		$data['online_list'] = $this->charmodel->list_online();
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/online',$data);

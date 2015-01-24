@@ -63,8 +63,17 @@ Class Dashboardmodel extends CI_Model {
 	}
 	
 	function get_active_admins() {
-		$this->db_ragnarok->select('username, active, lastmodule');
-		$query = $this->db_ragnarok->get_where('hat_users', array('active' => 1));
+		// Get the time we need to select.
+		$timeNow = date("Y-m-d H:i:s");
+		$time = strtotime($timeNow);
+		$time = $time - ($this->config->item('inactive_time') * 60);
+		$timeSelect = date("Y-m-d H:i:s", $time);
+
+		$this->db_ragnarok->select('username, lastactive, lastmodule');
+		$this->db_ragnarok->from('hat_users');
+		$this->db_ragnarok->where('lastactive >=', $timeSelect);
+		$this->db_ragnarok->where('lastmodule !=', "user/logout");
+		$query = $this->db_ragnarok->get();
 		return $query->result_array();
 	}
 }

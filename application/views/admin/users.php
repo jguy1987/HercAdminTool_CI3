@@ -24,7 +24,7 @@
 							<th style="width: 200px;">Private Email</th>
 							<th style="width: 75px;">In-game<br />Acct ID</th>
 							<th style="width: 100px;">Created On</th>
-							<th style="width: 100px;">Last Active</th>
+							<th style="width: 125px;">Last Active</th>
 							<th style="width: 25px;">Disable login?</th>
 							<th style="width: 180px;">Group</th>
 							<th style="width: 250px;">Options</th>
@@ -38,7 +38,7 @@
 							<td><?php echo $admin_entry->pemail; ?></td>
 							<td><?php echo "<a href='/account/details/".$admin_entry->gameacctid."'>".$admin_entry->gameacctid."</a>"; ?></td>
 							<td><?php echo $admin_entry->createdate; ?></td>
-							<td><?php echo $admin_entry->lastlogin; ?></td>
+							<td><?php echo $admin_entry->lastactive; ?></td>
 							<?php if ($admin_entry->disablelogin == 1) { ?>
 								<td>Yes</td>
 							<?php } else { ?>

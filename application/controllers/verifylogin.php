@@ -42,7 +42,7 @@ class VerifyLogin extends MY_Controller {
 					'disablelogin' => $row->disablelogin
 				);
 				// Update the database with active login
-				$this->usermodel->update_active($sess_array['id']);
+				$this->usermodel->update_user_active($sess_array['id'],"user/login");
 				if ($sess_array['disablelogin'] == 1) {
 					$this->form_validation->set_message('check_database', 'This user account is not authorized to login. Contact an administrator');
 					return false;

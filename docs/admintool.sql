@@ -182,10 +182,9 @@ CREATE TABLE IF NOT EXISTS `hat_users` (
   `pemail` varchar(128) NOT NULL,
   `gameacctid` mediumint(7) DEFAULT NULL,
   `createdate` date NOT NULL,
-  `lastlogin` date NOT NULL,
   `groupid` int(2) NOT NULL,
   `disablelogin` tinyint(1) NOT NULL,
-  `active` tinyint(1) NOT NULL,
+  `lastactive` datetime NOT NULL,
   `lastmodule` varchar(45) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2000 ;
 

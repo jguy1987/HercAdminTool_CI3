@@ -1,7 +1,7 @@
 <?php
 Class Usermodel extends CI_Model {
 	function login($username, $passwd) {
-		$this->db_ragnarok->select('id, username, passwd, groupid, lastlogin, disablelogin');
+		$this->db_ragnarok->select('id, username, passwd, groupid, lastactive, disablelogin');
 		$this->db_ragnarok->from('hat_users');
 		$this->db_ragnarok->where('username', $username);
 		$this->db_ragnarok->where('passwd', MD5($passwd));
@@ -17,19 +17,13 @@ Class Usermodel extends CI_Model {
 		}
 	}
 	
-	function update_user_module($userid,$module) {
+	function update_user_active($userid,$module) {
 		$this->db_ragnarok->where('id', $userid);
-		$this->db_ragnarok->update('hat_users', array('lastmodule' => $module));
-	}
-	
-	function update_active($uid) {
-		// Update the active date to now.
-		$this->db_ragnarok->where('id', $uid);
-		$this->db_ragnarok->set('lastlogin', 'NOW()', FALSE);
-		$this->db_ragnarok->set('active', "1");
+		$this->db_ragnarok->set('lastmodule', $module);
+		$this->db_ragnarok->set('lastactive', 'NOW()', FALSE);
 		$this->db_ragnarok->update('hat_users');
 	}
-	
+
 	function get_perms($gid,$perms) {
 		$perm_list = array();
 		foreach ($perms as $k=>$v) {
