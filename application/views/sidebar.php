@@ -87,6 +87,38 @@
 					</ul>
 				</li>
 			<?php } ?>
+			<?php if ($check_perm['items'] == 1 || $check_perm['itemshop'] == 1 || $check_perm['mobs'] == 1 || $check_perm['sftp'] == 1 || $check_perm['serverconfig'] == 1) { ?>
+				<li>
+					<a href="#"><i class="fa fa-fw"></i> Server Setup<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<?php if ($check_perm['items'] == 1) { ?>
+							<li>
+								<a href="/serversetup/itemdb">Item Database</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['itemshop'] == 1) { ?>
+							<li>
+								<a href="/serversetup/itemshop">Item Shop</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['mobs'] == 1) { ?>
+							<li>
+								<a href="/serversetup/mobdb">Mob Database</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['sftp'] == 1) { ?>
+							<li>
+								<a href="/serversetup/stfp">SFTP Access</a>
+							</li>	
+						<?php } ?>
+						<?php if ($check_perm['serverconfig'] == 1) { ?>
+							<li>
+								<a href="/serversetup/config">Server Configuration</a>
+							</li>
+						<?php } ?>
+					</ul>
+				</li>
+			<?php } ?>
 			<?php if ($check_perm['editadmin'] == 1 || $check_perm['editgroups'] == 1) { ?>
 			<li>
 				<a href="#"><i class="fa fa-fw"></i> Panel Admin<span class="fa arrow"></span></a>
