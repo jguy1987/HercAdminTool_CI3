@@ -70,16 +70,48 @@ class Account extends MY_Controller {
 	
 	public function addnote() {
 		$this->form_validation->set_rules('note', 'Note','trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('account/details/'.$this->input->post('acct_id').'#notes');
+		}
+		else {
+			$session_data = $this->session->userdata('loggedin');
+			$newNote = array(
+				'acct_id'		=> $this->input->post('acct_id'),
+				'userid'				=> $session_data['id'],
+				'note'			=> nl2br($this->input->post('note'))
+			);
+			$this->accountmodel->add_note($newNote);
+			$data['referpage'] = "acctnoteadd";
+			$data['acct_id'] = $newNote['acct_id'];
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function addblock() {
 		$session_data = $this->session->userdata('loggedin');
-		$newNote = array(
-			'acct_id'		=> $this->input->post('acct_id'),
-			'userid'				=> $session_data['id'],
-			'note'			=> nl2br($this->input->post('note'))
-		);
-		$this->accountmodel->add_note($newNote);
-		$data['referpage'] = "acctnoteadd";
-		$data['acct_id'] = $newNote['acct_id'];
-		$this->load->view('formsuccess', $data);
+		if ($this->input->post('banType') == "temp") {
+			$this->form_validation->set_rules('banEnd', 'Expiry Date', 'trim|xss_clean|required|callback_date_check');
+		}
+		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|xss_clean|required');
+		if ($this->form_validation->run() == FALSE) {
+			$data['referpage'] = "newban";
+			$this->load->view('accessdenied');
+		}
+		else {
+			$newBan = array(
+				'account_id'	=> $this->input->post('acct_id'),
+				'unban_date'	=> $this->input->post('banEnd'),
+				'reason'			=> $this->input->post('reason'),
+				'comments'		=> nl2br($this->input->post('banComments')),
+				'type'			=> $this->input->post('banType'),
+				'userid'			=> $session_data['id'],
+			);
+			$this->accountmodel->apply_acct_ban($newBan);
+			$data['referpage'] = "newban";
+			$data['acct_id'] = $newBan['account_id'];
+			$this->load->view('formsuccess', $data);
+		}
 		$this->load->view('footer-nocharts');
 	}
 	
@@ -100,6 +132,16 @@ Thank you.");
 				$this->email->send();
 				return $this->email->print_debugger();
 				break;
+		}
+	}
+	
+	function date_check($date) {
+		if (date('Y-m-d H:i:s', strtotime($date)) == $date) {
+			return true;
+		}
+		else {
+			$this->form_validation->set_message('date_check', 'The end date given is not in the proper format.');
+			return false;
 		}
 	}
 }

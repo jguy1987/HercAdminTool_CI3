@@ -34,6 +34,9 @@
 						case "acctnoteadd":
 							echo "Note added successfully. Return to the <a href='/account/details/".$acct_id."#notes'>account notes page</a>.";
 							break;
+						case "newban":
+							echo "Ban added to this account. Return to the <a href='/account/details/".$acct_id."#blocks'>account blocks page</a>.";
+							break;
 						default:
 							echo "Return to the <a href='/'>dashboard</a>.";
 							break;

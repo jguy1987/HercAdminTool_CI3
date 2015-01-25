@@ -113,7 +113,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Birthdate</label></td>
-									<td width="200px"><input type="text" class="form-control" data-date-format="mm-dd-yyyy" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" /></td>
+									<td width="200px"><input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -228,6 +228,7 @@
 			<div class="tab-pane fade" id="blocks">
 				<h4>Block History for Account</h4>
 				<div class="row">
+					<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock">Add New Block</button></div>
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead>
@@ -272,6 +273,46 @@
 								<?php endforeach; ?>
 							</tbody>
 						</table>
+						<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock">Add New Block</button></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addBlock" tabindex="-1" role="dialog" aria-labelledby="addBlockLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="addBlockLabel">Add Block</h4>
+						</div>
+						<div class="modal-body">
+							<?php echo validation_errors(); ?>
+							<?php echo form_open('/account/addblock', array('class' => 'form-inline')); ?>
+							<table>
+								<tr><td width="25%"><label>Type</label></td>
+								<td width="450px"><select class="form-control" id="banType" name="banType" style="width:100%;">
+									<option value="temp">Temporary</option>
+									<option value="perm">Permanent</option>
+								</select></td></tr>
+								<tr id="banEnd"><td width="25%"><label>Ban Until</label></td>
+								<td width="450px"><input type="text" class="form-control form_datetime" value="<?php echo date("Y-m-d H:m:s"); ?>" name="banEnd" style="width:100%;"/></td></tr>
+								<tr><td width="25%"><label>Reason</label></td>
+								<td width="450px"><select class="form-control" name="reason" style="width:100%;">
+									<option>Botting</option>
+									<option>Cheating</option>
+									<option>Exploiting</option>
+									<option>Hacking</option>
+									<option>Insult/Harassment</option>
+									<option>Real Money Trading</option>
+									<option>Security Ban</option>
+								</select></td></tr>
+								<tr><td width="25%"><label>Comments</label></td>
+								<td width="450px"><textarea class="form-control" name="banComments" rows="5" style="width:100%;"></textarea></td></tr>
+							</table>
+						</div>	
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Add Block</button>
+						</div>
 					</div>
 				</div>
 			</div>

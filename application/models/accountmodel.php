@@ -72,4 +72,29 @@ Class Accountmodel extends CI_Model {
 		$newNote['datetime'] = date("Y-m-d H:i:s");
 		$this->db_ragnarok->insert('hat_acctnotes', $newNote);
 	}
+	
+	function apply_acct_ban($newBan) {
+		// First, get the current time that the ban is being applied
+		$timeNow = date("Y-m-d H:i:s");
+		
+		// Next, add the ban to the hat table
+		$this->db_ragnarok->set('blockdate', $timeNow);
+		$this->db_ragnarok->set('expiredate', $newBan['unban_date']);
+		$this->db_ragnarok->set('block_type', $newBan['type']);
+		$this->db_ragnarok->set('acct_id', $newBan['account_id']);
+		$this->db_ragnarok->set('block_user', $newBan['userid']);
+		$this->db_ragnarok->set('block_comment', $newBan['comments']);
+		$this->db_ragnarok->set('reason', $newBan['reason']);
+		$this->db_ragnarok->insert('hat_blockinfo');
+		
+		// Then, set the login table accordingly.
+		if ($newBan['type'] == "perm") {
+			$this->db_ragnarok->set('state', "5");
+		}
+		elseif ($newBan['type'] == "temp") {
+			$this->db_ragnarok->set('unban_time', strtotime($newBan['unban_date']));
+		}
+		$this->db_ragnarok->where('account_id', $newBan['account_id']); 
+		$this->db_ragnarok->update('login');
+	}
 }

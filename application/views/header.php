@@ -28,6 +28,9 @@
 
     <!-- Custom Fonts -->
     <link href="<?php echo base_url('assets/font-awesome-4.1.0/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
+	 
+	 <!-- Date/Time Picker -->
+	 <link href="<?php echo base_url('assets/css/bootstrap-datetimepicker.css'); ?>" rel="stylesheet">
 	
 	<!-- jQuery -->
     <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
@@ -44,12 +47,7 @@
     <script src="<?php echo base_url('assets/js/sb-admin-2.js'); ?>"></script>
 	
 	<!-- Date Picker -->
-	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js'); ?>"></script>
-	
-	<script>
-		$('#birthdate').datepicker({
-    });
-	</script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datetimepicker.js'); ?>"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -35,6 +35,28 @@ new Morris.Line({
 	labels: ['Value']
 	});
 </script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
+		$("#banType").change(function() { toggleFields(); });
+
+	});
+	//this toggles the visibility of our parent permission fields depending on the current selected value of the field
+	function toggleFields() {
+		if ($("#banType").val() == "perm") {
+			$("#banEnd").hide();
+		}
+		else {
+			$("#banEnd").show();
+		}
+	}
+</script>
+<script type="text/javascript">
+	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
+</script>
+<script type="text/javascript">
+	$(".form_date").datetimepicker({format: 'yyyy-mm-dd'});
+</script>
 </body>
 
 </html>

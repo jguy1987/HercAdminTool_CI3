@@ -33,7 +33,7 @@
 									<td><?php echo $acct_data->email; ?></td>
 									<td><?php echo $acct_data->createdate; ?></td>
 									<td><?php echo $acct_data->lastlogin; ?></td>
-									<td><?php echo $acct_data->state; ?></td>
+									<td><?php if ($acct_data->unban_time != 0 || $acct_data->state != 0) { echo "Yes"; } else { echo "No"; }?></td>
 									<td>Delete</td>
 								</tr>
 								<?php endforeach; ?>
