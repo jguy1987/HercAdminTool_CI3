@@ -254,17 +254,17 @@
 										<td><?php echo $bd['reason']; ?></td>
 										<td><?php echo $bd['ublockname']; ?></td>
 										<td><?php echo $bd['unblock_date']; ?></td>
-										<td><center><a data-toggle="collapse" data-parent="#accordion" href="#blockcomment"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center></td>
-										<td><?php if (isset($bd['unblock_date']) == TRUE) { ?><center><a data-toggle="collapse" data-parent="#accordion" href="#ublockcomment"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center><?php } ?></td>
+										<td><center><a data-toggle="collapse" data-parent="#accordion" href="#blockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center></td>
+										<td><?php if (isset($bd['unblock_date']) == TRUE) { ?><center><a data-toggle="collapse" data-parent="#accordion" href="#ublockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center><?php } ?></td>
 										<td></td>
 									</tr>
 									<tr><td colspan="9">
-										<div id="blockcomment" class="panel-collapse collapse">
+										<div id="blockcomment<?php echo $bd['blockid']; ?>" class="panel-collapse collapse">
 											<div class="panel-body">
 												<strong>Block Comment:</strong><br /><?php echo $bd['block_comment']; ?>
 											</div>
 										</div>
-										<div id="ublockcomment" class="panel-collapse collapse">
+										<div id="ublockcomment<?php echo $bd['blockid']; ?>" class="panel-collapse collapse">
 											<div class="panel-body">
 												<strong>Unblock Comment:</strong><br /><?php echo $bd['unblock_comment']; ?>
 											</div>
