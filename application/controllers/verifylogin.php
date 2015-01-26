@@ -22,7 +22,6 @@ class VerifyLogin extends MY_Controller {
 			//Go to private area
 			redirect('/', 'refresh');
 		}
-	 
 	}
 	 
 	function check_database($passwd) {
@@ -47,7 +46,6 @@ class VerifyLogin extends MY_Controller {
 					$this->form_validation->set_message('check_database', 'This user account is not authorized to login. Contact an administrator');
 					return false;
 				}
-				
 			}
 			$this->session->set_userdata('loggedin', $sess_array);
 			return true;

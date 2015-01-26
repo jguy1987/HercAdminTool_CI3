@@ -1,13 +1,11 @@
-<!-- Page Content -->
 <div id="page-wrapper">
 	<div class="container-fluid">
-		 <div class="row">
-			  <div class="col-lg-12">
-					<h1 class="page-header">Create Account</h1>
-			  </div>
-			  <!-- /.col-lg-12 -->
-		 </div>
-		 <!-- /.row -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Create Account</h1>
+			</div>
+		</div>
+	</div>
 	<p>This page is used to create an account for the GAME through the backend. Such an account will not require email authorization. The password and pincode will be automatically generated and sent to the user.</p>
 	<div class="col-lg-3">
 		<?php echo validation_errors(); ?>
@@ -47,8 +45,4 @@
 		</fieldset>
 		<?php echo form_close(); ?>
 	</div>
-	<!-- /.container-fluid -->
 </div>
-<!-- /#page-wrapper -->
-</div>
-<!-- /#wrapper -->

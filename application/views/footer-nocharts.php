@@ -58,5 +58,4 @@ new Morris.Line({
 	$(".form_date").datetimepicker({format: 'yyyy-mm-dd'});
 </script>
 </body>
-
 </html>

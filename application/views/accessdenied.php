@@ -5,9 +5,7 @@
 			<div class="col-lg-12">
 				<h1 class="page-header">Access Denied!</h1>
 			</div>
-			<!-- /.col-lg-12 -->
 		</div>
-		<!-- /.row -->
 		<div class="col-lg-12">
 			<?php switch( $referpage ) { 
 				case "noperm": 
@@ -18,8 +16,5 @@
 					 break;
 			} ?>
 		</div>
-	<!-- /.container-fluid -->
 	</div>
-<!-- /#page-wrapper -->
 </div>
-<!-- /#wrapper -->

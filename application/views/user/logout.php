@@ -10,22 +10,11 @@
 
     <title>Aesira Online OPTool</title>
 	 
-	 <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
     <link href="<?php echo base_url('assets/css/plugins/metisMenu/metisMenu.min.css'); ?>" rel="stylesheet">
-
-    <!-- Timeline CSS -->
     <link href="<?php echo base_url('assets/css/plugins/timeline.css'); ?>" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="<?php echo base_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
     <link href="<?php echo base_url('assets/css/plugins/morris.css'); ?>" rel="stylesheet">
-
-    <!-- Custom Fonts -->
     <link href="<?php echo base_url('assets/font-awesome-4.1.0/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,18 +28,19 @@
 
 <body>
 
-<div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Logout</h3>
-                    </div>
-                    <div class="panel-body">
-                        <h2>You are now logged out!</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Logout</h3>
+					 </div>
+					 <div class="panel-body">
+						<h2>You are now logged out!</h2>
 						<a href="/user/login/">Log in again</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

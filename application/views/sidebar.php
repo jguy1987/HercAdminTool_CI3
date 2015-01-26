@@ -10,7 +10,6 @@
 						</button>
 					</span>
 				</div>
-				<!-- /input-group -->
 			</li>
 			<li>
 				<a href="http://admin.aesiraonline.com"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -27,7 +26,6 @@
 						</li>
 					<?php } ?>
 				</ul>
-				<!-- /.nav-second-level -->
 			</li>
 			<li>
 				<a href="#"><i class="fa fa-fw"></i> Characters<span class="fa arrow"></span></a>
@@ -141,7 +139,5 @@
 			<?php } ?>
 		</ul>
 	</div>
-	<!-- /.sidebar-collapse -->
 </div>
-<!-- /.navbar-static-side -->
 </nav>
