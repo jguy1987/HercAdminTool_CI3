@@ -71,7 +71,9 @@ class Account extends MY_Controller {
 	public function addnote() {
 		$this->form_validation->set_rules('note', 'Note','trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/details/'.$this->input->post('acct_id').'#notes');
+			$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+			$data['accts'] = $this->accountmodel->list_accounts();
+			$this->load->view('account/listaccts', $data);
 		}
 		else {
 			$session_data = $this->session->userdata('loggedin');
@@ -95,8 +97,9 @@ class Account extends MY_Controller {
 		}
 		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|xss_clean|required');
 		if ($this->form_validation->run() == FALSE) {
-			$data['referpage'] = "newban";
-			$this->load->view('accessdenied');
+			$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+			$data['accts'] = $this->accountmodel->list_accounts();
+			$this->load->view('account/listaccts', $data);
 		}
 		else {
 			$newBan = array(

@@ -8,6 +8,7 @@
 	</div>
 	<p>Listing in-game accounts. Click on the edit button or the account ID to edit that account.</p>
 	<div class="panel-body">
+		<?php echo validation_errors(); ?>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
