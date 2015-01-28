@@ -182,11 +182,12 @@ class Admin extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function editgroup() {
+	public function editgroup($gid) {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
 			$data['permissions'] = $this->config->item('permissions');
 			$this->usermodel->update_user_active($session_data['id'],"admin/editgroup");
+			$data['grpInfo'] = $this->adminmodel->get_group_data($gid);
 			$this->load->view('admin/editgroup', $data);
 			$this->load->view('footer-nocharts');
 		}

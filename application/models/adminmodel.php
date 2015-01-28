@@ -28,6 +28,11 @@ Class Adminmodel extends CI_Model {
 		return $query->row();
 	}
 	
+	function get_group_data($gid) {
+		$query = $this->db_ragnarok->get_where('hat_groups', array('id' => $gid));
+		return $query->row();
+	}
+	
 	function editadminuser($data) {
 		// First, check to see if we need to generate a new pass:
 		if ($data['genpass'] == true) {
