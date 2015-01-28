@@ -62,10 +62,10 @@
 								<tr>
 									<td width="200px"><label>Gender</label></td>
 									<td width="200px"><label class="radio-inline">
-									<input type="radio" name="gender" id="optionsRadiosInline1" value="M" <?php if ($acct_data->sex == "M") { echo "checked"; } ?> />Male
+									<input type="radio" name="gender" id="optionsRadiosInline1" value="M" <?php if ($acct_data->sex == "M") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0) { echo "disabled"; } ?>/>Male
 									</label>
 									<label class="radio-inline">
-									<input type="radio" name="gender" id="optionsRadiosInline2" value="F" <?php if ($acct_data->sex == "F") { echo "checked"; } ?> />Female
+									<input type="radio" name="gender" id="optionsRadiosInline2" value="F" <?php if ($acct_data->sex == "F") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0) { echo "disabled"; } ?> />Female
 									</label></td>
 								</tr>
 								</table>
@@ -78,7 +78,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Email Address</label></td>
-									<td width="200px"><input class="form-control" size="40px" name="email" value="<?php echo $acct_data->email; ?>" /></td>
+									<td width="200px"><input class="form-control" size="40px" name="email" value="<?php echo $acct_data->email; ?>" <?php if ($check_perm['editacctemail'] == 0) { echo "disabled"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -88,7 +88,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>GroupID</label></td>
-									<td width="200px"><input class="form-control" size="40px" name="groupid" value="<?php echo $acct_data->group_id; ?>" /></td>
+									<td width="200px"><input class="form-control" size="40px" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "disabled"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -110,7 +110,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Birthdate</label></td>
-									<td width="200px"><input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" /></td>
+									<td width="200px"><input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" <?php if ($check_perm['editacctbd'] == 0) { echo "disabled"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -122,7 +122,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Character Slots</label></td>
-									<td width="200px"><?php echo $acct_data->character_slots; ?></td>
+									<td width="200px"><input type="text" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "disabled"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -151,7 +151,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Ban Expiration Time</label></td>
-									<td width="200px"><?php if ($acct_data->state == 0) { echo "Not banned"; } else { echo $acct_data->unban_time; } ?></td>
+									<td width="200px"><?php if ($acct_data->state == 0) { echo "Not banned"; } else { echo date('Y-m-d H:i:s', $acct_data->unban_time); } ?></td>
 								</tr>
 								</table>
 							</div>
@@ -163,7 +163,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Expiration Time</label></td>
-									<td width="200px"><?php echo $acct_data->expiration_time; ?></td>
+									<td width="200px"><?php if ($acct_data->expiration_time == 0) { echo "0"; } else { echo date('Y-m-d H:i:s', $acct_data->expiration_time); } ?></td>
 								</tr>
 								</table>
 							</div>

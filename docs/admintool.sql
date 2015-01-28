@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `editacctemail` tinyint(1) NOT NULL,
   `resetacctpass` tinyint(1) NOT NULL,
   `editgender` tinyint(1) NOT NULL,
+  `editacctgroup` tinyint(1) NOT NULL,
   `addaccount` tinyint(1) NOT NULL,
   `usepurge` tinyint(1) NOT NULL,
   `banaccount` tinyint(1) NOT NULL,

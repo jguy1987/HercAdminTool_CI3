@@ -32,6 +32,8 @@ class Account extends MY_Controller {
 		$data['class_list'] = $this->config->item('jobs');
 		$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
 		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
+		$data['perm_list'] = $this->config->item('permissions');
+		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$this->load->view('account/details',$data);
 		$this->load->view('footer-nocharts');
 	}
