@@ -225,7 +225,7 @@
 			<div class="tab-pane fade" id="blocks">
 				<h4>Block History for Account</h4>
 				<div class="row">
-					<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock">Add New Block</button></div>
+					<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock" <?php if ($check_perm['banaccount'] == 0) { echo "disabled"; } ?> >Add New Block</button></div>
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead>
@@ -270,7 +270,7 @@
 								<?php endforeach; ?>
 							</tbody>
 						</table>
-						<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock">Add New Block</button></div>
+						<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock" <?php if ($check_perm['banaccount'] == 0) { echo "disabled"; } ?> >Add New Block</button></div>
 					</div>
 				</div>
 			</div>
@@ -305,6 +305,7 @@
 								<tr><td width="25%"><label>Comments</label></td>
 								<td width="450px"><textarea class="form-control" name="banComments" rows="5" style="width:100%;"></textarea></td></tr>
 							</table>
+							<?php echo form_close(); ?>
 						</div>	
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

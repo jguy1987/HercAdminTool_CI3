@@ -34,6 +34,7 @@ class User extends MY_Controller {
 	
 	function logout() {
 		if ($this->session->userdata('loggedin')) {
+			$session_data = $this->session->userdata('loggedin');
 			$this->usermodel->update_user_active($session_data['id'],"user/logout");
 			$session_data = $this->session->userdata('loggedin');
 			$this->session->unset_userdata('loggedin');
