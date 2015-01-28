@@ -196,6 +196,7 @@ $config["jobs"] = array(
 );
 
 $config["permissions"] = array(
+	'account'		=> array( // Permissions related to account management
 		'viewemail'			=> "View Email Address",
 		'editacctemail' 	=> "Edit Account Email Address",
 		'resetacctpass' 	=> "Reset Account Password",
@@ -208,6 +209,8 @@ $config["permissions"] = array(
 		'banaccount'		=> "Ban Account",
 		'unbanaccount'		=> "Unban Account",
 		'edittrust'			=> "Edit Account Trust",
+	),
+	'character'		=> array( // Permissions related to Character Management
 		'editcharzeny'		=> "Edit Character Zeny",
 		'editcharlv'		=> "Edit Character Levels",
 		'editcharstats'	=> "Edit Character Stats",
@@ -218,22 +221,33 @@ $config["permissions"] = array(
 		'delcharacter'		=> "Delete Individual Character",
 		'restoredelchar'	=> "Restore Deleted Character",
 		'changeposition'	=> "Reset Character Position",
+	),
+	'admin'			=> array( // Permissions related to panel management
 		'editgroups'		=> "Edit Admin Groups",
 		'addadmin'			=> "Add Admin",
 		'editadmin'			=> "Edit Admin",
 		'deladmin'			=> "Remove Admin",
+		'hatconfig'			=> "AdminTool Configuration Access",
+	),
+	'ticket'			=> array( // Permissions related to ticket management
 		'viewtickets'		=> "View Tickets",
 		'editcategory'		=> "Manage Ticket Categories",
 		'editpredef'		=> "Manage Community Pre-defined Replies",
 		'levellock'			=> "Level Lock Tickets",
 		'assigngm'			=> "Assign GM to Ticket",
 		'canreopen'			=> "Reopen Tickets",
+	),
+	'server'			=> array( // Permissions related to server management
 		'announcement'		=> "Manage System Broadcasts",
 		'items'				=> "Manage server items",
 		'itemshop'			=> "Manage Item Shop",
 		'mobs'				=> "Manage server mobs",
 		'servermaint'		=> "Start/Stop/Restart server",
 		'backupdb'			=> "Backup Database",
+		'sftp'				=> "Server SFTP Access",
+		'serverconfig'		=> "Server Configuration Access (View/Edit)",
+	),
+	'log'				=> array( // Permissions related to log management
 		'atcmdlog'			=> "View @command logs",
 		'branchlog'			=> "View Branch logs",
 		'chatlog'			=> "View Chat Logs",
@@ -242,7 +256,5 @@ $config["permissions"] = array(
 		'npclog'				=> "View NPC Logs",
 		'picklog'			=> "View Item Pick Logs",
 		'zenylog'			=> "View Zeny Transaction Logs",
-		'sftp'				=> "Server SFTP Access",
-		'serverconfig'		=> "Server Configuration Access (View/Edit)",
-		'hatconfig'			=> "AdminTool Configuration Access",
-	);
+	),
+);

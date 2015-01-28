@@ -28,6 +28,11 @@ Class Adminmodel extends CI_Model {
 		return $query->row();
 	}
 	
+	function get_group_data($gid) {
+		$query = $this->db_ragnarok->get_where('hat_groups', array('id' => $gid));
+		return $query->row();
+	}
+	
 	function editadminuser($data) {
 		// First, check to see if we need to generate a new pass:
 		if ($data['genpass'] == true) {
@@ -75,6 +80,14 @@ Class Adminmodel extends CI_Model {
 		$this->db_ragnarok->set('name', $data['name']);
 		$this->db_ragnarok->set($data['perms']);
 		$this->db_ragnarok->insert('hat_groups');
+	}
+	
+	function editgroup($data) {
+		array_fill_keys($data['perms'], 1);
+		$this->db_ragnarok->where('id', $data['id']);
+		$this->db_ragnarok->set('name', $data['name']);
+		$this->db_ragnarok->set($data['perms']);
+		$this->db_ragnarok->update('hat_groups');
 	}
 		
 	function addadminuser($data) {

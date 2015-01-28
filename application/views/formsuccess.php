@@ -34,6 +34,9 @@
 			case "newban":
 				echo "Ban added to this account. Return to the <a href='/account/details/".$acct_id."#blocks'>account blocks page</a>.";
 				break;
+			case "groupedit":
+				echo "Group edit successful. Return to the <a href='/admin/groups'>group management page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

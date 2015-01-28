@@ -8,33 +8,33 @@
 	</div>
 	<div class="col-lg-12">
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('/admin/verifygroupadd'); ?>
+		<?php echo form_open('/admin/verifygroupedit', '', array('grpid' => $grpInfo->id)); ?>
 		<fieldset>
 			<div class="form-group">
 				<label>Group Name</label>
-				<input class="form-control" size="40px" name="grpname" value="" />
+				<input class="form-control" size="40px" name="grpname" value="<?php echo $grpInfo->name; ?>" />
 			</div>
 			<div class="form-group">
 				<label>Group ID</label>
-				<input type="number" class="form-control" min="1" max="99" value="" name="groupid" />
+				<input class="form-control" size="40px" name="grpid" value="<?php echo $grpInfo->id; ?>" disabled />
 			</div>
 			<div class="row">
 				<div class="col-lg-4">
 					<label>Account Module Permissions</label><br />
 					<?php foreach($permissions['account'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 				<div class="col-lg-4">
 					<label>Character Module Permissions</label><br />
 					<?php foreach($permissions['character'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 				<div class="col-lg-4">
 					<label>Admin Panel Module Permissions</label><br />
 					<?php foreach($permissions['admin'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 			</div>
@@ -43,24 +43,24 @@
 				<div class="col-lg-4">
 					<label>Ticket Module Permissions</label><br />
 					<?php foreach($permissions['ticket'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 				<div class="col-lg-4">
 					<label>Server Setting Module Permissions</label><br />
 					<?php foreach($permissions['server'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 				<div class="col-lg-4">
 					<label>Log Module Permissions</label><br />
 					<?php foreach($permissions['log'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 			</div>
-			<br />
-			<button type="submit" class="btn btn-default">Add Group</button>
+			<button type="submit" class="btn btn-default">Edit Group</button>
 		</fieldset>
+		<?php echo form_close(); ?>
 	</div>
 </div>

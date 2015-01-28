@@ -26,7 +26,11 @@ Class Usermodel extends CI_Model {
 
 	function get_perms($gid,$perms) {
 		$perm_list = array();
-		foreach ($perms as $k=>$v) {
+		$mergedPerms = array();
+		foreach ($perms as $k) {
+			$mergedPerms += array_merge($k);
+		}
+		foreach ($mergedPerms as $k=>$v) {
 			$this->db_ragnarok->select($k);
 			$this->db_ragnarok->where('id', $gid);
 			$query = $this->db_ragnarok->get('hat_groups');

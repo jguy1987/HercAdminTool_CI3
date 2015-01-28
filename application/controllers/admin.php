@@ -182,11 +182,12 @@ class Admin extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function editgroup() {
+	public function editgroup($gid) {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
 			$data['permissions'] = $this->config->item('permissions');
 			$this->usermodel->update_user_active($session_data['id'],"admin/editgroup");
+			$data['grpInfo'] = $this->adminmodel->get_group_data($gid);
 			$this->load->view('admin/editgroup', $data);
 			$this->load->view('footer-nocharts');
 		}
@@ -212,6 +213,32 @@ class Admin extends MY_Controller {
 			);
 			$this->adminmodel->addgroup($data);
 			$data['referpage'] = "groupadd";
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function verifygroupedit() {
+		$data['grpInfo'] = $this->adminmodel->get_group_data($this->input->post('grpid'));
+		if ($data['grpInfo']->name != $this->input->post('grpname')) {
+			$grpRules = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_groups.name]";
+		}
+		else {
+			$grpRules = "trim|required|min_length[4]|max_length[25]|xss_clean";
+		}
+		$this->form_validation->set_rules('grpname', 'Group Name', $grpRules);
+		if ($this->form_validation->run() == FALSE) {
+			$data['permissions'] = $this->config->item('permissions');
+			$this->load->view('admin/editgroup', $data);
+		}
+		else {
+			$data = array(
+				'id'		=> $this->input->post('grpid'),
+				'name'	=> $this->input->post('grpname'),
+				'perms'	=> $this->input->post('perm')
+			);
+			$this->adminmodel->editgroup($data);
+			$data['referpage'] = "groupedit";
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
