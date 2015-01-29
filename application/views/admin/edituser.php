@@ -50,4 +50,25 @@
 		</fieldset>
 		<?php echo form_close(); ?>
 	</div>
+	<div class="col-lg-6 col-lg-offset-3">
+		<h4>Login logs</h4>
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+				<thead>
+					<tr>
+						<th>Date/Time</th>
+						<th>IP Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($loginlog_results as $loginLog): ?>
+						<tr>
+							<td><?php echo $loginLog['datetime']; ?></td>
+							<td><?php echo $loginLog['ip']; ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>

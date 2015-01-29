@@ -73,6 +73,7 @@ class Admin extends MY_Controller {
 			}
 			$this->usermodel->update_user_active($session_data['id'],"admin/edituser");
 			$data['grouplist'] = $this->adminmodel->list_groups();
+			$data['loginlog_results'] = $this->adminmodel->get_loginlog($userid);
 			$this->load->view('admin/edituser', $data);
 		}
 		else {

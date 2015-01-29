@@ -56,6 +56,12 @@ Class Adminmodel extends CI_Model {
 		}
 	}
 	
+	function get_loginlog($uid) {
+		$this->db_ragnarok->select('datetime,ip');
+		$query = $this->db_ragnarok->get_where('hat_loginlog', array('userid' => $uid));
+		return $query->result_array();
+	}
+	
 	function users_login_status($userid, $do) {
 		// This function will lock or unlock all hat_users except the one who initiated the command.
 		switch( $do ) {

@@ -19,7 +19,7 @@ class VerifyLogin extends MY_Controller {
 			$this->load->view('user/login');
 		}
 		else {
-			//Go to private area
+			//Go to private area and update database with logged in info
 			redirect('/', 'refresh');
 		}
 	}
@@ -42,6 +42,21 @@ class VerifyLogin extends MY_Controller {
 				);
 				// Update the database with active login
 				$this->usermodel->update_user_active($sess_array['id'],"user/login");
+				$client  = @$_SERVER['HTTP_CLIENT_IP'];
+				$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+				$remote  = $_SERVER['REMOTE_ADDR'];
+
+				if(filter_var($client, FILTER_VALIDATE_IP)) {
+					$ip = $client;
+				}
+				elseif(filter_var($forward, FILTER_VALIDATE_IP)) {
+					$ip = $forward;
+				}
+				else {
+					$ip = $remote;
+				}
+
+				$this->usermodel->update_loginlog($sess_array['id'],$ip);
 				if ($sess_array['disablelogin'] == 1) {
 					$this->form_validation->set_message('check_database', 'This user account is not authorized to login. Contact an administrator');
 					return false;

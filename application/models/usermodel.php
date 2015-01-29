@@ -41,5 +41,13 @@ Class Usermodel extends CI_Model {
 		}
 		return $perm_list;
 	}
+	
+	function update_loginlog($uid,$ip) {
+		// Get current date
+		$this->db_ragnarok->set('datetime', 'NOW()', FALSE);
+		$this->db_ragnarok->set('userid', $uid);
+		$this->db_ragnarok->set('ip', $ip);
+		$this->db_ragnarok->insert('hat_loginlog');
+	}
 }
 ?>
