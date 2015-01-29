@@ -39,6 +39,13 @@ at the minimum:
 * sendmail
 * An RO Server running Hercules.
 
+NOTE: Your Hercules server MUST use Item and mob DB's in SQL and be updated for proper functionality. 
+If you do not, then you will NOT be able to edit those as part of this panel. You will still be 
+able to send items to players, delete items from players and guilds and such, but editing items 
+or mobs will not be possible through the control panel. It might be in the future I will add this,
+but for right now, it is too much time and work and may not even work quickly or at all. If someone has
+a PHP script they would like to give me for this purpose, please feel free to donate. 
+
 The above is tested to function. Ngix, Lighthttpd and the likes are untested, but I would appreciate
 the feedback if you got it to work or not.
 
@@ -48,7 +55,7 @@ At the moment there is no point to install the panel as it's just flesh and bone
 no real functionality as far as RO Server Managing is concerned. If you wanted to 
 install, though, some simple steps:
 
-* Copy everything to web directory
+* Copy everything to web directory. 
 * Run admintool.sql on your desired database
 * Edit /application/config/config.php and /application/config/database.php to your desired settings
 * Point your web browser to the correct URL
