@@ -30,4 +30,16 @@ class Character extends MY_Controller {
 		$this->load->view('character/online',$data);
 		$this->load->view('footer-nocharts');
 	}
+	
+	function details($cid) {
+		$session_data = $this->session->userdata('loggedin');
+		$this->usermodel->update_user_active($session_data['id'],"character/details");
+		$data['charinfo'] = $this->charmodel->get_char_info($cid);
+		$data['class_list'] = $this->config->item('jobs');
+		$data['perm_list'] = $this->config->item('permissions');
+		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$this->load->view('character/details', $data);
+		$this->load->view('footer-nocharts');
+	}
+			
 }
