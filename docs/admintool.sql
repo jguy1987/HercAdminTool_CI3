@@ -292,4 +292,6 @@ MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2000;
 
 -- Table modifications for the hercules tables
 ALTER TABLE `login` 
-ADD `createdate` DATE NOT NULL AFTER `group_id`;
+ADD `createdate` DATE NOT NULL AFTER `group_id`,
+ADD `register_ip` VARCHAR(15) NOT NULL AFTER `createdate`, 
+ADD `auth_ip` VARCHAR(15) NOT NULL AFTER `register_ip`;
