@@ -15,7 +15,10 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="details">
-				<h4>Basic Account Info</h4>
+				<h4>Basic Account Info</h4><br />
+				<?php if ($charinfo->online == 1) { ?>
+					<center><div style="color:#F80000;">Character is online and cannot be edited!</div></center>
+				<?php } ?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline')); ?>
 				<fieldset>
@@ -30,7 +33,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Character Name</label></td>
-									<td width="200px"><?php echo $charinfo->name; ?></td>
+									<td width="200px"><input class="form-control" size="40px" name="char_name" value="<?php echo $charinfo->name; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -52,7 +55,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Slot #</label></td>
-									<td width="200px"><?php echo $charinfo->char_num + 1; ?></td>
+									<td width="200px"><input class="form-control" size="40px" name="char_num" value="<?php echo $charinfo->char_num; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -62,7 +65,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Account ID</label></td>
-									<td width="200px"><?php echo $charinfo->account_id; ?></td>
+									<td width="200px"><a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a></td>
 								</tr>
 								</table>
 							</div>
@@ -74,7 +77,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Guild Membership</label></td>
-									<td width="200px"><?php echo $charinfo->guild_name; ?></td>
+									<td width="200px"><a href="/guild/details/<?php echo $charinfo->guild_id; ?>"><?php echo $charinfo->guild_name; ?></a></td>
 								</tr>
 								</table>
 							</div>
@@ -84,7 +87,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Party</label></td>
-									<td width="200px"><?php echo $charinfo->party_name; ?></td>
+									<td width="200px"><a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a></td>
 								</tr>
 								</table>
 							</div>
@@ -96,7 +99,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Zeny</label></td>
-									<td width="200px"><?php echo $charinfo->zeny; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -145,7 +148,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Base Level</label></td>
-									<td width="200px"><?php echo $charinfo->base_level; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -155,7 +158,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Job Level</label></td>
-									<td width="200px"><?php echo $charinfo->job_level; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -187,7 +190,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Base Exp</label></td>
-									<td width="200px"><?php echo $charinfo->base_exp; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -197,7 +200,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Job Exp</label></td>
-									<td width="200px"><?php echo $charinfo->job_exp; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="job_level" min="1" value="<?php echo $charinfo->job_exp; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -207,7 +210,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Status Points</label></td>
-									<td width="200px"><?php echo $charinfo->status_point; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -217,7 +220,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Skill Points</label></td>
-									<td width="200px"><?php echo $charinfo->skill_point; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="skill_point" min="1" max="999" value="<?php echo $charinfo->skill_point; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -229,7 +232,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>STR</label></td>
-									<td width="200px"><?php echo $charinfo->str; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -239,7 +242,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>INT</label></td>
-									<td width="200px"><?php echo $charinfo->INT; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="int" min="1" max="999" value="<?php echo $charinfo->INT; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -249,7 +252,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Hair Style ID</label></td>
-									<td width="200px"><?php echo $charinfo->hair; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="hair" min="1" max="999" value="<?php echo $charinfo->hair; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -259,7 +262,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Hair Color ID</label></td>
-									<td width="200px"><?php echo $charinfo->hair_color; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="hair_color" min="1" max="999" value="<?php echo $charinfo->hair_color; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -271,7 +274,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>AGI</label></td>
-									<td width="200px"><?php echo $charinfo->agi; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -281,7 +284,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>DEX</label></td>
-									<td width="200px"><?php echo $charinfo->dex; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -291,17 +294,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Clothes Color ID</label></td>
-									<td width="200px"><?php echo $charinfo->clothes_color; ?></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Karma/Manner</label></td>
-									<td width="200px"><?php echo $charinfo->karma; ?>/<?php echo $charinfo->manner; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="clothes_color" min="1" max="999" value="<?php echo $charinfo->clothes_color; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -313,7 +306,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>VIT</label></td>
-									<td width="200px"><?php echo $charinfo->vit; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -323,7 +316,27 @@
 								<table>
 								<tr>
 									<td width="200px"><label>LUK</label></td>
-									<td width="200px"><?php echo $charinfo->luk; ?></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" /></td>
+								</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<table>
+								<tr>
+									<td width="200px"><label>Karma</label></td>
+									<td width="200px"><input type="number" class="form-control" size="15px" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
+								</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<table>
+								<tr>
+									<td width="200px"><label>Manner</label></td>
+									<td width="200px"><input type="number" class="form-control" size="15px" name="manner" value="<?php echo $charinfo->manner; ?>" /></td>
 								</tr>
 								</table>
 							</div>
