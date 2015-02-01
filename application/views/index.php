@@ -43,7 +43,7 @@
 		<div class="col-lg-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Server Statistics
+					<a href="/server/stats">Server Statistics</a>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
