@@ -97,4 +97,35 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->where('account_id', $newBan['account_id']); 
 		$this->db_ragnarok->update('login');
 	}
+	
+	function apply_acct_unban($remBan) {
+		// First, get the current time that the unban is being applied
+		$timeNow = date("Y-m-d H:i:s");
+		//echo "1";
+		
+		// Add the unban data to the hat table.
+		var_dump($remBan);
+		$this->db_ragnarok->where('blockid', $remBan['blockid']);
+		$this->db_ragnarok->set('unblock_user', $remBan['unblock_user']);
+		$this->db_ragnarok->set('unblock_comment', $remBan['unblock_comment']);
+		$this->db_ragnarok->set('unblock_date', $timeNow);
+		$this->db_ragnarok->update('hat_blockinfo');
+		
+		//echo "2";
+		// Then, figure out if the block we're removing is the only active block on that account.
+		$this->db_ragnarok->select('blockid, expiredate, unblock_date');
+		$get_where = "acct_id = '{$remBan['acct_id']}' AND expiredate > '{$timeNow}' OR unblock_date > '{$timeNow}'";
+		$this->db_ragnarok->where($get_where);
+		$query = $this->db_ragnarok->get('hat_blockinfo');
+		$row_q1_cnt = $query->num_rows();
+		if ($row_q1_cnt <= 1) { // The ban we're removing is the only active block on that account
+			// Therefore, we can reset account status.
+			$this->db_ragnarok->set('state', 0);
+			$this->db_ragnarok->set('unban_time', 0);
+			$this->db_ragnarok->update('login');
+			//echo "2.5";
+		}
+		//echo "3";
+		// The account still has a past or future ban that is expiring at a later time, do nothing to the account.
+	}			
 }

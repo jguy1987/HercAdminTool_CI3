@@ -14,6 +14,9 @@ $config['panelname'] = "HercAdminTool";
 // Server Name. 
 $config['servername'] = "YourRO";
 
+// Server Name (server config). This is EXACTLY what you set 'userid' to in /conf/map-server.conf
+$config['map_servername'] = "s1";
+
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
 

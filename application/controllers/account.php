@@ -120,6 +120,29 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function delblock() {
+		$session_data = $this->session->userdata('loggedin');
+		$this->form_validation->set_rules('unbanComments', 'Un-Ban Comments', 'trim|xss_clean|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+			$data['accts'] = $this->accountmodel->list_accounts();
+			$this->load->view('account/listaccts', $data);
+		}
+		else {
+			$remBan = array(
+				'acct_id'				=> $this->input->post('acct_id'),
+				'blockid'				=> $this->input->post('blockid'),
+				'unblock_comment'		=> nl2br($this->input->post('unbanComments')),
+				'unblock_user'			=> $session_data['id'],
+			);
+			$this->accountmodel->apply_acct_unban($remBan);
+			$data['referpage'] = "remban";
+			$data['acct_id'] = $remBan['acct_id'];
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
 		$this->email->to($newAcct['email']);
