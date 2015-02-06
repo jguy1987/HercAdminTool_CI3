@@ -172,28 +172,29 @@ class Admin extends MY_Controller {
 	
 	public function addgroup() {
 		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+		if ($this->adminmodel->check_perm($session_data['group'],'addgroup') == True) {
 			$data['permissions'] = $this->config->item('permissions');
 			$this->usermodel->update_user_active($session_data['id'],"admin/addgroup");
 			$this->load->view('admin/addgroup', $data);
 		}
 		else {
-			$this->load->view('accessdenied');
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function editgroup($gid) {
 		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
+		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True && $gid < $session_data['group']) {
 			$data['permissions'] = $this->config->item('permissions');
 			$this->usermodel->update_user_active($session_data['id'],"admin/editgroup");
 			$data['grpInfo'] = $this->adminmodel->get_group_data($gid);
 			$this->load->view('admin/editgroup', $data);
-			$this->load->view('footer-nocharts');
 		}
 		else {
-			$this->load->view('accessdenied');
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}

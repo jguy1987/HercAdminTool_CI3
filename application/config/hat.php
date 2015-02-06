@@ -223,6 +223,7 @@ $config["permissions"] = array(
 		'changeposition'	=> "Reset Character Position",
 	),
 	'admin'			=> array( // Permissions related to panel management
+		'addgroup'			=> "Add Admin Group",
 		'editgroups'		=> "Edit Admin Groups",
 		'addadmin'			=> "Add Admin",
 		'editadmin'			=> "Edit Admin",
@@ -238,6 +239,7 @@ $config["permissions"] = array(
 		'canreopen'			=> "Reopen Tickets",
 	),
 	'server'			=> array( // Permissions related to server management
+		'whosonline'		=> "View Who's Online",
 		'announcement'		=> "Manage System Broadcasts",
 		'items'				=> "Manage server items",
 		'itemshop'			=> "Manage Item Shop",
