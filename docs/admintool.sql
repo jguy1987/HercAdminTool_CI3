@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `itemshop` tinyint(1) NOT NULL,
   `mobs` tinyint(1) NOT NULL,
   `servermaint` tinyint(1) NOT NULL,
+  `whosonline` tinyint(1) NOT NULL,
   `backupdb` tinyint(1) NOT NULL,
   `atcmdlog` tinyint(1) NOT NULL,
   `branchlog` tinyint(1) NOT NULL,
