@@ -141,7 +141,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Account Banned?</label></td>
-									<td width="200px"><?php if ($acct_data->state == 0) { echo "No"; } ?></td>
+									<td width="200px"><?php if ($acct_data->state == 0 && $acct_data->unban_time == 0) { echo "No"; } else { echo "Yes"; } ?></td>
 								</tr>
 								</table>
 							</div>
@@ -151,7 +151,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Ban Expiration Time</label></td>
-									<td width="200px"><?php if ($acct_data->state == 0) { echo "Not banned"; } else { echo date('Y-m-d H:i:s', $acct_data->unban_time); } ?></td>
+									<td width="200px"><?php if ($acct_data->state == 0 && $acct_data->unban_time == 0) { echo "Not banned"; } elseif ($acct_data->unban_time > 0) { echo date('Y-m-d H:i:s', $acct_data->unban_time); } elseif ($acct_data->state == 5) { echo "Permanent"; } ?></td>
 								</tr>
 								</table>
 							</div>
@@ -253,7 +253,7 @@
 										<td><?php echo $bd['unblock_date']; ?></td>
 										<td><center><a data-toggle="collapse" data-parent="#accordion" href="#blockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center></td>
 										<td><?php if (isset($bd['unblock_date']) == TRUE) { ?><center><a data-toggle="collapse" data-parent="#accordion" href="#ublockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center><?php } ?></td>
-										<td></td>
+										<td><?php if ($bd['expiredate'] > date('Y-m-d H:i:s')) { ?><button type="button" class="btn btn-info" data-toggle="modal" data-target="#delBlock" <?php if ($check_perm['unbanaccount'] == 0 || $bd['unblock_date'] > 0) { echo "disabled"; } ?> >Unblock</button><?php } ?></td>
 									</tr>
 									<tr><td colspan="9">
 										<div id="blockcomment<?php echo $bd['blockid']; ?>" class="panel-collapse collapse">
@@ -283,7 +283,7 @@
 						</div>
 						<div class="modal-body">
 							<?php echo validation_errors(); ?>
-							<?php echo form_open('/account/addblock', array('class' => 'form-inline')); ?>
+							<?php echo form_open('/account/addblock', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
 							<table>
 								<tr><td width="25%"><label>Type</label></td>
 								<td width="450px"><select class="form-control" id="banType" name="banType" style="width:100%;">
@@ -305,12 +305,36 @@
 								<tr><td width="25%"><label>Comments</label></td>
 								<td width="450px"><textarea class="form-control" name="banComments" rows="5" style="width:100%;"></textarea></td></tr>
 							</table>
-							<?php echo form_close(); ?>
 						</div>	
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-primary">Add Block</button>
 						</div>
+						<?php echo form_close(); ?>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="delBlock" tabindex="-1" role="dialog" aria-labelledby="delBlockLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="delBlockLabel">Remove Block</h4>
+						</div>
+						<div class="modal-body">
+							<?php echo validation_errors(); ?>
+							<?php echo form_open('/account/delblock', array('class' => 'form-inline'), array('blockid' => $bd['blockid'], 'acct_id' => $acct_data->account_id)); ?>
+							<table>
+								<tr><td width="25%"><label>Unblock Comment</label></td>
+								<td width="450px"><textarea class="form-control" name="unbanComments" rows="5" style="width:100%;"></textarea></td></tr>
+							</table>
+						</div>
+						<center><div style="color:#EE0000; ">Note this will remove the ban with immediate effect.</div></center>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Remove Block</button>
+						</div>
+						<?php echo form_close(); ?>
 					</div>
 				</div>
 			</div>
