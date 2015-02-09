@@ -345,7 +345,7 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNotes">Add Note</a>
+							<button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapseNotes">Add Note</button>
 						</h4>
 						<div id="collapseNotes" class="panel-collapse collapse">
 							<div class="panel-body">
@@ -364,6 +364,15 @@
 				</div>
 				<br />
 				<div class="col-md-6 col-md-offset-3">
+				<?php if (empty($acct_notes)) { ?>
+					<div class="row">
+						<div class="panel panel-info">
+							<div class="panel-body">
+								<p>No notes!</p>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
 				<?php foreach($acct_notes as $k): ?>
 					<div class="row">
 						<div class="panel panel-info">
