@@ -73,6 +73,12 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->insert('hat_acctnotes', $newNote);
 	}
 	
+	function get_num_key_list($aid) {
+		$this->db_ragnarok->select('*');
+		$query = $this->db_ragnarok->get_where('acc_reg_num_db', array('account_id' => $aid));
+		return $query->result_array();
+	}
+	
 	function apply_acct_ban($newBan) {
 		// First, get the current time that the ban is being applied
 		$timeNow = date("Y-m-d H:i:s");

@@ -9,6 +9,7 @@
 			<li class="active"><a href="#details" data-toggle="tab">Basic Info</a></li>
 			<li><a href="#blocks" data-toggle="tab">Account Blocks</a></li>
 			<li><a href="#notes" data-toggle="tab">Notes</a></li>
+			<li><a href="#flags" data-toggle="tab">Register DB</a></li>
 			<li><a href="#history" data-toggle="tab">History</a></li>
 			<li><a href="#characters" data-toggle="tab">Characters</a></li>
 		</ul>
@@ -375,6 +376,33 @@
 						</div>
 					</div>
 				<?php endforeach; ?>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="flags">
+				<h4>Num Flags on this account</h4>
+				<div class="panel-body">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<tr>
+										<th style="width: 150px;">Key Name</th>
+										<th style="width: 75px;">Index</th>
+										<th style="width: 75px;">Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($num_key_list as $nKL_item): ?>
+										<tr class="odd gradex">
+											<td><?php echo $nKL_item['key']; ?></td>
+											<td><?php echo $nKL_item['index']; ?></td>
+											<td><?php echo $nKL_item['value']; ?></td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="characters">
