@@ -96,7 +96,7 @@ class Account extends MY_Controller {
 	public function addblock() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->input->post('banType') == "temp") {
-			$this->form_validation->set_rules('banEnd', 'Expiry Date', 'trim|xss_clean|required|callback_date_check');
+			$this->form_validation->set_rules('banEnd', 'Expiry Date', 'trim|xss_clean|required|callback_datetime_check');
 		}
 		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|xss_clean|required');
 		if ($this->form_validation->run() == FALSE) {
@@ -144,6 +144,59 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function verifyedit() {
+	$session_data = $this->session->userdata('loggedin');
+		$this->form_validation->set_rules('email',"Email",'trim|required|valid_email');
+		$this->form_validation->set_rules('groupid',"Group ID",'trim|required|greater_than[-1]|less_than[99]');
+		$this->form_validation->set_rules('birthdate',"Birth Date",'trim|required|callback_date_check');
+		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[9]');
+		if ($this->form_validation->run() == FALSE) {
+			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+			$aid = $this->input->post('account_id');
+			$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
+			$data['char_list'] = $this->accountmodel->get_char_list($aid);
+			$data['class_list'] = $this->config->item('jobs');
+			$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
+			$data['block_list'] = $this->accountmodel->get_block_hist($aid);
+			$data['perm_list'] = $this->config->item('permissions');
+			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+			$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
+			$this->load->view('account/details',$data);
+		}
+		else {
+			$chgAcct = array(
+				'user'				=> $session_data['id'],
+				'account_id'		=> $this->input->post('account_id'),
+				'email'				=> $this->input->post('email'),
+				'sex'					=> $this->input->post('gender'),
+				'group_id'			=> $this->input->post('groupid'),
+				'character_slots'	=> $this->input->post('charslots'),
+				'birthdate'			=> $this->input->post('birthdate'),
+			);
+			$chgResult = $this->accountmodel->edit_acct_details($chgAcct);
+			if ($chgResult == true) {
+				$data['referpage'] = "editaccount";
+				$data['acct_id'] = $chgAcct['account_id'];
+				$this->load->view('formsuccess', $data);
+			}
+			else {
+				$this->form_validation->set_message("You didn't actually change anything!");
+				$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+				$aid = $this->input->post('account_id');
+				$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
+				$data['char_list'] = $this->accountmodel->get_char_list($aid);
+				$data['class_list'] = $this->config->item('jobs');
+				$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
+				$data['block_list'] = $this->accountmodel->get_block_hist($aid);
+				$data['perm_list'] = $this->config->item('permissions');
+				$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+				$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
+				$this->load->view('account/details',$data);
+			}
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
 		$this->email->to($newAcct['email']);
@@ -164,12 +217,22 @@ Thank you.");
 		}
 	}
 	
-	function date_check($date) {
+	function datetime_check($date) {
 		if (date('Y-m-d H:i:s', strtotime($date)) == $date) {
 			return true;
 		}
 		else {
-			$this->form_validation->set_message('date_check', 'The end date given is not in the proper format.');
+			$this->form_validation->set_message('date_check', 'The datetime given is not in the proper format.');
+			return false;
+		}
+	}
+	
+	function date_check($date) {
+		if (date('Y-m-d', strtotime($date)) == $date) {
+			return true;
+		}
+		else {
+			$this->form_validation->set_message('date_check', 'The date given is not in the proper format.');
 			return false;
 		}
 	}

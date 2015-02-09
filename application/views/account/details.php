@@ -17,7 +17,7 @@
 			<div class="tab-pane fade in active" id="details">
 				<h4>Basic Account Info</h4>
 				<?php echo validation_errors(); ?>
-				<?php echo form_open('/account/verifyedit', array('class' => 'form-inline')); ?>
+				<?php echo form_open('/account/verifyedit', array('class' => 'form-inline'), array('account_id' => $acct_data->account_id)); ?>
 				<fieldset>
 					<div class="row">
 						<div class="cold-lg-12">
@@ -89,7 +89,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>GroupID</label></td>
-									<td width="200px"><input class="form-control" size="40px" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "disabled"; } ?> /></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" min="0" max="99" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "disabled"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -123,7 +123,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Character Slots</label></td>
-									<td width="200px"><input type="text" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "disabled"; } ?> /></td>
+									<td width="200px"><input type="number" min="0" max="9" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "disabled"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -219,7 +219,7 @@
 							</div>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-default">Submit changes</button><br />
+					<br /><center><button type="submit" class="btn btn-default">Submit changes</button></center><br />
 				</fieldset>
 				<?php echo form_close(); ?>
 			</div>

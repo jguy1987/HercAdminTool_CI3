@@ -79,6 +79,64 @@ Class Accountmodel extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function edit_acct_details($chgAcct) {
+		$timeNow = date("Y-m-d H:i:s");
+		
+		// First, we need to find out what changed...so that we can insert logs
+		$this->db_ragnarok->select('account_id,email,sex,group_id,character_slots,birthdate');
+		$chgRecq = $this->db_ragnarok->get_where('login', array('account_id' => $chgAcct['account_id']));
+		$chgRec = $chgRecq->row();
+		if ($chgRec->email != $chgAcct['email'] || $chgRec->sex != $chgAcct['sex'] || $chgRec->group_id != $chgAcct['group_id'] || $chgRec->character_slots != $chgAcct['character_slots'] || $chgRec->birthdate != $chgAcct['birthdate']) {
+			$this->db_ragnarok->set('datetime', $timeNow);
+			$this->db_ragnarok->set('user', $chgAcct['user']);
+			$this->db_ragnarok->set('acct_id', $chgAcct['account_id']);
+			if ($chgRec->email != $chgAcct['email']) {
+				$this->db_ragnarok->set('chg_attr', 'email');
+				$this->db_ragnarok->set('old_value', $chgRec->email);
+				$this->db_ragnarok->set('new_value', $chgAcct['email']);
+				$this->db_ragnarok->insert('hat_accteditlog');
+			}
+			if ($chgRec->sex != $chgAcct['sex']) {
+				$this->db_ragnarok->set('chg_attr', 'sex');
+				$this->db_ragnarok->set('old_value', $chgRec->sex);
+				$this->db_ragnarok->set('new_value', $chgAcct['sex']);
+				$this->db_ragnarok->insert('hat_accteditlog');
+			}
+			if ($chgRec->group_id != $chgAcct['group_id']) {
+				$this->db_ragnarok->set('chg_attr', 'group_id');
+				$this->db_ragnarok->set('old_value', $chgRec->group_id);
+				$this->db_ragnarok->set('new_value', $chgAcct['group_id']);
+				$this->db_ragnarok->insert('hat_accteditlog');
+			}
+			if ($chgRec->character_slots != $chgAcct['character_slots']) {
+				$this->db_ragnarok->set('chg_attr', 'character_slots');
+				$this->db_ragnarok->set('old_value', $chgRec->character_slots);
+				$this->db_ragnarok->set('new_value', $chgAcct['character_slots']);
+				$this->db_ragnarok->insert('hat_accteditlog');
+			}
+			if ($chgRec->birthdate != $chgAcct['birthdate']) {
+				$this->db_ragnarok->set('chg_attr', 'birthdate');
+				$this->db_ragnarok->set('old_value', $chgRec->birthdate);
+				$this->db_ragnarok->set('new_value', $chgAcct['birthdate']);
+				$this->db_ragnarok->insert('hat_accteditlog');
+			}
+			
+			// Then, change data in the login table
+			$this->db_ragnarok->where('account_id', $chgAcct['account_id']);
+			$this->db_ragnarok->set('email', $chgAcct['email']);
+			$this->db_ragnarok->set('sex', $chgAcct['sex']);
+			$this->db_ragnarok->set('group_id', $chgAcct['group_id']);
+			$this->db_ragnarok->set('character_slots', $chgAcct['character_slots']);
+			$this->db_ragnarok->set('birthdate', $chgAcct['birthdate']);
+			$this->db_ragnarok->update('login');
+			return true;
+		}
+		else {
+			// The admin didn't change anything!
+			return false;
+		}
+	}
+	
 	function apply_acct_ban($newBan) {
 		// First, get the current time that the ban is being applied
 		$timeNow = date("Y-m-d H:i:s");

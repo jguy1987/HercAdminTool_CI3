@@ -40,6 +40,9 @@
 			case "groupedit":
 				echo "Group edit successful. Return to the <a href='/admin/groups'>group management page</a>.";
 				break;
+			case "editaccount":
+				echo "Account details edited successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;
