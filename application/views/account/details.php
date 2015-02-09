@@ -247,13 +247,13 @@
 									<tr class="odd gradeX">
 										<td><?php echo $bd['blockdate']; ?></td>
 										<td><?php echo $bd['blockname']; ?></td>
-										<td><?php echo $bd['expiredate']; ?></td>
+										<td><?php if ($bd['block_type'] == "perm") { echo "Permanent"; } else { echo $bd['expiredate']; } ?></td>
 										<td><?php echo $bd['reason']; ?></td>
 										<td><?php echo $bd['ublockname']; ?></td>
 										<td><?php echo $bd['unblock_date']; ?></td>
 										<td><center><a data-toggle="collapse" data-parent="#accordion" href="#blockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center></td>
 										<td><?php if (isset($bd['unblock_date']) == TRUE) { ?><center><a data-toggle="collapse" data-parent="#accordion" href="#ublockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center><?php } ?></td>
-										<td><?php if ($bd['expiredate'] > date('Y-m-d H:i:s')) { ?><button type="button" class="btn btn-info" data-toggle="modal" data-target="#delBlock" <?php if ($check_perm['unbanaccount'] == 0 || $bd['unblock_date'] > 0) { echo "disabled"; } ?> >Unblock</button><?php } ?></td>
+										<td><?php if ($bd['expiredate'] > date('Y-m-d H:i:s') || $bd['block_type'] == "perm") { ?><button type="button" class="btn btn-info" id="delBlockOpen" data-toggle="modal" data-target="#delBlock" data-id="<?php echo $bd["blockid"]; ?>" <?php if ($check_perm['unbanaccount'] == 0 || $bd['unblock_date'] > 0) { echo "disabled"; } ?> >Unblock</button><?php } ?></td>
 									</tr>
 									<tr><td colspan="9">
 										<div id="blockcomment<?php echo $bd['blockid']; ?>" class="panel-collapse collapse">
@@ -323,7 +323,8 @@
 						</div>
 						<div class="modal-body">
 							<?php echo validation_errors(); ?>
-							<?php echo form_open('/account/delblock', array('class' => 'form-inline'), array('blockid' => $bd['blockid'], 'acct_id' => $acct_data->account_id)); ?>
+							<?php echo form_open('/account/delblock', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+							<input type="hidden" id="blockidval" name="blockidval" />
 							<table>
 								<tr><td width="25%"><label>Unblock Comment</label></td>
 								<td width="450px"><textarea class="form-control" name="unbanComments" rows="5" style="width:100%;"></textarea></td></tr>

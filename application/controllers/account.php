@@ -131,7 +131,7 @@ class Account extends MY_Controller {
 		else {
 			$remBan = array(
 				'acct_id'				=> $this->input->post('acct_id'),
-				'blockid'				=> $this->input->post('blockid'),
+				'blockid'				=> $this->input->post('blockidval'),
 				'unblock_comment'		=> nl2br($this->input->post('unbanComments')),
 				'unblock_user'			=> $session_data['id'],
 			);

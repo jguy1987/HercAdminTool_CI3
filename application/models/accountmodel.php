@@ -76,6 +76,7 @@ Class Accountmodel extends CI_Model {
 	function apply_acct_ban($newBan) {
 		// First, get the current time that the ban is being applied
 		$timeNow = date("Y-m-d H:i:s");
+		$newBanTime = strtotime($newBan['unban_date']);
 		
 		// Next, add the ban to the hat table
 		$this->db_ragnarok->set('blockdate', $timeNow);
@@ -87,45 +88,64 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->set('reason', $newBan['reason']);
 		$this->db_ragnarok->insert('hat_blockinfo');
 		
-		// Then, set the login table accordingly.
-		if ($newBan['type'] == "perm") {
-			$this->db_ragnarok->set('state', "5");
-		}
-		elseif ($newBan['type'] == "temp") {
-			$this->db_ragnarok->set('unban_time', strtotime($newBan['unban_date']));
-		}
-		$this->db_ragnarok->where('account_id', $newBan['account_id']); 
-		$this->db_ragnarok->update('login');
+		// We need to figure out if the account already has a permanent ban or 
+		// a ban for a longer period of time than the one we're applying.
+		$this->db_ragnarok->select('state, unban_time');
+		$this->db_ragnarok->where('account_id', $newBan['account_id']);
+		$query = $this->db_ragnarok->get('login');
+		$q_checkban = $query->row();
+		
+		echo "Original unban time: {$q_checkban->unban_time}";
+		echo "<br />New unban time: {$newBanTime}";
+		if ($q_checkban->state != 5 && $q_checkban->unban_time < $newBanTime) { // Account is not already permanently banned nor has a ban lasting longer than the ban we're applying
+		
+			// Then, set the login table accordingly.
+			if ($newBan['type'] == "perm") {
+				$this->db_ragnarok->set('state', 5);
+				$this->db_ragnarok->set('unban_time', 0);
+			}
+			elseif ($newBan['type'] == "temp") {
+				$this->db_ragnarok->set('unban_time', $newBanTime);
+			}
+			$this->db_ragnarok->where('account_id', $newBan['account_id']); 
+			$this->db_ragnarok->update('login');
+		} // If the account is already permanently banned or has a ban longer than the ban we're currently setting, do nothing.
 	}
 	
 	function apply_acct_unban($remBan) {
 		// First, get the current time that the unban is being applied
 		$timeNow = date("Y-m-d H:i:s");
-		//echo "1";
 		
 		// Add the unban data to the hat table.
-		var_dump($remBan);
 		$this->db_ragnarok->where('blockid', $remBan['blockid']);
 		$this->db_ragnarok->set('unblock_user', $remBan['unblock_user']);
 		$this->db_ragnarok->set('unblock_comment', $remBan['unblock_comment']);
 		$this->db_ragnarok->set('unblock_date', $timeNow);
 		$this->db_ragnarok->update('hat_blockinfo');
 		
-		//echo "2";
 		// Then, figure out if the block we're removing is the only active block on that account.
-		$this->db_ragnarok->select('blockid, expiredate, unblock_date');
-		$get_where = "acct_id = '{$remBan['acct_id']}' AND expiredate > '{$timeNow}' OR unblock_date > '{$timeNow}'";
+		$this->db_ragnarok->select('blockid');
+		$get_where = "acct_id = '{$remBan['acct_id']}' AND expiredate > '{$timeNow}' AND unblock_date IS NULL";
 		$this->db_ragnarok->where($get_where);
 		$query = $this->db_ragnarok->get('hat_blockinfo');
 		$row_q1_cnt = $query->num_rows();
-		if ($row_q1_cnt <= 1) { // The ban we're removing is the only active block on that account
+		echo $row_q1_cnt;
+		if ($row_q1_cnt < 1) { // The ban we're removing is the only active block on that account
 			// Therefore, we can reset account status.
 			$this->db_ragnarok->set('state', 0);
 			$this->db_ragnarok->set('unban_time', 0);
 			$this->db_ragnarok->update('login');
-			//echo "2.5";
+		} // The account still has a past or future ban that is expiring at a later time, do nothing to the account here.
+		elseif ($row_q1_cnt >= 1) { // The ban we're removing is not the only one. We need to check if there is a ban still existing that we need to change the unban_time to instead...
+			$this->db_ragnarok->select_max('expiredate');
+			$where_unblockdate = "acct_id = '{$remBan['acct_id']}' AND unblock_date IS NULL";
+			$this->db_ragnarok->where($where_unblockdate);
+			$query2 = $this->db_ragnarok->get('hat_blockinfo');
+			$q2_maxban = $query2->row();
+			
+			$this->db_ragnarok->where('account_id', $remBan['acct_id']);
+			$this->db_ragnarok->set('unban_time', strtotime($q2_maxban->expiredate));
+			$this->db_ragnarok->update('login');
 		}
-		//echo "3";
-		// The account still has a past or future ban that is expiring at a later time, do nothing to the account.
 	}			
 }
