@@ -246,6 +246,20 @@ class Admin extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function news() {
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'editadminnews') == True) {
+			$data[
+			$data['admin_news'] = $this->adminmodel->get_adminnews_items();
+			$this->load->view('admin/news');
+		}
+		else {
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	function lockusers() {		
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {

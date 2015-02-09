@@ -131,9 +131,16 @@
 						<a href="/admin/groups">Group Management</a>
 					</li>
 					<?php } ?>
+					<?php if ($check_perm['editadminnews'] == 1) { ?>
+					<li>
+						<a href="/admin/news">News Management</a>
+					</li>
+					<?php } ?>
+					<?php if ($check_perm['viewadminlogs'] == 1) { ?>
 					<li>
 						<a href="/admin/logs">Log Management</a>
 					</li>	
+					<?php } ?>
 				</ul>
 			</li>
 			<?php } ?>
