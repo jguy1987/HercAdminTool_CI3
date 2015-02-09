@@ -94,9 +94,6 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->where('account_id', $newBan['account_id']);
 		$query = $this->db_ragnarok->get('login');
 		$q_checkban = $query->row();
-		
-		echo "Original unban time: {$q_checkban->unban_time}";
-		echo "<br />New unban time: {$newBanTime}";
 		if ($q_checkban->state != 5 && $q_checkban->unban_time < $newBanTime) { // Account is not already permanently banned nor has a ban lasting longer than the ban we're applying
 		
 			// Then, set the login table accordingly.
@@ -129,7 +126,6 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->where($get_where);
 		$query = $this->db_ragnarok->get('hat_blockinfo');
 		$row_q1_cnt = $query->num_rows();
-		echo $row_q1_cnt;
 		if ($row_q1_cnt < 1) { // The ban we're removing is the only active block on that account
 			// Therefore, we can reset account status.
 			$this->db_ragnarok->set('state', 0);
