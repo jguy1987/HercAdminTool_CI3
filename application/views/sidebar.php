@@ -91,27 +91,27 @@
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['items'] == 1) { ?>
 							<li>
-								<a href="/serversetup/itemdb">Item Database</a>
+								<a href="/server/itemdb">Item Database</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['itemshop'] == 1) { ?>
 							<li>
-								<a href="/serversetup/itemshop">Item Shop</a>
+								<a href="/server/itemshop">Item Shop</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['mobs'] == 1) { ?>
 							<li>
-								<a href="/serversetup/mobdb">Mob Database</a>
+								<a href="/server/mobdb">Mob Database</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['sftp'] == 1) { ?>
 							<li>
-								<a href="/serversetup/stfp">SFTP Access</a>
+								<a href="/server/stfp">SFTP Access</a>
 							</li>	
 						<?php } ?>
 						<?php if ($check_perm['serverconfig'] == 1) { ?>
 							<li>
-								<a href="/serversetup/config">Server Configuration</a>
+								<a href="/server/config">Server Configuration</a>
 							</li>
 						<?php } ?>
 					</ul>
@@ -131,9 +131,16 @@
 						<a href="/admin/groups">Group Management</a>
 					</li>
 					<?php } ?>
+					<?php if ($check_perm['editadminnews'] == 1) { ?>
+					<li>
+						<a href="/admin/news">News Management</a>
+					</li>
+					<?php } ?>
+					<?php if ($check_perm['viewadminlogs'] == 1) { ?>
 					<li>
 						<a href="/admin/logs">Log Management</a>
 					</li>	
+					<?php } ?>
 				</ul>
 			</li>
 			<?php } ?>

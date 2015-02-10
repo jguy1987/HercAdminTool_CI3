@@ -75,4 +75,13 @@ Class Dashboardmodel extends CI_Model {
 		$query = $this->db_ragnarok->get();
 		return $query->result_array();
 	}
+	
+	function get_admin_news() {
+		$this->db_ragnarok->select('hat_adminnews.*,hat_users.username');
+		$this->db_ragnarok->from('hat_adminnews')->order_by('hat_adminnews.id','desc');
+		$this->db_ragnarok->where('hat_adminnews.active', 1);
+		$this->db_ragnarok->join('hat_users', 'hat_adminnews.user = hat_users.id');
+		$query = $this->db_ragnarok->get();
+		return $query->result_array();
+	}
 }

@@ -1,0 +1,22 @@
+//===== Hercules Script ======================================
+//= HAT Utility NPC's
+//===== By: ==================================================
+//= Jguy
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= The NPCs providing utilities to the HAT panel.
+//===== Additional Comments: =================================
+//= 
+//============================================================
+
+-	script	HAT_Utility	-1,{
+	// First, we want to insert the time the map server connects to the character server so we can establish server uptime...
+	OnInterIfInitOnce:
+		// Get current time.
+		.date$ = gettimestr("%Y-%m-%d %H:%M:%S",21);
+		// Insert current time into database
+		query_sql("INSERT INTO `hat_sstatus` (`starttime`) VALUES ('"+.date$+"')");
+		
+	
+}

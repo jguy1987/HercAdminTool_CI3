@@ -232,6 +232,8 @@ $config["permissions"] = array(
 		'editadmin'			=> "Edit Admin",
 		'deladmin'			=> "Remove Admin",
 		'hatconfig'			=> "AdminTool Configuration Access",
+		'editadminnews'	=> "Edit Admin Announcements",
+		'viewadminlogs'	=> "View Admin Logs",
 	),
 	'ticket'			=> array( // Permissions related to ticket management
 		'viewtickets'		=> "View Tickets",

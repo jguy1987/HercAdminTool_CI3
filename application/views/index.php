@@ -3,7 +3,6 @@
 		<div class="col-lg-12">
 			<h1 class="page-header">Dashboard</h1>
 		</div>
-		<!-- /.col-lg-12 -->
 	</div>
 	<div class="row">
 		<div class="col-lg-6">
@@ -11,11 +10,9 @@
 				<div class="panel-heading">
 					<i class="fa fa-bar-chart-o fa-fw"></i> Account Registrations Past 7 days
 				</div>
-				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<div id="acct-regs" style="height: 234px;"></div>
 				</div>
-				<!-- /.panel-body -->
 			</div>
 		</div>
 		<div class="col-lg-3">
@@ -39,11 +36,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.row -->
 		<div class="col-lg-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Server Statistics
+					<a href="/server/stats">Server Statistics</a>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -60,6 +56,32 @@
 			</div>
 		</div>
 	</div>
-</div>
-<!-- /#page-wrapper -->
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Admin Announcements
+				</div>
+				<div class="panel-body">
+					<ul class="chat">
+						<?php foreach ($admin_news as $aNews): ?>
+						<li class="left clearfix">
+							<div class="chat-body clearfix">
+								<div class="header">
+									<strong class="primary-font"><?php echo $aNews['username']; ?></strong>
+									<small class="pull-right text-muted">
+										<i class="fa fa-clock-o fa-fw"></i> <?php echo $aNews['date']; ?>
+									</small>
+								</div>
+								<p>
+									<?php echo $aNews['content']; ?>
+								</p>
+							</div>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
