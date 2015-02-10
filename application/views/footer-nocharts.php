@@ -57,5 +57,13 @@ new Morris.Line({
 <script type="text/javascript">
 	$(".form_date").datetimepicker({format: 'yyyy-mm-dd'});
 </script>
+<script type="text/javascript">
+	$(function() {
+		$(document).on('click','#delBlockOpen',function(e){
+			//process here you can get id using 
+			$('#blockidval').val($(this).data('id')); //and set this id to any hidden field in modal
+		});
+	});
+</script>
 </body>
 </html>
