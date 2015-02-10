@@ -68,6 +68,14 @@ Class Accountmodel extends CI_Model {
 		return $q->result_array();
 	}
 	
+	function get_acct_changes($aid) {
+		$this->db_ragnarok->select('hat_accteditlog.*,hat_users.username,hat_users.id');
+		$this->db_ragnarok->from('hat_accteditlog')->order_by('hat_accteditlog.datetime','desc');
+		$this->db_ragnarok->join('hat_users','hat_accteditlog.user = hat_users.id');
+		$query = $this->db_ragnarok->get();
+		return $query->result_array();
+	}
+	
 	function add_note($newNote) {
 		$newNote['datetime'] = date("Y-m-d H:i:s");
 		$this->db_ragnarok->insert('hat_acctnotes', $newNote);

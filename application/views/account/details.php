@@ -414,6 +414,37 @@
 					</div>
 				</div>
 			</div>
+			<div class="tab-pane fade" id="history">
+				<h4>History for this account</h4>
+				<div class="panel-body">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<tr>
+										<th style="width: 100px;">Datetime</th>
+										<th style="width: 100px;">User</th>
+										<th style="width: 70px;">Field Changed</th>
+										<th style="width: 75px;">Old Value</th>
+										<th style="width: 75px">New Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($chg_acct_list as $cAL_item): ?>
+										<tr class="odd gradex">
+											<td><?php echo $cAL_item['datetime']; ?></td>
+											<td><?php echo $cAL_item['username']; ?></td>
+											<td><?php echo $cAL_item['chg_attr']; ?></td>
+											<td><?php echo $cAL_item['old_value']; ?></td>
+											<td><?php echo $cAL_item['new_value']; ?></td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="tab-pane fade" id="characters">
 				<h4>Characters on this Account</h4>
 				<div class="panel-body">
