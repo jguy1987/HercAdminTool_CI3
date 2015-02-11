@@ -22,11 +22,11 @@ class Server extends MY_Controller {
 	public function stats() {
 		$session_data = $this->session->userdata('loggedin');
 		$this->usermodel->update_user_active($session_data['id'],"server/stats");
-		$xml_url = base_url('assets/linfo/?out=xml');
-		$data['server_stats'] = $this->servermodel->get_server_stats($xml_url);
+		$json_url = base_url('assets/linfo/?out=json');
+		$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
 		$data['herc_stats'] = $this->servermodel->get_herc_stats();
 		$data['mysql_stats'] = $this->servermodel->get_mysql_stats();
-		print_r($data['server_stats']);
+		echo '<pre>'; print_r($data['server_stats']); echo '</pre>';
 		$this->load->view('server/stats.php', $data);
 		$this->load->view('footer-nocharts.php');
 	}

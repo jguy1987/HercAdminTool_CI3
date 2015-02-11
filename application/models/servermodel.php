@@ -49,73 +49,31 @@ Class Servermodel extends CI_Model {
 		
 	}
 	
-	function get_server_stats($xml_url) {
-		$xml = simplexml_load_file($xml_url);
-		$data = array();
-		// Format some of the results and put them into an array for easier retrieval.
-		// It's not the best to convert the object into an array in this case...but...
-		$data += array(
-			'cpu_avg' 		=> $xml->core->load,
-			'sys_uptime' 	=> $xml->core->uptime,
-			'cpu_threads' 	=> $xml->core->threads,
-			'procs'			=> $xml->core->processes,
-		);
+	function get_server_stats($json_url) {
+		$json = file_get_contents($json_url);
+		$serverData = json_decode($json, true);
 		
-		// Format memory output...
-		$data += array(
-			'mem_total'			=> $this->format_bytes($xml->memory->Physical->total),
-			'mem_free'			=> $this->format_bytes($xml->memory->Physical->free),
-			'mem_used'			=> $this->format_bytes($xml->memory->Physical->used),
-			'mem_used_pct'		=> round($xml->memory->Physical->used / $xml->memory->Physical->total * 100),
-			'swap_total'		=> $this->format_bytes($xml->memory->swap->total),
-			'swap_free'			=> $this->format_bytes($xml->memory->swap->free),
-			'swap_used'			=> $this->format_bytes($xml->memory->swap->used),
-			'swap_used_pct'	=> round($xml->memory->swap->used / $xml->memory->swap->total * 100),
-		);
-		
-		// And network output
-		foreach ($xml->net as $net) {
-			if ($net->device == "eth0") {
-				$data += array(
-					'networks'	=> array(
-						'etho0' => array(
-							'sent'	=> format_bytes($net->sent),
-							'recv'	=> format_bytes($net->received),
-						),
-					),
-				);
-			}
+		// Fix some of the formats to be more human readable...
+		$RAMused = $serverData['RAM']['total'] - $serverData['RAM']['free'];
+		$swapused = $serverData['RAM']['swapTotal'] - $serverData['RAM']['swapFree'];
+		$serverData['RAM']['total'] = $this->format_bytes($serverData['RAM']['total']);
+		$serverData['RAM']['free'] = $this->format_bytes($serverData['RAM']['free']);
+		$serverData['RAM']['swapTotal'] = $this->format_bytes($serverData['RAM']['swapTotal']);
+		$serverData['RAM']['swapFree'] = $this->format_bytes($serverData['RAM']['swapFree']);
+		$RAMused_pct = round($RAMused / $serverData['RAM']['total'] * 100, 2);
+		$serverData['RAM']['used'] = $this->format_bytes($RAMused);
+		$swapused_pct = round($swapused / $serverData['RAM']['swapTotal'] * 100, 2);
+		$serverData['RAM']['swapUsed'] = $this->format_bytes($swapused);
+		foreach ($serverData['Network Devices'] as $dev=>$v) {
+			$serverData['Network Devices'][$dev]['received_f'] = $this->format_bytes($serverData['Network Devices'][$dev]['recieved']['bytes']);
+			$serverData['Network Devices'][$dev]['sent_f'] = $this->format_bytes($serverData['Network Devices'][$dev]['sent']['bytes']);
 		}
-		
-		// And disks....only / and /home are shown.
-		foreach ($xml->mounts as $disks) {
-			if ($disks->mountpoint == "/") {
-				$data += array(
-					'disks'	=> array(
-						'/'		=> array(
-							'total'		=> $this->format_bytes($disks->size),
-							'used'		=> $this->format_bytes($disks->used),
-							'used_pct'	=> round($disks->used / $disks->size * 100),
-							'free'		=> $this->format_bytes($disks->free),
-						),
-					),
-				);
-			}
-			
-			if ($disks->mountpoint == "/home") {
-				$data += array(
-					'disks'	=> array(
-						'/home'	=> array(
-							'total'		=> $this->format_bytes($disks->size),
-							'used'		=> $this->format_bytes($disks->used),
-							'used_pct'	=> round($disks->used / $disks->size * 100),
-							'free'		=> $this->format_bytes($disks->free),
-						),
-					),
-				);
-			}
+		foreach ($serverData['Mounts'] as $mid=>$vid) {
+			$serverData['Mounts'][$mid]['size'] = $this->format_bytes($serverData['Mounts'][$mid]['size']);
+			$serverData['Mounts'][$mid]['used'] = $this->format_bytes($serverData['Mounts'][$mid]['used']);
+			$serverData['Mounts'][$mid]['free'] = $this->format_bytes($serverData['Mounts'][$mid]['free']);
 		}
-		return $data;
+		return $serverData;
 	}
 	
 	function format_bytes($bytes) {
@@ -124,7 +82,8 @@ Class Servermodel extends CI_Model {
 		$bytes = max($bytes, 0); 
 		$pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
 		$pow = min($pow, count($units) - 1); 
-
+		
+		$bytes /= pow(1024, $pow);
 		return round($bytes, 2) . ' ' . $units[$pow]; 
 	} 
 }
