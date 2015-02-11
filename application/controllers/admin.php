@@ -83,7 +83,7 @@ class Admin extends MY_Controller {
 			$this->load->view('footer-nocharts');
 	}
 	
-	public function verifyuser() {
+	public function verifyuser() { // Verify edit.
 		$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
 		// Validate input on form.
 		if ($data['userinfo']->username != $this->input->post('username')) {
@@ -94,6 +94,7 @@ class Admin extends MY_Controller {
 		}
 		$this->form_validation->set_rules('username', 'Username', $userRules);
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('group-select', 'Group', 'callback_check_group');
 		if ($this->form_validation->run() == FALSE) {
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/edituser', $data);
@@ -129,6 +130,7 @@ class Admin extends MY_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_users.username]');
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('gameacctid', 'Game Account ID', 'trim|min_length[2000000]|xss_clean|is_unique[hat_users.gameacctid]');
+		$this->form_validation->set_rules('group-select', 'Group', 'callback_check_group');
 		if ($this->form_validation->run() == FALSE) {
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/adduser', $data);
@@ -249,7 +251,7 @@ class Admin extends MY_Controller {
 	public function news() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editadminnews') == True) {
-			$data[
+			//$data[
 			$data['admin_news'] = $this->adminmodel->get_adminnews_items();
 			$this->load->view('admin/news');
 		}
@@ -311,5 +313,16 @@ Thank you.");
 		}
 		$this->email->send();
 		return $this->email->print_debugger();
+	}
+	
+	function check_group($gid) {
+		$session_data = $this->session->userdata('loggedin');
+		if ($gid >= $session_data['group']) {
+			$this->form_validation->set_message('check_group', 'You may not create or edit an admin to have a higher group than your own!');
+			return FALSE;
+		}
+		else {
+			return TRUE;
+		}
 	}
 }
