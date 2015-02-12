@@ -56,13 +56,13 @@ Class Servermodel extends CI_Model {
 		// Fix some of the formats to be more human readable...
 		$RAMused = $serverData['RAM']['total'] - $serverData['RAM']['free'];
 		$swapused = $serverData['RAM']['swapTotal'] - $serverData['RAM']['swapFree'];
+		$serverData['RAM']['used_pct'] = round($RAMused / $serverData['RAM']['total'] * 100, 2);
+		$serverData['RAM']['swapUsed_pct'] = round($swapused / $serverData['RAM']['swapTotal'] * 100, 2);
 		$serverData['RAM']['total'] = $this->format_bytes($serverData['RAM']['total']);
 		$serverData['RAM']['free'] = $this->format_bytes($serverData['RAM']['free']);
 		$serverData['RAM']['swapTotal'] = $this->format_bytes($serverData['RAM']['swapTotal']);
 		$serverData['RAM']['swapFree'] = $this->format_bytes($serverData['RAM']['swapFree']);
-		$RAMused_pct = round($RAMused / $serverData['RAM']['total'] * 100, 2);
 		$serverData['RAM']['used'] = $this->format_bytes($RAMused);
-		$swapused_pct = round($swapused / $serverData['RAM']['swapTotal'] * 100, 2);
 		$serverData['RAM']['swapUsed'] = $this->format_bytes($swapused);
 		foreach ($serverData['Network Devices'] as $dev=>$v) {
 			$serverData['Network Devices'][$dev]['received_f'] = $this->format_bytes($serverData['Network Devices'][$dev]['recieved']['bytes']);

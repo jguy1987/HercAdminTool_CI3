@@ -26,7 +26,6 @@ class Server extends MY_Controller {
 		$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
 		$data['herc_stats'] = $this->servermodel->get_herc_stats();
 		$data['mysql_stats'] = $this->servermodel->get_mysql_stats();
-		echo '<pre>'; print_r($data['server_stats']); echo '</pre>';
 		$this->load->view('server/stats.php', $data);
 		$this->load->view('footer-nocharts.php');
 	}
