@@ -201,9 +201,6 @@ ALTER TABLE `hat_groups`
 ALTER TABLE `hat_sessions`
  ADD PRIMARY KEY (`session_id`), ADD KEY `last_activity_idx` (`last_activity`);
 
-ALTER TABLE `hat_sstatus`
- ADD PRIMARY KEY (`id`);
-
 ALTER TABLE `hat_tktfolders`
  ADD PRIMARY KEY (`folderid`);
 
