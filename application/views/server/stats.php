@@ -28,8 +28,7 @@
 						?>
 						role="progressbar" aria-valuenow="<?php echo $server_stats['RAM']['used_pct']; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $server_stats['RAM']['used_pct']; ?>%">
 						</div>
-						<span><?php echo $server_stats['RAM']['used']; ?> / <?php echo $server_stats['RAM']['total']; ?> (<?php echo $server_stats['RAM']['used_pct']; ?>%)</span>
-					</div>
+					</div><center><?php echo $server_stats['RAM']['used']; ?> / <?php echo $server_stats['RAM']['total']; ?> (<?php echo $server_stats['RAM']['used_pct']; ?>%)</center>
 					<label>Swap Usage</label><br />
 					<div class="progress">
 						<?php
@@ -39,8 +38,7 @@
 						?>
 						role="progressbar" aria-valuenow="<?php echo $server_stats['RAM']['swapUsed_pct']; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $server_stats['RAM']['swapUsed_pct']; ?>%">
 						</div>
-						<span><?php echo $server_stats['RAM']['swapUsed']; ?> / <?php echo $server_stats['RAM']['swapTotal']; ?> (<?php echo $server_stats['RAM']['swapUsed_pct']; ?>%)</span>
-					</div>
+					</div><center><?php echo $server_stats['RAM']['swapUsed']; ?> / <?php echo $server_stats['RAM']['swapTotal']; ?> (<?php echo $server_stats['RAM']['swapUsed_pct']; ?>%)</center>
 					<label>Running Processes Info</label><br />
 					<?php echo $server_stats['processStats']['totals']['running']; ?> Running,&nbsp;
 					<?php echo $server_stats['processStats']['totals']['zombie']; ?> Zombie,&nbsp;
@@ -67,8 +65,7 @@
 						?>
 						role="progressbar" aria-valuenow="<?php echo $parm['used_percent']; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $parm['used_percent']; ?>%">
 						</div>
-						<span><?php echo $parm['used']; ?> / <?php echo $parm['size']; ?> (<?php echo $parm['used_percent']; ?>%)</span>
-					</div>
+					</div><center><?php echo $parm['used']; ?> / <?php echo $parm['size']; ?> (<?php echo $parm['used_percent']; ?>%)</center>
 					<?php } ?>
 				</div>
 			</div>
