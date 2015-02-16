@@ -148,9 +148,9 @@ class Account extends MY_Controller {
 	public function verifyedit() {
 	$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('email',"Email",'trim|required|valid_email');
-		$this->form_validation->set_rules('groupid',"Group ID",'trim|required|greater_than[-1]|less_than[99]');
+		$this->form_validation->set_rules('groupid',"Group ID",'trim|required|greater_than[-1]|less_than[100]');
 		$this->form_validation->set_rules('birthdate',"Birth Date",'trim|required|callback_date_check');
-		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[9]');
+		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[10]');
 		if ($this->form_validation->run() == FALSE) {
 			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
 			$aid = $this->input->post('account_id');
