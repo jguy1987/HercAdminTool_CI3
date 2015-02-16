@@ -225,7 +225,7 @@ Thank you.");
 			return true;
 		}
 		else {
-			$this->form_validation->set_message('date_check', 'The datetime given is not in the proper format.');
+			$this->form_validation->set_message('datetime_check', 'The datetime given is not in the proper format.');
 			return false;
 		}
 	}
