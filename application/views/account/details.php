@@ -295,13 +295,9 @@
 								<td width="450px"><input type="text" class="form-control form_datetime" value="<?php echo date("Y-m-d H:m:s"); ?>" name="banEnd" style="width:100%;"/></td></tr>
 								<tr><td width="25%"><label>Reason</label></td>
 								<td width="450px"><select class="form-control" name="reason" style="width:100%;">
-									<option>Botting</option>
-									<option>Cheating</option>
-									<option>Exploiting</option>
-									<option>Hacking</option>
-									<option>Insult/Harassment</option>
-									<option>Real Money Trading</option>
-									<option>Security Ban</option>
+									<?php foreach($this->config->item('ban_reasons') as $k=>$banReason): ?>
+									<option><?php echo $banReason; ?></option>
+									<?php endforeach; ?>
 								</select></td></tr>
 								<tr><td width="25%"><label>Comments</label></td>
 								<td width="450px"><textarea class="form-control" name="banComments" rows="5" style="width:100%;"></textarea></td></tr>

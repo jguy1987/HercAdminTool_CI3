@@ -53,7 +53,16 @@ $config['smtp_pass'] = '';
 // smtp_port. Port number to connect to SMTP Server. Default 25. Only valid if protocol is set to 'smtp'.
 $config['smtp_port'] = 25;
 
-
+/* An array of block reasons. You can add more by adding a key of the next number and a reason in quotes. */
+$config["ban_reasons"] = array(
+	0		=> "Botting",
+	1		=> "Cheating",
+	2		=> "Exploiting",
+	3		=> "Hacking",
+	4		=> "Insult/Harassment",
+	5		=>	"Real Money Trading",
+	6		=>	"Security Ban",
+);
 /* Class settings. Grab list of class ID's and their classes */
 
 $config["jobs"] = array(
