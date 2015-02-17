@@ -12,7 +12,7 @@
 				</div>
 			</li>
 			<li>
-				<a href="http://admin.aesiraonline.com"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+				<a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 			</li>
 			<li>
 				<a href="#"><i class="fa fa-fw"></i> Accounts<span class="fa arrow"></span></a>
