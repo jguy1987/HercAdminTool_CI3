@@ -46,7 +46,13 @@ Class Servermodel extends CI_Model {
 	}
 	
 	function get_mysql_stats() {
-		
+		$stats = mysqli_stat($this->db_ragnarok->conn_id);
+		$mySQLstats = array();
+		foreach (explode("  ", $stats) as $k) {
+			$ret = explode(': ', $k);
+			$mySQLstats[$ret[0]] = $ret[1];
+		}
+		return $mySQLstats;
 	}
 	
 	function get_server_stats($json_url) {
@@ -85,5 +91,5 @@ Class Servermodel extends CI_Model {
 		
 		$bytes /= pow(1024, $pow);
 		return round($bytes, 2) . ' ' . $units[$pow]; 
-	} 
+	}
 }

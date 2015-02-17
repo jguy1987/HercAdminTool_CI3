@@ -52,7 +52,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-bar-chart-o fa-fw"></i> Hard Drive Data
+					<i class="fa fa-bar-chart-o fa-fw"></i> Hard Drive Usage
 				</div>
 				<div class="panel-body">
 					<?php foreach ($server_stats['Mounts'] as $mountid=>$parm) { ?>
@@ -78,6 +78,37 @@
 						<label>Device: <?php echo $netid; ?></label><br />
 						<span><strong>Received:</strong> <?php echo $netparm['received_f']; ?>&nbsp;&nbsp;&nbsp;<strong>Sent:</strong> <?php echo $netparm['sent_f']; ?></span><br /><br />
 					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel default">
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> MySQL Performance Data
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+								<th>Metric</th>
+								<th>Value</th>
+							</thead>
+							<tbody>
+								<?php foreach ($mysql_stats as $sqlStat=>$statValue) { ?>
+									<tr>
+										<td><?php echo $sqlStat; ?></td>
+										<td><?php echo $statValue; ?></td>
+									</td>
+								<?php } ?>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
