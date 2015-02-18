@@ -132,7 +132,22 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="cold-lg-12">
+						<div class="col-lg-12">
+							<center><h3>Account Options</h3></center>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<center>
+								<a href="/account/resetpin/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a>&nbsp;
+								<a href="/account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a>&nbsp;
+								<a href="/account/emailuser/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-info">Send Email</button></a>&nbsp;
+								<a href="/account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>&nbsp;
+							</center>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
 							<center><h3>Account State Information</h3></center>
 						</div>
 					</div>
@@ -219,7 +234,7 @@
 							</div>
 						</div>
 					</div>
-					<br /><center><button type="submit" class="btn btn-default">Submit changes</button></center><br />
+					<br /><center><button type="submit" class="btn btn-primary">Submit changes</button>&nbsp;</center><br />
 				</fieldset>
 				<?php echo form_close(); ?>
 			</div>

@@ -215,6 +215,7 @@ $config["permissions"] = array(
 		'editgender' 		=> "Edit Account Gender",
 		'addaccount'		=> "Add Game Account",
 		'editacctgroup'	=> "Edit game account group ID",
+		'acctgroupmax'		=> "(If can edit group) Max group level to edit to", // If the 'editacctgroup' is enabled, this determines how high the user can edit the groupid of a game account.
 		'editacctbd'		=> "Edit Account Birthdate",
 		'editacctslots'	=> "Edit Account Slots",
 		'usepurge'			=> "Purge Inactive Accounts",

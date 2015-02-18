@@ -51,7 +51,8 @@ class Account extends MY_Controller {
 	public function verifycreate() {
 		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[login.userid]');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
-		$this->form_validation->set_rules('gender', "Gender", 'required');
+		$this->form_validation->set_rules('gender', "Gender", 'required');		
+		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('account/create');
 		}
@@ -146,11 +147,12 @@ class Account extends MY_Controller {
 	}
 	
 	public function verifyedit() {
-	$session_data = $this->session->userdata('loggedin');
+		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('email',"Email",'trim|required|valid_email');
 		$this->form_validation->set_rules('groupid',"Group ID",'trim|required|greater_than[-1]|less_than[100]');
 		$this->form_validation->set_rules('birthdate',"Birth Date",'trim|required|callback_date_check');
 		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[10]');
+		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
 		if ($this->form_validation->run() == FALSE) {
 			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
 			$aid = $this->input->post('account_id');
@@ -237,6 +239,20 @@ Thank you.");
 		else {
 			$this->form_validation->set_message('date_check', 'The date given is not in the proper format.');
 			return false;
+		}
+	}
+	
+	function check_groupid_perm($groupid) {
+		$session_data = $this->session->userdata('loggedin');
+		$this->db_ragnarok->select('acctgroupmax');
+		$query = $this->db_ragnarok->get_where('hat_groups', array('id' => $session_data['group']));
+		$queryResult = $query->row();
+		if ($queryResult->acctgroupmax >= $groupid) {
+			return True;
+		}
+		else {
+			$this->form_validation->set_message('check_groupid_perm', "You may not create or edit a game account to have a higher group ID than {$queryResult->acctgroupmax}");
+			return False;
 		}
 	}
 }
