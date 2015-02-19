@@ -214,7 +214,8 @@ class Account extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		else {
-			$this->load->view('accessdenied');
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied',$data);
 		}
 		$this->load->view('footer-nocharts');
 	}

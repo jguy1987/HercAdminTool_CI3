@@ -14,6 +14,9 @@
 				case "groupdeny": 
 					echo "<p>You may not edit a user who's group is equal to or higher than your own! Return to the <a href='/'>dashboard</a>.";
 					break;
+				default:
+					echo "<p>General failure. Return to the <a href='/'>dashboard</a>.";
+					break;
 			} ?>
 		</div>
 	</div>
