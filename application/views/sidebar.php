@@ -33,9 +33,11 @@
 					<li>
 						<a href="/character/listchars">List/Search Characters</a>
 					</li>
+					<?php if ($check_perm['whosonline'] == 1) { ?>
 					<li>
 						<a href="/character/whosonline">View Online</a>
 					</li>
+					<?php } ?>
 				</ul>
 			</li>
 			<?php if ($check_perm['atcmdlog'] == 1 || $check_perm['branchlog'] == 1 || $check_perm['chatlog'] == 1 || $check_perm['loginlog'] == 1 || $check_perm['mvplog'] == 1 || $check_perm['npclog'] == 1 || $check_perm['picklog'] == 1 || $check_perm['zenylog'] == 1) { ?>
