@@ -57,6 +57,8 @@ class Account extends MY_Controller {
 			'acct_name'	=> $this->input->post('acct_name'),
 			'email'		=> $this->input->post('email'),
 			'gender'		=> $this->input->post('gender'),
+			'isGM'		=> $this->input->post('isGM'),
+			'isBanned'	=> $this->input->post('isBanned'),
 		);
 		$data['search_results'] = $this->accountmodel->search_accts($searchTerms);
 		$this->load->view('account/search', $data);

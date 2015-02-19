@@ -31,6 +31,20 @@
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-md-3">
+						<label>Is Banned?</label>
+						<input type="checkbox" name="isBanned" value="1" />
+					</div>
+					<div class="col-md-3">
+					</div>
+					<div class="col-md-3">
+					</div>
+					<div class="col-md-3">
+						<label>Is GM?</label>
+						<input type="checkbox" name="isGM" value="1" />
+					</div>
+				</div>
+				<div class="row">
 					<center><button type="submit" class="btn btn-success">Submit search</button></center>
 				</div>
 			<?php echo form_close(); ?>
