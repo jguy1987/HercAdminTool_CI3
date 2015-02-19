@@ -63,10 +63,10 @@
 								<tr>
 									<td width="200px"><label>Gender</label></td>
 									<td width="200px"><label class="radio-inline">
-									<input type="radio" name="gender" id="optionsRadiosInline1" value="M" <?php if ($acct_data->sex == "M") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0) { echo "disabled"; } ?>/>Male
+									<input type="radio" name="gender" id="optionsRadiosInline1" value="M" <?php if ($acct_data->sex == "M") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0 && $acct_data->sex == "F") { echo "disabled"; } ?>/>Male
 									</label>
 									<label class="radio-inline">
-									<input type="radio" name="gender" id="optionsRadiosInline2" value="F" <?php if ($acct_data->sex == "F") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0) { echo "disabled"; } ?> />Female
+									<input type="radio" name="gender" id="optionsRadiosInline2" value="F" <?php if ($acct_data->sex == "F") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0 && $acct_data->sex == "M") { echo "disabled"; } ?> />Female
 									</label></td>
 								</tr>
 								</table>
@@ -79,7 +79,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Email Address</label></td>
-									<td width="200px"><input class="form-control" size="40px" name="email" value="<?php echo $acct_data->email; ?>" <?php if ($check_perm['editacctemail'] == 0) { echo "disabled"; } ?> /></td>
+									<td width="200px"><input class="form-control" size="40px" name="email" value="<?php echo $acct_data->email; ?>" <?php if ($check_perm['editacctemail'] == 0) { echo "readonly"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -89,7 +89,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>GroupID</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" min="0" max="99" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "disabled"; } ?> /></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" min="0" max="99" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "readonly"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -111,7 +111,7 @@
 								<table>
 								<tr>
 									<td width="200px"><label>Birthdate</label></td>
-									<td width="200px"><input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" <?php if ($check_perm['editacctbd'] == 0) { echo "disabled"; } ?> /></td>
+									<td width="200px"><input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" <?php if ($check_perm['editacctbd'] == 0) { echo "readonly"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
@@ -122,8 +122,8 @@
 							<div class="form-group">
 								<table>
 								<tr>
-									<td width="200px"><label>Character Slots</label></td>
-									<td width="200px"><input type="number" min="0" max="9" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "disabled"; } ?> /></td>
+									<td width="200px"><label>Character Reserved Slots</label></td>
+									<td width="200px"><input type="number" min="0" max="9" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "readonly"; } ?> /></td>
 								</tr>
 								</table>
 							</div>
