@@ -15,7 +15,7 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="details">
-				<h4>Basic Account Info</h4><br />
+				<h4>Basic Character Info</h4><br />
 				<?php if ($charinfo->online == 1) { ?>
 					<center><div style="color:#F80000;">Character is online and cannot be edited!</div></center>
 				<?php } ?>
@@ -23,7 +23,7 @@
 				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline')); ?>
 				<fieldset>
 					<div class="row">
-						<div class="cold-lg-12">
+						<div class="col-lg-12">
 							<center><h3>General Character Info</h3></center>
 						</div>
 					</div>
@@ -120,6 +120,28 @@
 							<div class="form-group">
 								<table>
 								<tr>
+									<td width="200px"><label>HP/MaxHP</label></td>
+									<td width="200px"><?php echo $charinfo->hp; ?>/<?php echo $charinfo->max_hp; ?></td>
+								</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<table>
+								<tr>
+									<td width="200px"><label>SP/MaxSP</label></td>
+									<td width="200px"><?php echo $charinfo->sp; ?>/<?php echo $charinfo->max_sp; ?></td>
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<table>
+								<tr>
 									<td width="200px"><label>Last Position</label></td>
 									<td width="200px"><?php echo $charinfo->last_map; ?>&nbsp;<?php echo $charinfo->last_x; ?>,&nbsp;<?php echo $charinfo->last_y; ?></td>
 								</tr>
@@ -139,7 +161,7 @@
 					</div>
 					<div class="row">
 						<div class="cold-lg-12">
-							<center><h3>Character Stats</h3></center>
+							<center><h3>Character Level Information</h3></center>
 						</div>
 					</div>
 					<div class="row">
@@ -167,18 +189,8 @@
 							<div class="form-group">
 								<table>
 								<tr>
-									<td width="200px"><label>HP/MaxHP</label></td>
-									<td width="200px"><?php echo $charinfo->hp; ?>/<?php echo $charinfo->max_hp; ?></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>SP/MaxSP</label></td>
-									<td width="200px"><?php echo $charinfo->sp; ?>/<?php echo $charinfo->max_sp; ?></td>
+									<td width="200px"><label>Status Points</label></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -209,21 +221,19 @@
 							<div class="form-group">
 								<table>
 								<tr>
-									<td width="200px"><label>Status Points</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
 									<td width="200px"><label>Skill Points</label></td>
 									<td width="200px"><input type="number" class="form-control" size="40px" name="skill_point" min="1" max="999" value="<?php echo $charinfo->skill_point; ?>" /></td>
 								</tr>
 								</table>
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<center><h3>Character Stats</h3></center>
+						</div>
+						<div class="col-lg-6">
+							<center><h3>Character Appearance Info</h3></center>
 						</div>
 					</div>
 					<div class="row">
@@ -321,16 +331,8 @@
 								</table>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Karma</label></td>
-									<td width="200px"><input type="number" class="form-control" size="15px" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
 								<table>
@@ -341,9 +343,45 @@
 								</table>
 							</div>
 						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<table>
+								<tr>
+									<td width="200px"><label>Karma</label></td>
+									<td width="200px"><input type="number" class="form-control" size="15px" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
+								</tr>
+								</table>
+							</div>
+						</div>
 					</div>
 				</fieldset>
 				<?php echo form_close(); ?>
+			</div>
+			<div class="tab-pane fade in" id="items">
+				<h4>Character Item Information</h4><br />
+				<?php if ($charinfo->online == 1) { ?>
+					<center><div style="color:#F80000;">Character is online and cannot be edited!</div></center>
+				<?php } ?>
+				<div class="row">
+					<div class="col-lg-12">
+						<center><h3>Current Equipment</h3></center>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<center><h3>Usable Items</h3></center>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<center><h3>Equip Items</h3></center>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<center><h3>Etc Items</h3></center>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
