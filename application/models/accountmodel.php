@@ -261,4 +261,22 @@ Class Accountmodel extends CI_Model {
 		);
 		return $acctInfo;
 	}
+	
+	function search_accts($searchTerms) {
+		// First, figure out what we're searching for
+		if (empty($searchTerms['acct_id']) == false) {
+			$this->db_ragnarok->or_like('account_id', $searchTerms['acct_id']);
+		}
+		if (empty($searchTerms['acct_name']) == false) {
+			$this->db_ragnarok->or_like('userid', $searchTerms['acct_name']);
+		}
+		if (empty($searchTerms['email']) == false) {
+			$this->db_ragnarok->or_like('email', $searchTerms['email']);
+		}
+		if (empty($searchTerms['gender']) == false) {
+			$this->db_ragnarok->or_like('sex', $searchTerms['gender']);
+		}
+		$q = $this->db_ragnarok->get('login');
+		return $q->result_array();
+	}
 }

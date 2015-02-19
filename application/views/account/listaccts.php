@@ -8,6 +8,33 @@
 	</div>
 	<p>Listing in-game accounts. Click on the edit button or the account ID to edit that account.</p>
 	<div class="panel-body">
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-parent="#accordion" href="#searchCollapse">Search Accounts</button>
+		<div id="searchCollapse" class="panel-collapse collapse">
+			<?php echo form_open('account/search'); ?>
+				<div class="row">
+					<div class="col-md-3">
+						<label>Account ID</label>
+						<input type="text" name="acct_id" />
+					</div>
+					<div class="col-md-3">
+						<label>Account Name</label>
+						<input type="text" name="acct_name" />
+					</div>
+					<div class="col-md-3">
+						<label>Email Address</label>
+						<input type="text" name="email" />
+					</div>
+					<div class="col-md-3">
+						<label>Gender</label>
+						<input type="radio" name="gender" id="optionsRadiosInline1" value="M" />Male
+						<input type="radio" name="gender" id="optionsRadiosInline2" value="F" />Female
+					</div>
+				</div>
+				<div class="row">
+					<center><button type="submit" class="btn btn-success">Submit search</button></center>
+				</div>
+			<?php echo form_close(); ?>
+		</div>					
 		<?php echo validation_errors(); ?>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">

@@ -49,6 +49,20 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function search() {
+		$session_data = $this->session->userdata('loggedin');
+		$this->usermodel->update_user_active($session_data['id'],"accounts/search");
+		$searchTerms = array(
+			'acct_id'	=> $this->input->post('acct_id'),
+			'acct_name'	=> $this->input->post('acct_name'),
+			'email'		=> $this->input->post('email'),
+			'gender'		=> $this->input->post('gender'),
+		);
+		$data['search_results'] = $this->accountmodel->search_accts($searchTerms);
+		$this->load->view('account/search', $data);
+		$this->load->view('footer-nocharts');
+	}
+	
 	public function verifycreate() {
 		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[login.userid]');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
