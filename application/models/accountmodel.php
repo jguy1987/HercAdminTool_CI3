@@ -216,5 +216,49 @@ Class Accountmodel extends CI_Model {
 			$this->db_ragnarok->set('unban_time', strtotime($q2_maxban->expiredate));
 			$this->db_ragnarok->update('login');
 		}
-	}			
+	}
+	
+	function reset_pass($aid,$userid) {
+		$timeNow = date("Y-m-d H:i:s");
+		
+		// First, need to generate new password.
+		$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%&';
+		$newPass = '';
+		$pincode = '';
+		for ($i = 0; $i < 15; $i++) {
+			$newPass .= $chars[rand(0, strlen($chars) - 1)];
+		}
+		$pinchars = '0123456789';
+		for ($i = 0; $i < 4; $i++) {
+			$pincode .= $pinchars[rand(0, strlen($pinchars) - 1)];
+		}
+		$newPassMD5 = md5($newPass);
+		
+		// Update the password
+		$this->db_ragnarok->where('account_id', $aid);
+		$this->db_ragnarok->set('user_pass', $newPassMD5);
+		$this->db_ragnarok->update('login');
+		
+		// Grab the email address and account name from the database to send an email
+		$this->db_ragnarok->select('userid,email');
+		$query = $this->db_ragnarok->get_where('login', array('account_id' => $aid));
+		$getAcctInfo = $query->row();
+		
+		// Then update the log to reflect the password being reset.
+		$this->db_ragnarok->set('datetime', $timeNow);
+		$this->db_ragnarok->set('user', $userid);
+		$this->db_ragnarok->set('acct_id', $aid);
+		$this->db_ragnarok->set('chg_attr', 'password');
+		$this->db_ragnarok->set('old_value', 0);
+		$this->db_ragnarok->set('new_value', 0);
+		$this->db_ragnarok->insert('hat_accteditlog');
+		
+		// Finally, put everything in a nice array to return.
+		$acctInfo = array(
+			'pass'	=> $newPass,
+			'userid'	=> $getAcctInfo->userid,
+			'email'	=> $getAcctInfo->email
+		);
+		return $acctInfo;
+	}
 }

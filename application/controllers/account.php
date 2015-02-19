@@ -8,6 +8,7 @@ class Account extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$this->load->model('accountmodel');
+		$this->load->model('adminmodel');
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
@@ -202,6 +203,22 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function resetpass($aid) {
+		$session_data = $this->session->userdata('loggedin');
+		// Check to make sure admin has permissions to reset password
+		if ($this->adminmodel->check_perm($session_data['group'],'resetacctpass') == True) {
+			$chgPass = $this->accountmodel->reset_pass($aid, $session_data['id']);
+			$this->send_acct_email($chgPass,$chgPass,"chgpass");
+			$data['referpage'] = "resetpass";
+			$data['acct_id'] = $aid;
+			$this->load->view('formsuccess', $data);
+		}
+		else {
+			$this->load->view('accessdenied');
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
 		$this->email->to($newAcct['email']);
@@ -218,6 +235,16 @@ Pincode: {$data['pincode']}
 Thank you.");
 				$this->email->send();
 				return $this->email->print_debugger();
+				break;
+			case "chgpass":
+				$this->email->subject("Your password for {$this->config->item('servername')} has been reset.");
+				$this->email->message("Hello {$newAcct['userid']},
+Your password for {$this->config->item('servername')} has been reset. You will immediately use this password to login to the game and start playing!
+
+Password: {$data['pass']}
+
+Thank you.");
+				$this->email->send();
 				break;
 		}
 	}
