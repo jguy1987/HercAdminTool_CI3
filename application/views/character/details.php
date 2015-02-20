@@ -392,9 +392,23 @@
 													<td><?php echo $charItem['name_japanese']; ?></td>
 													<td><?php echo $charItem['amount']; ?></td>
 													<td><?php echo $charItem['unique_id']; ?></td>
-													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#itemdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#equipdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
 													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
 												<?php } ?>
+											</tr>
+											<tr>
+												<td colspan="7" class="hiddenRow">
+													<div id="equipdetails<?php echo $charItem['id']; ?>" class="panel-collapse collapse">
+														<div class="panel-body">
+															<strong>Refine level:</strong>&nbsp;<?php echo $charItem['refine']; ?>&nbsp;&nbsp;&nbsp;<strong>Attribute:</strong>&nbsp;<?php echo $charItem['attribute']; ?>&nbsp;&nbsp;&nbsp;<strong>Bound?:</strong>&nbsp;<?php if ($charItem['bound'] == 1) { echo "Yes"; } else { echo "No"; }?><br />
+															<br />
+															<strong>Card 1:</strong>&nbsp;<?php echo $charItem['card0']; ?></br>
+															<strong>Card 2:</strong>&nbsp;<?php echo $charItem['card1']; ?></br>
+															<strong>Card 3:</strong>&nbsp;<?php echo $charItem['card2']; ?></br>
+															<strong>Card 4:</strong>&nbsp;<?php echo $charItem['card3']; ?></br>
+														</div>
+													</div>
+												</td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -425,9 +439,23 @@
 													<td><?php echo $charItem['amount']; ?></td>
 													<td><?php echo $charItem['identify']; ?></td>
 													<td><?php echo $charItem['unique_id']; ?></td>
-													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#itemdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#packdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
 													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
 												<?php } ?>
+											</tr>
+											<tr>
+												<td colspan="7" class="hiddenRow">
+													<div id="packdetails<?php echo $charItem['id']; ?>" class="panel-collapse collapse">
+														<div class="panel-body">
+															<strong>Refine level:</strong>&nbsp;<?php echo $charItem['refine']; ?>&nbsp;&nbsp;&nbsp;<strong>Attribute:</strong>&nbsp;<?php echo $charItem['attribute']; ?>&nbsp;&nbsp;&nbsp;<strong>Bound?:</strong>&nbsp;<?php if ($charItem['bound'] == 1) { echo "Yes"; } else { echo "No"; }?><br />
+															<br />
+															<strong>Card 1:</strong>&nbsp;<?php echo $charItem['card0']; ?></br>
+															<strong>Card 2:</strong>&nbsp;<?php echo $charItem['card1']; ?></br>
+															<strong>Card 3:</strong>&nbsp;<?php echo $charItem['card2']; ?></br>
+															<strong>Card 4:</strong>&nbsp;<?php echo $charItem['card3']; ?></br>
+														</div>
+													</div>
+												</td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -458,9 +486,23 @@
 													<td><?php echo $cartItem['amount']; ?></td>
 													<td><?php echo $cartItem['identify']; ?></td>
 													<td><?php echo $cartItem['unique_id']; ?></td>
-													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#itemdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#cartdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
 													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
 												<?php } ?>
+											</tr>
+											<tr>
+												<td colspan="7" class="hiddenRow">
+													<div id="cartdetails<?php echo $charItem['id']; ?>" class="panel-collapse collapse">
+														<div class="panel-body">
+															<strong>Refine level:</strong>&nbsp;<?php echo $charItem['refine']; ?>&nbsp;&nbsp;&nbsp;<strong>Attribute:</strong>&nbsp;<?php echo $charItem['attribute']; ?>&nbsp;&nbsp;&nbsp;<strong>Bound?:</strong>&nbsp;<?php if ($charItem['bound'] == 1) { echo "Yes"; } else { echo "No"; }?><br />
+															<br />
+															<strong>Card 1:</strong>&nbsp;<?php echo $charItem['card0']; ?></br>
+															<strong>Card 2:</strong>&nbsp;<?php echo $charItem['card1']; ?></br>
+															<strong>Card 3:</strong>&nbsp;<?php echo $charItem['card2']; ?></br>
+															<strong>Card 4:</strong>&nbsp;<?php echo $charItem['card3']; ?></br>
+														</div>
+													</div>
+												</td>
 											</tr>
 										<?php } ?>
 									</tbody>
