@@ -15,15 +15,17 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="details">
-				<h4>Basic Account Info</h4><br />
+				<h4>Basic Character Info</h4><br />
 				<?php if ($charinfo->online == 1) { ?>
-					<center><div style="color:#F80000;">Character is online and cannot be edited!</div></center>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
 				<?php } ?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline')); ?>
 				<fieldset>
 					<div class="row">
-						<div class="cold-lg-12">
+						<div class="col-lg-12">
 							<center><h3>General Character Info</h3></center>
 						</div>
 					</div>
@@ -120,6 +122,28 @@
 							<div class="form-group">
 								<table>
 								<tr>
+									<td width="200px"><label>HP/MaxHP</label></td>
+									<td width="200px"><?php echo $charinfo->hp; ?>/<?php echo $charinfo->max_hp; ?></td>
+								</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<table>
+								<tr>
+									<td width="200px"><label>SP/MaxSP</label></td>
+									<td width="200px"><?php echo $charinfo->sp; ?>/<?php echo $charinfo->max_sp; ?></td>
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<table>
+								<tr>
 									<td width="200px"><label>Last Position</label></td>
 									<td width="200px"><?php echo $charinfo->last_map; ?>&nbsp;<?php echo $charinfo->last_x; ?>,&nbsp;<?php echo $charinfo->last_y; ?></td>
 								</tr>
@@ -139,7 +163,7 @@
 					</div>
 					<div class="row">
 						<div class="cold-lg-12">
-							<center><h3>Character Stats</h3></center>
+							<center><h3>Character Level Information</h3></center>
 						</div>
 					</div>
 					<div class="row">
@@ -167,18 +191,8 @@
 							<div class="form-group">
 								<table>
 								<tr>
-									<td width="200px"><label>HP/MaxHP</label></td>
-									<td width="200px"><?php echo $charinfo->hp; ?>/<?php echo $charinfo->max_hp; ?></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>SP/MaxSP</label></td>
-									<td width="200px"><?php echo $charinfo->sp; ?>/<?php echo $charinfo->max_sp; ?></td>
+									<td width="200px"><label>Status Points</label></td>
+									<td width="200px"><input type="number" class="form-control" size="40px" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
 								</tr>
 								</table>
 							</div>
@@ -209,21 +223,19 @@
 							<div class="form-group">
 								<table>
 								<tr>
-									<td width="200px"><label>Status Points</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
 									<td width="200px"><label>Skill Points</label></td>
 									<td width="200px"><input type="number" class="form-control" size="40px" name="skill_point" min="1" max="999" value="<?php echo $charinfo->skill_point; ?>" /></td>
 								</tr>
 								</table>
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<center><h3>Character Stats</h3></center>
+						</div>
+						<div class="col-lg-6">
+							<center><h3>Character Appearance Info</h3></center>
 						</div>
 					</div>
 					<div class="row">
@@ -321,16 +333,8 @@
 								</table>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Karma</label></td>
-									<td width="200px"><input type="number" class="form-control" size="15px" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
 								<table>
@@ -341,10 +345,210 @@
 								</table>
 							</div>
 						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<table>
+								<tr>
+									<td width="200px"><label>Karma</label></td>
+									<td width="200px"><input type="number" class="form-control" size="15px" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
+								</tr>
+								</table>
+							</div>
+						</div>
 					</div>
 				</fieldset>
 				<?php echo form_close(); ?>
 			</div>
+			<div class="tab-pane fade in" id="items">
+				<h4>Character Item Information</h4><br />
+				<?php if ($charinfo->online == 1) { ?>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
+				<?php } ?>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>Equipped</strong>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>
+										<th>Equipped to</th>
+										<th>ItemID</th>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Unique ID</th>
+										<th>Details</th>
+										<th>Options</th>
+									</thead>
+									<tbody>
+										<?php foreach ($char_items as $charItem) { ?>
+											<tr>
+												<?php if ($charItem['equip'] > 0) { ?>
+													<td><?php echo $equipLocation[$charItem['equip']]; ?></td>
+													<td><?php echo $charItem['nameid']; ?></td>
+													<td><?php echo $charItem['name_japanese']; ?></td>
+													<td><?php echo $charItem['amount']; ?></td>
+													<td><?php echo $charItem['unique_id']; ?></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#equipdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+												<?php } ?>
+											</tr>
+											<tr>
+												<td colspan="7" class="hiddenRow">
+													<div id="equipdetails<?php echo $charItem['id']; ?>" class="panel-collapse collapse">
+														<div class="panel-body">
+															<strong>Refine level:</strong>&nbsp;<?php echo $charItem['refine']; ?>&nbsp;&nbsp;&nbsp;<strong>Attribute:</strong>&nbsp;<?php echo $charItem['attribute']; ?>&nbsp;&nbsp;&nbsp;<strong>Bound?:</strong>&nbsp;<?php if ($charItem['bound'] == 1) { echo "Yes"; } else { echo "No"; }?><br />
+															<br />
+															<strong>Card 1:</strong>&nbsp;<?php echo $charItem['card0']; ?></br>
+															<strong>Card 2:</strong>&nbsp;<?php echo $charItem['card1']; ?></br>
+															<strong>Card 3:</strong>&nbsp;<?php echo $charItem['card2']; ?></br>
+															<strong>Card 4:</strong>&nbsp;<?php echo $charItem['card3']; ?></br>
+														</div>
+													</div>
+												</td>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>													
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>In inventory</strong>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>
+										<th>ItemID</th>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Identified?</th>
+										<th>Unique ID</th>
+										<th>Details</th>
+										<th>Options</th>
+									</thead>
+									<tbody>
+										<?php foreach ($char_items as $charItem) { ?>
+											<tr>
+												<?php if ($charItem['equip'] < 1) { ?>
+													<td><?php echo $charItem['nameid']; ?></td>
+													<td><?php echo $charItem['name_japanese']; ?></td>
+													<td><?php echo $charItem['amount']; ?></td>
+													<td><?php echo $charItem['identify']; ?></td>
+													<td><?php echo $charItem['unique_id']; ?></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#packdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+												<?php } ?>
+											</tr>
+											<tr>
+												<td colspan="7" class="hiddenRow">
+													<div id="packdetails<?php echo $charItem['id']; ?>" class="panel-collapse collapse">
+														<div class="panel-body">
+															<strong>Refine level:</strong>&nbsp;<?php echo $charItem['refine']; ?>&nbsp;&nbsp;&nbsp;<strong>Attribute:</strong>&nbsp;<?php echo $charItem['attribute']; ?>&nbsp;&nbsp;&nbsp;<strong>Bound?:</strong>&nbsp;<?php if ($charItem['bound'] == 1) { echo "Yes"; } else { echo "No"; }?><br />
+															<br />
+															<strong>Card 1:</strong>&nbsp;<?php echo $charItem['card0']; ?></br>
+															<strong>Card 2:</strong>&nbsp;<?php echo $charItem['card1']; ?></br>
+															<strong>Card 3:</strong>&nbsp;<?php echo $charItem['card2']; ?></br>
+															<strong>Card 4:</strong>&nbsp;<?php echo $charItem['card3']; ?></br>
+														</div>
+													</div>
+												</td>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>In cart</strong>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>
+										<th>ItemID</th>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Identified?</th>
+										<th>Unique ID</th>
+										<th>Details</th>
+										<th>Options</th>
+									</thead>
+									<tbody>
+										<?php foreach ($char_cartItems as $cartItem) { ?>
+											<tr>
+												<?php if ($cartItem['equip'] < 1) { ?>
+													<td><?php echo $cartItem['nameid']; ?></td>
+													<td><?php echo $cartItem['name_japanese']; ?></td>
+													<td><?php echo $cartItem['amount']; ?></td>
+													<td><?php echo $cartItem['identify']; ?></td>
+													<td><?php echo $cartItem['unique_id']; ?></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#cartdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+												<?php } ?>
+											</tr>
+											<tr>
+												<td colspan="7" class="hiddenRow">
+													<div id="cartdetails<?php echo $charItem['id']; ?>" class="panel-collapse collapse">
+														<div class="panel-body">
+															<strong>Refine level:</strong>&nbsp;<?php echo $charItem['refine']; ?>&nbsp;&nbsp;&nbsp;<strong>Attribute:</strong>&nbsp;<?php echo $charItem['attribute']; ?>&nbsp;&nbsp;&nbsp;<strong>Bound?:</strong>&nbsp;<?php if ($charItem['bound'] == 1) { echo "Yes"; } else { echo "No"; }?><br />
+															<br />
+															<strong>Card 1:</strong>&nbsp;<?php echo $charItem['card0']; ?></br>
+															<strong>Card 2:</strong>&nbsp;<?php echo $charItem['card1']; ?></br>
+															<strong>Card 3:</strong>&nbsp;<?php echo $charItem['card2']; ?></br>
+															<strong>Card 4:</strong>&nbsp;<?php echo $charItem['card3']; ?></br>
+														</div>
+													</div>
+												</td>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>											
+			</div>
+			<div class="tab-pane fade in" id="log">
+				<h4>Character Log</h4><br />
+				<?php if ($charinfo->online == 1) { ?>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
+				<?php } ?>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<th>Datetime</th>
+									<th>Type</th>
+									<th>Acct ID</th>
+									<th>Char Name</th>
+									<th>STR / AGI / VIT / INT / DEX / LUK</th>
+									<th>Hair / Hair color</th>
+								</thead>
+								<tbody>
+									<?php foreach ($charlog_data as $charLog) { ?>
+										<tr>
+											<td><?php echo $charLog['time']; ?></td>
+											<td><?php echo $charLog['char_msg']; ?></td>
+											<td><a href="/account/details/<?php echo $charLog['account_id']; ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
+											<td><?php echo $charLog['name']; ?></td>
+											<td><?php echo "".$charLog['str']."&nbsp;/&nbsp;".$charLog['agi']."&nbsp;/&nbsp;".$charLog['vit']."&nbsp;/&nbsp;".$charLog['INT']."&nbsp;/&nbsp;".$charLog['dex']."&nbsp;/&nbsp;".$charLog['luk'].""; ?></td>
+											<td><?php echo "".$charLog['hair']."&nbsp;/&nbsp;".$charLog['hair_color'].""; ?></td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
