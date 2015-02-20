@@ -19,4 +19,13 @@ Class Charmodel extends CI_Model {
 		$query = $this->db_ragnarok->get();
 		return $query->row();
 	}
+	
+	function get_char_items($cid) {
+		$this->db_ragnarok->select('inventory.*,item_db.id,item_db.japanese_name,item_db.type');
+		$this->db_ragnarok->from('inventory')->order_by('item_db.id');
+		$this->db_ragnarok->where('inventory.char_id', $cid);
+		$this->db_ragnarok->join('item_db', 'inventory.nameid = item_db.id', 'left');
+		$q = $this->db_ragnarok->get();
+		return $q->result_array();
+	}
 }
