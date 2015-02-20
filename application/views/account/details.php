@@ -271,7 +271,7 @@
 										<td><?php if (isset($bd['unblock_date']) == TRUE) { ?><center><a data-toggle="collapse" data-parent="#accordion" href="#ublockcomment<?php echo $bd['blockid']; ?>"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i></button></a></center><?php } ?></td>
 										<td><?php if ($bd['expiredate'] > date('Y-m-d H:i:s') || $bd['block_type'] == "perm") { ?><button type="button" class="btn btn-info" id="delBlockOpen" data-toggle="modal" data-target="#delBlock" data-id="<?php echo $bd["blockid"]; ?>" <?php if ($check_perm['unbanaccount'] == 0 || $bd['unblock_date'] > 0) { echo "disabled"; } ?> >Unblock</button><?php } ?></td>
 									</tr>
-									<tr><td colspan="9">
+									<tr><td colspan="9" class="hiddenRow">
 										<div id="blockcomment<?php echo $bd['blockid']; ?>" class="panel-collapse collapse">
 											<div class="panel-body">
 												<strong>Block Comment:</strong><br /><?php echo $bd['block_comment']; ?>
