@@ -17,7 +17,9 @@
 			<div class="tab-pane fade in active" id="details">
 				<h4>Basic Character Info</h4><br />
 				<?php if ($charinfo->online == 1) { ?>
-					<center><div style="color:#F80000;">Character is online and cannot be edited!</div></center>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
 				<?php } ?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline')); ?>
@@ -360,29 +362,115 @@
 			<div class="tab-pane fade in" id="items">
 				<h4>Character Item Information</h4><br />
 				<?php if ($charinfo->online == 1) { ?>
-					<center><div style="color:#F80000;">Character is online and cannot be edited!</div></center>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
 				<?php } ?>
 				<div class="row">
 					<div class="col-lg-12">
-						<center><h3>Current Equipment</h3></center>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>Equipped</strong>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>
+										<th>Equipped to</th>
+										<th>ItemID</th>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Unique ID</th>
+										<th>Details</th>
+										<th>Options</th>
+									</thead>
+									<tbody>
+										<?php foreach ($char_items as $charItem) { ?>
+											<tr>
+												<?php if ($charItem['equip'] > 0) { ?>
+													<td><?php echo $equipLocation[$charItem['equip']]; ?></td>
+													<td><?php echo $charItem['nameid']; ?></td>
+													<td><?php echo $charItem['name_japanese']; ?></td>
+													<td><?php echo $charItem['amount']; ?></td>
+													<td><?php echo $charItem['unique_id']; ?></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#itemdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+												<?php } ?>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>													
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>In inventory</strong>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>
+										<th>ItemID</th>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Identified?</th>
+										<th>Unique ID</th>
+										<th>Details</th>
+										<th>Options</th>
+									</thead>
+									<tbody>
+										<?php foreach ($char_items as $charItem) { ?>
+											<tr>
+												<?php if ($charItem['equip'] < 1) { ?>
+													<td><?php echo $charItem['nameid']; ?></td>
+													<td><?php echo $charItem['name_japanese']; ?></td>
+													<td><?php echo $charItem['amount']; ?></td>
+													<td><?php echo $charItem['identify']; ?></td>
+													<td><?php echo $charItem['unique_id']; ?></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#itemdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+												<?php } ?>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>In cart</strong>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>
+										<th>ItemID</th>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Identified?</th>
+										<th>Unique ID</th>
+										<th>Details</th>
+										<th>Options</th>
+									</thead>
+									<tbody>
+										<?php foreach ($char_cartItems as $cartItem) { ?>
+											<tr>
+												<?php if ($cartItem['equip'] < 1) { ?>
+													<td><?php echo $cartItem['nameid']; ?></td>
+													<td><?php echo $cartItem['name_japanese']; ?></td>
+													<td><?php echo $cartItem['amount']; ?></td>
+													<td><?php echo $cartItem['identify']; ?></td>
+													<td><?php echo $cartItem['unique_id']; ?></td>
+													<td><center><a data-toggle="collapse" data-parent="#accordion" href="#itemdetails<?php echo $charItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+													<td><button type="button" class="btn btn-success btn-sm">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+												<?php } ?>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<center><h3>Usable Items</h3></center>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<center><h3>Equip Items</h3></center>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<center><h3>Etc Items</h3></center>
-					</div>
-				</div>
+				</div>											
 			</div>
+			
 		</div>
 	</div>
 </div>
