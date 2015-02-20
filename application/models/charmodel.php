@@ -37,4 +37,10 @@ Class Charmodel extends CI_Model {
 		$q = $this->db_ragnarok->get();
 		return $q->result_array();
 	}
+	
+	function get_charlog($cid) {
+		$this->db_ragnarok->order_by('time','desc');
+		$q = $this->db_ragnarok->get_where('charlog', array('char_id' => $cid));
+		return $q->result_array();
+	}
 }

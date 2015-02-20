@@ -470,7 +470,43 @@
 					</div>
 				</div>											
 			</div>
-			
+			<div class="tab-pane fade in" id="log">
+				<h4>Character Log</h4><br />
+				<?php if ($charinfo->online == 1) { ?>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
+				<?php } ?>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<th>Datetime</th>
+									<th>Type</th>
+									<th>Acct ID</th>
+									<th>Char Name</th>
+									<th>STR / AGI / VIT / INT / DEX / LUK</th>
+									<th>Hair / Hair color</th>
+								</thead>
+								<tbody>
+									<?php foreach ($charlog_data as $charLog) { ?>
+										<tr>
+											<td><?php echo $charLog['time']; ?></td>
+											<td><?php echo $charLog['char_msg']; ?></td>
+											<td><a href="/account/details/<?php echo $charLog['account_id']; ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
+											<td><?php echo $charLog['name']; ?></td>
+											<td><?php echo "".$charLog['str']."&nbsp;/&nbsp;".$charLog['agi']."&nbsp;/&nbsp;".$charLog['vit']."&nbsp;/&nbsp;".$charLog['INT']."&nbsp;/&nbsp;".$charLog['dex']."&nbsp;/&nbsp;".$charLog['luk'].""; ?></td>
+											<td><?php echo "".$charLog['hair']."&nbsp;/&nbsp;".$charLog['hair_color'].""; ?></td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

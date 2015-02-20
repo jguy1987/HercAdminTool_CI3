@@ -44,6 +44,7 @@ class Character extends MY_Controller {
 		$data['charinfo'] = $this->charmodel->get_char_info($cid);
 		$data['char_items'] = $this->charmodel->get_char_items($cid);
 		$data['char_cartItems'] = $this->charmodel->get_cart_items($cid);
+		$data['charlog_data'] = $this->charmodel->get_charlog($cid);
 		$data['class_list'] = $this->config->item('jobs');
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['equipLocation'] = $this->config->item('equipLocations');
