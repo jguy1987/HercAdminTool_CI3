@@ -10,6 +10,15 @@ Class Charmodel extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function get_char_list() {
+		$this->db_ragnarok->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name');
+		$this->db_ragnarok->from('char');
+		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id', 'left');
+		$this->db_ragnarok->join('party', 'char.party_id = party.party_id', 'left');
+		$q = $this->db_ragnarok->get();
+		return $q->result_array();
+	}
+	
 	function get_char_info($cid) {
 		$this->db_ragnarok->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name');
 		$this->db_ragnarok->from('char');
@@ -41,6 +50,39 @@ Class Charmodel extends CI_Model {
 	function get_charlog($cid) {
 		$this->db_ragnarok->order_by('time','desc');
 		$q = $this->db_ragnarok->get_where('charlog', array('char_id' => $cid));
+		return $q->result_array();
+	}
+	
+	function search_chars($charSearch) {
+		$this->db_ragnarok->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name');
+		$this->db_ragnarok->from('char');
+		if (empty($charSearch['char_id']) == false) {
+			$this->db_ragnarok->like('char.char_id', $charSearch['char_id']);
+		}
+		if (empty($charSearch['char_name']) == false) {
+			$this->db_ragnarok->like('char.name', $charSearch['char_name']);
+		}
+		if (empty($charSearch['gender']) == false) {
+			$this->db_ragnarok->where('char.sex', $charSearch['gender']);
+		}
+		if (empty($charSearch['class']) == false) {
+			$this->db_ragnarok->where('char.class', $charSearch['class']);
+		}
+		if (empty($charSearch['bLevelgt']) == false) {
+			$this->db_ragnarok->where('char.base_level >=', $charSearch['bLevelgt']);
+		}
+		if (empty($charSearch['bLevellt']) == false) {
+			$this->db_ragnarok->where('char.base_level <=', $charSearch['bLevellt']);
+		}
+		if (empty($charSearch['jLevelgt']) == false) {
+			$this->db_ragnarok->where('char.job_level >=', $charSearch['jLevelgt']);
+		}
+		if (empty($charSearch['jLevellt']) == false) {
+			$this->db_ragnarok->like('char.job_level <=', $charSearch['jLevellt']);
+		}
+		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id', 'left');
+		$this->db_ragnarok->join('party', 'char.party_id = party.party_id', 'left');
+		$q = $this->db_ragnarok->get();
 		return $q->result_array();
 	}
 }
