@@ -4,8 +4,13 @@ Eventually there will be an install script for you, but for now, manual install!
 
 1) Copy all files to your web directory.
 2) Edit /application/config/database.php according to your database settings.
-3) Edit config/config.php according to your website.
-4) Run admintool.sql on your database
-5) Add your first admin user via MySQL. Run this query on your database, edit the 'admin' and 'password' in "VALUES ('admin', MD5('password')" accordingly:
-INSERT INTO `admin`.`users` (`username`, `passwd`, `pemail`, `createdate`, `lastlogin`, `groupid`, `active`) VALUES ('admin', MD5('password'), 'youremail@domain.com', NOW(), '', '99', '1');
-6) Start enjoying!
+3) Edit /application/config/config.php according to your website.
+4) Edit /application/config/hat.php to your desired settings.
+5) Ensure the folloing packages are installed and/or activated: apache2, php5, php5-mcrypt, apache2 mod_rewrite, php5-mysql
+* Note: Mcrypt can be enabled in php5 by editing php.ini and adding `extension=mcrypt.so` into the file, then restarting apache.
+* mod_rewrite and the ability to Follow SymLinks and AllowOverrirde need to be set up for .htaccess
+6) Run admintool.sql on your database
+6a) At the moment, the control panel does not read logs, but the logs will be read from the SAME table as everything else.
+7) Add your first admin user via MySQL. Run this query on your database, edit the 'admin' and 'password' in "VALUES ('admin', MD5('password')" accordingly:
+INSERT INTO `hat_demo`.`hat_users` (`username`, `passwd`, `pemail`, `createdate`, `lastactive`, `groupid`, `disablelogin`) VALUES ('admin', MD5('password'), 'youremail@yourdomain.com', NOW(), '', '99', '0');
+8) Start enjoying!

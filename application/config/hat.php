@@ -14,6 +14,9 @@ $config['panelname'] = "HercAdminTool";
 // Server Name. 
 $config['servername'] = "YourRO";
 
+// Server Name (server config). This is EXACTLY what you set 'userid' to in /conf/map-server.conf
+$config['map_servername'] = "s1";
+
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
 
@@ -50,7 +53,16 @@ $config['smtp_pass'] = '';
 // smtp_port. Port number to connect to SMTP Server. Default 25. Only valid if protocol is set to 'smtp'.
 $config['smtp_port'] = 25;
 
-
+/* An array of block reasons. You can add more by adding a key of the next number and a reason in quotes. */
+$config["ban_reasons"] = array(
+	0		=> "Botting",
+	1		=> "Cheating",
+	2		=> "Exploiting",
+	3		=> "Hacking",
+	4		=> "Insult/Harassment",
+	5		=>	"Real Money Trading",
+	6		=>	"Security Ban",
+);
 /* Class settings. Grab list of class ID's and their classes */
 
 $config["jobs"] = array(
@@ -195,6 +207,30 @@ $config["jobs"] = array(
 	4112	=> "Baby Mechanic",
 );
 
+/* Array for Equip locations. */
+$config['equipLocations'] = array(
+	1			=> "Lower Headgear",
+	2			=> "Weapon",
+	4			=> "Garment",
+	8			=> "Accessory 1",
+	16			=> "Armor",
+	32			=> "Shield",
+	64			=> "Footgear",
+	128		=> "Accessory 2",
+	256		=> "Upper Headgear",
+	512		=> "Middle Headgear",
+	1024		=> "Costume Top Headgear",
+	2048		=> "Costume Mid Headgear",
+	4096		=> "Costume Low Headgear",
+	8192		=> "Costume Garment/Robe",
+	65536		=> "Shadow Armor",
+	131072 	=> "Shadow Weapon",
+	262144 	=> "Shadow Shield",
+	524288 	=> "Shadow Shoes",
+	1048576 	=> "Shadow Accessory 2",
+	2097152 	=> "Shadow Accessory 1",
+);
+
 $config["permissions"] = array(
 	'account'		=> array( // Permissions related to account management
 		'viewemail'			=> "View Email Address",
@@ -203,8 +239,9 @@ $config["permissions"] = array(
 		'editgender' 		=> "Edit Account Gender",
 		'addaccount'		=> "Add Game Account",
 		'editacctgroup'	=> "Edit game account group ID",
+		'acctgroupmax'		=> "Max group level in game account able to edit", // This determines if the user can edit any GM in-game accounts by their Group ID. Even if they have permissions to edit the email, if the group ID of the account is higher than this, they can't edit it.
 		'editacctbd'		=> "Edit Account Birthdate",
-		'editacctslots'	=> "Edit Account Slots",
+		'editacctslots'	=> "Edit Account Reserved Slots",
 		'usepurge'			=> "Purge Inactive Accounts",
 		'banaccount'		=> "Ban Account",
 		'unbanaccount'		=> "Unban Account",
@@ -223,11 +260,14 @@ $config["permissions"] = array(
 		'changeposition'	=> "Reset Character Position",
 	),
 	'admin'			=> array( // Permissions related to panel management
+		'addgroup'			=> "Add Admin Group",
 		'editgroups'		=> "Edit Admin Groups",
 		'addadmin'			=> "Add Admin",
 		'editadmin'			=> "Edit Admin",
 		'deladmin'			=> "Remove Admin",
 		'hatconfig'			=> "AdminTool Configuration Access",
+		'editadminnews'	=> "Edit Admin Announcements",
+		'viewadminlogs'	=> "View Admin Logs",
 	),
 	'ticket'			=> array( // Permissions related to ticket management
 		'viewtickets'		=> "View Tickets",
@@ -238,6 +278,7 @@ $config["permissions"] = array(
 		'canreopen'			=> "Reopen Tickets",
 	),
 	'server'			=> array( // Permissions related to server management
+		'whosonline'		=> "View Who's Online",
 		'announcement'		=> "Manage System Broadcasts",
 		'items'				=> "Manage server items",
 		'itemshop'			=> "Manage Item Shop",

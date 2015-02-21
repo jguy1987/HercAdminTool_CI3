@@ -12,7 +12,7 @@
 				</div>
 			</li>
 			<li>
-				<a href="http://admin.aesiraonline.com"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+				<a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 			</li>
 			<li>
 				<a href="#"><i class="fa fa-fw"></i> Accounts<span class="fa arrow"></span></a>
@@ -33,9 +33,11 @@
 					<li>
 						<a href="/character/listchars">List/Search Characters</a>
 					</li>
+					<?php if ($check_perm['whosonline'] == 1) { ?>
 					<li>
 						<a href="/character/whosonline">View Online</a>
 					</li>
+					<?php } ?>
 				</ul>
 			</li>
 			<?php if ($check_perm['atcmdlog'] == 1 || $check_perm['branchlog'] == 1 || $check_perm['chatlog'] == 1 || $check_perm['loginlog'] == 1 || $check_perm['mvplog'] == 1 || $check_perm['npclog'] == 1 || $check_perm['picklog'] == 1 || $check_perm['zenylog'] == 1) { ?>
@@ -91,27 +93,27 @@
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['items'] == 1) { ?>
 							<li>
-								<a href="/serversetup/itemdb">Item Database</a>
+								<a href="/server/itemdb">Item Database</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['itemshop'] == 1) { ?>
 							<li>
-								<a href="/serversetup/itemshop">Item Shop</a>
+								<a href="/server/itemshop">Item Shop</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['mobs'] == 1) { ?>
 							<li>
-								<a href="/serversetup/mobdb">Mob Database</a>
+								<a href="/server/mobdb">Mob Database</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['sftp'] == 1) { ?>
 							<li>
-								<a href="/serversetup/stfp">SFTP Access</a>
+								<a href="/server/stfp">SFTP Access</a>
 							</li>	
 						<?php } ?>
 						<?php if ($check_perm['serverconfig'] == 1) { ?>
 							<li>
-								<a href="/serversetup/config">Server Configuration</a>
+								<a href="/server/config">Server Configuration</a>
 							</li>
 						<?php } ?>
 					</ul>
@@ -131,9 +133,16 @@
 						<a href="/admin/groups">Group Management</a>
 					</li>
 					<?php } ?>
+					<?php if ($check_perm['editadminnews'] == 1) { ?>
+					<li>
+						<a href="/admin/news">News Management</a>
+					</li>
+					<?php } ?>
+					<?php if ($check_perm['viewadminlogs'] == 1) { ?>
 					<li>
 						<a href="/admin/logs">Log Management</a>
 					</li>	
+					<?php } ?>
 				</ul>
 			</li>
 			<?php } ?>

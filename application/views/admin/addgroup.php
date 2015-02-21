@@ -22,7 +22,11 @@
 				<div class="col-lg-4">
 					<label>Account Module Permissions</label><br />
 					<?php foreach($permissions['account'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<?php if ($perm == "acctgroupmax") { ?>
+							<input type="number" name="perm[<?php echo $perm; ?>]" value="" />&nbsp;<?php echo $text; ?><br />
+						<?php } else { ?>
+							<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<?php } ?>
 					<?php endforeach; ?>
 				</div>
 				<div class="col-lg-4">

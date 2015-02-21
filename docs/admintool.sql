@@ -1,17 +1,42 @@
--- phpMyAdmin SQL Dump
--- version 4.2.5
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jan 09, 2015 at 07:42 PM
--- Server version: 5.5.40-0+wheezy1
--- PHP Version: 5.4.36-0+deb7u1
+CREATE TABLE IF NOT EXISTS `hat_accteditlog` (
+`chg_id` mediumint(6) NOT NULL,
+  `acct_id` int(7) NOT NULL,
+  `user` smallint(4) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `chg_attr` varchar(20) NOT NULL,
+  `old_value` varchar(60) NOT NULL,
+  `new_value` varchar(60) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hat_acctnotes` (
+`note_id` int(7) NOT NULL,
+  `acct_id` int(7) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `userid` int(5) NOT NULL,
+  `note` text NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Table structure for table `hat_groups`
---
+CREATE TABLE IF NOT EXISTS `hat_adminnews` (
+  `id` int(6) NOT NULL,
+  `user` int(4) NOT NULL,
+  `date` datetime NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `content` varchar(5000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `hat_blockinfo` (
+`blockid` int(7) NOT NULL,
+  `acct_id` int(7) NOT NULL,
+  `blockdate` datetime NOT NULL,
+  `block_type` enum('temp','perm') NOT NULL,
+  `expiredate` datetime NOT NULL,
+  `block_user` smallint(5) NOT NULL,
+  `unblock_user` smallint(5) DEFAULT NULL,
+  `unblock_date` datetime DEFAULT NULL,
+  `reason` varchar(60) NOT NULL,
+  `block_comment` text NOT NULL,
+  `unblock_comment` text
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `hat_groups` (
   `id` int(2) NOT NULL,
@@ -21,6 +46,9 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `resetacctpass` tinyint(1) NOT NULL,
   `editgender` tinyint(1) NOT NULL,
   `editacctgroup` tinyint(1) NOT NULL,
+  `acctgroupmax` tinyint(2) NULL,
+  `editacctbd` tinyint(1) NOT NULL,
+  `editacctslots` tinyint(1) NOT NULL,
   `addaccount` tinyint(1) NOT NULL,
   `usepurge` tinyint(1) NOT NULL,
   `banaccount` tinyint(1) NOT NULL,
@@ -30,13 +58,15 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `editcharlv` tinyint(1) NOT NULL,
   `editcharstats` tinyint(1) NOT NULL,
   `editcharjob` tinyint(1) NOT NULL,
+  `whosonline` tinyint(1) NOT NULL,
   `delcharitem` tinyint(1) NOT NULL,
   `senditem` tinyint(1) NOT NULL,
   `kickchar` tinyint(1) NOT NULL,
   `delcharacter` tinyint(1) NOT NULL,
   `restoredelchar` tinyint(1) NOT NULL,
   `changeposition` tinyint(1) NOT NULL,
-  `editgrouplist` tinyint(1) NOT NULL,
+  `editgroups` tinyint(1) NOT NULL,
+  `addgroup` tinyint(1) NOT NULL,
   `addadmin` tinyint(1) NOT NULL,
   `editadmin` tinyint(1) NOT NULL,
   `deladmin` tinyint(1) NOT NULL,
@@ -51,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `itemshop` tinyint(1) NOT NULL,
   `mobs` tinyint(1) NOT NULL,
   `servermaint` tinyint(1) NOT NULL,
+  `viewadminlogs` tinyint(1) NOT NULL,
   `backupdb` tinyint(1) NOT NULL,
   `atcmdlog` tinyint(1) NOT NULL,
   `branchlog` tinyint(1) NOT NULL,
@@ -62,25 +93,23 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `zenylog` tinyint(1) NOT NULL,
   `sftp` tinyint(1) NOT NULL,
   `serverconfig` tinyint(1) NOT NULL,
-  `hatconfig` tinyint(1) NOT NULL
+  `hatconfig` tinyint(1) NOT NULL,
+  `editadminnews` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `hat_groups`
---
+INSERT INTO `hat_groups` (`id`, `name`, `viewemail`, `editacctemail`, `resetacctpass`, `editgender`, `editacctgroup`, `editacctbd`, `editacctslots`, `addaccount`, `usepurge`, `banaccount`, `unbanaccount`, `edittrust`, `editcharzeny`, `editcharlv`, `editcharstats`, `editcharjob`, `whosonline`, `delcharitem`, `senditem`, `kickchar`, `delcharacter`, `restoredelchar`, `changeposition`, `editgroups`, `addgroup`, `addadmin`, `editadmin`, `deladmin`, `viewtickets`, `editcategory`, `editpredef`, `levellock`, `assigngm`, `canreopen`, `announcement`, `items`, `itemshop`, `mobs`, `servermaint`, `viewadminlogs`, `backupdb`, `atcmdlog`, `branchlog`, `chatlog`, `loginlog`, `mvplog`, `npclog`, `picklog`, `zenylog`, `sftp`, `serverconfig`, `hatconfig`, `editadminnews`) VALUES
+(1, 'Trial Gamemaster', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(25, 'Gamemaster', 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0),
+(50, 'Super Gamemaster', 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0),
+(75, 'Game Administrator', 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0),
+(98, 'Co-Owner', 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(99, 'Owner', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
-INSERT INTO `hat_groups` (`id`, `name`, `viewemail`, `editacctemail`, `resetacctpass`, `editgender`, `addaccount`, `usepurge`, `banaccount`, `unbanaccount`, `edittrust`, `editcharzeny`, `editcharlv`, `editcharstats`, `editcharjob`, `delcharitem`, `senditem`, `kickchar`, `delcharacter`, `restoredelchar`, `changeposition`, `editgrouplist`, `addadmin`, `editadmin`, `deladmin`, `viewtickets`, `editcategory`, `editpredef`, `levellock`, `assigngm`, `canreopen`, `announcement`, `items`, `itemshop`, `mobs`, `servermaint`, `backupdb`, `atcmdlog`, `branchlog`, `chatlog`, `loginlog`, `mvplog`, `npclog`, `picklog`, `zenylog`, `sftp`, `serverconfig`, `hatconfig`) VALUES
-(1, 'Trial Gamemaster', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
-(25, 'Gamemaster', 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0),
-(50, 'Super Gamemaster', 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0),
-(75, 'Game Administrator', 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(99, 'Owner', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hat_sessions`
---
+CREATE TABLE IF NOT EXISTS `hat_loginlog` (
+  `userid` int(5) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `ip` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `hat_sessions` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
@@ -90,21 +119,11 @@ CREATE TABLE IF NOT EXISTS `hat_sessions` (
   `user_data` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `hat_tktfolders`
---
-
 CREATE TABLE IF NOT EXISTS `hat_tktfolders` (
 `folderid` int(3) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `foldername` varchar(60) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
-
---
--- Dumping data for table `hat_tktfolders`
---
 
 INSERT INTO `hat_tktfolders` (`folderid`, `active`, `foldername`) VALUES
 (1, 1, 'Account Deletion'),
@@ -121,12 +140,6 @@ INSERT INTO `hat_tktfolders` (`folderid`, `active`, `foldername`) VALUES
 (12, 1, 'Password Problems'),
 (13, 1, 'Quest Problems');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `hat_tktlog`
---
-
 CREATE TABLE IF NOT EXISTS `hat_tktlog` (
 `histid` int(9) NOT NULL,
   `t_id` int(7) NOT NULL,
@@ -136,12 +149,6 @@ CREATE TABLE IF NOT EXISTS `hat_tktlog` (
   `old_value` int(5) DEFAULT NULL,
   `new_value` int(5) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10000 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hat_tktmain`
---
 
 CREATE TABLE IF NOT EXISTS `hat_tktmain` (
 `t_id` int(7) NOT NULL,
@@ -155,12 +162,6 @@ CREATE TABLE IF NOT EXISTS `hat_tktmain` (
   `t_userid` int(3) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1000 ;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `hat_tktreplies`
---
-
 CREATE TABLE IF NOT EXISTS `hat_tktreplies` (
 `t_replyid` int(7) NOT NULL,
   `t_id` int(7) NOT NULL,
@@ -169,12 +170,6 @@ CREATE TABLE IF NOT EXISTS `hat_tktreplies` (
   `r_user` varchar(55) NOT NULL,
   `r_groupid` int(2) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=100 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hat_users`
---
 
 CREATE TABLE IF NOT EXISTS `hat_users` (
 `id` int(5) NOT NULL,
@@ -185,108 +180,58 @@ CREATE TABLE IF NOT EXISTS `hat_users` (
   `createdate` date NOT NULL,
   `groupid` int(2) NOT NULL,
   `disablelogin` tinyint(1) NOT NULL,
-  `lastactive` datetime NOT NULL,
+  `lastactive` datetime DEFAULT NULL,
   `lastmodule` varchar(45) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2000 ;
 
+ALTER TABLE `hat_accteditlog`
+ ADD PRIMARY KEY (`chg_id`);
 
-CREATE TABLE IF NOT EXISTS `hat_sstatus` (
-`id` int(11) NOT NULL,
-  `starttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+ALTER TABLE `hat_acctnotes`
+ ADD PRIMARY KEY (`note_id`);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `hat_sstatus`
---
-ALTER TABLE `hat_sstatus`
+ALTER TABLE `hat_adminnews`
  ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
+ALTER TABLE `hat_blockinfo`
+ ADD PRIMARY KEY (`blockid`);
 
---
--- AUTO_INCREMENT for table `hat_sstatus`
---
-ALTER TABLE `hat_sstatus`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `hat_groups`
---
 ALTER TABLE `hat_groups`
  ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `hat_sessions`
---
 ALTER TABLE `hat_sessions`
  ADD PRIMARY KEY (`session_id`), ADD KEY `last_activity_idx` (`last_activity`);
 
---
--- Indexes for table `hat_tktfolders`
---
 ALTER TABLE `hat_tktfolders`
  ADD PRIMARY KEY (`folderid`);
 
---
--- Indexes for table `hat_tktlog`
---
 ALTER TABLE `hat_tktlog`
  ADD PRIMARY KEY (`histid`);
 
---
--- Indexes for table `hat_tktmain`
---
 ALTER TABLE `hat_tktmain`
  ADD PRIMARY KEY (`t_id`);
 
---
--- Indexes for table `hat_tktreplies`
---
 ALTER TABLE `hat_tktreplies`
  ADD PRIMARY KEY (`t_replyid`);
 
---
--- Indexes for table `hat_users`
---
 ALTER TABLE `hat_users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `hat_tktfolders`
---
+ALTER TABLE `hat_accteditlog`
+MODIFY `chg_id` mediumint(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+ALTER TABLE `hat_acctnotes`
+MODIFY `note_id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+ALTER TABLE `hat_blockinfo`
+MODIFY `blockid` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `hat_tktfolders`
 MODIFY `folderid` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `hat_tktlog`
---
 ALTER TABLE `hat_tktlog`
 MODIFY `histid` int(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10000;
---
--- AUTO_INCREMENT for table `hat_tktmain`
---
 ALTER TABLE `hat_tktmain`
 MODIFY `t_id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1000;
---
--- AUTO_INCREMENT for table `hat_tktreplies`
---
 ALTER TABLE `hat_tktreplies`
 MODIFY `t_replyid` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=100;
---
--- AUTO_INCREMENT for table `hat_users`
---
 ALTER TABLE `hat_users`
 MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2000;
 

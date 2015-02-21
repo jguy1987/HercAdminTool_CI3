@@ -9,11 +9,11 @@
 
 	<title><?php echo $this->config->item('panelname'); ?></title>
 
-	<link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/plugins/metisMenu/metisMenu.min.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/plugins/timeline.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
-	<link href="<?php echo base_url('assets/css/morris.css'); ?>" rel="stylesheet">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 	<link href="<?php echo base_url('assets/font-awesome-4.1.0/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
 	<link href="<?php echo base_url('assets/css/bootstrap-datetimepicker.css'); ?>" rel="stylesheet">
 	<script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
