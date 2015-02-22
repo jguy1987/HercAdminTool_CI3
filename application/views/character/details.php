@@ -23,340 +23,134 @@
 				<?php } ?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline')); ?>
-				<fieldset>
-					<div class="row">
-						<div class="col-lg-12">
-							<center><h3>General Character Info</h3></center>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Character Name</label></td>
-									<td width="200px"><input class="form-control" size="40px" name="char_name" value="<?php echo $charinfo->name; ?>" /></td>
-								</tr>
-								</table>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-user-md fa-fw"></i> General Character Info
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Character ID</label></td>
-									<td width="200px"><?php echo $charinfo->char_id; ?></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Slot #</label></td>
-									<td width="200px"><input class="form-control" size="40px" name="char_num" value="<?php echo $charinfo->char_num; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Account ID</label></td>
-									<td width="200px"><a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a></td>
-								</tr>
-								</table>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped" id="dataTables-example">
+										<tr>
+											<td><label>Character Name</label></td><td><input type="text" class="form-control" name="char_name" value="<?php echo $charinfo->name; ?>" /></td>
+											<td><label>Character ID</label></td><td><?php echo $charinfo->char_id; ?></td>
+										</tr>
+										<tr>
+											<td><label>Slot #</label></td><td><input type="number" min="0" max="9" class="form-control" name="char_num" value="<?php echo $charinfo->char_num; ?>" /></td>
+											<td><label>Account ID</label></td><td><a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a></td>
+										</tr>
+										<tr>
+											<td><label>Guild</label></td><td><a href="/guild/details/<?php echo $charinfo->guild_id; ?>"><?php echo $charinfo->guild_name; ?></a></td>
+											<td><label>Party</label></td><td><a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a></td>
+										</tr>
+										<tr>
+											<td><label>Zeny</label></td><td><input type="number" class="form-control" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>" /></td>
+											<td><label>Class</label></td><td><?php echo $class_list[$charinfo->class]; ?> </td>
+										</tr>
+										<tr>
+											<td><label>HP / MaxHP</label></td><td><?php echo $charinfo->hp; ?>&nbsp;/&nbsp;<?php echo $charinfo->max_hp; ?></td>
+											<td><label>SP / MaxSP</label></td><td><?php echo $charinfo->sp; ?>&nbsp;/&nbsp;<?php echo $charinfo->max_sp; ?></td>
+										</tr>
+										<tr>
+											<td><label>Last Position</label></td><td><?php echo $charinfo->last_map; ?>&nbsp;<?php echo $charinfo->last_x; ?>,&nbsp;<?php echo $charinfo->last_y; ?></td>
+											<td><label>Saved Position</label></td><td><?php echo $charinfo->save_map; ?>&nbsp;<?php echo $charinfo->save_x; ?>,&nbsp;<?php echo $charinfo->save_y; ?></td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Guild Membership</label></td>
-									<td width="200px"><a href="/guild/details/<?php echo $charinfo->guild_id; ?>"><?php echo $charinfo->guild_name; ?></a></td>
-								</tr>
-								</table>
+				</div>
+				<div class="row">
+					<div class="col-lg-9">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-user-md fa-fw"></i> Character Level Info
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Party</label></td>
-									<td width="200px"><a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Zeny</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Class</label></td>
-									<td width="200px"><?php echo $class_list[$charinfo->class]; ?> </td>
-								</tr>
-								</table>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped" id="dataTables-example">
+										<tr>
+											<td><label>Base Level</label></td><td><input type="number" class="form-control" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" /></td>
+											<td><label>Job Level</label></td><td><input type="number" class="form-control" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" /></td>
+										</tr>
+										<tr>
+											<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" /></td>
+											<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_level" min="1" value="<?php echo $charinfo->job_exp; ?>" /></td>
+										</tr>
+										<tr>
+											<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
+											<td><label>Skill Points</label></td><td><input type="number" class="form-control" name="skill_point" min="1" max="999" value="<?php echo $charinfo->skill_point; ?>" /></td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>HP/MaxHP</label></td>
-									<td width="200px"><?php echo $charinfo->hp; ?>/<?php echo $charinfo->max_hp; ?></td>
-								</tr>
-								</table>
+					<div class="col-lg-3">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-user-md fa-fw"></i> Options
+							</div>
+							<div class="panel-body">
+								<a href="/character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>SP/MaxSP</label></td>
-									<td width="200px"><?php echo $charinfo->sp; ?>/<?php echo $charinfo->max_sp; ?></td>
-								</tr>
-								</table>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-user-md fa-fw"></i> Character Stats
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Last Position</label></td>
-									<td width="200px"><?php echo $charinfo->last_map; ?>&nbsp;<?php echo $charinfo->last_x; ?>,&nbsp;<?php echo $charinfo->last_y; ?></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Saved Position</label></td>
-									<td width="200px"><?php echo $charinfo->save_map; ?>&nbsp;<?php echo $charinfo->save_x; ?>,&nbsp;<?php echo $charinfo->save_y; ?></td>
-								</tr>
-								</table>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped" id="dataTables-example">
+										<tr>
+											<td><label>STR</label></td><td><input type="number" class="form-control" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" /></td>
+											<td><label>INT</label></td><td><input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->INT; ?>" /></td>
+										</tr>
+										<tr>
+											<td><label>AGI</label></td><td><input type="number" class="form-control" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" /></td>
+											<td><label>DEX</label></td><td><input type="number" class="form-control" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" /></td>
+										</tr>
+											<td><label>VIT</label></td><td><input type="number" class="form-control" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" /></td>
+											<td><label>LUK</label></td><td><input type="number" class="form-control" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" /></td>
+										</tr>
+										<tr>
+											<td><label>Manner</label></td><td><input type="number" class="form-control" name="manner" value="<?php echo $charinfo->manner; ?>" /></td>
+											<td><label>Karma</label></td><td><input type="number" class="form-control" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="cold-lg-12">
-							<center><h3>Character Level Information</h3></center>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Base Level</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" /></td>
-								</tr>
-								</table>
+					<div class="col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-user-md fa-fw"></i> Character Appearance
 							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Job Level</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Status Points</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
-								</tr>
-								</table>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped" id="dataTables-example">
+										<tr>
+											<td><label>Hair Style ID</label></td><td><input type="number" class="form-control" name="hair" min="1" max="999" value="<?php echo $charinfo->hair; ?>" /></td>
+										</tr>
+										<tr>
+											<td><label>Hair Color ID</label></td><td><input type="number" class="form-control" name="hair_color" min="1" max="999" value="<?php echo $charinfo->hair_color; ?>" /></td>	
+										</tr>
+										<tr>
+											<td><label>Clothes Color ID</label></td><td><input type="number" class="form-control" size="40px" name="clothes_color" min="1" max="999" value="<?php echo $charinfo->clothes_color; ?>" /></td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Base Exp</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Job Exp</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="job_level" min="1" value="<?php echo $charinfo->job_exp; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Skill Points</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="skill_point" min="1" max="999" value="<?php echo $charinfo->skill_point; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<center><h3>Character Stats</h3></center>
-						</div>
-						<div class="col-lg-6">
-							<center><h3>Character Appearance Info</h3></center>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>STR</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>INT</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="int" min="1" max="999" value="<?php echo $charinfo->INT; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Hair Style ID</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="hair" min="1" max="999" value="<?php echo $charinfo->hair; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Hair Color ID</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="hair_color" min="1" max="999" value="<?php echo $charinfo->hair_color; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>AGI</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>DEX</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Clothes Color ID</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="clothes_color" min="1" max="999" value="<?php echo $charinfo->clothes_color; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>VIT</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>LUK</label></td>
-									<td width="200px"><input type="number" class="form-control" size="40px" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Manner</label></td>
-									<td width="200px"><input type="number" class="form-control" size="15px" name="manner" value="<?php echo $charinfo->manner; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<table>
-								<tr>
-									<td width="200px"><label>Karma</label></td>
-									<td width="200px"><input type="number" class="form-control" size="15px" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-				</fieldset>
+				</div>
 				<?php echo form_close(); ?>
 			</div>
 			<div class="tab-pane fade in" id="items">

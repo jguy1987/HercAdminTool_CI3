@@ -51,10 +51,11 @@
 											<td><label>Character Reserved Slots</label></td><td><input type="number" min="0" max="9" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "readonly"; } ?> /></td>
 											<td>&nbsp;</td>
 											<td><label>Options</label></td>
-											<td><a href="/account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a>&nbsp;
+											<td>
+												<a href="/account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a>&nbsp;
 												<a href="/account/resetpin/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a>&nbsp;
 												<a href="/account/emailuser/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-info">Send Email</button></a>&nbsp;
-												<a href="/account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>&nbsp;
+												<a href="/account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>
 											</td>
 										</tr>
 									</table>
@@ -80,7 +81,7 @@
 										<tr>
 											<td><label>Expiration Time</label></td><td><?php if ($acct_data->expiration_time == 0) { echo "0"; } else { echo date('Y-m-d H:i:s', $acct_data->expiration_time); } ?></td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>&nbsp;</td><td>&nbsp;</td>
 										</tr>
 									</table>
 								</div>
