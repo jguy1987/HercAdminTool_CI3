@@ -49,6 +49,9 @@
 			case "editchar":
 				echo "Character changes process successfully. Return to the <a href='/character/details/".$char_id."'>character details page</a>.";
 				break;
+			case "resetpos":
+				echo "Character position reset! Return to the <a href='/character/details/".$char_id."'>character details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

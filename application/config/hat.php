@@ -20,6 +20,15 @@ $config['map_servername'] = "s1";
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
 
+// To what map should we reset players to?
+$config['reset_map'] = "prontera";
+
+// To what X coordinate should we reset players to?
+$config['reset_x'] = "142";
+
+// To what Y coordinate should we reset players to?
+$config['reset_y'] = "241";
+
 
 /* Email Settings. Settings for email here. */
 

@@ -124,4 +124,28 @@ Class Charmodel extends CI_Model {
 		$this->db_ragnarok->set($chgChar);
 		$this->db_ragnarok->update('char');
 	}
+	
+	function reset_char_pos($cid, $user) {
+		$timeNow = date("Y-m-d H:i:s");
+		
+		$this->db_ragnarok->select('last_map, last_x, last_y');
+		$q = $this->db_ragnarok->get_where('char', array('char_id' => $cid));
+		$query = $q->row();
+		$lastPos = $query->last_map."&nbsp;".$query->last_x.",&nbsp;".$query->last_y;
+		
+		// Log the change...
+		$this->db_ragnarok->set('user', $user);
+		$this->db_ragnarok->set('datetime', $timeNow);
+		$this->db_ragnarok->set('char_id', $cid);
+		$this->db_ragnarok->set('chg_attr', "last_pos");
+		$this->db_ragnarok->set('old_value', $lastPos);
+		$this->db_ragnarok->insert('hat_chareditlog');
+		
+		// Then change the database...
+		$this->db_ragnarok->set('last_map', $this->config->item('reset_map'));
+		$this->db_ragnarok->set('last_x', $this->config->item('reset_x'));
+		$this->db_ragnarok->set('last_y', $this->config->item('reset_y'));
+		$this->db_ragnarok->where('char_id', $cid);
+		$this->db_ragnarok->update('char');
+	}
 }

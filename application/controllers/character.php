@@ -153,4 +153,20 @@ class Character extends MY_Controller {
 		$this->load->view('character/search', $data);
 		$this->load->view('footer-nocharts');
 	}
+	
+	function resetpos($cid) {
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'],'changeposition') == True) {
+			$this->usermodel->update_user_active($session_data['id'],"character/resetpos");
+			$this->charmodel->reset_char_pos($cid, $session_data['id']);
+			$data['referpage'] = "resetpos";
+			$data['char_id'] = $cid;
+			$this->load->view('formsuccess', $data);
+		}
+		else {
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
 }
