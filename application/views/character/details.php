@@ -372,7 +372,37 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="tab-pane fade in" id="friends">
+				<h4>Character Friends</h4><br />
+				<?php if ($charinfo->online == 1) { ?>
+					<div class="alert alert-danger">
+						Character is online and cannot be edited!
+					</div>
+				<?php } ?>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<th>Friend Char ID</th>
+									<th>Character Name</th>
+									<th>Account ID</th>
+								</thead>
+								<tbody>
+									<?php foreach ($friends_list as $friend) { ?>
+										<tr>
+											<td><a href="/character/details/<?php echo $friend['char_id']; ?>"><?php echo $friend['char_id']; ?></a></td>
+											<td><?php echo $friend['name']; ?></td>
+											<td><a href="/account/details/<?php echo $friend['friend_account']; ?>"><?php echo $friend['friend_account']; ?></a></td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+										
 		</div>
 	</div>
 </div>

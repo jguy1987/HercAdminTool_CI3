@@ -47,6 +47,15 @@ Class Charmodel extends CI_Model {
 		return $q->result_array();
 	}
 	
+	function get_friend_list($cid) {
+		$this->db_ragnarok->select('friends.*, char.char_id, char.name');
+		$this->db_ragnarok->from('friends')->order_by('friends.friend_id', 'asc');
+		$this->db_ragnarok->where('friends.char_id', $cid);
+		$this->db_ragnarok->join('char', 'friends.friend_id = char.char_id', 'left');
+		$q = $this->db_ragnarok->get();
+		return $q->result_array();
+	}
+	
 	function get_charlog($cid) {
 		$this->db_ragnarok->order_by('time','desc');
 		$q = $this->db_ragnarok->get_where('charlog', array('char_id' => $cid));
