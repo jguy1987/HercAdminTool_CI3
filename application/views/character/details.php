@@ -315,6 +315,7 @@
 					</div>
 				<?php } ?>
 				<div class="row">
+					<h4>Character Log</h4>
 					<div class="col-lg-6">
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -341,11 +342,33 @@
 							</table>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<h4>Character Edit History</h4>
+					<div class="col-lg-6">
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
-									<th>
+									<tr>
+										<th style="width: 100px;">Datetime</th>
+										<th style="width: 100px;">User</th>
+										<th style="width: 70px;">Field Changed</th>
+										<th style="width: 75px;">Old Value</th>
+										<th style="width: 75px">New Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($char_edit_hist as $cEH_item): ?>
+										<tr class="odd gradex">
+											<td><?php echo $cEH_item['datetime']; ?></td>
+											<td><?php echo $cEH_item['username']; ?></td>
+											<td><?php echo $cEH_item['chg_attr']; ?></td>
+											<td><?php echo $cEH_item['old_value']; ?></td>
+											<td><?php echo $cEH_item['new_value']; ?></td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 

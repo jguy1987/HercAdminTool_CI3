@@ -53,6 +53,15 @@ Class Charmodel extends CI_Model {
 		return $q->result_array();
 	}
 	
+	function get_char_hist($cid) {
+		$this->db_ragnarok->select('hat_chareditlog.*,hat_users.username,hat_users.id');
+		$this->db_ragnarok->from('hat_chareditlog')->order_by('hat_chareditlog.datetime','desc');
+		$this->db_ragnarok->where('hat_chareditlog.char_id', $cid);
+		$this->db_ragnarok->join('hat_users','hat_chareditlog.user = hat_users.id');
+		$query = $this->db_ragnarok->get();
+		return $query->result_array();
+	}
+	
 	function search_chars($charSearch) {
 		$this->db_ragnarok->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name');
 		$this->db_ragnarok->from('char');
