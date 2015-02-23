@@ -248,10 +248,13 @@ $config["permissions"] = array(
 		'edittrust'			=> "Edit Account Trust",
 	),
 	'character'		=> array( // Permissions related to Character Management
+		'editcharname'		=> "Edit Character Name",
+		'editcharslot'		=> "Edit Character Slot",
 		'editcharzeny'		=> "Edit Character Zeny",
 		'editcharlv'		=> "Edit Character Levels",
 		'editcharstats'	=> "Edit Character Stats",
 		'editcharjob'		=> "Change Character Job",
+		'editcharlook'		=> "Change Character Look",
 		'delcharitem'		=> "Delete Any Character Item",
 		'senditem'			=> "Send Item via Mail",
 		'kickchar'			=> "Kick Character from Server",

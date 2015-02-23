@@ -33,11 +33,11 @@
 								<div class="table-responsive">
 									<table class="table table-striped" id="dataTables-example">
 										<tr>
-											<td><label>Character Name</label></td><td><input type="text" class="form-control" name="char_name" value="<?php echo $charinfo->name; ?>" /></td>
+											<td><label>Character Name</label></td><td><input type="text" class="form-control" name="char_name" value="<?php echo $charinfo->name; ?>" <?php if ($check_perm['editcharname'] == 0) { echo "readonly"; } ?> /></td>
 											<td><label>Character ID</label></td><td><?php echo $charinfo->char_id; ?></td>
 										</tr>
 										<tr>
-											<td><label>Slot #</label></td><td><input type="number" min="0" max="9" class="form-control" name="char_num" value="<?php echo $charinfo->char_num; ?>" /></td>
+											<td><label>Slot #</label></td><td><input type="number" min="0" max="9" class="form-control" name="char_num" value="<?php echo $charinfo->char_num; ?>"  <?php if ($check_perm['editcharslot'] == 0) { echo "readonly"; } ?> /></td>
 											<td><label>Account ID</label></td><td><a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a></td>
 										</tr>
 										<tr>
@@ -45,7 +45,7 @@
 											<td><label>Party</label></td><td><a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a></td>
 										</tr>
 										<tr>
-											<td><label>Zeny</label></td><td><input type="number" class="form-control" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>" /></td>
+											<td><label>Zeny</label></td><td><input type="number" class="form-control" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>"  <?php if ($check_perm['editcharzeny'] == 0) { echo "readonly"; } ?> /></td>
 											<td><label>Class</label></td><td><?php echo $class_list[$charinfo->class]; ?> </td>
 										</tr>
 										<tr>
@@ -72,16 +72,16 @@
 								<div class="table-responsive">
 									<table class="table table-striped" id="dataTables-example">
 										<tr>
-											<td><label>Base Level</label></td><td><input type="number" class="form-control" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" /></td>
-											<td><label>Job Level</label></td><td><input type="number" class="form-control" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" /></td>
+											<td><label>Base Level</label></td><td><input type="number" class="form-control" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>Job Level</label></td><td><input type="number" class="form-control" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 										<tr>
-											<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" /></td>
-											<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_exp" min="1" value="<?php echo $charinfo->job_exp; ?>" /></td>
+											<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_exp" min="1" value="<?php echo $charinfo->job_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 										<tr>
-											<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="1" max="9999" value="<?php echo $charinfo->status_point; ?>" /></td>
-											<td><label>Skill Points</label></td><td><input type="number" class="form-control" name="skill_point" min="1" max="9999" value="<?php echo $charinfo->skill_point; ?>" /></td>
+											<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="1" max="9999" value="<?php echo $charinfo->status_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>Skill Points</label></td><td><input type="number" class="form-control" name="skill_point" min="1" max="9999" value="<?php echo $charinfo->skill_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 									</table>
 								</div>
@@ -109,19 +109,19 @@
 								<div class="table-responsive">
 									<table class="table table-striped" id="dataTables-example">
 										<tr>
-											<td><label>STR</label></td><td><input type="number" class="form-control" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" /></td>
-											<td><label>INT</label></td><td><input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->INT; ?>" /></td>
+											<td><label>STR</label></td><td><input type="number" class="form-control" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>INT</label></td><td><input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->INT; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 										<tr>
-											<td><label>AGI</label></td><td><input type="number" class="form-control" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" /></td>
-											<td><label>DEX</label></td><td><input type="number" class="form-control" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" /></td>
+											<td><label>AGI</label></td><td><input type="number" class="form-control" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>DEX</label></td><td><input type="number" class="form-control" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
-											<td><label>VIT</label></td><td><input type="number" class="form-control" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" /></td>
-											<td><label>LUK</label></td><td><input type="number" class="form-control" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" /></td>
+											<td><label>VIT</label></td><td><input type="number" class="form-control" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>LUK</label></td><td><input type="number" class="form-control" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 										<tr>
-											<td><label>Manner</label></td><td><input type="number" class="form-control" name="manner" value="<?php echo $charinfo->manner; ?>" /></td>
-											<td><label>Karma</label></td><td><input type="number" class="form-control" name="karma" value="<?php echo $charinfo->karma; ?>" /></td>
+											<td><label>Manner</label></td><td><input type="number" class="form-control" name="manner" value="<?php echo $charinfo->manner; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
+											<td><label>Karma</label></td><td><input type="number" class="form-control" name="karma" value="<?php echo $charinfo->karma; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 									</table>
 								</div>
@@ -137,13 +137,13 @@
 								<div class="table-responsive">
 									<table class="table table-striped" id="dataTables-example">
 										<tr>
-											<td><label>Hair Style ID</label></td><td><input type="number" class="form-control" name="hair" min="0" max="999" value="<?php echo $charinfo->hair; ?>" /></td>
+											<td><label>Hair Style ID</label></td><td><input type="number" class="form-control" name="hair" min="0" max="999" value="<?php echo $charinfo->hair; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 										<tr>
-											<td><label>Hair Color ID</label></td><td><input type="number" class="form-control" name="hair_color" min="0" max="999" value="<?php echo $charinfo->hair_color; ?>" /></td>	
+											<td><label>Hair Color ID</label></td><td><input type="number" class="form-control" name="hair_color" min="0" max="999" value="<?php echo $charinfo->hair_color; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> /></td>	
 										</tr>
 										<tr>
-											<td><label>Clothes Color ID</label></td><td><input type="number" class="form-control" size="40px" name="clothes_color" min="0" max="999" value="<?php echo $charinfo->clothes_color; ?>" /></td>
+											<td><label>Clothes Color ID</label></td><td><input type="number" class="form-control" size="40px" name="clothes_color" min="0" max="999" value="<?php echo $charinfo->clothes_color; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> /></td>
 										</tr>
 									</table>
 								</div>
