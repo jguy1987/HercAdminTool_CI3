@@ -8,6 +8,16 @@ CREATE TABLE IF NOT EXISTS `hat_accteditlog` (
   `new_value` varchar(60) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `hat_chareditlog` (
+`chg_id` int(6) NOT NULL,
+  `char_id` int(5) NOT NULL,
+  `user` smallint(4) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `chg_attr` varchar(25) NOT NULL,
+  `old_value` int(10) NOT NULL,
+  `new_value` int(10) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `hat_acctnotes` (
 `note_id` int(7) NOT NULL,
   `acct_id` int(7) NOT NULL,
@@ -186,6 +196,9 @@ CREATE TABLE IF NOT EXISTS `hat_users` (
 
 ALTER TABLE `hat_accteditlog`
  ADD PRIMARY KEY (`chg_id`);
+ 
+ALTER TABLE `hat_chareditlog`
+ ADD PRIMARY KEY (`chg_id`);
 
 ALTER TABLE `hat_acctnotes`
  ADD PRIMARY KEY (`note_id`);
@@ -220,6 +233,8 @@ ALTER TABLE `hat_users`
 
 ALTER TABLE `hat_accteditlog`
 MODIFY `chg_id` mediumint(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+ALTER TABLE `hat_chareditlog`
+MODIFY `chg_id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `hat_acctnotes`
 MODIFY `note_id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `hat_blockinfo`

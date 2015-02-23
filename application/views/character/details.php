@@ -22,7 +22,7 @@
 					</div>
 				<?php } ?>
 				<?php echo validation_errors(); ?>
-				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline')); ?>
+				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline'), array('charid' => $charinfo->char_id)); ?>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
@@ -77,11 +77,11 @@
 										</tr>
 										<tr>
 											<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" /></td>
-											<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_level" min="1" value="<?php echo $charinfo->job_exp; ?>" /></td>
+											<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_exp" min="1" value="<?php echo $charinfo->job_exp; ?>" /></td>
 										</tr>
 										<tr>
-											<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="1" max="999" value="<?php echo $charinfo->status_point; ?>" /></td>
-											<td><label>Skill Points</label></td><td><input type="number" class="form-control" name="skill_point" min="1" max="999" value="<?php echo $charinfo->skill_point; ?>" /></td>
+											<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="1" max="9999" value="<?php echo $charinfo->status_point; ?>" /></td>
+											<td><label>Skill Points</label></td><td><input type="number" class="form-control" name="skill_point" min="1" max="9999" value="<?php echo $charinfo->skill_point; ?>" /></td>
 										</tr>
 									</table>
 								</div>
@@ -137,13 +137,13 @@
 								<div class="table-responsive">
 									<table class="table table-striped" id="dataTables-example">
 										<tr>
-											<td><label>Hair Style ID</label></td><td><input type="number" class="form-control" name="hair" min="1" max="999" value="<?php echo $charinfo->hair; ?>" /></td>
+											<td><label>Hair Style ID</label></td><td><input type="number" class="form-control" name="hair" min="0" max="999" value="<?php echo $charinfo->hair; ?>" /></td>
 										</tr>
 										<tr>
-											<td><label>Hair Color ID</label></td><td><input type="number" class="form-control" name="hair_color" min="1" max="999" value="<?php echo $charinfo->hair_color; ?>" /></td>	
+											<td><label>Hair Color ID</label></td><td><input type="number" class="form-control" name="hair_color" min="0" max="999" value="<?php echo $charinfo->hair_color; ?>" /></td>	
 										</tr>
 										<tr>
-											<td><label>Clothes Color ID</label></td><td><input type="number" class="form-control" size="40px" name="clothes_color" min="1" max="999" value="<?php echo $charinfo->clothes_color; ?>" /></td>
+											<td><label>Clothes Color ID</label></td><td><input type="number" class="form-control" size="40px" name="clothes_color" min="0" max="999" value="<?php echo $charinfo->clothes_color; ?>" /></td>
 										</tr>
 									</table>
 								</div>
@@ -151,6 +151,7 @@
 						</div>
 					</div>
 				</div>
+				<br /><center><button type="submit" class="btn btn-primary">Submit changes</button>&nbsp;</center><br />
 				<?php echo form_close(); ?>
 			</div>
 			<div class="tab-pane fade in" id="items">
@@ -314,7 +315,7 @@
 					</div>
 				<?php } ?>
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-6">
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
@@ -340,6 +341,11 @@
 							</table>
 						</div>
 					</div>
+					<div class="col-md-6">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<th>
 				</div>
 			</div>
 
