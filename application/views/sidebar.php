@@ -46,42 +46,42 @@
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['atcmdlog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/atcmd/search">@command</a>
+								<a href="/gamelogs/atcmd">@command</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['branchlog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/branch/search">branch</a>
+								<a href="/gamelogs/branch">branch</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['chatlog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/chat/search">chat</a>
+								<a href="/gamelogs/chat">chat</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['loginlog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/login/search">login</a>
+								<a href="/gamelogs/login">login</a>
 							</li>	
 						<?php } ?>
 						<?php if ($check_perm['mvplog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/mvp/search">mvp</a>
+								<a href="/gamelogs/mvp">mvp</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['npclog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/npc/search">npc</a>
+								<a href="/gamelogs/npc">npc</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['picklog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/pick/search">pick</a>
+								<a href="/gamelogs/pick">pick</a>
 							</li>
 						<?php } ?>									
 						<?php if ($check_perm['zenylog'] == 1) { ?>								
 							<li>
-								<a href="/gamelogs/zeny/search">zeny</a>
+								<a href="/gamelogs/zeny">zeny</a>
 							</li>	
 						<?php } ?>
 					</ul>
