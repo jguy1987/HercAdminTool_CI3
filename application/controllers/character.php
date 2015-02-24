@@ -47,16 +47,11 @@ class Character extends MY_Controller {
 	function details($cid) {
 		$session_data = $this->session->userdata('loggedin');
 		$this->usermodel->update_user_active($session_data['id'],"character/details");
-		$data['charinfo'] = $this->charmodel->get_char_info($cid);
-		$data['char_items'] = $this->charmodel->get_char_items($cid);
-		$data['char_cartItems'] = $this->charmodel->get_cart_items($cid);
-		$data['charlog_data'] = $this->charmodel->get_charlog($cid);
-		$data['char_edit_hist'] = $this->charmodel->get_char_hist($cid);
-		$data['friends_list'] = $this->charmodel->get_friend_list($cid);
 		$data['class_list'] = $this->config->item('jobs');
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['equipLocation'] = $this->config->item('equipLocations');
 		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data += $this->load_char_data($cid);
 		$this->load->view('character/details', $data);
 		$this->load->view('footer-nocharts');
 	}
@@ -94,13 +89,11 @@ class Character extends MY_Controller {
 		$this->form_validation->set_rules('clothes_color', "Clothes Color ID", 'trim|required|integer');
 		if ($this->form_validation->run() == FALSE) {
 			$this->usermodel->update_user_active($session_data['id'],"character/details");
-			$data['char_items'] = $this->charmodel->get_char_items($cid);
-			$data['char_cartItems'] = $this->charmodel->get_cart_items($cid);
-			$data['charlog_data'] = $this->charmodel->get_charlog($cid);
 			$data['class_list'] = $this->config->item('jobs');
 			$data['perm_list'] = $this->config->item('permissions');
 			$data['equipLocation'] = $this->config->item('equipLocations');
 			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+			$data += $this->load_char_data($this->input->post('charid'));
 			$this->load->view('character/details', $data);
 		}
 		else {
@@ -169,5 +162,15 @@ class Character extends MY_Controller {
 			$this->load->view('accessdenied', $data);
 		}
 		$this->load->view('footer-nocharts');
+	}
+	
+	function load_char_data($cid) {
+		$data['charinfo'] = $this->charmodel->get_char_info($cid);
+		$data['char_items'] = $this->charmodel->get_char_items($cid);
+		$data['char_cartItems'] = $this->charmodel->get_cart_items($cid);
+		$data['charlog_data'] = $this->charmodel->get_charlog($cid);
+		$data['char_edit_hist'] = $this->charmodel->get_char_hist($cid);
+		$data['friends_list'] = $this->charmodel->get_friend_list($cid);
+		return $data;
 	}
 }
