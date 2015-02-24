@@ -142,9 +142,9 @@ class Character extends MY_Controller {
 			'jLevelgt'	=> $this->input->post('gtjLevel'),
 			'jLevellt'	=> $this->input->post('ltjLevel'),
 		);
-		$data['search_results'] = $this->charmodel->search_chars($searchTerms);
+		$data['char_list'] = $this->charmodel->search_chars($searchTerms);
 		$data['class_list'] = $this->config->item('jobs');
-		$this->load->view('character/search', $data);
+		$this->load->view('character/list', $data);
 		$this->load->view('footer-nocharts');
 	}
 	

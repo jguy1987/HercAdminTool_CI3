@@ -52,6 +52,7 @@
 					<center><button type="submit" class="btn btn-success">Submit search</button></center>
 				</div>
 			<?php echo form_close(); ?>
+			<br />
 		</div>
 		<?php echo validation_errors(); ?>
 		<div class="table-responsive">
