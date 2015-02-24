@@ -55,6 +55,9 @@
 			case "resetpos":
 				echo "Character position reset! Return to the <a href='/character/details/".$char_id."'>character details page</a>.";
 				break;
+			case "editnumflag":
+				echo "Account Num Flag edited successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

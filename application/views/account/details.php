@@ -297,9 +297,14 @@
 									<?php foreach($num_key_list as $nKL_item): ?>
 										<tr class="odd gradex">
 											<td><?php echo $nKL_item['key']; ?></td>
-											<td><?php echo $nKL_item['index']; ?></td>
-											<td><?php echo $nKL_item['value']; ?></td>
-											<td><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/account/delnumflag/<?php echo $nKL_item['key']; ?>/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger">Delete</button></a></td>
+											<?php echo form_open('/account/editnumflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id, 'key' => $nKL_item['key'])); ?>
+											<td><input type="number" class="form-control" name="index" value="<?php echo $nKL_item['index']; ?>" /></td>
+											<td><input type="number" class="form-control" name="value" value="<?php echo $nKL_item['value']; ?>" /></td>
+											<td>
+												<button type="submit" class="btn btn-success">Edit</button></a>
+												<?php echo form_close(); ?>&nbsp;
+												<a href="/account/delnumflag/<?php echo $nKL_item['key']; ?>/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger">Delete</button></a>
+											</td>
 										</tr>
 									<?php endforeach; ?>
 								</tbody>
@@ -345,11 +350,11 @@
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
 									<tr>
-										<th style="width: 100px;">Datetime</th>
-										<th style="width: 100px;">User</th>
-										<th style="width: 70px;">Field Changed</th>
-										<th style="width: 75px;">Old Value</th>
-										<th style="width: 75px">New Value</th>
+										<th>Datetime</th>
+										<th>User</th>
+										<th>Field Changed</th>
+										<th>Old Value</th>
+										<th>New Value</th>
 									</tr>
 								</thead>
 								<tbody>

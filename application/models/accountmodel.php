@@ -278,4 +278,34 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->set('value', $addFlag['value']);
 		$this->db_ragnarok->insert('acc_reg_num_db');
 	}
+	
+	function edit_num_flag($editFlag) {
+		$timeNow = date("Y-m-d H:i:s");
+		
+		// First get the numflag before it changes
+		$this->db_ragnarok->select('*');
+		$this->db_ragnarok->where('key', $editFlag['key']);
+		$this->db_ragnarok->where('account_id', $editFlag['acct_id']);
+		$q = $this->db_ragnarok->get('acc_reg_num_db');
+		$q_row = $q->row();
+		
+		$old_value = $q_row->key.",&nbsp;".$q_row->index.",&nbsp;".$q_row->value;
+		$new_value = $editFlag['key'].",&nbsp;".$editFlag['index'].",&nbsp;".$editFlag['value'];
+		
+		// Log the change
+		$this->db_ragnarok->set('acct_id', $editFlag['acct_id']);
+		$this->db_ragnarok->set('user', $editFlag['user']);
+		$this->db_ragnarok->set('datetime', $timeNow);
+		$this->db_ragnarok->set('chg_attr', 'edit_num_flag');
+		$this->db_ragnarok->set('old_value', $old_value);
+		$this->db_ragnarok->set('new_value', $new_value);
+		$this->db_ragnarok->insert('hat_accteditlog');
+		
+		// Then change.
+		$this->db_ragnarok->set('index', $editFlag['index']);
+		$this->db_ragnarok->set('value', $editFlag['value']);
+		$this->db_ragnarok->where('account_id', $editFlag['acct_id']);
+		$this->db_ragnarok->where('key', $editFlag['key']);
+		$this->db_ragnarok->update('acc_reg_num_db');
+	}
 }
