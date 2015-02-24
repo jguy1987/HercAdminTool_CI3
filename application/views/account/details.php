@@ -278,16 +278,19 @@
 				</div>
 			</div>
 			<div class="tab-pane fade" id="flags">
-				<h4>Num Flags on this account</h4>
+				<h4>Flags on this account</h4>
 				<div class="panel-body">
-					<div class="col-md-6 col-md-offset-3">
+					<div class="col-md-6">
+						<h4>Num Flags</h4>
+						<button type="button" class="btn btn-info" id="addNumFlagOpen" data-toggle="modal" data-target="#addNumFlag" data-id="<?php echo $acct_data->account_id; ?>">Add Flag</button>
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
 									<tr>
-										<th style="width: 150px;">Key Name</th>
-										<th style="width: 75px;">Index</th>
-										<th style="width: 75px;">Value</th>
+										<th>Key Name</th>
+										<th>Index</th>
+										<th>Value</th>
+										<th>Options</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -296,10 +299,40 @@
 											<td><?php echo $nKL_item['key']; ?></td>
 											<td><?php echo $nKL_item['index']; ?></td>
 											<td><?php echo $nKL_item['value']; ?></td>
+											<td><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/account/delnumflag/<?php echo $nKL_item['key']; ?>/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger">Delete</button></a></td>
 										</tr>
 									<?php endforeach; ?>
 								</tbody>
 							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="addNumFlag" tabindex="-1" role="dialog" aria-labelledby="addNumFlagLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="addNumFlagLabel">Add Num Flag</h4>
+							</div>
+							<div class="modal-body">
+								<?php echo validation_errors(); ?>
+								<?php echo form_open('/account/addnumflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+									<input type="hidden" id="acct_id" name="acct_id" />
+									<label>Key Name:</label>
+									<input type="text" class="form-control" name="key" />
+									<br />
+									<label>Index:</label>
+									<input type="text" class="form-control" name="index" />
+									<br />
+									<label>Value:</label>
+									<input type="number" class="form-control" name="value" />
+									<br />
+									</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Add Flag</button>
+							</div>
+							<?php echo form_close(); ?>
 						</div>
 					</div>
 				</div>

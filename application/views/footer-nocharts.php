@@ -65,5 +65,13 @@ new Morris.Line({
 		});
 	});
 </script>
+<script type="text/javascript">
+	$(function() {
+		$(document).on('click','#addNumFlagOpen',function(e){
+			//process here you can get id using 
+			$('#acct_id').val($(this).data('id')); //and set this id to any hidden field in modal
+		});
+	});
+</script>
 </body>
 </html>

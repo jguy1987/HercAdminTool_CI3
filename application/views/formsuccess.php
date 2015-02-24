@@ -46,6 +46,9 @@
 			case "resetpass":
 				echo "Account password reset successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
 				break;
+			case "addnumflag":
+				echo "Num Flag added to this account successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

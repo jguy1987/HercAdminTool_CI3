@@ -236,6 +236,40 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function addnumflag() {
+		$session_data = $this->session->userdata('loggedin');
+		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_num_db.key]');
+		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
+		if ($this->form_validation->run() == FALSE) {
+			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+			$aid = $this->input->post('acct_id');
+			$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
+			$data['char_list'] = $this->accountmodel->get_char_list($aid);
+			$data['class_list'] = $this->config->item('jobs');
+			$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
+			$data['block_list'] = $this->accountmodel->get_block_hist($aid);
+			$data['perm_list'] = $this->config->item('permissions');
+			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+			$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
+			$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
+			$this->load->view('account/details',$data);
+		}
+		else {
+			$addFlag = array(
+				'user'		=> $session_data['id'],
+				'acct_id'	=> $this->input->post('acct_id'),
+				'key'			=> $this->input->post('key'),
+				'index'		=> $this->input->post('index'),
+				'value'		=> $this->input->post('value'),
+			);
+			$this->accountmodel->add_num_flag($addFlag);
+			$data['referpage'] = "addnumflag";
+			$data['acct_id'] = $addFlag['acct_id'];
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
 		$this->email->to($newAcct['email']);

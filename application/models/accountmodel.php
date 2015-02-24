@@ -286,4 +286,24 @@ Class Accountmodel extends CI_Model {
 		$q = $this->db_ragnarok->get('login');
 		return $q->result_array();
 	}
+	
+	function add_num_flag($addFlag) {
+		$timeNow = date("Y-m-d H:i:s");
+		
+		$new_value = $addFlag['key'].",&nbsp;".$addFlag['index'].",&nbsp;".$addFlag['value'];
+		$this->db_ragnarok->set('acct_id', $addFlag['acct_id']);
+		$this->db_ragnarok->set('user', $addFlag['user']);
+		$this->db_ragnarok->set('datetime', $timeNow);
+		$this->db_ragnarok->set('chg_attr', 'add_num_flag');
+		$this->db_ragnarok->set('new_value', $new_value);
+		$this->db_ragnarok->insert('hat_accteditlog');
+		
+		if (empty($addFlag['index']) == false) {
+			$this->db_ragnarok->set('index', $addFlag['index']);
+		}
+		$this->db_ragnarok->set('account_id', $addFlag['acct_id']);
+		$this->db_ragnarok->set('key', $addFlag['key']);
+		$this->db_ragnarok->set('value', $addFlag['value']);
+		$this->db_ragnarok->insert('acc_reg_num_db');
+	}
 }
