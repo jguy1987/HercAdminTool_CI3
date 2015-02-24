@@ -5,7 +5,7 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->where('sex !=', 'S');
 		$this->db_ragnarok->order_by('account_id','asc');
 		$query = $this->db_ragnarok->get('login');
-		return $query->result();
+		return $query->result_array();
 	}
 	
 	function get_acct_details($aid) {

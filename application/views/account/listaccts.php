@@ -67,13 +67,13 @@
 				<tbody>
 					<?php foreach ($accts as $acct_data): ?>
 					<tr class="odd gradeX">
-						<td><a href="/account/details/<?php echo $acct_data->account_id; ?>"><?php echo $acct_data->account_id; ?></td>
-						<td><?php if ($acct_data->group_id > 0) { ?><div style="color:#FF0000; "> <?php } ?><?php echo $acct_data->userid; ?><?php if ($acct_data->group_id > 0) { ?></div><?php } ?></td>
-						<td><?php echo $acct_data->sex; ?></td>
-						<td><?php echo $acct_data->email; ?></td>
-						<td><?php echo $acct_data->createdate; ?></td>
-						<td><?php echo $acct_data->lastlogin; ?></td>
-						<td><?php if ($acct_data->unban_time != 0 || $acct_data->state != 0) { echo "Yes"; } else { echo "No"; }?></td>
+						<td><a href="/account/details/<?php echo $acct_data['account_id']; ?>"><?php echo $acct_data['account_id']; ?></td>
+						<td><?php if ($acct_data['group_id'] > 0) { ?><div style="color:#FF0000; "> <?php } ?><?php echo $acct_data['userid']; ?><?php if ($acct_data['group_id'] > 0) { ?></div><?php } ?></td>
+						<td><?php echo $acct_data['sex']; ?></td>
+						<td><?php echo $acct_data['email']; ?></td>
+						<td><?php echo $acct_data['createdate']; ?></td>
+						<td><?php echo $acct_data['lastlogin']; ?></td>
+						<td><?php if ($acct_data['unban_time'] != 0 || $acct_data['state'] != 0) { echo "Yes"; } else { echo "No"; }?></td>
 						<td>Delete</td>
 					</tr>
 					<?php endforeach; ?>

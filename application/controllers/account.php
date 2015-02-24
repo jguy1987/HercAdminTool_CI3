@@ -55,8 +55,8 @@ class Account extends MY_Controller {
 			'isGM'		=> $this->input->post('isGM'),
 			'isBanned'	=> $this->input->post('isBanned'),
 		);
-		$data['search_results'] = $this->accountmodel->search_accts($searchTerms);
-		$this->load->view('account/search', $data);
+		$data['accts'] = $this->accountmodel->search_accts($searchTerms);
+		$this->load->view('account/listaccts', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
