@@ -15,7 +15,7 @@
 				<a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 			</li>
 			<li>
-				<a href="#"><i class="fa fa-fw"></i> Accounts<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-user fa-fw"></i> Accounts<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li>
 						<a href="/account/listaccts">List/Search Accounts</a>
@@ -28,7 +28,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#"><i class="fa fa-fw"></i> Characters<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-male fa-female fa-fw"></i> Characters<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li>
 						<a href="/character/listchars">List/Search Characters</a>
@@ -42,7 +42,7 @@
 			</li>
 			<?php if ($check_perm['atcmdlog'] == 1 || $check_perm['branchlog'] == 1 || $check_perm['chatlog'] == 1 || $check_perm['loginlog'] == 1 || $check_perm['mvplog'] == 1 || $check_perm['npclog'] == 1 || $check_perm['picklog'] == 1 || $check_perm['zenylog'] == 1) { ?>
 				<li>
-					<a href="#"><i class="fa fa-fw"></i> Game Logs<span class="fa arrow"></span></a>
+					<a href="#"><i class="fa fa-list-ol fa-fw"></i> Game Logs<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['atcmdlog'] == 1) { ?>
 							<li>
@@ -89,7 +89,7 @@
 			<?php } ?>
 			<?php if ($check_perm['items'] == 1 || $check_perm['itemshop'] == 1 || $check_perm['mobs'] == 1 || $check_perm['sftp'] == 1 || $check_perm['serverconfig'] == 1) { ?>
 				<li>
-					<a href="#"><i class="fa fa-fw"></i> Server Setup<span class="fa arrow"></span></a>
+					<a href="#"><i class="fa fa-hdd-o fa-fw"></i> Server Setup<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['items'] == 1) { ?>
 							<li>
@@ -121,7 +121,7 @@
 			<?php } ?>
 			<?php if ($check_perm['editadmin'] == 1 || $check_perm['editgroups'] == 1) { ?>
 			<li>
-				<a href="#"><i class="fa fa-fw"></i> Panel Admin<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-user-md fa-fw"></i> Panel Admin<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<?php if ($check_perm['editadmin'] == 1) { ?>
 					<li>
