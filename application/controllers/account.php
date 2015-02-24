@@ -194,27 +194,10 @@ class Account extends MY_Controller {
 				'character_slots'	=> $this->input->post('charslots'),
 				'birthdate'			=> $this->input->post('birthdate'),
 			);
-			$chgResult = $this->accountmodel->edit_acct_details($chgAcct);
-			if ($chgResult == true) {
-				$data['referpage'] = "editaccount";
-				$data['acct_id'] = $chgAcct['account_id'];
-				$this->load->view('formsuccess', $data);
-			}
-			else {
-				$this->form_validation->set_message("You didn't actually change anything!");
-				$this->usermodel->update_user_active($session_data['id'],"accounts/details");
-				$aid = $this->input->post('account_id');
-				$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
-				$data['char_list'] = $this->accountmodel->get_char_list($aid);
-				$data['class_list'] = $this->config->item('jobs');
-				$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
-				$data['block_list'] = $this->accountmodel->get_block_hist($aid);
-				$data['perm_list'] = $this->config->item('permissions');
-				$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
-				$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
-				$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
-				$this->load->view('account/details',$data);
-			}
+			$this->accountmodel->edit_acct_details($chgAcct);
+			$data['referpage'] = "editaccount";
+			$data['acct_id'] = $chgAcct['account_id'];
+			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}

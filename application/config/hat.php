@@ -20,6 +20,15 @@ $config['map_servername'] = "s1";
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
 
+// To what map should we reset players to?
+$config['reset_map'] = "prontera";
+
+// To what X coordinate should we reset players to?
+$config['reset_x'] = "142";
+
+// To what Y coordinate should we reset players to?
+$config['reset_y'] = "241";
+
 
 /* Email Settings. Settings for email here. */
 
@@ -248,10 +257,13 @@ $config["permissions"] = array(
 		'edittrust'			=> "Edit Account Trust",
 	),
 	'character'		=> array( // Permissions related to Character Management
+		'editcharname'		=> "Edit Character Name",
+		'editcharslot'		=> "Edit Character Slot",
 		'editcharzeny'		=> "Edit Character Zeny",
 		'editcharlv'		=> "Edit Character Levels",
 		'editcharstats'	=> "Edit Character Stats",
 		'editcharjob'		=> "Change Character Job",
+		'editcharlook'		=> "Change Character Look",
 		'delcharitem'		=> "Delete Any Character Item",
 		'senditem'			=> "Send Item via Mail",
 		'kickchar'			=> "Kick Character from Server",
