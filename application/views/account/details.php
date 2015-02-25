@@ -402,7 +402,7 @@
 										<td><?php echo $char_data['base_level']; ?>/<?php echo $char_data['job_level']; ?></td>
 										<td><a href="/guild/details/<?php echo $char_data['guild_id']; ?>"><?php echo $char_data['guild_name']; ?></a></td>
 										<td><?php if ($char_data['online'] == 1) { echo "Yes"; } elseif ($char_data['online'] == 0) { echo "No"; }?></td>
-										<td>Reset Position</td>
+										<td><a href="/character/resetpos/<?php echo $char_data['char_id']; ?>"><button type="button" class="btn btn-sm btn-success">Reset Position</button></a></td>
 									</tr>
 								<?php endforeach; ?>
 							</tbody>

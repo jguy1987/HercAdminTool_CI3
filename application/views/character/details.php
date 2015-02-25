@@ -95,7 +95,7 @@
 							</div>
 							<div class="panel-body">
 								<a href="/character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>&nbsp;
-								<a href="/character/resetpos/<?php echo $charinfo->char_id; ?>"<button type="button" class="btn btn-success">Reset Position</button></a>
+								<a href="/character/resetpos/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
 							</div>
 						</div>
 					</div>	
