@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Add New Admin Panel Group</h1>
+				<h1 class="page-header">Edit Admin Panel Group</h1>
 			</div>
 		</div>
 	</div>
