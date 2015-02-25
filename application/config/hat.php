@@ -257,6 +257,7 @@ $config["permissions"] = array(
 		'edittrust'			=> "Edit Account Trust",
 	),
 	'character'		=> array( // Permissions related to Character Management
+		'whosonline'		=> "View Who's Online",
 		'editcharname'		=> "Edit Character Name",
 		'editcharslot'		=> "Edit Character Slot",
 		'editcharzeny'		=> "Edit Character Zeny",
@@ -290,7 +291,7 @@ $config["permissions"] = array(
 		'canreopen'			=> "Reopen Tickets",
 	),
 	'server'			=> array( // Permissions related to server management
-		'whosonline'		=> "View Who's Online",
+		'serverstats'		=> "View Server Performance",
 		'announcement'		=> "Manage System Broadcasts",
 		'items'				=> "Manage server items",
 		'itemshop'			=> "Manage Item Shop",

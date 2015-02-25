@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `items` tinyint(1) NOT NULL,
   `itemshop` tinyint(1) NOT NULL,
   `mobs` tinyint(1) NOT NULL,
+  `serverstats` tinyint(1) NOT NULL,
   `servermaint` tinyint(1) NOT NULL,
   `viewadminlogs` tinyint(1) NOT NULL,
   `backupdb` tinyint(1) NOT NULL,

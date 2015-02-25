@@ -13,6 +13,7 @@ class Server extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$this->load->model('usermodel');
+		$this->load->model('adminmodel');
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$this->load->view('sidebar', $data);
@@ -21,12 +22,18 @@ class Server extends MY_Controller {
 	
 	public function stats() {
 		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"server/stats");
-		$json_url = base_url('assets/linfo/?out=json');
-		$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
-		$data['herc_stats'] = $this->servermodel->get_herc_stats();
-		$data['mysql_stats'] = $this->servermodel->get_mysql_stats();
-		$this->load->view('server/stats.php', $data);
+		if ($this->adminmodel->check_perm($session_data['group'],'serverstats') == True) {
+			$this->usermodel->update_user_active($session_data['id'],"server/stats");
+			$json_url = base_url('assets/linfo/?out=json');
+			$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
+			$data['herc_stats'] = $this->servermodel->get_herc_stats();
+			$data['mysql_stats'] = $this->servermodel->get_mysql_stats();
+			$this->load->view('server/stats.php', $data);
+		}
+		else {
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied',$data);
+		}
 		$this->load->view('footer-nocharts.php');
 	}
 }
