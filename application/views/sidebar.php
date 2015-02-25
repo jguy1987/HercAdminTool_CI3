@@ -40,6 +40,17 @@
 					<?php } ?>
 				</ul>
 			</li>
+			<li>
+				<a href="#"><i class="fa fa-users fa-fw"></i> Guilds<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li>
+						<a href="/guild/listguilds">List/Search Guilds</a>
+					</li>
+					<li>
+						<a href="/guild/castles">Manage Castles</a>
+					</li>
+				</ul>
+			</li>
 			<?php if ($check_perm['atcmdlog'] == 1 || $check_perm['branchlog'] == 1 || $check_perm['chatlog'] == 1 || $check_perm['loginlog'] == 1 || $check_perm['mvplog'] == 1 || $check_perm['npclog'] == 1 || $check_perm['picklog'] == 1 || $check_perm['zenylog'] == 1) { ?>
 				<li>
 					<a href="#"><i class="fa fa-list-ol fa-fw"></i> Game Logs<span class="fa arrow"></span></a>
