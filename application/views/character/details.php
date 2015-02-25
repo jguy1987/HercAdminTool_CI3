@@ -13,14 +13,19 @@
 			<li><a href="#pets" data-toggle="tab">Pet/Homun Info</a></li>
 			<li><a href="#skills" data-toggle="tab">Skills</a></li>
 		</ul>
+		<?php if ($charinfo->online == 1) { ?>
+			<div class="alert alert-danger">
+				Character is online and cannot be edited!
+			</div>
+		<?php } ?>
+		<?php if ($charinfo->delete_date > 0) { ?>
+			<div class="alert alert-warning">
+				User has initiated the deletion of this character! Initiation time: <?php echo date('Y-m-d H:i:s', $charinfo->delete_date); ?>
+			</div>
+		<?php } ?>
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="details">
 				<h4>Basic Character Info</h4><br />
-				<?php if ($charinfo->online == 1) { ?>
-					<div class="alert alert-danger">
-						Character is online and cannot be edited!
-					</div>
-				<?php } ?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open('/character/verifyedit', array('class' => 'form-inline'), array('charid' => $charinfo->char_id)); ?>
 				<div class="row">
@@ -161,11 +166,6 @@
 			</div>
 			<div class="tab-pane fade in" id="items">
 				<h4>Character Item Information</h4><br />
-				<?php if ($charinfo->online == 1) { ?>
-					<div class="alert alert-danger">
-						Character is online and cannot be edited!
-					</div>
-				<?php } ?>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
@@ -314,11 +314,6 @@
 			</div>
 			<div class="tab-pane fade in" id="log">
 				<h4>Character Log</h4><br />
-				<?php if ($charinfo->online == 1) { ?>
-					<div class="alert alert-danger">
-						Character is online and cannot be edited!
-					</div>
-				<?php } ?>
 				<div class="row">
 					<h4>Character Log</h4>
 					<div class="col-lg-6">
@@ -378,11 +373,6 @@
 			</div>
 			<div class="tab-pane fade in" id="friends">
 				<h4>Character Friends</h4><br />
-				<?php if ($charinfo->online == 1) { ?>
-					<div class="alert alert-danger">
-						Character is online and cannot be edited!
-					</div>
-				<?php } ?>
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="table-responsive">
