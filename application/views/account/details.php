@@ -395,14 +395,14 @@
 								<?php foreach ($char_list as $char_data): ?>
 									<tr class="odd gradeX">
 										<td><?php echo $char_data['char_num']; ?></td>
-										<td><a href="/character/details/<?php echo $char_data['char_id']; ?>"><?php echo $char_data['char_id']; ?></a></td>
+										<td><a href="/character/details/<?php echo $char_data['char_id']; ?>"><?php echo $char_data['char_id']; ?></a>&nbsp;<?php if ($char_data['delete_date'] > 0) { ?><button class="btn btn-danger btn-xs disabled">DELETION PENDING</button><?php } ?></td>
 										<td><?php echo $char_data['name']; ?></td>
 										<td><?php echo $char_data['sex']; ?></td>
 										<td><?php echo $class_list[$char_data['class']]; ?></td>
 										<td><?php echo $char_data['base_level']; ?>/<?php echo $char_data['job_level']; ?></td>
 										<td><a href="/guild/details/<?php echo $char_data['guild_id']; ?>"><?php echo $char_data['guild_name']; ?></a></td>
 										<td><?php if ($char_data['online'] == 1) { echo "Yes"; } elseif ($char_data['online'] == 0) { echo "No"; }?></td>
-										<td><a href="/character/resetpos/<?php echo $char_data['char_id']; ?>"><button type="button" class="btn btn-sm btn-success">Reset Position</button></a></td>
+										<td><a href="/character/resetpos/<?php echo $char_data['char_id']; ?>"><button type="button" class="btn btn-sm btn-success <?php if ($char_data['delete_date'] > 0) { echo "disabled"; } ?>">Reset Position</button></a></td>
 									</tr>
 								<?php endforeach; ?>
 							</tbody>
