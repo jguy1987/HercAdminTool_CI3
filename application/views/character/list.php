@@ -81,7 +81,7 @@
 							<td><a href="/guild/details/<?php echo $char_data['guild_id']; ?>"><?php echo $char_data['guild_name']; ?></a></td>
 							<td><a href="/party/details/<?php echo $char_data['party_id']; ?>"><?php echo $char_data['party_name']; ?></a></td>
 							<td><?php if ($char_data['online'] == 1) { echo "Yes"; } elseif ($char_data['online'] == 0) { echo "No"; }?></td>
-							<td><a href="/character/resetpos/<?php echo $char_data['char_id']; ?>"><button type="button" class="btn btn-sm btn-success <?php if ($char_data['delete_date'] > 0) { echo "disabled"; } ?>">Reset Position</button></a></td>
+							<td><a href="/character/resetpos/<?php echo $char_data['char_id']; ?>" class="btn btn-sm btn-success <?php if ($char_data['delete_date'] > 0) { echo "disabled"; } ?>">Reset Position</a></td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>
