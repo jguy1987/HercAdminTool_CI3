@@ -20,11 +20,13 @@ Class Charmodel extends CI_Model {
 	}
 	
 	function get_char_info($cid) {
-		$this->db_ragnarok->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name');
+		$this->db_ragnarok->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name,charlog1.time AS create_time,charlog2.time AS lastlogin_time');
 		$this->db_ragnarok->from('char');
 		$this->db_ragnarok->where('char.char_id', $cid);
 		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id', 'left');
 		$this->db_ragnarok->join('party', 'char.party_id = party.party_id', 'left');
+		$this->db_ragnarok->join('charlog AS charlog1', 'char.char_id = charlog1.char_id AND charlog1.char_msg = "make new char"', 'left');
+		$this->db_ragnarok->join('charlog AS charlog2', "char.char_id = charlog2.char_id AND charlog2.time = (SELECT MAX(charlog.time) FROM charlog WHERE char_msg = 'char select' AND char_id = '".$cid."')", 'left');
 		$query = $this->db_ragnarok->get();
 		return $query->row();
 	}

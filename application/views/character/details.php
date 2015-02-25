@@ -37,6 +37,10 @@
 											<td><label>Character ID</label></td><td><?php echo $charinfo->char_id; ?></td>
 										</tr>
 										<tr>
+											<td><label>Create Date</label></td><td><?php echo $charinfo->create_time; ?></td>
+											<td><label>Last Played</label></td><td><?php echo $charinfo->lastlogin_time; ?></td>
+										</tr>
+										<tr>
 											<td><label>Slot #</label></td><td><input type="number" min="0" max="9" class="form-control" name="char_num" value="<?php echo $charinfo->char_num; ?>"  <?php if ($check_perm['editcharslot'] == 0) { echo "readonly"; } ?> /></td>
 											<td><label>Account ID</label></td><td><a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a></td>
 										</tr>
