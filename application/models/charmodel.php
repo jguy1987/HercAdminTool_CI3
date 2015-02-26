@@ -32,7 +32,7 @@ Class Charmodel extends CI_Model {
 	}
 	
 	function get_char_items($cid) {
-		$this->db_ragnarok->select('inventory.*,item_db.id,item_db.name_japanese,item_db.type');
+		$this->db_ragnarok->select('inventory.*,item_db.id AS item_id,item_db.name_japanese,item_db.type');
 		$this->db_ragnarok->from('inventory')->order_by('inventory.equip', 'asc')->order_by('item_db.id', 'asc');
 		$this->db_ragnarok->where('inventory.char_id', $cid);
 		$this->db_ragnarok->join('item_db', 'inventory.nameid = item_db.id', 'left');
@@ -41,7 +41,7 @@ Class Charmodel extends CI_Model {
 	}
 	
 	function get_cart_items($cid) {
-		$this->db_ragnarok->select('cart_inventory.*,item_db.id,item_db.name_japanese,item_db.type');
+		$this->db_ragnarok->select('cart_inventory.*,item_db.id AS item_id,item_db.name_japanese,item_db.type');
 		$this->db_ragnarok->from('cart_inventory')->order_by('item_db.id', 'asc');
 		$this->db_ragnarok->where('cart_inventory.char_id', $cid);
 		$this->db_ragnarok->join('item_db', 'cart_inventory.nameid = item_db.id', 'left');
@@ -159,4 +159,39 @@ Class Charmodel extends CI_Model {
 		$this->db_ragnarok->where('char_id', $cid);
 		$this->db_ragnarok->update('char');
 	}
+	
+	function edit_char_item($itemEdit, $itemLoc) {
+		$this->db_ragnarok->where('id', $itemEdit['id']);
+		unset($itemEdit['id']);
+		$this->db_ragnarok->set($itemEdit);
+		if ($itemLoc == "inventory") {
+			$this->db_ragnarok->update('inventory');
+		}
+		elseif ($itemLoc == "cart") {
+			$this->db_ragnarok->update('cart_inventory');
+		}
+	}
+	
+	function check_if_card($cardid) {
+		$this->db_ragnarok->select('*');
+		$this->db_ragnarok->where('id', $cardid);
+		$this->db_ragnarok->where('type', 6);
+		$q = $this->db_ragnarok->get('item_db');
+		$q_count = $q->num_rows();
+		/*
+		$this->db_ragnarok->select('*');
+		$this->db_ragnarok->where('id', $cardid);
+		$this->db_ragnarok->where('type', 6);
+		$q2 = $this->db_ragnarok->get('item_db2');
+		$q2_count = $q2->num_rows(); */
+		$q2_count = 0;
+		
+		if ($q_count == 0 && $q2_count == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 }

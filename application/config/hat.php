@@ -240,6 +240,21 @@ $config['equipLocations'] = array(
 	2097152 	=> "Shadow Accessory 1",
 );
 
+/* Array for item types. */
+$config['itemTypes'] = array(
+	0	=> "Healing",
+	2	=> "Usable",
+	3	=> "Etc",
+	4	=> "Weapon",
+	5	=> "Armor",
+	6	=> "Card",
+	7	=> "Pet Egg",
+	8	=> "Pet Armor",
+	10	=> "Ammunition",
+	11 => "Delay Consume",
+	12	=> "Cash",
+);
+
 $config["permissions"] = array(
 	'account'		=> array( // Permissions related to account management
 		'viewemail'			=> "View Email Address",
@@ -266,6 +281,7 @@ $config["permissions"] = array(
 		'editcharjob'		=> "Change Character Job",
 		'editcharlook'		=> "Change Character Look",
 		'delcharitem'		=> "Delete Any Character Item",
+		'editcharitem'		=> "Edit Any Character Item",
 		'senditem'			=> "Send Item via Mail",
 		'kickchar'			=> "Kick Character from Server",
 		'delcharacter'		=> "Delete Individual Character",

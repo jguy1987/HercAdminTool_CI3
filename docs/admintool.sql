@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `editcharlook` tinyint(1) NOT NULL,
   `whosonline` tinyint(1) NOT NULL,
   `delcharitem` tinyint(1) NOT NULL,
+  `editcharitem` tinyint(1) NOT NULL,
   `senditem` tinyint(1) NOT NULL,
   `kickchar` tinyint(1) NOT NULL,
   `delcharacter` tinyint(1) NOT NULL,
