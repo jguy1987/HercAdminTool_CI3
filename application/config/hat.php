@@ -294,6 +294,7 @@ $config["permissions"] = array(
 		'addadmin'			=> "Add Admin",
 		'editadmin'			=> "Edit Admin",
 		'deladmin'			=> "Remove Admin",
+		'deladmingroup'	=> "Remove Admin Group",
 		'hatconfig'			=> "AdminTool Configuration Access",
 		'editadminnews'	=> "Edit Admin Announcements",
 		'viewadminlogs'	=> "View Admin Logs",

@@ -252,6 +252,30 @@ class Admin extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	public function delgroup($gid) {
+		$session_data = $this->session->userdata('loggedin');
+		if ($this->adminmodel->check_perm($session_data['group'], 'deladmingroup') || $gid < $session_data['group']) {
+			$result = $this->adminmodel->delete_group($gid);
+			if ($result == "groupfull") {
+				$data['referpage'] = "groupfull";
+				$this->load->view('accessdenied', $data);
+			} 
+			elseif ($result == "group99") {
+				$data['referpage'] = "group99";
+				$this->load->view("accessdenied", $data);
+			}
+			elseif ($result == "ok") {
+				$data['referpage'] = "groupdel";
+				$this->load->view('formsuccess', $data);
+			}
+		}
+		else {
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	public function news() {
 		$session_data = $this->session->userdata('loggedin');
 		if ($this->adminmodel->check_perm($session_data['group'],'editadminnews') == True) {

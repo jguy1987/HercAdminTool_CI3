@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `changeposition` tinyint(1) NOT NULL,
   `editgroups` tinyint(1) NOT NULL,
   `addgroup` tinyint(1) NOT NULL,
+  `deladmingroup` tinyint(1) NOT NULL,
   `addadmin` tinyint(1) NOT NULL,
   `editadmin` tinyint(1) NOT NULL,
   `deladmin` tinyint(1) NOT NULL,

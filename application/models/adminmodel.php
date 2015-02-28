@@ -142,6 +142,26 @@ Class Adminmodel extends CI_Model {
 		return $passwd;
 	}
 	
+	function delete_group($gid) {
+		// First, check to make sure we're not trying to delete the admin group...
+		if ($gid == 99) {
+			return "group99";
+		}
+		
+		// Then make sure there are no admins in this group...
+		$this->db_ragnarok->select('*');
+		$q = $this->db_ragnarok->get_where('hat_users', array('groupid' => $gid));
+		$q_count = $q->num_rows();
+		if ($q_count > 0) {
+			return "groupfull";
+		}
+		
+		// Then, delete the group..
+		$this->db_ragnarok->where('id', $gid);
+		$this->db_ragnarok->delete('hat_groups');
+		return "ok";
+	}
+	
 	function check_perm($sdata,$perm) {
 		$this->db_ragnarok->select($perm);
 		$query = $this->db_ragnarok->get_where('hat_groups', array('id' => $sdata));

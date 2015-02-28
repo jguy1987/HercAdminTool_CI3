@@ -58,6 +58,9 @@
 			case "editnumflag":
 				echo "Account Num Flag edited successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
 				break;
+			case "groupdel":
+				echo "Group deleted successfully. Return to <a href='/admin/groups'>group management page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

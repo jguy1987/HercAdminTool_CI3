@@ -14,6 +14,12 @@
 				case "groupdeny": 
 					echo "<p>You may not edit a user who's group is equal to or higher than your own! Return to the <a href='/'>dashboard</a>.";
 					break;
+				case "groupfull":
+					echo "You may not delete a group which has members in it. Remove the members from the group and then you may delete it. Return to <a href='/admin/groups'>group management page</a>.";
+					break;
+				case "group99":
+					echo "You may not delete the admin group. Return to <a href='/admin/groups'>group management page</a>.";
+					break;
 				default:
 					echo "<p>General failure. Return to the <a href='/'>dashboard</a>.";
 					break;
