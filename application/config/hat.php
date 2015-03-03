@@ -29,6 +29,9 @@ $config['reset_x'] = "142";
 // To what Y coordinate should we reset players to?
 $config['reset_y'] = "241";
 
+// Does your login table have a last_mac column (yes or no)?
+$config['last_mac_addon'] = "yes";
+
 
 /* Email Settings. Settings for email here. */
 

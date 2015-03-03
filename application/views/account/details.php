@@ -108,6 +108,11 @@
 											<td>&nbsp;</td>
 											<td><label>Auth IP</label></td><td><?php echo $acct_data->auth_ip; ?></td>
 										</tr>
+										<?php if ($this->config->item('last_mac_addon') == "yes") { ?>
+											<tr>
+												<td><label>Last MAC</label></td><td><?php echo $acct_data->last_mac; ?></td>
+											</tr>
+										<?php } ?>
 									</table>
 								</div>
 							</div>
