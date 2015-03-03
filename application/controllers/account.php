@@ -9,6 +9,7 @@ class Account extends MY_Controller {
 		}
 		$this->load->model('accountmodel');
 		$this->load->model('adminmodel');
+		$this->load->model('itemmodel');
 		$session_data = $this->session->userdata('loggedin');
 		$data['username'] = $session_data['username'];
 		
@@ -31,6 +32,8 @@ class Account extends MY_Controller {
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$data['class_list'] = $this->config->item('jobs');
+		$data['equipLocation'] = $this->config->item('equipLocations');
+		$data['item_types'] = $this->config->item('itemTypes');
 		$data += $this->load_acct_data($aid);
 		$this->load->view('account/details',$data);
 		$this->load->view('footer-nocharts');
@@ -263,6 +266,51 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	function edititem() {
+		$session_data = $this->session->userdata('loggedin');
+		$this->form_validation->set_rules('refine', "Refine Level", 'trim|required|greater_than[-1]');
+		if ($this->input->post('card0') > 0) {
+			$this->form_validation->set_rules('card0', "Card 1", 'callback_check_card');
+		}
+		if ($this->input->post('card1') > 0) {
+			$this->form_validation->set_rules('card1', "Card 2", 'callback_check_card');
+		}
+		if ($this->input->post('card2') > 0) {
+			$this->form_validation->set_rules('card2', "Card 3", 'callback_check_card');
+		}
+		if ($this->input->post('card3') > 0) {
+			$this->form_validation->set_rules('card3', "Card 4", 'callback_check_card');
+		}
+		if ($this->form_validation->run() == FALSE) {
+			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+			$data['perm_list'] = $this->config->item('permissions');
+			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+			$data['class_list'] = $this->config->item('jobs');
+			$data['equipLocation'] = $this->config->item('equipLocations');
+			$data['item_types'] = $this->config->item('itemTypes');
+			$data += $this->load_acct_data($aid);
+			$this->load->view('account/details', $data);
+		}
+		else {
+			$itemLoc = "storage";
+			$itemEdit = array(
+				'id'			=> $this->input->post('id'),
+				'refine'		=> $this->input->post('refine'),
+				'attribute'	=> $this->input->post('attribute'),
+				'bound'		=> $this->input->post('bound'),
+				'card0'		=> $this->input->post('card0'),
+				'card1'		=> $this->input->post('card1'),
+				'card2'		=> $this->input->post('card2'),
+				'card3'		=> $this->input->post('card3'),
+			);
+			$this->itemmodel->edit_char_item($itemEdit, $itemLoc);
+			$data['referpage'] = "editaccount";
+			$data['acct_id'] = $this->input->post('acctid');
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
 	function send_acct_email($data,$newAcct,$type) {
 		$this->email->from($this->config->item('emailfrom'), $this->config->item('servername'));
 		$this->email->to($newAcct['email']);
@@ -335,6 +383,18 @@ Thank you.");
 		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
 		$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
 		$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
+		$data['storage_items'] = $this->accountmodel->get_storage_items($aid);
 		return $data;
+	}
+	
+	function check_card($cardid) {
+		$result = $this->itemmodel->check_if_card($cardid);
+		if ($result == false) {
+			$this->form_validation->set_message('check_card', "The ID you entered for a card is not a valid ID");
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 }

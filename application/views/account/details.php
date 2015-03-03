@@ -10,6 +10,7 @@
 			<li><a href="#blocks" data-toggle="tab">Account Blocks</a></li>
 			<li><a href="#notes" data-toggle="tab">Notes</a></li>
 			<li><a href="#flags" data-toggle="tab">Register DB</a></li>
+			<li><a href="#storage" data-toggle="tab">Storage</a></li>
 			<li><a href="#history" data-toggle="tab">History</a></li>
 			<li><a href="#characters" data-toggle="tab">Characters</a></li>
 		</ul>
@@ -345,6 +346,78 @@
 							<?php echo form_close(); ?>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="storage">
+				<h4>Storage items on this account</h4>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<th>ItemID</th>
+							<th>Name</th>
+							<th>Quantity</th>
+							<th>Identified?</th>
+							<th>Item Type</th>
+							<th>Unique ID</th>
+							<th>Details</th>
+							<th>Options</th>
+						</thead>
+						<tbody>
+							<?php foreach ($storage_items as $storageItem) { ?>
+								<tr>
+									<?php if ($storageItem['equip'] < 1) { ?>
+										<td><?php echo $storageItem['nameid']; ?></td>
+										<td><?php echo $storageItem['name_japanese']; ?></td>
+										<td><?php echo $storageItem['amount']; ?></td>
+										<td><?php echo $storageItem['identify']; ?></td>
+										<td><?php echo $item_types[$storageItem['type']]; ?></td>
+										<td><?php echo $storageItem['unique_id']; ?></td>
+										<td><center><a data-toggle="collapse" data-parent="#accordion" href="#storagedetails<?php echo $storageItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
+										<td>
+											<?php	echo form_open('/account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => "inventory", 'acctid' => $acct_data->account_id)); ?>
+											<button type="submit" class="btn btn-success btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>" >Edit</button>&nbsp;
+											<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>">Delete</button>
+										</td>
+									<?php } ?>
+								</tr>
+								<tr>
+									<td colspan="8" class="hiddenRow">
+										<div id="storagedetails<?php echo $storageItem['id']; ?>" class="panel-collapse collapse">
+											<div class="panel-body">
+												<div class="row">
+													<div class="col-xs-2">
+														<strong>Refine level:</strong>&nbsp;<input type="number" name="refine" class="form-control" value="<?php echo $storageItem['refine']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> />
+													</div>
+													<div class="col-xs-2">
+														<strong>Broken?:</strong>&nbsp;<input type="checkbox" name="attribute" class="form-control" value="1" <?php if ($storageItem['attribute'] == 1) { echo "checked"; } if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "disabled"; } ?> />
+													</div>
+													<div class="col-xs-2">
+														<strong>Bound?:</strong>&nbsp;<input type="checkbox" name="bound" class="form-control" value="1" <?php if ($storageItem['bound'] == 1) { echo "checked"; } ?> />
+													</div>
+												</div>
+												<br />
+												<div class="row">
+													<div class="col-xs-2">
+														<strong>Card 1:</strong>&nbsp;<input type="number" name="card0" class="form-control" value="<?php echo $storageItem['card0']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
+													</div>
+													<div class="col-xs-2">
+														<strong>Card 2:</strong>&nbsp;<input type="number" name="card1" class="form-control" value="<?php echo $storageItem['card1']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
+													</div>
+													<div class="col-xs-2">
+														<strong>Card 3:</strong>&nbsp;<input type="number" name="card2" class="form-control" value="<?php echo $storageItem['card2']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
+													</div>
+													<div class="col-xs-2">
+														<strong>Card 4:</strong>&nbsp;<input type="number" name="card3" class="form-control" value="<?php echo $storageItem['card3']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
+													</div>
+												</div>
+												<?php echo form_close(); ?>
+											</div>
+										</div>
+									</td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="history">

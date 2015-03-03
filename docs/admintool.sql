@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `hat_groups` (
   `banaccount` tinyint(1) NOT NULL,
   `unbanaccount` tinyint(1) NOT NULL,
   `edittrust` tinyint(1) NOT NULL,
+  `editstorageitem` tinyint(1) NOT NULL,
   `editcharname` tinyint(1) NOT NULL,
   `editcharslot` tinyint(1) NOT NULL,
   `editcharzeny` tinyint(1) NOT NULL,

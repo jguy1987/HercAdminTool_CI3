@@ -273,6 +273,7 @@ $config["permissions"] = array(
 		'banaccount'		=> "Ban Account",
 		'unbanaccount'		=> "Unban Account",
 		'edittrust'			=> "Edit Account Trust",
+		'editstorageitem'	=> "Edit Item in Account Storage",
 	),
 	'character'		=> array( // Permissions related to Character Management
 		'whosonline'		=> "View Who's Online",

@@ -77,6 +77,15 @@ Class Accountmodel extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function get_storage_items($aid) {
+		$this->db_ragnarok->select('storage.*,item_db.id AS item_id,item_db.name_japanese,item_db.type');
+		$this->db_ragnarok->from('storage')->order_by('storage.id', 'asc');
+		$this->db_ragnarok->where('storage.account_id', $aid);
+		$this->db_ragnarok->join('item_db', 'storage.nameid = item_db.id', 'left');
+		$q = $this->db_ragnarok->get();
+		return $q->result_array();
+	}
+	
 	function add_note($newNote) {
 		$newNote['datetime'] = date("Y-m-d H:i:s");
 		$this->db_ragnarok->insert('hat_acctnotes', $newNote);

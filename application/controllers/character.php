@@ -14,6 +14,7 @@ class Character extends MY_Controller {
 		$this->load->view('header', $data);
 		$this->load->model('usermodel');
 		$this->load->model('adminmodel');
+		$this->load->model('itemmodel');
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$this->load->view('sidebar', $data);
@@ -168,7 +169,7 @@ class Character extends MY_Controller {
 				'card2'		=> $this->input->post('card2'),
 				'card3'		=> $this->input->post('card3'),
 			);
-			$this->charmodel->edit_char_item($itemEdit, $itemLoc);
+			$this->itemmodel->edit_char_item($itemEdit, $itemLoc);
 			$data['referpage'] = "editchar";
 			$data['char_id'] = $this->input->post('charid');
 			$this->load->view('formsuccess', $data);
@@ -222,7 +223,7 @@ class Character extends MY_Controller {
 	}
 	
 	function check_card($cardid) {
-		$result = $this->charmodel->check_if_card($cardid);
+		$result = $this->itemmodel->check_if_card($cardid);
 		if ($result == false) {
 			$this->form_validation->set_message('check_card', "The ID you entered for a card is not a valid ID");
 			return false;
