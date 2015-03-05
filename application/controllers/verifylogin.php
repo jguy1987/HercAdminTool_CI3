@@ -4,12 +4,10 @@ class VerifyLogin extends MY_Controller {
  
 	function __construct() {
 		parent::__construct();
-		$this->load->model('usermodel');
 	}
 	 
 	function index() {
 		//This method will have the credentials validation
-		$this->load->library('form_validation');
 	 
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('passwd', 'Password', 'trim|required|xss_clean|callback_check_database');

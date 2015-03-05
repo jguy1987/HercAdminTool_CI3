@@ -7,23 +7,17 @@ class Gamelogs extends MY_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('gamelogmodel');
-		$this->load->model('adminmodel');
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
 	
 	public function atcmd() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'atcmdlog') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"gamelog/atcmd");
+		if ($this->adminmodel->check_perm($this->session_data['group'],'atcmdlog') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"gamelog/atcmd");
 			$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_log();
 			$this->load->view('gamelogs/atcmd', $data);
 		}

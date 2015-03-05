@@ -7,23 +7,16 @@ class Admin extends MY_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('adminmodel');
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
-		$this->load->library('form_validation');
 	}
 	
 	public function users() {
-		$session_data = $this->session->userdata('loggedin');
-		
-		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"admin/users");
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editadmin') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"admin/users");
 			$data['admin_results'] = $this->adminmodel->list_admins();
 			$this->load->view('admin/users', $data);
 			$this->load->view('footer-nocharts');
@@ -36,9 +29,8 @@ class Admin extends MY_Controller {
 	}
 	
 	public function groups() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"admin/groups");
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editgroups') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"admin/groups");
 			$data['group_results'] = $this->adminmodel->list_groups();
 			foreach ($data['group_results'] as $group_results) {
 				$data['name_results'][$group_results['id']] = $this->adminmodel->list_users_in_group($group_results['id']);
@@ -53,9 +45,8 @@ class Admin extends MY_Controller {
 	}
 	
 	public function adduser() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'addadmin') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"admin/adduser");
+		if ($this->adminmodel->check_perm($this->session_data['group'],'addadmin') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"admin/adduser");
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/adduser', $data);
 		}
@@ -67,14 +58,13 @@ class Admin extends MY_Controller {
 	}
 	
 	public function edituser($userid) {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editadmin') == True) {
 			$data['userinfo'] = $this->adminmodel->get_user_data($userid);
-			if ($data['userinfo']->groupid >= $session_data['group']) {
+			if ($data['userinfo']->groupid >= $this->session_data['group']) {
 				$data['referpage'] = "groupdeny";
 				$this->load->view('accessdenied',$data);
 			}
-			$this->usermodel->update_user_active($session_data['id'],"admin/edituser");
+			$this->usermodel->update_user_active($this->session_data['id'],"admin/edituser");
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$data['loginlog_results'] = $this->adminmodel->get_loginlog($userid);
 			$this->load->view('admin/edituser', $data);
@@ -160,8 +150,7 @@ class Admin extends MY_Controller {
 	}
 	
 	public function resetusers() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editadmin') == True) {
 			$passwds = $this->adminmodel->resetallpwd();
 			foreach($passwds as $email_data) {
 				$this->send_admin_email($email_data,"useredit");
@@ -177,10 +166,9 @@ class Admin extends MY_Controller {
 	}
 	
 	public function addgroup() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'addgroup') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'addgroup') == True) {
 			$data['permissions'] = $this->config->item('permissions');
-			$this->usermodel->update_user_active($session_data['id'],"admin/addgroup");
+			$this->usermodel->update_user_active($this->session_data['id'],"admin/addgroup");
 			$this->load->view('admin/addgroup', $data);
 		}
 		else {
@@ -191,10 +179,9 @@ class Admin extends MY_Controller {
 	}
 	
 	public function editgroup($gid) {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editgroups') == True && $gid < $session_data['group']) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editgroups') == True && $gid < $this->session_data['group']) {
 			$data['permissions'] = $this->config->item('permissions');
-			$this->usermodel->update_user_active($session_data['id'],"admin/editgroup");
+			$this->usermodel->update_user_active($this->session_data['id'],"admin/editgroup");
 			$data['grpInfo'] = $this->adminmodel->get_group_data($gid);
 			$this->load->view('admin/editgroup', $data);
 		}
@@ -253,8 +240,7 @@ class Admin extends MY_Controller {
 	}
 	
 	public function delgroup($gid) {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'], 'deladmingroup') || $gid < $session_data['group']) {
+		if ($this->adminmodel->check_perm($this->session_data['group'], 'deladmingroup') || $gid < $this->session_data['group']) {
 			$result = $this->adminmodel->delete_group($gid);
 			if ($result == "groupfull") {
 				$data['referpage'] = "groupfull";
@@ -277,8 +263,7 @@ class Admin extends MY_Controller {
 	}
 	
 	public function news() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editadminnews') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editadminnews') == True) {
 			//$data[
 			$data['admin_news'] = $this->adminmodel->get_adminnews_items();
 			$this->load->view('admin/news');
@@ -291,9 +276,8 @@ class Admin extends MY_Controller {
 	}
 	
 	function lockusers() {		
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
-			$this->adminmodel->users_login_status($session_data['id'], 'lock');
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editadmin') == True) {
+			$this->adminmodel->users_login_status($this->session_data['id'], 'lock');
 			$data['referpage'] = "lockusers";
 			$this->load->view('formsuccess', $data);
 			$this->load->view('footer-nocharts');
@@ -306,9 +290,8 @@ class Admin extends MY_Controller {
 	}
 		
 	function unlockusers() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'editadmin') == True) {
-			$this->adminmodel->users_login_status($session_data['id'], 'unlock');
+		if ($this->adminmodel->check_perm($this->session_data['group'],'editadmin') == True) {
+			$this->adminmodel->users_login_status($this->session_data['id'], 'unlock');
 			$data['referpage'] = "unlockusers";
 			$this->load->view('formsuccess', $data);
 			$this->load->view('footer-nocharts');
@@ -346,8 +329,7 @@ Thank you.");
 	}
 	
 	function check_group($gid) {
-		$session_data = $this->session->userdata('loggedin');
-		if ($gid >= $session_data['group']) {
+		if ($gid >= $this->session_data['group']) {
 			$this->form_validation->set_message('check_group', 'You may not create or edit an admin to have a higher group than your own!');
 			return FALSE;
 		}

@@ -1,29 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Character extends MY_Controller {
-
+	
+	public $data;
+	
 	function __construct() {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('charmodel');	
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$this->load->model('adminmodel');
-		$this->load->model('itemmodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
 	
 	function listchars() {
-		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"character/listchars");
+		$this->usermodel->update_user_active($this->session_data['id'],"character/listchars");
 		$data['char_list'] = $this->charmodel->get_char_list();
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/list', $data);
@@ -31,9 +26,8 @@ class Character extends MY_Controller {
 	}
 	
 	function whosonline() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'whosonline') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"character/whosonline");
+		if ($this->adminmodel->check_perm($this->session_data['group'],'whosonline') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"character/whosonline");
 			$data['online_list'] = $this->charmodel->list_online();
 			$data['class_list'] = $this->config->item('jobs');
 			$this->load->view('character/online',$data);
@@ -46,20 +40,17 @@ class Character extends MY_Controller {
 	}
 	
 	function details($cid) {
-		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"character/details");
+		$this->usermodel->update_user_active($this->session_data['id'],"character/details");
 		$data['class_list'] = $this->config->item('jobs');
 		$data['perm_list'] = $this->config->item('permissions');
 		$data['equipLocation'] = $this->config->item('equipLocations');
 		$data['item_types'] = $this->config->item('itemTypes');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 		$data += $this->load_char_data($cid);
 		$this->load->view('character/details', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	function verifyedit() {
-		$session_data = $this->session->userdata('loggedin');
 		$max_blevel = $this->config->item('max_base_level') + 1;
 		$max_jlevel = $this->config->item('max_job_level') + 1;
 		$data['charinfo'] = $this->charmodel->get_char_info($this->input->post('charid'));
@@ -90,18 +81,17 @@ class Character extends MY_Controller {
 		$this->form_validation->set_rules('hair_color', "Hair Color ID", 'trim|required|integer');
 		$this->form_validation->set_rules('clothes_color', "Clothes Color ID", 'trim|required|integer');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"character/details");
+			$this->usermodel->update_user_active($this->session_data['id'],"character/details");
 			$data['class_list'] = $this->config->item('jobs');
 			$data['perm_list'] = $this->config->item('permissions');
 			$data['equipLocation'] = $this->config->item('equipLocations');
 			$data['item_types'] = $this->config->item('itemTypes');
-			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 			$data += $this->load_char_data($this->input->post('charid'));
 			$this->load->view('character/details', $data);
 		}
 		else {
 			$chgChar = array(
-				'user'				=> $session_data['id'],
+				'user'				=> $this->session_data['id'],
 				'charid'				=> $this->input->post('charid'),
 				'name'				=> $this->input->post('char_name'),
 				'char_num'			=> $this->input->post('char_num'),
@@ -133,7 +123,6 @@ class Character extends MY_Controller {
 	}
 	
 	function edititem() {
-		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('refine', "Refine Level", 'trim|required|greater_than[-1]');
 		if ($this->input->post('card0') > 0) {
 			$this->form_validation->set_rules('card0', "Card 1", 'callback_check_card');
@@ -148,12 +137,11 @@ class Character extends MY_Controller {
 			$this->form_validation->set_rules('card3', "Card 4", 'callback_check_card');
 		}
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"character/details");
+			$this->usermodel->update_user_active($this->session_data['id'],"character/details");
 			$data['class_list'] = $this->config->item('jobs');
 			$data['perm_list'] = $this->config->item('permissions');
 			$data['equipLocation'] = $this->config->item('equipLocations');
 			$data['item_types'] = $this->config->item('itemTypes');
-			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 			$data += $this->load_char_data($this->input->post('charid'));
 			$this->load->view('character/details', $data);
 		}
@@ -178,8 +166,7 @@ class Character extends MY_Controller {
 	}
 	
 	function search() {
-		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"characters/search");
+		$this->usermodel->update_user_active($this->session_data['id'],"characters/search");
 		$searchTerms = array(
 			'charid'		=> $this->input->post('char_id'),
 			'char_name'	=> $this->input->post('char_name'),
@@ -197,10 +184,9 @@ class Character extends MY_Controller {
 	}
 	
 	function resetpos($cid) {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'changeposition') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"character/resetpos");
-			$this->charmodel->reset_char_pos($cid, $session_data['id']);
+		if ($this->adminmodel->check_perm($this->session_data['group'],'changeposition') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"character/resetpos");
+			$this->charmodel->reset_char_pos($cid, $this->session_data['id']);
 			$data['referpage'] = "resetpos";
 			$data['char_id'] = $cid;
 			$this->load->view('formsuccess', $data);

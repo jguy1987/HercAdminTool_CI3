@@ -2,23 +2,17 @@
 
 class Account extends MY_Controller {
 
+	public $data;
 	function __construct() {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('accountmodel');
-		$this->load->model('adminmodel');
-		$this->load->model('itemmodel');
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
-		$this->load->library('form_validation');
 	}
 
 	public function create() {
@@ -27,10 +21,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function details($aid) {
-		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"accounts/details");
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
 		$data['class_list'] = $this->config->item('jobs');
 		$data['equipLocation'] = $this->config->item('equipLocations');
 		$data['item_types'] = $this->config->item('itemTypes');
@@ -40,16 +31,14 @@ class Account extends MY_Controller {
 	}
 	
 	public function listaccts() {
-		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+		$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 		$data['accts'] = $this->accountmodel->list_accounts();
 		$this->load->view('account/listaccts', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
 	public function search() {
-		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"accounts/search");
+		$this->usermodel->update_user_active($this->session_data['id'],"accounts/search");
 		$searchTerms = array(
 			'acct_id'	=> $this->input->post('acct_id'),
 			'acct_name'	=> $this->input->post('acct_name'),
@@ -91,15 +80,14 @@ class Account extends MY_Controller {
 	public function addnote() {
 		$this->form_validation->set_rules('note', 'Note','trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 			$data['accts'] = $this->accountmodel->list_accounts();
 			$this->load->view('account/listaccts', $data);
 		}
 		else {
-			$session_data = $this->session->userdata('loggedin');
 			$newNote = array(
 				'acct_id'		=> $this->input->post('acct_id'),
-				'userid'				=> $session_data['id'],
+				'userid'				=> $this->session_data['id'],
 				'note'			=> nl2br($this->input->post('note'))
 			);
 			$this->accountmodel->add_note($newNote);
@@ -111,13 +99,12 @@ class Account extends MY_Controller {
 	}
 	
 	public function addblock() {
-		$session_data = $this->session->userdata('loggedin');
 		if ($this->input->post('banType') == "temp") {
 			$this->form_validation->set_rules('banEnd', 'Expiry Date', 'trim|xss_clean|required|callback_datetime_check');
 		}
 		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|xss_clean|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 			$data['accts'] = $this->accountmodel->list_accounts();
 			$this->load->view('account/listaccts', $data);
 		}
@@ -139,10 +126,9 @@ class Account extends MY_Controller {
 	}
 	
 	public function delblock() {
-		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('unbanComments', 'Un-Ban Comments', 'trim|xss_clean|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/listaccts");
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 			$data['accts'] = $this->accountmodel->list_accounts();
 			$this->load->view('account/listaccts', $data);
 		}
@@ -151,7 +137,7 @@ class Account extends MY_Controller {
 				'acct_id'				=> $this->input->post('acct_id'),
 				'blockid'				=> $this->input->post('blockidval'),
 				'unblock_comment'		=> nl2br($this->input->post('unbanComments')),
-				'unblock_user'			=> $session_data['id'],
+				'unblock_user'			=> $this->session_data['id'],
 			);
 			$this->accountmodel->apply_acct_unban($remBan);
 			$data['referpage'] = "remban";
@@ -162,23 +148,20 @@ class Account extends MY_Controller {
 	}
 	
 	public function verifyedit() {
-		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('email',"Email",'trim|required|valid_email');
 		$this->form_validation->set_rules('groupid',"Group ID",'trim|required|greater_than[-1]|less_than[100]');
 		$this->form_validation->set_rules('birthdate',"Birth Date",'trim|required|callback_date_check');
 		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[10]');
 		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
 			$data['class_list'] = $this->config->item('jobs');
-			$data['perm_list'] = $this->config->item('permissions');
-			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 			$data += $this->load_acct_data($this->input->post('account_id'));
 			$this->load->view('account/details',$data);
 		}
 		else {
 			$chgAcct = array(
-				'user'				=> $session_data['id'],
+				'user'				=> $this->session_data['id'],
 				'account_id'		=> $this->input->post('account_id'),
 				'email'				=> $this->input->post('email'),
 				'sex'					=> $this->input->post('gender'),
@@ -195,10 +178,9 @@ class Account extends MY_Controller {
 	}
 	
 	public function resetpass($aid) {
-		$session_data = $this->session->userdata('loggedin');
 		// Check to make sure admin has permissions to reset password
-		if ($this->adminmodel->check_perm($session_data['group'],'resetacctpass') == True) {
-			$chgPass = $this->accountmodel->reset_pass($aid, $session_data['id']);
+		if ($this->adminmodel->check_perm($this->session_data['group'],'resetacctpass') == True) {
+			$chgPass = $this->accountmodel->reset_pass($aid, $this->session_data['id']);
 			$this->send_acct_email($chgPass,$chgPass,"chgpass");
 			$data['referpage'] = "resetpass";
 			$data['acct_id'] = $aid;
@@ -212,20 +194,17 @@ class Account extends MY_Controller {
 	}
 	
 	public function addnumflag() {
-		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_num_db.key]');
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
 			$data['class_list'] = $this->config->item('jobs');
-			$data['perm_list'] = $this->config->item('permissions');
-			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 			$data += $this->load_acct_data($this->input->post('acct_id'));
 			$this->load->view('account/details',$data);
 		}
 		else {
 			$addFlag = array(
-				'user'		=> $session_data['id'],
+				'user'		=> $this->session_data['id'],
 				'acct_id'	=> $this->input->post('acct_id'),
 				'key'			=> $this->input->post('key'),
 				'index'		=> $this->input->post('index'),
@@ -240,19 +219,16 @@ class Account extends MY_Controller {
 	}
 	
 	public function editnumflag() {
-		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
 			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
 			$data['class_list'] = $this->config->item('jobs');
-			$data['perm_list'] = $this->config->item('permissions');
-			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
 			$data += $this->load_acct_data($this->input->post('acct_id'));
 			$this->load->view('account/details',$data);
 		}
 		else {
 			$editFlag = array(
-				'user'		=> $session_data['id'],
+				'user'		=> $this->session_data['id'],
 				'acct_id'	=> $this->input->post('acct_id'),
 				'key'			=> $this->input->post('key'),
 				'index'		=> $this->input->post('index'),
@@ -267,7 +243,6 @@ class Account extends MY_Controller {
 	}
 	
 	function edititem() {
-		$session_data = $this->session->userdata('loggedin');
 		$this->form_validation->set_rules('refine', "Refine Level", 'trim|required|greater_than[-1]');
 		if ($this->input->post('card0') > 0) {
 			$this->form_validation->set_rules('card0', "Card 1", 'callback_check_card');
@@ -282,9 +257,7 @@ class Account extends MY_Controller {
 			$this->form_validation->set_rules('card3', "Card 4", 'callback_check_card');
 		}
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
-			$data['perm_list'] = $this->config->item('permissions');
-			$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
 			$data['class_list'] = $this->config->item('jobs');
 			$data['equipLocation'] = $this->config->item('equipLocations');
 			$data['item_types'] = $this->config->item('itemTypes');

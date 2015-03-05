@@ -7,21 +7,16 @@ class Dashboard extends MY_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('dashboardmodel');
-		$this->load->model('servermodel');
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
 	}
 
 	public function index() {
 		$session_data = $this->session->userdata('loggedin');
-		$this->usermodel->update_user_active($session_data['id'],"dashboard");
+		$this->usermodel->update_user_active($this->session_data['id'],"dashboard");
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
 		$data2['server_stats'] = $this->servermodel->get_herc_stats();
 		$data2['active_admins']	= $this->dashboardmodel->get_active_admins();

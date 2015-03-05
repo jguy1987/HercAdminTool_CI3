@@ -6,16 +6,11 @@ class Guild extends MY_Controller {
 		parent::__construct();
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
-		}
-		$this->load->model('guildmodel');	
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		}	
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$this->load->model('adminmodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}

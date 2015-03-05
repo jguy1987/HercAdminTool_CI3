@@ -7,23 +7,16 @@ class Server extends MY_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
-		$this->load->model('servermodel');
-		$session_data = $this->session->userdata('loggedin');
-		$data['username'] = $session_data['username'];
+		$data['username'] = $this->session_data['username'];
 		
 		$this->load->view('header', $data);
-		$this->load->model('usermodel');
-		$this->load->model('adminmodel');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['check_perm'] = $this->usermodel->get_perms($session_data['group'],$data['perm_list']);
+		$data['check_perm'] = $this->check_perm;
 		$this->load->view('sidebar', $data);
-		$this->load->library('form_validation');
 	}
 	
 	public function stats() {
-		$session_data = $this->session->userdata('loggedin');
-		if ($this->adminmodel->check_perm($session_data['group'],'serverstats') == True) {
-			$this->usermodel->update_user_active($session_data['id'],"server/stats");
+		if ($this->adminmodel->check_perm($this->session_data['group'],'serverstats') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"server/stats");
 			$json_url = base_url('assets/linfo/?out=json');
 			$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
 			$data['herc_stats'] = $this->servermodel->get_herc_stats();
