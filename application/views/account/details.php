@@ -288,7 +288,7 @@
 				<div class="panel-body">
 					<div class="col-md-6">
 						<h4>Num Flags</h4>
-						<button type="button" class="btn btn-info" id="addNumFlagOpen" data-toggle="modal" data-target="#addNumFlag" data-id="<?php echo $acct_data->account_id; ?>">Add Flag</button>
+						<button type="button" class="btn btn-info" id="addNumFlagOpen" data-toggle="modal" data-target="#addNumFlag" data-id="<?php echo $acct_data->account_id; ?>">Add NumFlag</button>
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
@@ -317,6 +317,37 @@
 							</table>
 						</div>
 					</div>
+					<div class="col-md-6">
+						<h4>Str Flags</h4>
+						<button type="button" class="btn btn-info" id="addStrFlagOpen" data-toggle="modal" data-target="#addStrFlag" data-id="<?php echo $acct_data->account_id; ?>">Add StrFlag</button>
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<tr>
+										<th>Key Name</th>
+										<th>Index</th>
+										<th>Value</th>
+										<th>Options</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($str_key_list as $sKL_item): ?>
+										<tr class="odd gradex">
+											<td><?php echo $sKL_item['key']; ?></td>
+											<?php echo form_open('/account/editstrflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id, 'key' => $sKL_item['key'])); ?>
+											<td><input type="number" class="form-control" name="index" value="<?php echo $sKL_item['index']; ?>" /></td>
+											<td><input type="text" class="form-control" name="value" value="<?php echo $sKL_item['value']; ?>" /></td>
+											<td>
+												<button type="submit" class="btn btn-success">Edit</button></a>
+												<?php echo form_close(); ?>&nbsp;
+												<a href="/account/delnumflag/<?php echo $sKL_item['key']; ?>/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger">Delete</button></a>
+											</td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 				<div class="modal fade" id="addNumFlag" tabindex="-1" role="dialog" aria-labelledby="addNumFlagLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -337,6 +368,35 @@
 									<br />
 									<label>Value:</label>
 									<input type="number" class="form-control" name="value" />
+									<br />
+									</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Add Flag</button>
+							</div>
+							<?php echo form_close(); ?>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="addStrFlag" tabindex="-1" role="dialog" aria-labelledby="addStrFlagLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="addStrFlagLabel">Add Str Flag</h4>
+							</div>
+							<div class="modal-body">
+								<?php echo validation_errors(); ?>
+								<?php echo form_open('/account/addstrflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+									<input type="hidden" id="acct_id2" name="acct_id" />
+									<label>Key Name:</label>
+									<input type="text" class="form-control" name="key" />
+									<br />
+									<label>Index:</label>
+									<input type="text" class="form-control" name="index" />
+									<br />
+									<label>Value:</label>
+									<input type="text" class="form-control" name="value" />
 									<br />
 									</div>
 							<div class="modal-footer">

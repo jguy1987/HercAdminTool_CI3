@@ -97,6 +97,12 @@ Class Accountmodel extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function get_str_key_list($aid) {
+		$this->db_ragnarok->select('*');
+		$query = $this->db_ragnarok->get_where('acc_reg_str_db', array('account_id' => $aid));
+		return $query->result_array();
+	}
+	
 	function edit_acct_details($chgAcct) {
 		$timeNow = date("Y-m-d H:i:s");
 		
@@ -268,14 +274,15 @@ Class Accountmodel extends CI_Model {
 		return $q->result_array();
 	}
 	
-	function add_num_flag($addFlag) {
+	function add_flag($addFlag, $type) {
 		$timeNow = date("Y-m-d H:i:s");
 		
 		$new_value = $addFlag['key'].",&nbsp;".$addFlag['index'].",&nbsp;".$addFlag['value'];
 		$this->db_ragnarok->set('acct_id', $addFlag['acct_id']);
 		$this->db_ragnarok->set('user', $addFlag['user']);
 		$this->db_ragnarok->set('datetime', $timeNow);
-		$this->db_ragnarok->set('chg_attr', 'add_num_flag');
+		$attr = "add_".$type."_flag";
+		$this->db_ragnarok->set('chg_attr', $attr);
 		$this->db_ragnarok->set('new_value', $new_value);
 		$this->db_ragnarok->insert('hat_accteditlog');
 		
@@ -285,17 +292,19 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->set('account_id', $addFlag['acct_id']);
 		$this->db_ragnarok->set('key', $addFlag['key']);
 		$this->db_ragnarok->set('value', $addFlag['value']);
-		$this->db_ragnarok->insert('acc_reg_num_db');
+		$insert = "acc_reg_".$type."_db";
+		$this->db_ragnarok->insert($insert);
 	}
 	
-	function edit_num_flag($editFlag) {
+	function edit_flag($editFlag, $type) {
 		$timeNow = date("Y-m-d H:i:s");
+		$table = "acc_reg_".$type."_db";
 		
 		// First get the numflag before it changes
 		$this->db_ragnarok->select('*');
 		$this->db_ragnarok->where('key', $editFlag['key']);
 		$this->db_ragnarok->where('account_id', $editFlag['acct_id']);
-		$q = $this->db_ragnarok->get('acc_reg_num_db');
+		$q = $this->db_ragnarok->get($table);
 		$q_row = $q->row();
 		
 		$old_value = $q_row->key.",&nbsp;".$q_row->index.",&nbsp;".$q_row->value;
@@ -305,7 +314,8 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->set('acct_id', $editFlag['acct_id']);
 		$this->db_ragnarok->set('user', $editFlag['user']);
 		$this->db_ragnarok->set('datetime', $timeNow);
-		$this->db_ragnarok->set('chg_attr', 'edit_num_flag');
+		$attr = "edit_".$type."_flag";
+		$this->db_ragnarok->set('chg_attr', $attr);
 		$this->db_ragnarok->set('old_value', $old_value);
 		$this->db_ragnarok->set('new_value', $new_value);
 		$this->db_ragnarok->insert('hat_accteditlog');
@@ -315,6 +325,6 @@ Class Accountmodel extends CI_Model {
 		$this->db_ragnarok->set('value', $editFlag['value']);
 		$this->db_ragnarok->where('account_id', $editFlag['acct_id']);
 		$this->db_ragnarok->where('key', $editFlag['key']);
-		$this->db_ragnarok->update('acc_reg_num_db');
+		$this->db_ragnarok->update($table);
 	}
 }

@@ -49,6 +49,9 @@
 			case "addnumflag":
 				echo "Num Flag added to this account successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
 				break;
+			case "addstrflag":
+				echo "String Flag added to this account successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
+				break;
 			case "editchar":
 				echo "Character changes process successfully. Return to the <a href='/character/details/".$char_id."'>character details page</a>.";
 				break;
@@ -57,6 +60,9 @@
 				break;
 			case "editnumflag":
 				echo "Account Num Flag edited successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
+				break;
+			case "editstrflag":
+				echo "Account Str Flag edited successfully. Return to the <a href='/account/details/".$acct_id."'>account details page</a>.";
 				break;
 			case "groupdel":
 				echo "Group deleted successfully. Return to <a href='/admin/groups'>group management page</a>.";

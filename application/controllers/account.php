@@ -210,8 +210,33 @@ class Account extends MY_Controller {
 				'index'		=> $this->input->post('index'),
 				'value'		=> $this->input->post('value'),
 			);
-			$this->accountmodel->add_num_flag($addFlag);
+			$this->accountmodel->add_flag($addFlag, "num");
 			$data['referpage'] = "addnumflag";
+			$data['acct_id'] = $addFlag['acct_id'];
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function addstrflag() {
+		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_str_db.key]');
+		$this->form_validation->set_rules('value',"Value",'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
+			$data['class_list'] = $this->config->item('jobs');
+			$data += $this->load_acct_data($this->input->post('acct_id'));
+			$this->load->view('account/details',$data);
+		}
+		else {
+			$addFlag = array(
+				'user'		=> $this->session_data['id'],
+				'acct_id'	=> $this->input->post('acct_id'),
+				'key'			=> $this->input->post('key'),
+				'index'		=> $this->input->post('index'),
+				'value'		=> $this->input->post('value'),
+			);
+			$this->accountmodel->add_flag($addFlag, "str");
+			$data['referpage'] = "addstrflag";
 			$data['acct_id'] = $addFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
@@ -221,7 +246,7 @@ class Account extends MY_Controller {
 	public function editnumflag() {
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($session_data['id'],"accounts/details");
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
 			$data['class_list'] = $this->config->item('jobs');
 			$data += $this->load_acct_data($this->input->post('acct_id'));
 			$this->load->view('account/details',$data);
@@ -234,8 +259,32 @@ class Account extends MY_Controller {
 				'index'		=> $this->input->post('index'),
 				'value'		=> $this->input->post('value'),
 			);
-			$this->accountmodel->edit_num_flag($editFlag);
+			$this->accountmodel->edit_flag($editFlag, "num");
 			$data['referpage'] = "editnumflag";
+			$data['acct_id'] = $editFlag['acct_id'];
+			$this->load->view('formsuccess', $data);
+		}
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function editstrflag() {
+		$this->form_validation->set_rules('value',"Value",'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
+			$data['class_list'] = $this->config->item('jobs');
+			$data += $this->load_acct_data($this->input->post('acct_id'));
+			$this->load->view('account/details',$data);
+		}
+		else {
+			$editFlag = array(
+				'user'		=> $this->session_data['id'],
+				'acct_id'	=> $this->input->post('acct_id'),
+				'key'			=> $this->input->post('key'),
+				'index'		=> $this->input->post('index'),
+				'value'		=> $this->input->post('value'),
+			);
+			$this->accountmodel->edit_flag($editFlag, "str");
+			$data['referpage'] = "editstrflag";
 			$data['acct_id'] = $editFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
@@ -355,6 +404,7 @@ Thank you.");
 		$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
 		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
 		$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
+		$data['str_key_list'] = $this->accountmodel->get_str_key_list($aid);
 		$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
 		$data['storage_items'] = $this->accountmodel->get_storage_items($aid);
 		return $data;
