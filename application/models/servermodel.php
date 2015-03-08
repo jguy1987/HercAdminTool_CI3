@@ -3,35 +3,37 @@ Class Servermodel extends CI_Model {
 
 	function get_herc_stats() {
 		// Get total amount of accounts
-		$this->db_ragnarok->select('account_id');
-		$this->db_ragnarok->from('login');
-		$this->db_ragnarok->where('sex !=', 'S');
-		$q = $this->db_ragnarok->get();
+		$this->db_login->select('account_id');
+		$this->db_login->from('login');
+		$this->db_login->where('sex !=', 'S');
+		$q = $this->db_login->get();
 		// Get total amount of characters
-		$q2 = $this->db_ragnarok->count_all('char');
+		$q2 = $this->db_charmap->count_all('char');
 		//Get total amount of guilds
-		$q3 = $this->db_ragnarok->count_all('guild');
+		$q3 = $this->db_charmap->count_all('guild');
 		// Get total amount of characters in a guild
-		$this->db_ragnarok->select('char_id');
-		$this->db_ragnarok->from('char');
-		$this->db_ragnarok->where('guild_id IS NOT NULL');
-		$q4 = $this->db_ragnarok->get();		
+		$this->db_charmap->select('char_id');
+		$this->db_charmap->from('char');
+		$this->db_charmap->where('guild_id IS NOT NULL');
+		$q4 = $this->db_charmap->get();		
 		// Get total amount of zeny on all characters
-		$this->db_ragnarok->select_sum('zeny');
-		$q5 = $this->db_ragnarok->get('char');
+		$this->db_charmap->select_sum('zeny');
+		$q5 = $this->db_charmap->get('char');
 		$zeny = $q5->row();
 		// Get server uptime
-		$this->db_ragnarok->select('lastlogin');
-		$this->db_ragnarok->from('login');
-		$this->db_ragnarok->where('userid', $this->config->item('map_servername'));
-		$q6 = $this->db_ragnarok->get();
+		$this->db_login->select('lastlogin');
+		$this->db_login->from('login');
+		$servers = $this->config->item('ragnarok_servers');
+		$servername = $servers[$this->session->userdata('server_select')]['map_servername'];
+		$this->db_login->where('userid', $servername);
+		$q6 = $this->db_login->get();
 		$laststartdate = $q6->row();
 		$serverstart = new DateTime($laststartdate->lastlogin);
 		$now = date('Y-m-d H:i:s');
 		$sinceStart = $serverstart->diff(new DateTime($now));
 		$sinceStartf = $sinceStart->d."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
 		// Get users online
-		$q7 = $this->db_ragnarok->get_where('char', array('online' => 1));
+		$q7 = $this->db_charmap->get_where('char', array('online' => 1));
 
 		$data = array(
 			'Server Uptime'				=> $sinceStartf,
@@ -46,7 +48,7 @@ Class Servermodel extends CI_Model {
 	}
 	
 	function get_mysql_stats() {
-		$stats = mysqli_stat($this->db_ragnarok->conn_id);
+		$stats = mysqli_stat($this->db_login->conn_id);
 		$mySQLstats = array();
 		foreach (explode("  ", $stats) as $k) {
 			$ret = explode(': ', $k);

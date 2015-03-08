@@ -1,0 +1,63 @@
+This is a documentation file for setting up a multiple character/map server situation for the HercAdminTool.
+
+A user may select his or her database in the header, next to their name via a dropdown selection. You may restrict 
+a group to access certain database(s). As of right now, the group has the same permissions to each server, as long as
+they have access to that server. For example, if you have a demo server or a test server that you only want 
+certain groups to be able to administrate, you can lock all other users out of that server.
+
+The configuration for this is accomplished in two places, both in the config directory. hat.php has the configuration 
+array for setting the main things up, like the human readable server name and the database server name. The config
+array looks like this:
+
+// Default server ID to direct logged in users to
+$config['default_server_id'] = 1;
+
+$config['ragnarok_servers'] = array(
+	'1'	=> array(
+		'servername'		=> "Server1",  	// Human readable server name. Will be selectable by the user.
+		'map_servername'	=> "s1",			// The servername as in the login table and what you set in char_server.conf and map_server.conf
+		'database_group'	=> "ragnarok",	// The database group in database.php config file that holds this database connection info.
+		'reset_map'			=> "prontera", 	// Map name to reset players to
+		'reset_x'			=> "142",			// X coordinate to reset players to
+		'reset_y'			=> "241",			// Y coordinate to reset players to
+	),
+	/*'2'	=> array(
+		'servername'		=> "Server2",  	// Human readable server name. Will be selectable by the user.
+		'map_servername'	=> "s2",			// The servername as in the login table and what you set in char_server.conf and map_server.conf
+		'database_group'	=> "ragnarok2",	// The database group in database.php config file that holds this database connection info.
+		'reset_map'			=> "prontera", 	// Map name to reset players to
+		'reset_x'			=> "142",			// X coordinate to reset players to
+		'reset_y'			=> "241",			// Y coordinate to reset players to
+	),*/
+);
+
+Please keep in mind that there is another login server database setting that needs to be specified in hat.php. This is the following
+configuration:
+
+// The database group for the login server.
+$config['login_server'] = "ragnarok_login";
+
+The above configuration will determine how to connect to retrieve the following tables:
+
+login
+loginlog
+acc_reg_num_db
+acc_reg_str_db
+global_acc_reg_num_db
+global_acc_reg_str_db
+All of the hat_ tables
+
+The remaining configuration is done in database.php. Add a separate group for each server you have. The 'database_group' 
+setting in hat.php MUST match up with what you name the database in database.php.
+
+BACKEND STUFF:
+The user's selected server is tied to their session. This was the best way to accomplish what I needed to do. The session is loaded
+completely, including the selected server, then the three databases are loaded. The databases are then tied to a specific class:
+
+db_login = All things related to account database
+db_charmap = All things related to char/map database.
+db_charmaplog = All things related to char/map log database (thusly you don't need to have the logs in the same database.
+
+So, to recall the specific char database for a custom function, use $this->db_charmap
+To recall anything related to char/map server logs, use $this->db_charmaplog
+To recall anything related to login database, use $this->db_login

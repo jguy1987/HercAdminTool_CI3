@@ -67,6 +67,9 @@
 			case "groupdel":
 				echo "Group deleted successfully. Return to <a href='/admin/groups'>group management page</a>.";
 				break;
+			case "serverselect":
+				echo "Server selected. Return to the <a href='/'>dashboard</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

@@ -3,10 +3,8 @@
 /* Hercules Admin Tool main configuration file.
  Here is where most of the user settable settings reside. 
  You will probably have to change everything here. */
- 
 
 /* Basic settings. Set things such as names, standard server rates, and some behavior settings here */
-
 
 // Panel name. Default: "HercAdminTool". You can change this to anything.
 $config['panelname'] = "HercAdminTool";
@@ -65,6 +63,33 @@ $config['smtp_pass'] = '';
 // smtp_port. Port number to connect to SMTP Server. Default 25. Only valid if protocol is set to 'smtp'.
 $config['smtp_port'] = 25;
 
+// Server Setup. Follow the /doc/MultipleCharMap.txt guidlines.
+
+// The database group for the login server.
+$config['login_server'] = "ragnarok";
+
+// Default server ID to direct logged in users to
+$config['default_server_id'] = 1;
+
+$config['ragnarok_servers'] = array(
+	'1'	=> array(
+		'servername'		=> "Server1",  	// Human readable server name. Will be selectable by the user.
+		'map_servername'	=> "s1",			// The servername as in the login table and what you set in char_server.conf and map_server.conf
+		'database_group'	=> "ragnarok",	// The database group in database.php config file that holds this database connection info.
+		'reset_map'			=> "prontera", 	// Map name to reset players to
+		'reset_x'			=> "142",			// X coordinate to reset players to
+		'reset_y'			=> "241",			// Y coordinate to reset players to
+	),
+	/*'2'	=> array(
+		'servername'		=> "Server2",  	// Human readable server name. Will be selectable by the user.
+		'map_servername'	=> "s2",			// The servername as in the login table and what you set in char_server.conf and map_server.conf
+		'database_group'	=> "ragnarok2",	// The database group in database.php config file that holds this database connection info.
+		'reset_map'			=> "prontera", 	// Map name to reset players to
+		'reset_x'			=> "142",			// X coordinate to reset players to
+		'reset_y'			=> "241",			// Y coordinate to reset players to
+	),*/
+);
+			
 /* An array of block reasons. You can add more by adding a key of the next number and a reason in quotes. */
 $config["ban_reasons"] = array(
 	0		=> "Botting",

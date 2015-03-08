@@ -2,14 +2,14 @@
 Class Accountmodel extends CI_Model {
 	
 	function list_accounts() {
-		$this->db_ragnarok->where('sex !=', 'S');
-		$this->db_ragnarok->order_by('account_id','asc');
-		$query = $this->db_ragnarok->get('login');
+		$this->db_login->where('sex !=', 'S');
+		$this->db_login->order_by('account_id','asc');
+		$query = $this->db_login->get('login');
 		return $query->result_array();
 	}
 	
 	function get_acct_details($aid) {
-		$query = $this->db_ragnarok->get_where('login', array('account_id' => $aid));
+		$query = $this->db_login->get_where('login', array('account_id' => $aid));
 		return $query->row();
 	}
 	
@@ -31,75 +31,75 @@ Class Accountmodel extends CI_Model {
 			'passwd'		=> $newPass,
 			'pincode'	=> $pincode,
 		);	
-		$this->db_ragnarok->set('user_pass', $newPassMD5);
-		$this->db_ragnarok->set('pincode', $pincode);
-		$this->db_ragnarok->set('createdate', 'NOW()', FALSE);
-		$this->db_ragnarok->set('register_ip', '127.0.0.1', TRUE);
-		$this->db_ragnarok->set('auth_ip', '127.0.0.1', TRUE);
-		$this->db_ragnarok->insert('login', $data);
+		$this->db_login->set('user_pass', $newPassMD5);
+		$this->db_login->set('pincode', $pincode);
+		$this->db_login->set('createdate', 'NOW()', FALSE);
+		$this->db_login->set('register_ip', '127.0.0.1', TRUE);
+		$this->db_login->set('auth_ip', '127.0.0.1', TRUE);
+		$this->db_login->insert('login', $data);
 		return $newAcct;
 	}
 	
 	function get_char_list($aid) {
-		$this->db_ragnarok->select('char.char_id,char.account_id,char.char_num,char.name,char.class,char.base_level,char.job_level,char.delete_date,char.guild_id AS char_guid,char.online,char.sex,guild.guild_id,guild.name AS guild_name');
-		$this->db_ragnarok->from('char')->order_by('char.char_num','asc');
-		$this->db_ragnarok->where('char.account_id',$aid);
-		$this->db_ragnarok->join('guild', 'char.guild_id = guild.guild_id', 'left');
-		$query = $this->db_ragnarok->get();
+		$this->db_charmap->select('char.char_id,char.account_id,char.char_num,char.name,char.class,char.base_level,char.job_level,char.delete_date,char.guild_id AS char_guid,char.online,char.sex,guild.guild_id,guild.name AS guild_name');
+		$this->db_charmap->from('char')->order_by('char.char_num','asc');
+		$this->db_charmap->where('char.account_id',$aid);
+		$this->db_charmap->join('guild', 'char.guild_id = guild.guild_id', 'left');
+		$query = $this->db_charmap->get();
 		return $query->result_array();
 	}
 	
 	function get_acct_notes($aid) {
-		$this->db_ragnarok->select('hat_acctnotes.acct_id,hat_acctnotes.datetime,hat_acctnotes.userid,hat_acctnotes.note,hat_users.id,hat_users.username');
-		$this->db_ragnarok->from('hat_acctnotes')->order_by('hat_acctnotes.note_id','desc');
-		$this->db_ragnarok->where('hat_acctnotes.acct_id',$aid);
-		$this->db_ragnarok->join('hat_users', 'hat_acctnotes.userid = hat_users.id');
-		$q = $this->db_ragnarok->get();
+		$this->db_login->select('hat_acctnotes.acct_id,hat_acctnotes.datetime,hat_acctnotes.userid,hat_acctnotes.note,hat_users.id,hat_users.username');
+		$this->db_login->from('hat_acctnotes')->order_by('hat_acctnotes.note_id','desc');
+		$this->db_login->where('hat_acctnotes.acct_id',$aid);
+		$this->db_login->join('hat_users', 'hat_acctnotes.userid = hat_users.id');
+		$q = $this->db_login->get();
 		return $q->result_array();
 	}
 	
 	function get_block_hist($aid) {
-		$this->db_ragnarok->select('hat_blockinfo.*,p1.username AS blockname,p2.username AS ublockname');
-		$this->db_ragnarok->from('hat_blockinfo')->order_by('hat_blockinfo.blockid','desc');
-		$this->db_ragnarok->join('hat_users AS p1', 'hat_blockinfo.block_user = p1.id','left');
-		$this->db_ragnarok->join('hat_users AS p2', 'hat_blockinfo.unblock_user = p2.id','left');
-		$this->db_ragnarok->where('hat_blockinfo.acct_id',$aid);
-		$q = $this->db_ragnarok->get();
+		$this->db_login->select('hat_blockinfo.*,p1.username AS blockname,p2.username AS ublockname');
+		$this->db_login->from('hat_blockinfo')->order_by('hat_blockinfo.blockid','desc');
+		$this->db_login->join('hat_users AS p1', 'hat_blockinfo.block_user = p1.id','left');
+		$this->db_login->join('hat_users AS p2', 'hat_blockinfo.unblock_user = p2.id','left');
+		$this->db_login->where('hat_blockinfo.acct_id',$aid);
+		$q = $this->db_login->get();
 		return $q->result_array();
 	}
 	
 	function get_acct_changes($aid) {
-		$this->db_ragnarok->select('hat_accteditlog.*,hat_users.username,hat_users.id');
-		$this->db_ragnarok->from('hat_accteditlog')->order_by('hat_accteditlog.datetime','desc');
-		$this->db_ragnarok->where('hat_accteditlog.acct_id', $aid);
-		$this->db_ragnarok->join('hat_users','hat_accteditlog.user = hat_users.id');
-		$query = $this->db_ragnarok->get();
+		$this->db_login->select('hat_accteditlog.*,hat_users.username,hat_users.id');
+		$this->db_login->from('hat_accteditlog')->order_by('hat_accteditlog.datetime','desc');
+		$this->db_login->where('hat_accteditlog.acct_id', $aid);
+		$this->db_login->join('hat_users','hat_accteditlog.user = hat_users.id');
+		$query = $this->db_login->get();
 		return $query->result_array();
 	}
 	
 	function get_storage_items($aid) {
-		$this->db_ragnarok->select('storage.*,item_db.id AS item_id,item_db.name_japanese,item_db.type');
-		$this->db_ragnarok->from('storage')->order_by('storage.id', 'asc');
-		$this->db_ragnarok->where('storage.account_id', $aid);
-		$this->db_ragnarok->join('item_db', 'storage.nameid = item_db.id', 'left');
-		$q = $this->db_ragnarok->get();
+		$this->db_charmap->select('storage.*,item_db.id AS item_id,item_db.name_japanese,item_db.type');
+		$this->db_charmap->from('storage')->order_by('storage.id', 'asc');
+		$this->db_charmap->where('storage.account_id', $aid);
+		$this->db_charmap->join('item_db', 'storage.nameid = item_db.id', 'left');
+		$q = $this->db_charmap->get();
 		return $q->result_array();
 	}
 	
 	function add_note($newNote) {
 		$newNote['datetime'] = date("Y-m-d H:i:s");
-		$this->db_ragnarok->insert('hat_acctnotes', $newNote);
+		$this->db_login->insert('hat_acctnotes', $newNote);
 	}
 	
 	function get_num_key_list($aid) {
-		$this->db_ragnarok->select('*');
-		$query = $this->db_ragnarok->get_where('acc_reg_num_db', array('account_id' => $aid));
+		$this->db_login->select('*');
+		$query = $this->db_login->get_where('acc_reg_num_db', array('account_id' => $aid));
 		return $query->result_array();
 	}
 	
 	function get_str_key_list($aid) {
-		$this->db_ragnarok->select('*');
-		$query = $this->db_ragnarok->get_where('acc_reg_str_db', array('account_id' => $aid));
+		$this->db_login->select('*');
+		$query = $this->db_login->get_where('acc_reg_str_db', array('account_id' => $aid));
 		return $query->result_array();
 	}
 	
@@ -107,30 +107,30 @@ Class Accountmodel extends CI_Model {
 		$timeNow = date("Y-m-d H:i:s");
 		
 		// First, we need to find out what changed...so that we can insert logs
-		$this->db_ragnarok->select('account_id,email,sex,group_id,character_slots,birthdate');
-		$chgRecq = $this->db_ragnarok->get_where('login', array('account_id' => $chgAcct['account_id']));
+		$this->db_login->select('account_id,email,sex,group_id,character_slots,birthdate');
+		$chgRecq = $this->db_login->get_where('login', array('account_id' => $chgAcct['account_id']));
 		$chgRec = $chgRecq->row();
-		$this->db_ragnarok->set('datetime', $timeNow);
-		$this->db_ragnarok->set('user', $chgAcct['user']);
-		$this->db_ragnarok->set('acct_id', $chgAcct['account_id']);
+		$this->db_login->set('datetime', $timeNow);
+		$this->db_login->set('user', $chgAcct['user']);
+		$this->db_login->set('acct_id', $chgAcct['account_id']);
 		foreach ($chgAcct as $k=>$v) {
 			if ($k == "user" || $k == "charid") {
 			}
 			else {
 				if ($chgRec->$k != $v) {
-					$this->db_ragnarok->set('chg_attr', $k);
-					$this->db_ragnarok->set('old_value', $chgRec->$k);
-					$this->db_ragnarok->set('new_value', $v);
-					$this->db_ragnarok->insert('hat_accteditlog');
+					$this->db_login->set('chg_attr', $k);
+					$this->db_login->set('old_value', $chgRec->$k);
+					$this->db_login->set('new_value', $v);
+					$this->db_login->insert('hat_accteditlog');
 				}
 			}
 		}
 		$this->db->flush_cache();
 		// Then, change data in the login table
-		$this->db_ragnarok->where('account_id', $chgAcct['account_id']);
+		$this->db_login->where('account_id', $chgAcct['account_id']);
 		unset($chgAcct['user'],$chgAcct['account_id']);
-		$this->db_ragnarok->set($chgAcct);
-		$this->db_ragnarok->update('login');
+		$this->db_login->set($chgAcct);
+		$this->db_login->update('login');
 	}
 	
 	function apply_acct_ban($newBan) {
@@ -139,33 +139,33 @@ Class Accountmodel extends CI_Model {
 		$newBanTime = strtotime($newBan['unban_date']);
 		
 		// Next, add the ban to the hat table
-		$this->db_ragnarok->set('blockdate', $timeNow);
-		$this->db_ragnarok->set('expiredate', $newBan['unban_date']);
-		$this->db_ragnarok->set('block_type', $newBan['type']);
-		$this->db_ragnarok->set('acct_id', $newBan['account_id']);
-		$this->db_ragnarok->set('block_user', $newBan['userid']);
-		$this->db_ragnarok->set('block_comment', $newBan['comments']);
-		$this->db_ragnarok->set('reason', $newBan['reason']);
-		$this->db_ragnarok->insert('hat_blockinfo');
+		$this->db_login->set('blockdate', $timeNow);
+		$this->db_login->set('expiredate', $newBan['unban_date']);
+		$this->db_login->set('block_type', $newBan['type']);
+		$this->db_login->set('acct_id', $newBan['account_id']);
+		$this->db_login->set('block_user', $newBan['userid']);
+		$this->db_login->set('block_comment', $newBan['comments']);
+		$this->db_login->set('reason', $newBan['reason']);
+		$this->db_login->insert('hat_blockinfo');
 		
 		// We need to figure out if the account already has a permanent ban or 
 		// a ban for a longer period of time than the one we're applying.
-		$this->db_ragnarok->select('state, unban_time');
-		$this->db_ragnarok->where('account_id', $newBan['account_id']);
-		$query = $this->db_ragnarok->get('login');
+		$this->db_login->select('state, unban_time');
+		$this->db_login->where('account_id', $newBan['account_id']);
+		$query = $this->db_login->get('login');
 		$q_checkban = $query->row();
 		if ($q_checkban->state != 5 && $q_checkban->unban_time < $newBanTime) { // Account is not already permanently banned nor has a ban lasting longer than the ban we're applying
 		
 			// Then, set the login table accordingly.
 			if ($newBan['type'] == "perm") {
-				$this->db_ragnarok->set('state', 5);
-				$this->db_ragnarok->set('unban_time', 0);
+				$this->db_login->set('state', 5);
+				$this->db_login->set('unban_time', 0);
 			}
 			elseif ($newBan['type'] == "temp") {
-				$this->db_ragnarok->set('unban_time', $newBanTime);
+				$this->db_login->set('unban_time', $newBanTime);
 			}
-			$this->db_ragnarok->where('account_id', $newBan['account_id']); 
-			$this->db_ragnarok->update('login');
+			$this->db_login->where('account_id', $newBan['account_id']); 
+			$this->db_login->update('login');
 		} // If the account is already permanently banned or has a ban longer than the ban we're currently setting, do nothing.
 	}
 	
@@ -174,34 +174,34 @@ Class Accountmodel extends CI_Model {
 		$timeNow = date("Y-m-d H:i:s");
 		
 		// Add the unban data to the hat table.
-		$this->db_ragnarok->where('blockid', $remBan['blockid']);
-		$this->db_ragnarok->set('unblock_user', $remBan['unblock_user']);
-		$this->db_ragnarok->set('unblock_comment', $remBan['unblock_comment']);
-		$this->db_ragnarok->set('unblock_date', $timeNow);
-		$this->db_ragnarok->update('hat_blockinfo');
+		$this->db_login->where('blockid', $remBan['blockid']);
+		$this->db_login->set('unblock_user', $remBan['unblock_user']);
+		$this->db_login->set('unblock_comment', $remBan['unblock_comment']);
+		$this->db_login->set('unblock_date', $timeNow);
+		$this->db_login->update('hat_blockinfo');
 		
 		// Then, figure out if the block we're removing is the only active block on that account.
-		$this->db_ragnarok->select('blockid');
+		$this->db_login->select('blockid');
 		$get_where = "acct_id = '{$remBan['acct_id']}' AND expiredate > '{$timeNow}' AND unblock_date IS NULL";
-		$this->db_ragnarok->where($get_where);
-		$query = $this->db_ragnarok->get('hat_blockinfo');
+		$this->db_login->where($get_where);
+		$query = $this->db_login->get('hat_blockinfo');
 		$row_q1_cnt = $query->num_rows();
 		if ($row_q1_cnt < 1) { // The ban we're removing is the only active block on that account
 			// Therefore, we can reset account status.
-			$this->db_ragnarok->set('state', 0);
-			$this->db_ragnarok->set('unban_time', 0);
-			$this->db_ragnarok->update('login');
+			$this->db_login->set('state', 0);
+			$this->db_login->set('unban_time', 0);
+			$this->db_login->update('login');
 		} // The account still has a past or future ban that is expiring at a later time, do nothing to the account here.
 		elseif ($row_q1_cnt >= 1) { // The ban we're removing is not the only one. We need to check if there is a ban still existing that we need to change the unban_time to instead...
-			$this->db_ragnarok->select_max('expiredate');
+			$this->db_login->select_max('expiredate');
 			$where_unblockdate = "acct_id = '{$remBan['acct_id']}' AND unblock_date IS NULL";
-			$this->db_ragnarok->where($where_unblockdate);
-			$query2 = $this->db_ragnarok->get('hat_blockinfo');
+			$this->db_login->where($where_unblockdate);
+			$query2 = $this->db_login->get('hat_blockinfo');
 			$q2_maxban = $query2->row();
 			
-			$this->db_ragnarok->where('account_id', $remBan['acct_id']);
-			$this->db_ragnarok->set('unban_time', strtotime($q2_maxban->expiredate));
-			$this->db_ragnarok->update('login');
+			$this->db_login->where('account_id', $remBan['acct_id']);
+			$this->db_login->set('unban_time', strtotime($q2_maxban->expiredate));
+			$this->db_login->update('login');
 		}
 	}
 	
@@ -222,23 +222,23 @@ Class Accountmodel extends CI_Model {
 		$newPassMD5 = md5($newPass);
 		
 		// Update the password
-		$this->db_ragnarok->where('account_id', $aid);
-		$this->db_ragnarok->set('user_pass', $newPassMD5);
-		$this->db_ragnarok->update('login');
+		$this->db_login->where('account_id', $aid);
+		$this->db_login->set('user_pass', $newPassMD5);
+		$this->db_login->update('login');
 		
 		// Grab the email address and account name from the database to send an email
-		$this->db_ragnarok->select('userid,email');
-		$query = $this->db_ragnarok->get_where('login', array('account_id' => $aid));
+		$this->db_login->select('userid,email');
+		$query = $this->db_login->get_where('login', array('account_id' => $aid));
 		$getAcctInfo = $query->row();
 		
 		// Then update the log to reflect the password being reset.
-		$this->db_ragnarok->set('datetime', $timeNow);
-		$this->db_ragnarok->set('user', $userid);
-		$this->db_ragnarok->set('acct_id', $aid);
-		$this->db_ragnarok->set('chg_attr', 'password');
-		$this->db_ragnarok->set('old_value', 0);
-		$this->db_ragnarok->set('new_value', 0);
-		$this->db_ragnarok->insert('hat_accteditlog');
+		$this->db_login->set('datetime', $timeNow);
+		$this->db_login->set('user', $userid);
+		$this->db_login->set('acct_id', $aid);
+		$this->db_login->set('chg_attr', 'password');
+		$this->db_login->set('old_value', 0);
+		$this->db_login->set('new_value', 0);
+		$this->db_login->insert('hat_accteditlog');
 		
 		// Finally, put everything in a nice array to return.
 		$acctInfo = array(
@@ -252,25 +252,25 @@ Class Accountmodel extends CI_Model {
 	function search_accts($searchTerms) {
 		// First, figure out what we're searching for
 		if (empty($searchTerms['acct_id']) == false) {
-			$this->db_ragnarok->like('account_id', $searchTerms['acct_id']);
+			$this->db_login->like('account_id', $searchTerms['acct_id']);
 		}
 		if (empty($searchTerms['acct_name']) == false) {
-			$this->db_ragnarok->like('userid', $searchTerms['acct_name']);
+			$this->db_login->like('userid', $searchTerms['acct_name']);
 		}
 		if (empty($searchTerms['email']) == false) {
-			$this->db_ragnarok->like('email', $searchTerms['email']);
+			$this->db_login->like('email', $searchTerms['email']);
 		}
 		if (empty($searchTerms['gender']) == false) {
-			$this->db_ragnarok->like('sex', $searchTerms['gender']);
+			$this->db_login->like('sex', $searchTerms['gender']);
 		}
 		if ($searchTerms['isGM'] == 1) {
-			$this->db_ragnarok->where('group_id >', 0);
+			$this->db_login->where('group_id >', 0);
 		}
 		if ($searchTerms['isBanned'] == 1) {
-			$this->db_ragnarok->where('unban_time >', 0);
-			$this->db_ragnarok->where('state', 5);
+			$this->db_login->where('unban_time >', 0);
+			$this->db_login->where('state', 5);
 		}
-		$q = $this->db_ragnarok->get('login');
+		$q = $this->db_login->get('login');
 		return $q->result_array();
 	}
 	
@@ -278,22 +278,22 @@ Class Accountmodel extends CI_Model {
 		$timeNow = date("Y-m-d H:i:s");
 		
 		$new_value = $addFlag['key'].",&nbsp;".$addFlag['index'].",&nbsp;".$addFlag['value'];
-		$this->db_ragnarok->set('acct_id', $addFlag['acct_id']);
-		$this->db_ragnarok->set('user', $addFlag['user']);
-		$this->db_ragnarok->set('datetime', $timeNow);
+		$this->db_login->set('acct_id', $addFlag['acct_id']);
+		$this->db_login->set('user', $addFlag['user']);
+		$this->db_login->set('datetime', $timeNow);
 		$attr = "add_".$type."_flag";
-		$this->db_ragnarok->set('chg_attr', $attr);
-		$this->db_ragnarok->set('new_value', $new_value);
-		$this->db_ragnarok->insert('hat_accteditlog');
+		$this->db_login->set('chg_attr', $attr);
+		$this->db_login->set('new_value', $new_value);
+		$this->db_login->insert('hat_accteditlog');
 		
 		if (empty($addFlag['index']) == false) {
-			$this->db_ragnarok->set('index', $addFlag['index']);
+			$this->db_login->set('index', $addFlag['index']);
 		}
-		$this->db_ragnarok->set('account_id', $addFlag['acct_id']);
-		$this->db_ragnarok->set('key', $addFlag['key']);
-		$this->db_ragnarok->set('value', $addFlag['value']);
+		$this->db_login->set('account_id', $addFlag['acct_id']);
+		$this->db_login->set('key', $addFlag['key']);
+		$this->db_login->set('value', $addFlag['value']);
 		$insert = "acc_reg_".$type."_db";
-		$this->db_ragnarok->insert($insert);
+		$this->db_login->insert($insert);
 	}
 	
 	function edit_flag($editFlag, $type) {
@@ -301,30 +301,30 @@ Class Accountmodel extends CI_Model {
 		$table = "acc_reg_".$type."_db";
 		
 		// First get the numflag before it changes
-		$this->db_ragnarok->select('*');
-		$this->db_ragnarok->where('key', $editFlag['key']);
-		$this->db_ragnarok->where('account_id', $editFlag['acct_id']);
-		$q = $this->db_ragnarok->get($table);
+		$this->db_login->select('*');
+		$this->db_login->where('key', $editFlag['key']);
+		$this->db_login->where('account_id', $editFlag['acct_id']);
+		$q = $this->db_login->get($table);
 		$q_row = $q->row();
 		
 		$old_value = $q_row->key.",&nbsp;".$q_row->index.",&nbsp;".$q_row->value;
 		$new_value = $editFlag['key'].",&nbsp;".$editFlag['index'].",&nbsp;".$editFlag['value'];
 		
 		// Log the change
-		$this->db_ragnarok->set('acct_id', $editFlag['acct_id']);
-		$this->db_ragnarok->set('user', $editFlag['user']);
-		$this->db_ragnarok->set('datetime', $timeNow);
+		$this->db_login->set('acct_id', $editFlag['acct_id']);
+		$this->db_login->set('user', $editFlag['user']);
+		$this->db_login->set('datetime', $timeNow);
 		$attr = "edit_".$type."_flag";
-		$this->db_ragnarok->set('chg_attr', $attr);
-		$this->db_ragnarok->set('old_value', $old_value);
-		$this->db_ragnarok->set('new_value', $new_value);
-		$this->db_ragnarok->insert('hat_accteditlog');
+		$this->db_login->set('chg_attr', $attr);
+		$this->db_login->set('old_value', $old_value);
+		$this->db_login->set('new_value', $new_value);
+		$this->db_login->insert('hat_accteditlog');
 		
 		// Then change.
-		$this->db_ragnarok->set('index', $editFlag['index']);
-		$this->db_ragnarok->set('value', $editFlag['value']);
-		$this->db_ragnarok->where('account_id', $editFlag['acct_id']);
-		$this->db_ragnarok->where('key', $editFlag['key']);
-		$this->db_ragnarok->update($table);
+		$this->db_login->set('index', $editFlag['index']);
+		$this->db_login->set('value', $editFlag['value']);
+		$this->db_login->where('account_id', $editFlag['acct_id']);
+		$this->db_login->where('key', $editFlag['key']);
+		$this->db_login->update($table);
 	}
 }

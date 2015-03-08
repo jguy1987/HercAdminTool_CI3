@@ -64,6 +64,23 @@ $db['ragnarok']['swap_pre'] = '';
 $db['ragnarok']['autoinit'] = TRUE;
 $db['ragnarok']['stricton'] = FALSE;
 
+/* Add additional databases here with this format:
+$db['server1']['hostname'] = '';
+$db['server1']['username'] = '';
+$db['server1']['password'] = '';
+$db['server1']['database'] = '';
+$db['server1']['dbdriver'] = 'mysqli';
+$db['server1']['dbprefix'] = '';
+$db['server1']['pconnect'] = FALSE;
+$db['server1']['db_debug'] = TRUE;
+$db['server1']['cache_on'] = FALSE;
+$db['server1']['cachedir'] = '';
+$db['server1']['char_set'] = 'utf8';
+$db['server1']['dbcollat'] = 'utf8_general_ci';
+$db['server1']['swap_pre'] = '';
+$db['server1']['autoinit'] = TRUE;
+$db['server1']['stricton'] = FALSE;
+*/
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

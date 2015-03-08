@@ -36,7 +36,7 @@ class VerifyLogin extends MY_Controller {
 					'id' => $row->id,
 					'username' => $row->username,
 					'group' => $row->groupid,
-					'disablelogin' => $row->disablelogin
+					'disablelogin' => $row->disablelogin,
 				);
 				// Update the database with active login
 				$this->usermodel->update_user_active($sess_array['id'],"user/login");
@@ -61,6 +61,7 @@ class VerifyLogin extends MY_Controller {
 				}
 			}
 			$this->session->set_userdata('loggedin', $sess_array);
+			$this->session->set_userdata('server_select', $this->config->item('default_server_id'));
 			return true;
 		}
 		else {

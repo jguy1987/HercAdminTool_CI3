@@ -29,4 +29,12 @@ class Server extends MY_Controller {
 		}
 		$this->load->view('footer-nocharts.php');
 	}
+	
+	public function select_server($sid) {
+		$this->session->set_userdata('server_select', $sid);
+		$data['referpage'] = "serverselect";
+		$data['server_select'] = $sid;
+		$this->load->view('formsuccess', $data);
+		$this->load->view('footer-nocharts.php');
+	}
 }

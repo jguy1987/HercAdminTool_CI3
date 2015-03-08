@@ -40,6 +40,26 @@
 				Welcome, <?php echo $username; ?>!
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<?php 
+							$servers = $this->config->item('ragnarok_servers');
+							$server = $servers[$this->session->userdata('server_select')]['servername'];
+						?>
+						<i class="fa fa-hdd-o fa-fw"></i> <?php echo $server; ?> <i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu">
+						<?php foreach ($servers as $k=>$v) { ?>
+							<li>
+								<a href="/server/select_server/<?php echo $k; ?>">
+									<div>
+										<?php echo $v['servername']; ?>
+									</div>
+								</a>
+							</li>
+						<?php } ?>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-alerts">
