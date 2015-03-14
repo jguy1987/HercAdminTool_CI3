@@ -31,8 +31,10 @@ class Server extends MY_Controller {
 	}
 	
 	public function select_server($sid) {
+		$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);
 		$this->session->set_userdata('server_select', $sid);
 		$data['referpage'] = "serverselect";
+		$data['refered_from'] = $this->session->userdata('refered_from');
 		$data['server_select'] = $sid;
 		$this->load->view('formsuccess', $data);
 		$this->load->view('footer-nocharts.php');

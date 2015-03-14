@@ -68,7 +68,7 @@
 				echo "Group deleted successfully. Return to <a href='/admin/groups'>group management page</a>.";
 				break;
 			case "serverselect":
-				echo "Server selected. Return to the <a href='/'>dashboard</a>.";
+				echo "Server selected. Return to the <a href='".$refered_from."'>previous page</a>.";
 				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
