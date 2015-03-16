@@ -45,15 +45,15 @@ If your server runs like this:
                                      |==========|      |=========|
                                      |   char   |      |   map   |
                             /========|  server  |======|  server |
-			|--------------|  /         |    s1    |      |         |
-			|              | /          |==========|      |=========|
-			|    login     |/           
-			|    server    |\           
-			|              | \          |==========|      |=========|
-			|--------------|  \         |   char   |      |   map   |
+         |--------------|  /         |    s1    |      |         |
+         |              | /          |==========|      |=========|
+         |    login     |/           
+         |    server    |\           
+         |              | \          |==========|      |=========|
+         |--------------|  \         |   char   |      |   map   |
                             \========|  server  |======|  server |
                                      |    s2    |      |         |
-	                                  |==========|      |=========|
+                                     |==========|      |=========|
 
 HAT can help you! See the details in /doc/MultipleCharMap.txt for more details.
 
