@@ -38,17 +38,6 @@ CREATE TABLE IF NOT EXISTS `hat_blockinfo` (
   `unblock_comment` text
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-
-CREATE TABLE IF NOT EXISTS `hat_chareditlog` (
-`chg_id` int(6) NOT NULL,
-  `char_id` int(5) NOT NULL,
-  `user` smallint(4) NOT NULL,
-  `datetime` datetime NOT NULL,
-  `chg_attr` varchar(25) NOT NULL,
-  `old_value` varchar(50) NOT NULL,
-  `new_value` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `hat_groups` (
   `id` int(2) NOT NULL,
   `name` varchar(60) NOT NULL,
@@ -218,10 +207,7 @@ ALTER TABLE `hat_adminnews`
 
 ALTER TABLE `hat_blockinfo`
  ADD PRIMARY KEY (`blockid`);
-
-ALTER TABLE `hat_chareditlog`
- ADD PRIMARY KEY (`chg_id`);
-
+ 
 ALTER TABLE `hat_groups`
  ADD PRIMARY KEY (`id`);
 
@@ -243,15 +229,12 @@ ALTER TABLE `hat_tktreplies`
 ALTER TABLE `hat_users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`);
 
-
 ALTER TABLE `hat_accteditlog`
 MODIFY `chg_id` mediumint(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `hat_acctnotes`
 MODIFY `note_id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `hat_blockinfo`
-MODIFY `blockid` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
-ALTER TABLE `hat_chareditlog`
-MODIFY `chg_id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+MODIFY `blockid` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1; 
 ALTER TABLE `hat_tktfolders`
 MODIFY `folderid` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 ALTER TABLE `hat_tktlog`
@@ -262,7 +245,7 @@ ALTER TABLE `hat_tktreplies`
 MODIFY `t_replyid` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=100;
 ALTER TABLE `hat_users`
 MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2000;
-
+ 
 -- Table modifications for the hercules tables
 ALTER TABLE `login` 
 ADD `createdate` DATE NOT NULL AFTER `group_id`,

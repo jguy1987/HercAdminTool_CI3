@@ -45,7 +45,15 @@ acc_reg_num_db
 acc_reg_str_db
 global_acc_reg_num_db
 global_acc_reg_str_db
-All of the hat_ tables
+hat_groups
+hat_users
+hat_accteditlog
+hat_acctnotes
+hat_adminnews
+hat_blockinfo
+hat_loginlog
+hat_sessions
+hat_tkt*
 
 The remaining configuration is done in database.php. Add a separate group for each server you have. The 'database_group' 
 setting in hat.php MUST match up with what you name the database in database.php.

@@ -12,20 +12,8 @@ $config['panelname'] = "HercAdminTool";
 // Server Name. 
 $config['servername'] = "YourRO";
 
-// Server Name (server config). This is EXACTLY what you set 'userid' to in /conf/map-server.conf
-$config['map_servername'] = "s1";
-
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
-
-// To what map should we reset players to?
-$config['reset_map'] = "prontera";
-
-// To what X coordinate should we reset players to?
-$config['reset_x'] = "142";
-
-// To what Y coordinate should we reset players to?
-$config['reset_y'] = "241";
 
 // Does your login table have a last_mac column (yes or no)?
 $config['last_mac_addon'] = "yes";
@@ -73,20 +61,22 @@ $config['default_server_id'] = 1;
 
 $config['ragnarok_servers'] = array(
 	'1'	=> array(
-		'servername'		=> "Server1",  	// Human readable server name. Will be selectable by the user.
-		'map_servername'	=> "s1",			// The servername as in the login table and what you set in char_server.conf and map_server.conf
-		'database_group'	=> "ragnarok",	// The database group in database.php config file that holds this database connection info.
-		'reset_map'			=> "prontera", 	// Map name to reset players to
-		'reset_x'			=> "142",			// X coordinate to reset players to
-		'reset_y'			=> "241",			// Y coordinate to reset players to
+		'servername'			=> "Server1",  		// Human readable server name. Will be selectable by the user.
+		'map_servername'		=> "s1",					// The servername as in the login table and what you set in char_server.conf and map_server.conf
+		'database_group'		=> "ragnarok",			// The database group in database.php config file that holds this database connection info for all char/map databases (less logs)
+		'log_database_group'	=> "rangarok_log",	// the database group that holds the log tables for this server.
+		'reset_map'				=> "prontera", 		// Map name to reset players to
+		'reset_x'				=> "142",				// X coordinate to reset players to
+		'reset_y'				=> "241",				// Y coordinate to reset players to
 	),
 	/*'2'	=> array(
-		'servername'		=> "Server2",  	// Human readable server name. Will be selectable by the user.
-		'map_servername'	=> "s2",			// The servername as in the login table and what you set in char_server.conf and map_server.conf
-		'database_group'	=> "ragnarok2",	// The database group in database.php config file that holds this database connection info.
-		'reset_map'			=> "prontera", 	// Map name to reset players to
-		'reset_x'			=> "142",			// X coordinate to reset players to
-		'reset_y'			=> "241",			// Y coordinate to reset players to
+		'servername'			=> "Server2",  		// Human readable server name. Will be selectable by the user.
+		'map_servername'		=> "s2",					// The servername as in the login table and what you set in char_server.conf and map_server.conf
+		'database_group'		=> "ragnarok2",		// The database group in database.php config file that holds this database connection info.
+		'log_database_group'	=> "rangarok_log",	// the database group that holds the log tables for this server.
+		'reset_map'				=> "prontera", 		// Map name to reset players to
+		'reset_x'				=> "142",				// X coordinate to reset players to
+		'reset_y'				=> "241",				// Y coordinate to reset players to
 	),*/
 );
 			
@@ -101,6 +91,7 @@ $config["ban_reasons"] = array(
 	6		=>	"Security Ban",
 );
 /* Class settings. Grab list of class ID's and their classes */
+/* NOTE: You will not need to change much under here unless you've customised either Hercules or HAT, or both */
 
 $config["jobs"] = array(
 	0		=> "Novice",
