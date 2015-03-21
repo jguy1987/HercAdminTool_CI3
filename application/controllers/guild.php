@@ -20,4 +20,37 @@ class Guild extends MY_Controller {
 		$this->load->view('guild/list', $data);
 		$this->load->view('footer-nocharts');
 	}
+	
+	function search() {
+		$this->usermodel->update_user_active($this->session_data['id'],"guild/search");
+		$guildSearch = array(
+			'guild_id'		=> $this->input->post('guild_id'),
+			'guild_name'	=> $this->input->post('guild_name'),
+			'leader_name'	=> $this->input->post('leader_name'),
+			'gtLevel'		=> $this->input->post('gtLevel'),
+			'ltLevel'		=> $this->input->post('ltLevel'),
+		);
+		$data['guild_list'] = $this->guildmodel->list_search($guildSearch);
+		$this->load->view('guild/list', $data);
+		$this->load->view('footer-nocharts');
+	}
+	
+	function details($gid) {
+		$this->usermodel->update_user_active($this->session_data['id'],"guild/details");
+		$data = array();
+		$data += $this->load_guild_data($gid);
+		$this->load->view('guild/details', $data);
+		$this->load->view('footer-nocharts');
+	}
+	
+	
+	function load_guild_data($gid) {
+		$data['guildinfo'] = $this->guildmodel->get_details($gid);
+		//$data['guildMembers'] = $this->guildmodel->get_guild_members($gid);
+		//$data['guildPositions'] = $this->guildmodel->get_guild_position($gid);
+		//$data['guildCastles'] = $this->guildmodel->get_guild_castles($gid);
+		//$data['guildStorage'] = $this->guildmodel->get_guild_storage($gid);
+		//$data['guildAliiance'] = $this->guildmodel->get_guild_alliances($gid);
+		return $data;
+	}
 }

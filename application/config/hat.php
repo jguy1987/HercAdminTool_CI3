@@ -328,6 +328,12 @@ $config["permissions"] = array(
 		'editadminnews'	=> "Edit Admin Announcements",
 		'viewadminlogs'	=> "View Admin Logs",
 	),
+	'guild'			=> array( // Permissions related to guild management
+		'editguildname'	=> "Edit Guild Name",
+		'editguildlv'		=> "Edit Guild Level/XP",
+		'delguild'			=> "Delete Guild",
+		'changeleader'		=> "Change Guild Leader",
+	),
 	'ticket'			=> array( // Permissions related to ticket management
 		'viewtickets'		=> "View Tickets",
 		'editcategory'		=> "Manage Ticket Categories",

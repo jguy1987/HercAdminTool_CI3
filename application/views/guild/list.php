@@ -13,10 +13,16 @@
 			<?php echo form_open('guild/search', array('class' => 'form-inline')); ?>
 				<div class="row">
 					<div class="col-md-3">
+						<label>Guild ID</label>
+						<input type="number" name="guild_id" />
 					</div>
 					<div class="col-md-3">
+						<label>Guild Name</label>
+						<input type="text" name="guild_name" />
 					</div>
 					<div class="col-md-3">
+						<label>Leader Name</label>
+						<input type="text" name="leader_name" />
 					</div>
 					<div class="col-md-3">
 					</div>
@@ -29,6 +35,8 @@
 					<div class="col-md-3">
 					</div>
 					<div class="col-md-3">
+						<label>Guild Level</label>
+						<=<input type="number" name="gtLevel" style="max-width:100px;">&nbsp;>=<input type="number" name="ltLevel" style="max-width:100px;">
 					</div>
 				</div>
 				<div class="row">
