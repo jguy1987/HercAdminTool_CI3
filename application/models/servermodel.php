@@ -84,6 +84,18 @@ Class Servermodel extends CI_Model {
 		return $serverData;
 	}
 	
+	function server_online_check($sid) {
+		// 0 = server not online
+		$servers = $this->config->item('ragnarok_servers');
+		$map_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['map_port'], $errno, $errstr, 3);
+		if (!$map_server) {
+			return 0;
+		}
+		else {
+			return 1;
+		}
+	}
+	
 	function format_bytes($bytes) {
 		$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
 

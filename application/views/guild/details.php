@@ -50,12 +50,53 @@
 									</table>
 								</div>
 								<center><button type="submit" class="btn btn-info">Submit Changes</button></center>
+								<?php echo form_close(); ?>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+			<div class="tab-pane fade in" id="members">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-user-md fa-fw"></i> Guild Members
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+										<thead>
+											<tr>
+												<th>Char Name</th>
+												<th>Rank</th>
+												<th>Account ID</th>
+												<th>Class</th>
+												<th>Base Level</th>
+												<th>Online?</th>
+												<th>Options</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach($guildMembers as $member) { ?>
+												<tr>
+													<td><a href="/character/details/<?php echo $member['char_id']; ?>"><?php echo $member['name']; ?></a></td>
+													<td><?php echo $guildPositions[$member['position']]['name']; ?>&nbsp;(<?php echo $member['position']; ?>)</td>
+													<td><a href="/account/details/<?php echo $member['account_id']; ?>"><?php echo $member['account_id']; ?></a></td>
+													<td><?php echo $class_list[$member['class']]; ?></td>
+													<td><?php echo $member['lv']; ?></td>
+													<td><?php if ($member['online'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>
+													<td><?php echo form_open('/guild/leaderassign', '', array('guild_id' => $guildinfo->guild_id, 'new_leader_name' => $member['name'], 'old_leader_id' => $guildinfo->char_id, 'new_leader_id' => $member['char_id'])); ?><button type="submit" class="btn btn-info">Promote</button><?php echo form_close(); ?></td>
+												</tr>
+											<?php } ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

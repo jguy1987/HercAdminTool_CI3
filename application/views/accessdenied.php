@@ -20,6 +20,9 @@
 				case "group99":
 					echo "You may not delete the admin group. Return to <a href='/admin/groups'>group management page</a>.";
 					break;
+				case "serveronline-leaderassign":
+					echo "Leader cannot be reassigned. The server is online. Return to the <a href='/guild/listguilds'>guild list</a>.";
+					break;
 				default:
 					echo "<p>General failure. Return to the <a href='/'>dashboard</a>.";
 					break;

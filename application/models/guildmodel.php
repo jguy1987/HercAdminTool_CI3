@@ -43,4 +43,34 @@ Class Guildmodel extends CI_Model {
 		$q = $this->db_charmap->get();
 		return $q->row();
 	}
+	
+	function get_guild_members($gid) {
+		$this->db_charmap->select('*');
+		$this->db_charmap->where('guild_id', $gid);
+		$this->db_charmap->order_by('position','asc');
+		$this->db_charmap->order_by('name','asc');
+		$q = $this->db_charmap->get('guild_member');
+		return $q->result_array();
+	}
+	
+	function get_guild_position($gid) {
+		$this->db_charmap->select('*');
+		$this->db_charmap->where('guild_id', $gid);
+		$q = $this->db_charmap->get('guild_position');
+		return $q->result_array();
+	}
+	
+	function assign_leader($info) {
+		// change leader of guild.
+		$this->db_charmap->set('master', $info['new_leader_name']);
+		$this->db_charmap->set('char_id', $info['new_leader_id']);
+		$this->db_charmap->where('guild_id', $info['guild_id']);
+		$this->db_charmap->update('guild');
+		
+		// change rank.
+		$this->db_charmap->set('position', 0);
+		$this->db_charmap->where('guild_id', $info['guild_id']);
+		$this->db_charmap->where('char_id', $info['new_leader_id']);
+		$this->db_charmap->update('guild_member');
+	}
 }

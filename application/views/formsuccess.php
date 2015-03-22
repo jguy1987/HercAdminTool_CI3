@@ -70,6 +70,9 @@
 			case "serverselect":
 				echo "Server selected. Return to the <a href='".$refered_from."'>previous page</a>.";
 				break;
+			case "assignleader":
+				echo "Guild Leader changed. Return to the <a href='/guild/details/".$guild_id."'>guild details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

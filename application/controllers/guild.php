@@ -38,19 +38,40 @@ class Guild extends MY_Controller {
 	function details($gid) {
 		$this->usermodel->update_user_active($this->session_data['id'],"guild/details");
 		$data = array();
+		$data['class_list'] = $this->config->item('jobs');
 		$data += $this->load_guild_data($gid);
 		$this->load->view('guild/details', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
+	function leaderassign() {
+		$newLeaderInfo = array(
+			'guild_id'			=> $this->input->post('guild_id'),
+			'new_leader_name'	=> $this->input->post('new_leader_name'),
+			'old_leader_id'	=> $this->input->post('old_leader_id'),
+			'new_leader_id'	=> $this->input->post('new_leader_id'),
+		);
+		if ($this->servermodel->server_online_check($this->session->userdata('server_select')) == 0) {
+			$this->guildmodel->assign_leader($newLeaderInfo);
+			$data['referpage'] = "assignleader";
+			$data['guild_id'] = $newLeaderInfo['guild_id'];
+			$this->load->view('formsuccess', $data);
+		}
+		else {
+			$data['referpage'] = "serveronline-leaderassign";
+			$this->load->view('accessdenied', $data);
+		}
+	}
 	
 	function load_guild_data($gid) {
 		$data['guildinfo'] = $this->guildmodel->get_details($gid);
-		//$data['guildMembers'] = $this->guildmodel->get_guild_members($gid);
-		//$data['guildPositions'] = $this->guildmodel->get_guild_position($gid);
+		$data['guildMembers'] = $this->guildmodel->get_guild_members($gid);
+		$data['guildPositions'] = $this->guildmodel->get_guild_position($gid);
 		//$data['guildCastles'] = $this->guildmodel->get_guild_castles($gid);
 		//$data['guildStorage'] = $this->guildmodel->get_guild_storage($gid);
 		//$data['guildAliiance'] = $this->guildmodel->get_guild_alliances($gid);
 		return $data;
 	}
+	
+	
 }
