@@ -385,7 +385,7 @@ Thank you.");
 	
 	function check_groupid_perm($groupid) {
 		$session_data = $this->session->userdata('loggedin');
-		$this->db_ragnarok->select('acctgroupmax');
+		$this->db_login->select('acctgroupmax');
 		$query = $this->db_ragnarok->get_where('hat_groups', array('id' => $session_data['group']));
 		$queryResult = $query->row();
 		if ($queryResult->acctgroupmax >= $groupid) {
