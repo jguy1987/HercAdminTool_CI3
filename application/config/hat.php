@@ -18,6 +18,9 @@ $config['inactive_time'] = 15;
 // Does your login table have a last_mac column (yes or no)?
 $config['last_mac_addon'] = "yes";
 
+// Full path to the root of your HAT installation (where the application, system and assets folders live). Include forward AND trailing slash! 
+$config['hat_path'] = "/var/www/hat/"; 
+
 
 /* Email Settings. Settings for email here. */
 
@@ -69,6 +72,10 @@ $config['ragnarok_servers'] = array(
 		'login_port'			=> 6900,					// Login Port number for this server
 		'char_port'				=> 6121,					// Character Port number for this server
 		'map_port'				=> 5121,					// Map Port number for this server
+		'server_path'			=> "/home/ragnarok/",	// Path to server files.
+		'login_server_exec'	=> "/home/ragnarok/login_server",	// Path to the login server executable (with forward slash!)
+		'char_server_exec'	=> "/home/ragnarok/char_server",		// Path to the char server executable (with forward slash!)
+		'map_server_exec'		=> "/home/ragnarok/map_server",		// Path to the map server executable (with forward slash!)
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
@@ -82,6 +89,10 @@ $config['ragnarok_servers'] = array(
 		'login_port'			=> 6900,					// Login Port number for this server
 		'char_port'				=> 6121,					// Character Port number for this server
 		'map_port'				=> 5121,					// Map Port number for this server
+		'server_path'			=> "/home/ragnarok/"	// Path to server files.
+		'login_server_exec'	=> "/home/ragnarok/login_server",	// Path to the login server executable (with forward slash!)
+		'char_server_exec'	=> "/home/ragnarok/char_server",		// Path to the char server executable (with forward slash!)
+		'map_server_exec'		=> "/home/ragnarok/map_server",		// Path to the map server executable (with forward slash!)
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to

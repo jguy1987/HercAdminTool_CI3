@@ -18,7 +18,7 @@ class Dashboard extends MY_Controller {
 		$session_data = $this->session->userdata('loggedin');
 		$this->usermodel->update_user_active($this->session_data['id'],"dashboard");
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
-		$data2['server_stats'] = $this->servermodel->get_herc_stats();
+		$data2['server_stats'] = $this->servermodel->get_herc_stats(0);
 		$data2['active_admins']	= $this->dashboardmodel->get_active_admins();
 		$data2['admin_news'] = $this->dashboardmodel->get_admin_news();
 		$this->load->view('index',$data2);

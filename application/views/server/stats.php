@@ -46,6 +46,44 @@
 					<?php echo $server_stats['processStats']['proc_total']; ?> Total<br />
 					Threads: <?php echo $server_stats['processStats']['threads']; ?>
 					<br />
+					<label>Hercules Server Maintenance/Status</label><br />
+					<small>(Note: Click on the server status icon to see last console data from server)</small><br />
+					<?php if ($online_status == 1 || $online_status == 3 || $online_status == 5 || $online_status == 7) { ?> 
+						<button class="btn btn-danger btn-circle" data-toggle="collapse" data-parent="#accordion" href="#loginDetails">L</button>
+					<?php } else { ?>
+						<button class="btn btn-success btn-circle" data-toggle="collapse" data-parent="#accordion" href="#loginDetails">L</button>
+					<?php } ?>
+					<?php if ($online_status == 2 || $online_status == 3 || $online_status == 6 || $online_status == 7) { ?>
+						<button class="btn btn-danger btn-circle" data-toggle="collapse" data-parent="#accordion" href="#charDetails">C</button>
+					<?php } else { ?>
+						<button class="btn btn-success btn-circle" data-toggle="collapse" data-parent="#accordion" href="#charDetails">C</button>
+					<?php } ?>
+					<?php if ($online_status == 4 || $online_status == 5 || $online_status == 6 || $online_status == 7) { ?>
+						<button class="btn btn-danger btn-circle" data-toggle="collapse" data-parent="#accordion" href="#mapDetails">M</button>
+					<?php } else { ?>
+						<button class="btn btn-success btn-circle" data-toggle="collapse" data-parent="#accordion" href="#mapDetails">M</button>
+					<?php } ?>
+					<a href="/server/maintenance/start"><button type="button" class="btn btn-success <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Start Server</button></a>
+					<a href="/server/maintenance/stop"><button type="button" class="btn btn-danger <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Stop Server</button></a>
+					<a href="/server/maintenance/restart"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Restart Server</button></a>
+					<div id="loginDetails" class="panel-collapse collapse">
+						<div class="panel-body">
+							<label>Login Server Console:</label>
+							<?php echo $server_log['login']; ?>
+						</div>
+					</div>
+					<div id="charDetails" class="panel-collapse collapse">
+						<div class="panel-body">
+							<label>Char Server Console</label>
+							<?php echo $server_log['char']; ?>
+						</div>
+					</div>
+					<div id="mapDetails" class="panel-collapse collapse">
+						<div class="panel-body">
+							<label>Map Server Console</label>
+							<?php echo $server_log['map']; ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,8 +122,6 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-6">
-			<div class="panel panel default">
-			</div>
 		</div>
 		<div class="col-lg-6">
 			<div class="panel panel-default">
