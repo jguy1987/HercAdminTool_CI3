@@ -107,6 +107,9 @@
 				<li>
 					<a href="#"><i class="fa fa-hdd-o fa-fw"></i> Server Setup<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
+						<li>
+							<a href="/server/hercules">Hercules Info/Maintenance</a>
+						</li>
 						<?php if ($check_perm['items'] == 1) { ?>
 							<li>
 								<a href="/server/itemdb">Item Database</a>

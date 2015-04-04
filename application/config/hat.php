@@ -79,6 +79,7 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
+		'update_method'		=> "svn",				// Update method. Three possible choices, svn = will issue "svn up" command, git = will issue "git pull", off = disable function. NOTE: to be able to use this the repository must have already been cloned or checked out.
 	),
 	/*'2'	=> array(
 		'servername'			=> "Server2",  		// Human readable server name. Will be selectable by the user.
@@ -96,6 +97,7 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
+		'update_method'		=> "svn",				// Update method. Three possible choices, svn = will issue "svn up" command, git = will issue "git pull", off = disable function. NOTE: to be able to use this the repository must have already been pulled or checked out.
 	),*/
 );
 			

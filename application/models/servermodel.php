@@ -185,6 +185,68 @@ Class Servermodel extends CI_Model {
 		exec(sprintf("screen -S map-server-%s -X stuff \"exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the map server screen.
 	}
 	
+	function server_toggle($sid, $server) {
+		$servers = $this->config->item('ragnarok_servers');
+		$port = $server."_port";
+		if ($server == "login") {
+			$serverName = "login-server";
+			$output = "".$this->config->item('hat_path')."application/hat_log/".$server."-server.log";
+		}
+		elseif ($server == "char" || $server == "map") {
+			$serverName = $server."-server-".$servers[$sid]['map_servername'];
+			$output = "".$this->config->item('hat_path')."application/hat_log/".$server."-server-".$servers[$sid]['map_servername'].".log";
+		}
+		$serverStatus = @fsockopen($servers[$sid]['ip'], $servers[$sid][$port], $errno, $errstr, 3);
+		if ($serverStatus) { // Server is online, turn it off.
+			exec(sprintf("screen -S %s -X stuff \"server exit\"'\n'", $serverName)); // Kill the server.
+			sleep(4);
+			exec(sprintf("screen -S %s -X stuff \"exit\"'\n'", $serverName)); // Kill the server screen.
+			return 1; // Return server now offline
+		}
+		elseif (!$serverStatus) { // Server is offline, turn it on.
+			$screen = "screen -dmS ".$serverName;
+			exec($screen);
+			$serverExec = $server."_server_exec";
+			exec(sprintf("screen -S %s -X stuff \"cd %s\"'\n'", $serverName, $servers[$sid]['server_path']));
+			exec(sprintf("screen -S %s -X stuff \"./%s > %s\"'\n'", $serverName, $servers[$sid][$serverExec], $output));
+			sleep(5);
+			$pid = exec(sprintf("lsof -t -i :%s", $servers[$sid][$port]));
+			$serverStatus = @fsockopen($servers[$sid]['ip'], $servers[$sid][$port], $errno, $errstr, 3);
+			if (!$serverStatus) { // Server did not start!
+				exec(sprintf("kill %s", $pid));
+				exec(sprintf("screen -S %s -X stuff \"exit\"'\n'", $serverName));
+				exec('screen -wipe'); // Wipe screens to remove dead.
+				return 0; // Let user know servers did not start.
+			}
+			else {
+				return 2; // Server was off, started successfully.
+			}
+		}
+	}
+	
+	function send_maint_cmd($sid, $action) {
+		$servers = $this->config->item('ragnarok_servers');
+		exec(sprintf("screen -S map-server-%s -X stuff \"gm use @%s\"'\n'", $servers[$sid]['map_servername'], $action)); // Use the specified command.
+	}
+	
+	function update_files($sid) {
+		$servers = $this->config->item('ragnarok_servers');
+		switch( $servers[$sid]['update_method'] ) {
+			case "svn":
+				exec(sprintf("svn update %s", $servers[$sid]['server_path']), $result);
+				return $result;
+				break;
+			case "git":
+				exec(sprintf("git --git-dir=%s.git", $servers[$sid]['server_path']), $result);
+				return $result;
+				break;
+			case "off":
+				$result = "This feature is disabled.";
+				return $result;
+				break;
+		}
+	}
+	
 	function return_console($sid, $server) {
 		$servers = $this->config->item('ragnarok_servers');
 		if ($server == "login") {

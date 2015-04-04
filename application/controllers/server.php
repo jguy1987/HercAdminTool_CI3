@@ -19,7 +19,7 @@ class Server extends MY_Controller {
 			$this->usermodel->update_user_active($this->session_data['id'],"server/stats");
 			$json_url = base_url('assets/linfo/?out=json');
 			$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
-			$data['herc_stats'] = $this->servermodel->get_herc_stats(1);
+			$data['herc_stats'] = $this->servermodel->get_herc_stats(0);
 			$data['mysql_stats'] = $this->servermodel->get_mysql_stats();
 			$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
 			$servers = array("login", "char", "map");
@@ -42,7 +42,20 @@ class Server extends MY_Controller {
 		$data['refered_from'] = $this->session->userdata('refered_from');
 		$data['server_select'] = $sid;
 		$this->load->view('formsuccess', $data);
-		$this->load->view('footer-nocharts.');
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function hercules() {
+		$servers = $this->config->item('ragnarok_servers');
+		$serverTypes = array("login", "char", "map");
+		foreach ($serverTypes as $svr){
+			$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr);
+		}
+		$data['serverName'] = $servers[$this->session->userdata('server_select')]['servername'];
+		$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
+		$data['herc_stats'] = $this->servermodel->get_herc_stats(1);
+		$this->load->view('server/hercinfo', $data);
+		$this->load->view('footer-nocharts');
 	}
 	
 	public function maintenance($action) {
@@ -89,6 +102,55 @@ class Server extends MY_Controller {
 					$this->load->view('server/maintresult', $data);
 				}
 				break;
+			case "toggle":
+				$server = $this->uri->segment(4);
+				if ($server === FALSE) {
+					$data['maint_result'] = "toggleservermissing";
+					$this->load->view('server/maintresult', $data);
+				}
+				else {
+					$toggleresult = $this->servermodel->server_toggle($this->session->userdata('server_select'), $server);
+					if ($toggleresult == 0) { // Server did not start.
+						$data['maint_result'] = "toggleserverfailed";
+						$this->load->view('server/maintresult', $data);
+					}
+					elseif ($toggleresult == 1) { // Server was stopped
+						$data['maint_result'] = "toggleserverstopsuccess";
+						$this->load->view('server/maintresult', $data);
+					}
+					elseif ($toggleresult == 2) { // Server started.
+						$data['maint_result'] = "toggleserverstartsuccess";
+						$this->load->view('server/maintresult', $data);
+					}
+				}
+				break;
+			case "screen_wipe":
+				exec("screen -wipe");
+				$data['maint_result'] = "screenwipe";
+				$this->load->view('server/maintresult', $data);
+				break;
+			case "reloadscript":
+				$this->servermodel->send_maint_cmd($this->session->userdata('server_select'), $action);
+				$data['cmd_used'] = $action;
+				$data['maint_result'] = "cmdsent";
+				$this->load->view('server/maintresult', $data);
+				break;
+			case "reloadbattleconf":
+				$this->servermodel->send_maint_cmd($this->session->userdata('server_select'), $action);
+				$data['cmd_used'] = $action;
+				$data['maint_result'] = "cmdsent";
+				$this->load->view('server/maintresult', $data);
+				break;
+			case "reloadatcommand":
+				$this->servermodel->send_maint_cmd($this->session->userdata('server_select'), $action);
+				$data['cmd_used'] = $action;
+				$data['maint_result'] = "cmdsent";
+				$this->load->view('server/maintresult', $data);
+				break;
+			case "updatefiles":
+				$data['update_result'] = $this->servermodel->update_files($this->session->userdata('server_select'));
+				$data['maint_result'] = "updatefiles";
+				$this->load->view('server/maintresult', $data);
 		}
 		$this->load->view('footer-nocharts');
 	}

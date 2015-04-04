@@ -8,16 +8,42 @@
 		<div class="col-lg-12">
 			<?php switch( $maint_result ) {
 				case "didnotstart": 
-					echo "The servers did not start. You can find the full logs below to troubleshoot.";
+					echo "The servers did not start. You can find the full logs below to troubleshoot. <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "startsuccess":
-					echo "Server started successfully.";
+					echo "Server started successfully. <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "stop":
-					echo "Server stopped.";
+					echo "Server stopped. <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "restartsuccess":
-					echo "Server was restarted.";
+					echo "Server was restarted. <a href='/server/hercules'>Return to server maintenance page</a>";
+					break;
+				case "toggleservermissing":
+					echo "The server to toggle was missing from your query. Please <a href='/server/hercules'>go back</a> and try again.";
+					break;
+				case "toggleserverfailed":
+					echo "An error occurred while restarting the server. Please <a href='/server/hercules'>go back</a>, review the logs and try again.";
+					break;
+				case "toggleserverstopsuccess":
+					echo "The server was stopped successfully. <a href='/server/hercules'>Return to server maintenance page</a>";
+					break;
+				case "toggleserverstartsuccess":
+					echo "The server was started successfully. <a href='/server/hercules'>Return to server maintenance page</a>";
+					break;
+				case "screenwipe":
+					echo "Screens wiped! Please <a href='/server/hercules'>go back</a> and try again.";
+					break;
+				case "cmdsent":
+					echo $cmd_used." sent. Results reflected in logs. <a href='/server/hercules'>Return to server maintenance page</a>";
+					break;
+				case "updatefiles":
+					echo "The update operation completed successfully. Below is the output:<br />";
+					foreach ($update_result as $k=>$v) {
+						echo $v;
+					}
+					echo "<br /><br />";
+					echo "<a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				default:
 					echo "An unknown error occurred. Report to developer!";
