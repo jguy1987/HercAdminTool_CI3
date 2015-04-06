@@ -311,6 +311,15 @@ Class Servermodel extends CI_Model {
 		return $output;
 	}
 	
+	function apply_server_kick($cid, $sid) {
+		$servers = $this->config->item('ragnarok_servers');
+		// Get name from Char_id
+		$this->db_charmap->select('name');
+		$q = $this->db_charmap->get_where('char', array('char_id' => $cid));
+		$result = $q->row();
+		exec(sprintf("screen -S map-server-%s -X stuff \"gm use @kick %s\"'\n'", $servers[$sid]['map_servername'], $result->name)); // Kick the user off the server.
+	}
+	
 	function format_bytes($bytes) {
 		$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
 

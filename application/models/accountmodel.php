@@ -167,6 +167,17 @@ Class Accountmodel extends CI_Model {
 			$this->db_login->where('account_id', $newBan['account_id']); 
 			$this->db_login->update('login');
 		} // If the account is already permanently banned or has a ban longer than the ban we're currently setting, do nothing.
+		
+		// Now, find any characters online from this account and kick them off.
+		$this->db_charmap->select('char_id');
+		$this->db_charmap->where('online', 1);
+		$this->db_charmap->where('account_id', $newBan['account_id']);
+		$q = $this->db_charmap->get('char');
+		$result = $q->row();
+		if ($q->num_rows() > 0) { // A character is online
+			$this->load->model('servermodel');
+			$this->servermodel->apply_server_kick($result->char_id, $this->session->userdata('server_select'));
+		} // No character is online.
 	}
 	
 	function apply_acct_unban($remBan) {

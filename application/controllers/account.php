@@ -115,7 +115,7 @@ class Account extends MY_Controller {
 				'reason'			=> $this->input->post('reason'),
 				'comments'		=> nl2br($this->input->post('banComments')),
 				'type'			=> $this->input->post('banType'),
-				'userid'			=> $session_data['id'],
+				'userid'			=> $this->session_data['id'],
 			);
 			$this->accountmodel->apply_acct_ban($newBan);
 			$data['referpage'] = "newban";

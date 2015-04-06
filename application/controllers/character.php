@@ -198,6 +198,13 @@ class Character extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
+	function kick($cid) {
+		$this->servermodel->apply_server_kick($result->char_id, $this->session->userdata('server_select'));
+		$data['referpage'] = "charkick";
+		$data['char_id'] = $cid;
+		$this->load->view('formsuccess', $data);
+	}
+	
 	function load_char_data($cid) {
 		$data['charinfo'] = $this->charmodel->get_char_info($cid);
 		$data['char_items'] = $this->charmodel->get_char_items($cid);

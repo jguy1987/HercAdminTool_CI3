@@ -73,6 +73,9 @@
 			case "assignleader":
 				echo "Guild Leader changed. Return to the <a href='/guild/details/".$guild_id."'>guild details page</a>.";
 				break;
+			case "charkick":
+				echo "Character kicked! Return to the <a href='/character/details/".$char_id."'>character details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;
