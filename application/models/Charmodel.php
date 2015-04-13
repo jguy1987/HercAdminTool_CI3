@@ -25,7 +25,7 @@ Class Charmodel extends CI_Model {
 		$this->db_charmap->where('char.char_id', $cid);
 		$this->db_charmap->join('guild', 'char.guild_id = guild.guild_id', 'left');
 		$this->db_charmap->join('party', 'char.party_id = party.party_id', 'left');
-		$this->db_charmap->join('charlog AS charlog1', 'char.char_id = charlog1.char_id AND charlog1.char_msg = "make new char"', 'left');
+		$this->db_charmap->join('charlog AS charlog1', "char.char_id = charlog1.char_id AND charlog1.char_msg = 'make new char'", 'left');
 		$this->db_charmap->join('charlog AS charlog2', "char.char_id = charlog2.char_id AND charlog2.time = (SELECT MAX(charlog.time) FROM charlog WHERE char_msg = 'char select' AND char_id = '".$cid."')", 'left');
 		$query = $this->db_charmap->get();
 		return $query->row();

@@ -80,10 +80,10 @@ class Admin extends MY_Controller {
 		$data['userinfo'] = $this->adminmodel->get_user_data($this->input->post('userid'));
 		// Validate input on form.
 		if ($data['userinfo']->username != $this->input->post('username')) {
-			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_users.username]";
+			$userRules = "trim|required|min_length[4]|max_length[25]|is_unique[hat_users.username]";
 		}
 		else {
-			$userRules = "trim|required|min_length[4]|max_length[25]|xss_clean";
+			$userRules = "trim|required|min_length[4]|max_length[25]";
 		}
 		$this->form_validation->set_rules('username', 'Username', $userRules);
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
@@ -120,9 +120,9 @@ class Admin extends MY_Controller {
 	
 	public function verifyadduser() {
 		// Validate input on form.
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_users.username]');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[25]|is_unique[hat_users.username]');
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('gameacctid', 'Game Account ID', 'trim|min_length[2000000]|xss_clean|is_unique[hat_users.gameacctid]');
+		$this->form_validation->set_rules('gameacctid', 'Game Account ID', 'trim|min_length[2000000]|is_unique[hat_users.gameacctid]');
 		$this->form_validation->set_rules('group-select', 'Group', 'callback_check_group');
 		if ($this->form_validation->run() == FALSE) {
 			$data['grouplist'] = $this->adminmodel->list_groups();
@@ -194,7 +194,7 @@ class Admin extends MY_Controller {
 	
 	public function verifygroupadd() {
 		// Validate input on form.
-		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_groups.name]');
+		$this->form_validation->set_rules('grpname', 'Group Name', 'trim|required|min_length[4]|max_length[25]|is_unique[hat_groups.name]');
 		$this->form_validation->set_rules('groupid', 'Group ID', 'trim|required|greater_than[0]|less_than[100]|numeric|is_unique[hat_groups.id]');
 		if ($this->form_validation->run() == FALSE) {
 			$data['permissions'] = $this->config->item('permissions');
@@ -216,10 +216,10 @@ class Admin extends MY_Controller {
 	public function verifygroupedit() {
 		$data['grpInfo'] = $this->adminmodel->get_group_data($this->input->post('grpid'));
 		if ($data['grpInfo']->name != $this->input->post('grpname')) {
-			$grpRules = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[hat_groups.name]";
+			$grpRules = "trim|required|min_length[4]|max_length[25]|is_unique[hat_groups.name]";
 		}
 		else {
-			$grpRules = "trim|required|min_length[4]|max_length[25]|xss_clean";
+			$grpRules = "trim|required|min_length[4]|max_length[25]";
 		}
 		$this->form_validation->set_rules('grpname', 'Group Name', $grpRules);
 		if ($this->form_validation->run() == FALSE) {

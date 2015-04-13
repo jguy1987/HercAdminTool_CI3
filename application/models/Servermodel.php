@@ -122,7 +122,7 @@ Class Servermodel extends CI_Model {
 		$servers = $this->config->item('ragnarok_servers');
 		// Check to make sure server isn't already running on that port
 		$sstatus = $this->server_online_check($sid);
-		if ($sstatus == 1) { // Server already running, return result 1
+		if ($sstatus == 0) { // Server already running, return result 1
 			return array('result' => 1);
 		}
 		else { // No servers running, proceed.
@@ -156,7 +156,7 @@ Class Servermodel extends CI_Model {
 			exec(sprintf("screen -S map-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut));
 			sleep(5);
 			$pid['map'] = exec(sprintf("lsof -t -i :%s", $servers[$sid]['map_port']));
-			if ($this->server_online_check($sid) > 0) { // One of the servers did not start. killall the processes (don't want to kill the wrong server), destroy the screen, get the full logs of the servers and return 0.
+			if ($this->server_online_check($sid) != 0) { // One of the servers did not start. killall the processes (don't want to kill the wrong server), destroy the screen, get the full logs of the servers and return 0.
 				// TODO replace with function
 				exec(sprintf("kill %s", $pid['login']));
 				exec(sprintf("kill %s", $pid['char']));

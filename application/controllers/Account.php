@@ -53,7 +53,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function verifycreate() {
-		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[login.userid]');
+		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|is_unique[login.userid]');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
 		$this->form_validation->set_rules('gender', "Gender", 'required');		
 		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
@@ -100,9 +100,9 @@ class Account extends MY_Controller {
 	
 	public function addblock() {
 		if ($this->input->post('banType') == "temp") {
-			$this->form_validation->set_rules('banEnd', 'Expiry Date', 'trim|xss_clean|required|callback_datetime_check');
+			$this->form_validation->set_rules('banEnd', 'Expiry Date', 'trim|required|callback_datetime_check');
 		}
-		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|xss_clean|required');
+		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 			$data['accts'] = $this->accountmodel->list_accounts();
@@ -126,7 +126,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function delblock() {
-		$this->form_validation->set_rules('unbanComments', 'Un-Ban Comments', 'trim|xss_clean|required');
+		$this->form_validation->set_rules('unbanComments', 'Un-Ban Comments', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 			$data['accts'] = $this->accountmodel->list_accounts();

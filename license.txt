@@ -1,4 +1,4 @@
-The MIT License (MIT) - copyleft /system/ directory
+The MIT License (MIT)
 
 Copyright (c) 2014 - 2015, British Columbia Institute of Technology
 
@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-
+--------
 
 The applications directory is licensed by me, under the same license as above, 
 the MIT license.

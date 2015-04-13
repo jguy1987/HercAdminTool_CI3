@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-session_start();
 class VerifyLogin extends MY_Controller {
  
 	function __construct() {
@@ -9,8 +8,8 @@ class VerifyLogin extends MY_Controller {
 	function index() {
 		//This method will have the credentials validation
 	 
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('passwd', 'Password', 'trim|required|xss_clean|callback_check_database');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('passwd', 'Password', 'trim|required|callback_check_database');
 	 
 		if($this->form_validation->run() == FALSE) {
 			//Field validation failed.  User redirected to login page
