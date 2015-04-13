@@ -49,7 +49,7 @@ class Server extends MY_Controller {
 		$servers = $this->config->item('ragnarok_servers');
 		$serverTypes = array("login", "char", "map");
 		foreach ($serverTypes as $svr){
-			$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr);
+			$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr, 15);
 		}
 		$data['serverName'] = $servers[$this->session->userdata('server_select')]['servername'];
 		$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
@@ -152,6 +152,13 @@ class Server extends MY_Controller {
 				$data['maint_result'] = "updatefiles";
 				$this->load->view('server/maintresult', $data);
 		}
+		$this->load->view('footer-nocharts');
+	}
+	
+	public function console($server) {
+		$data['server_log'] = $this->servermodel->return_console($this->session->userdata('server_select'), $server, 1000);
+		$data['server'] = $server;
+		$this->load->view('server/console', $data);
 		$this->load->view('footer-nocharts');
 	}
 }

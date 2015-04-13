@@ -247,7 +247,7 @@ Class Servermodel extends CI_Model {
 		}
 	}
 	
-	function return_console($sid, $server) {
+	function return_console($sid, $server, $lines) {
 		$servers = $this->config->item('ragnarok_servers');
 		if ($server == "login") {
 			$filepath = "".$this->config->item('hat_path')."application/hat_log/".$server."-server.log";
@@ -255,7 +255,6 @@ Class Servermodel extends CI_Model {
 		else {
 			$filepath = "".$this->config->item('hat_path')."application/hat_log/".$server."-server-".$servers[$sid]['map_servername'].".log";
 		}
-		$lines = 15;
 		$adaptive = true;
 		// Open file
 		$f = @fopen($filepath, "rb");
