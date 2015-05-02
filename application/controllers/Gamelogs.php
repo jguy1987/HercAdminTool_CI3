@@ -29,27 +29,15 @@ class Gamelogs extends MY_Controller {
 	}
 	
 	public function atcmdsearch() {
-		if (empty($this->input->post('date_start')) == false) {
-			$this->form_validation->set_rules('date_start', "Start Date", 'callback_check_datetime');
-		}
-		if (empty($this->input->post('date_end')) == false) {
-			$this->form_validation->set_rules('date_end', "End Date", 'callback_check_datetime');
-		}
-		if ($this->form_validation->run() == FALSE) {
-			$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_log();
-			$this->load->view('gamelogs/atcmd', $data);
-		}
-		else {
-			$atcmdSearch = array(
-				'char_name'		=> $this->input->post('char_name'),
-				'atcmd'			=> $this->input->post('atcmd'),
-				'date_start'	=> $this->input->post('date_start'),
-				'date_end'		=> $this->input->post('date_end'),
-				'map'				=> $this->input->post('map'),
-			);
-			$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_search($atcmdSearch);
-			$this->load->view('gamelogs/atcmd', $data);
-		}
+		$atcmdSearch = array(
+			'char_name'		=> $this->input->post('char_name'),
+			'atcmd'			=> $this->input->post('atcmd'),
+			'date_start'	=> $this->input->post('date_start'),
+			'date_end'		=> $this->input->post('date_end'),
+			'map'				=> $this->input->post('map'),
+		);
+		$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_search($atcmdSearch);
+		$this->load->view('gamelogs/atcmd', $data);
 		$this->load->view('footer-nocharts');
 	}
 	

@@ -123,13 +123,13 @@ CREATE TABLE IF NOT EXISTS `hat_loginlog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `hat_sessions` (
-	`id` varchar(40) NOT NULL,
-	`ip_address` varchar(45) NOT NULL,
-	`timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
-	`data` blob NOT NULL,
-	PRIMARY KEY (id),
-	KEY `ci_sessions_timestamp` (`timestamp`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        `id` varchar(40) NOT NULL,
+        `ip_address` varchar(45) NOT NULL,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+        `data` blob NOT NULL,
+        PRIMARY KEY (id),
+        KEY `hat_sessions_timestamp` (`timestamp`)
+);
 
 CREATE TABLE IF NOT EXISTS `hat_tktfolders` (
 `folderid` int(3) NOT NULL,
@@ -212,9 +212,6 @@ ALTER TABLE `hat_blockinfo`
 ALTER TABLE `hat_groups`
  ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `hat_sessions`
- ADD PRIMARY KEY (`session_id`), ADD KEY `last_activity_idx` (`last_activity`);
-
 ALTER TABLE `hat_tktfolders`
  ADD PRIMARY KEY (`folderid`);
 
@@ -230,7 +227,7 @@ ALTER TABLE `hat_tktreplies`
 ALTER TABLE `hat_users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`);
  
-ALTER TABLE hat_sessions ADD CONSTRAINT ci_sessions_id_ip UNIQUE (id, ip_address);
+ALTER TABLE hat_sessions ADD CONSTRAINT hat_sessions_id_ip UNIQUE (id, ip_address);
 
 ALTER TABLE `hat_accteditlog`
 MODIFY `chg_id` mediumint(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
