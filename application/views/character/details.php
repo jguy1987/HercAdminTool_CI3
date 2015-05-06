@@ -406,7 +406,7 @@
 						<h4>Character Log</h4>
 						<div class="col-lg-6">
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 									<thead>
 										<th>Datetime</th>
 										<th>Type</th>
@@ -433,7 +433,7 @@
 						<h4>Character Edit History</h4>
 						<div class="col-lg-6">
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 									<thead>
 										<tr>
 											<th style="width: 100px;">Datetime</th>
@@ -464,7 +464,7 @@
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3">
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 									<thead>
 										<th>Friend Char ID</th>
 										<th>Character Name</th>

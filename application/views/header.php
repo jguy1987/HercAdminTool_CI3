@@ -12,17 +12,22 @@
 	<link href="<?php echo base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/plugins/metisMenu/metisMenu.min.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/plugins/timeline.css'); ?>" rel="stylesheet">
-	<link href="<?php echo base_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" rel="stylesheet">
 	<link href="<?php echo base_url('assets/font-awesome-4.1.0/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
-	<link href="<?php echo base_url('assets/css/bootstrap-datetimepicker.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/plugins/bootstrap-datetimepicker.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/plugins/dataTables/dataTables.bootstrap.css'); ?>" rel="stylesheet"> 
+	<link href="<?php echo base_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
+	
 	<script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 	<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/plugins/metisMenu/metisMenu.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/sb-admin-2.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/js/bootstrap-datetimepicker.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/plugins/bootstrap-datetimepicker.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/plugins/dataTables/jquery.dataTables.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/plugins/dataTables/dataTables.bootstrap.js'); ?>"></script>
+	
 </head>
 <body>
 	<div id="wrapper">

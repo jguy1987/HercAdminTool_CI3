@@ -295,7 +295,7 @@
 							<h4>Num Flags</h4>
 							<button type="button" class="btn btn-info" id="addNumFlagOpen" data-toggle="modal" data-target="#addNumFlag" data-id="<?php echo $acct_data->account_id; ?>">Add NumFlag</button>
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 									<thead>
 										<tr>
 											<th>Key Name</th>
@@ -326,7 +326,7 @@
 							<h4>Str Flags</h4>
 							<button type="button" class="btn btn-info" id="addStrFlagOpen" data-toggle="modal" data-target="#addStrFlag" data-id="<?php echo $acct_data->account_id; ?>">Add StrFlag</button>
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 									<thead>
 										<tr>
 											<th>Key Name</th>
@@ -416,7 +416,7 @@
 				<div class="tab-pane fade" id="storage">
 					<h4>Storage items on this account</h4>
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
 							<thead>
 								<th>ItemID</th>
 								<th>Name</th>
@@ -490,7 +490,7 @@
 					<div class="panel-body">
 						<div class="col-md-6 col-md-offset-3">
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 									<thead>
 										<tr>
 											<th>Datetime</th>

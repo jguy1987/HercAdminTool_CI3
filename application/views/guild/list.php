@@ -47,7 +47,7 @@
 		</div>
 		<?php echo validation_errors(); ?>
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
 				<thead>
 					<tr>
 						<th>Guild ID</th>

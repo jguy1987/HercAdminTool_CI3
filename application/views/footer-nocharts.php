@@ -81,5 +81,22 @@ new Morris.Line({
 		});
 	});
 </script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-listlg').DataTable({
+			"responsive": true,
+			"lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
+			"searching": false,
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-listsm').DataTable({
+			"responsive": true,
+			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
+		});
+	});
+</script>
 </body>
 </html>
