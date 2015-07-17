@@ -30,14 +30,14 @@ class Account extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function listaccts() {
+	public function search() {
 		$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 		$data['accts'] = $this->accountmodel->list_accounts();
-		$this->load->view('account/listaccts', $data);
+		$this->load->view('account/search', $data);
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function search() {
+	public function resultlist() {
 		$this->usermodel->update_user_active($this->session_data['id'],"accounts/search");
 		$searchTerms = array(
 			'acct_id'	=> $this->input->post('acct_id'),
@@ -48,7 +48,7 @@ class Account extends MY_Controller {
 			'isBanned'	=> $this->input->post('isBanned'),
 		);
 		$data['accts'] = $this->accountmodel->search_accts($searchTerms);
-		$this->load->view('account/listaccts', $data);
+		$this->load->view('account/list', $data);
 		$this->load->view('footer-nocharts');
 	}
 	

@@ -167,6 +167,14 @@ class Character extends MY_Controller {
 	
 	function search() {
 		$this->usermodel->update_user_active($this->session_data['id'],"characters/search");
+		$data['char_list'] = $this->charmodel->get_char_list();
+		$data['class_list'] = $this->config->item('jobs');
+		$this->load->view('character/search', $data);
+		$this->load->view('footer-nocharts');
+	}
+	
+	function resultlist() {
+		$this->usermodel->update_user_active($this->session_data['id'],"characters/list");
 		$searchTerms = array(
 			'charid'		=> $this->input->post('char_id'),
 			'char_name'	=> $this->input->post('char_name'),

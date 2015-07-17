@@ -8,52 +8,7 @@
 	</div>
 	<p>Listing in-game characters. Click on the edit button or the character ID to edit that account.</p>
 	<div class="panel-body">
-		<button type="button" class="btn btn-info" data-toggle="collapse" data-parent="#accordion" href="#searchCollapse">Search Characters</button>
-		<div id="searchCollapse" class="panel-collapse collapse">
-			<?php echo form_open('character/search', array('class' => 'form-inline')); ?>
-				<div class="row">
-					<div class="col-md-3">
-						<label>Char ID</label>
-						<input type="text" name="char_id" />
-					</div>
-					<div class="col-md-3">
-						<label>Char Name</label>
-						<input type="text" name="char_name" />
-					</div>
-					<div class="col-md-3">
-						<label>Job</label>
-						<select class="form-control" name="class" style="width:50%;">
-							<?php foreach($class_list as $cID=>$cName) { ?>
-								<option value="<?php echo $cID; ?>"><?php echo $cName; ?></option>
-							<?php } ?>
-						</select>
-					</div>
-					<div class="col-md-3">
-						<label>Base Level</label>
-						<=<input type="number" name="gtbLevel" style="max-width:100px;">&nbsp;>=<input type="number" name="ltbLevel" style="max-width:100px;">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<label>Gender</label>
-						<input type="radio" name="gender" id="optionsRadiosInline1" value="M" />Male
-						<input type="radio" name="gender" id="optionsRadiosInline2" value="F" />Female
-					</div>
-					<div class="col-md-3">
-					</div>
-					<div class="col-md-3">
-					</div>
-					<div class="col-md-3">
-						<label>Job Level</label>
-						<=<input type="number" name="gtjLevel" style="max-width:100px;">&nbsp;>=<input type="number" name="ltjLevel" style="max-width:100px;">
-					</div>
-				</div>
-				<div class="row">
-					<center><button type="submit" class="btn btn-success">Submit search</button></center>
-				</div>
-			<?php echo form_close(); ?>
-			<br />
-		</div>
+		<a href="/character/search" class="btn btn-info">Modify Search</a>
 		<?php echo validation_errors(); ?>
 		<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
 			<thead>

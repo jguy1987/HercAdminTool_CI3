@@ -23,7 +23,7 @@
 				<a href="#"><i class="fa fa-user fa-fw"></i> Accounts<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li>
-						<a href="/account/listaccts">List/Search Accounts</a>
+						<a href="/account/search">List/Search Accounts</a>
 					</li>
 					<?php if ($check_perm['addaccount'] == 1) { ?>
 						<li>
@@ -36,7 +36,7 @@
 				<a href="#"><i class="fa fa-male fa-female fa-fw"></i> Characters<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li>
-						<a href="/character/listchars">List/Search Characters</a>
+						<a href="/character/search">List/Search Characters</a>
 					</li>
 					<?php if ($check_perm['whosonline'] == 1) { ?>
 					<li>
