@@ -6361,3 +6361,19 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+td.details-control {
+	background: url('../images/dataTables/details_open.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.shown td.details-control {
+	background: url('../images/dataTables/details_close.png') no-repeat center center;
+}
+
+div.slider {
+    display: none;
+}
+
+table.dataTable tbody td.no-padding {
+    padding: 0;
+}

@@ -24,7 +24,7 @@ class Server extends MY_Controller {
 			$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
 			$servers = array("login", "char", "map");
 			foreach ($servers as $svr){
-				$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr);
+				$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr, 20);
 			}
 			$this->load->view('server/stats', $data);
 		}

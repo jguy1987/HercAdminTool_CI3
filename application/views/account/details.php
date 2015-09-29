@@ -416,70 +416,89 @@
 				<div class="tab-pane fade" id="storage">
 					<h4>Storage items on this account</h4>
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-storagelist">
 							<thead>
+								<th></th>
 								<th>ItemID</th>
 								<th>Name</th>
 								<th>Quantity</th>
 								<th>Identified?</th>
 								<th>Item Type</th>
 								<th>Unique ID</th>
-								<th>Details</th>
 								<th>Options</th>
 							</thead>
 							<tbody>
+								<script>
+									var content = [];
+								</script>
 								<?php foreach ($storage_items as $storageItem) { ?>
-									<tr>
-										<?php if ($storageItem['equip'] < 1) { ?>
-											<td><?php echo $storageItem['nameid']; ?></td>
-											<td><?php echo $storageItem['name_japanese']; ?></td>
-											<td><?php echo $storageItem['amount']; ?></td>
-											<td><?php echo $storageItem['identify']; ?></td>
-											<td><?php echo $item_types[$storageItem['type']]; ?></td>
-											<td><?php echo $storageItem['unique_id']; ?></td>
-											<td><center><a data-toggle="collapse" data-parent="#accordion" href="#storagedetails<?php echo $storageItem['id']; ?>"><button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-plus"></i></button></a></center></td>
-											<td>
-												<?php	echo form_open('/account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => "inventory", 'acctid' => $acct_data->account_id)); ?>
-												<button type="submit" class="btn btn-success btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>" >Edit</button>&nbsp;
-												<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>">Delete</button>
-											</td>
-										<?php } ?>
-									</tr>
-									<tr>
-										<td colspan="8" class="hiddenRow">
-											<div id="storagedetails<?php echo $storageItem['id']; ?>" class="panel-collapse collapse">
-												<div class="panel-body">
-													<div class="row">
-														<div class="col-xs-2">
-															<strong>Refine level:</strong>&nbsp;<input type="number" name="refine" class="form-control" value="<?php echo $storageItem['refine']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> />
-														</div>
-														<div class="col-xs-2">
-															<strong>Broken?:</strong>&nbsp;<input type="checkbox" name="attribute" class="form-control" value="1" <?php if ($storageItem['attribute'] == 1) { echo "checked"; } if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "disabled"; } ?> />
-														</div>
-														<div class="col-xs-2">
-															<strong>Bound?:</strong>&nbsp;<input type="checkbox" name="bound" class="form-control" value="1" <?php if ($storageItem['bound'] == 1) { echo "checked"; } ?> />
-														</div>
-													</div>
-													<br />
-													<div class="row">
-														<div class="col-xs-2">
-															<strong>Card 1:</strong>&nbsp;<input type="number" name="card0" class="form-control" value="<?php echo $storageItem['card0']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
-														</div>
-														<div class="col-xs-2">
-															<strong>Card 2:</strong>&nbsp;<input type="number" name="card1" class="form-control" value="<?php echo $storageItem['card1']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
-														</div>
-														<div class="col-xs-2">
-															<strong>Card 3:</strong>&nbsp;<input type="number" name="card2" class="form-control" value="<?php echo $storageItem['card2']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
-														</div>
-														<div class="col-xs-2">
-															<strong>Card 4:</strong>&nbsp;<input type="number" name="card3" class="form-control" value="<?php echo $storageItem['card3']; ?>" <?php if ($storageItem['type'] != 4 && $storageItem['type'] != 5) { echo "readonly"; } ?> /></br>
-														</div>
-													</div>
-													<?php echo form_close(); ?>
-												</div>
-											</div>
+									<tr item_id="<?php echo $storageItem['id']; ?>">
+										<td class="details-control"></td>
+										<td><?php echo $storageItem['nameid']; ?></td>
+										<td><?php echo $storageItem['name_japanese']; ?></td>
+										<td><?php echo $storageItem['amount']; ?></td>
+										<td><?php echo $storageItem['identify']; ?></td>
+										<td><?php echo $item_types[$storageItem['type']]; ?></td>
+										<td><?php echo $storageItem['unique_id']; ?></td>
+										<td>
+											<button type="submit" class="btn btn-success btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>" >Edit</button>&nbsp;
+											<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>">Delete</button>
 										</td>
 									</tr>
+									<?php
+									if ($storageItem['type'] != 4 && $storageItem['type'] != 5) {
+										$readonly = "readonly";
+									}
+									else {
+										$readonly = " ";
+									}
+									if ($storageItem['attribute'] == 1) {
+										$attribute = "checked";
+									}
+									else {
+										$attribute = " ";
+									}
+									if ($storageItem['bound'] == 1) {
+										$bound = "checked";
+									}
+									else {
+										$bound = " ";
+									}
+									$json = "<div class='slider'>".
+										form_open('/account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acctid' => $acct_data->account_id))."
+											<div class='panel-body'>
+												<div class='row'>
+													<div class='col-xs-2'>
+														<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$storageItem['refine']."' ".$readonly." />
+													</div>
+													<div class='col-xs-2'>
+														<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
+													</div>
+													<div class='col-xs-2'>
+														<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+													</div>
+												</div>
+												<br />
+												<div class='row'>
+													<div class='col-xs-2'>
+														<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$storageItem['card0']."' ".$readonly." /></br>
+													</div>
+													<div class='col-xs-2'>
+														<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$storageItem['card1']."' ".$readonly." /></br>
+													</div>
+													<div class='col-xs-2'>
+														<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$storageItem['card2']."' ".$readonly." /></br>
+													</div>
+													<div class='col-xs-2'>
+														<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$storageItem['card3']."' ".$readonly." /></br>
+													</div>
+												</div>
+											</div>
+										".form_close()."
+									</div>"; ?>
+									<script>
+										content[<?php echo $storageItem["id"]; ?>] = <?php echo json_encode($json); ?>;
+									</script>
 								<?php } ?>
 							</tbody>
 						</table>

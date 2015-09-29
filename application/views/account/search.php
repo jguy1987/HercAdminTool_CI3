@@ -6,43 +6,64 @@
 			</div>
 		</div>
 	</div>
-	<p>Search in-game Accounts. Leave the query blank to list all.</p>
+	<p>In-game account search. Searches are wildcarded. Use "=" sign before any search term to search for that string exactly. Leave all fields blank to search for all.</p>
 	<div class="panel-body">
 		<?php echo form_open('account/resultlist'); ?>
-			<div class="row">
-				<div class="col-md-3">
-					<label>Account ID</label>
-					<input type="text" name="acct_id" />
+			<center>
+				<table class="table">
+					<tr>
+						<td>
+							<label>Account ID</label>
+						</td>
+						<td>
+							<input type="text" name="acct_id" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>Account Name</label>
+						</td>
+						<td>
+							<input type="text" name="acct_name" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>Email Address</label>
+						</td>
+						<td>
+							<input type="text" name="email" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>Gender</label>
+						</td>
+						<td>
+							<input type="radio" name="gender" id="optionsRadiosInline1" value="M" />&nbsp;Male
+							&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" id="optionsRadiosInline2" value="F" />&nbsp;Female
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>Is Banned?</label>
+						</td>
+						<td>
+							<input type="checkbox" name="isBanned" value="1" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>Is GM?</label>
+						</td>
+						<td>
+							<input type="checkbox" name="isGM" value="1" />
+						</td>
+					</tr>
+				</table>
+				<div class="row">
+					<button type="submit" class="btn btn-success">Submit search</button>
 				</div>
-				<div class="col-md-3">
-					<label>Account Name</label>
-					<input type="text" name="acct_name" />
-				</div>
-				<div class="col-md-3">
-					<label>Email Address</label>
-					<input type="text" name="email" />
-				</div>
-				<div class="col-md-3">
-					<label>Gender</label>
-					<input type="radio" name="gender" id="optionsRadiosInline1" value="M" />Male
-					<input type="radio" name="gender" id="optionsRadiosInline2" value="F" />Female
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<label>Is Banned?</label>
-					<input type="checkbox" name="isBanned" value="1" />
-				</div>
-				<div class="col-md-3">
-				</div>
-				<div class="col-md-3">
-				</div>
-				<div class="col-md-3">
-					<label>Is GM?</label>
-					<input type="checkbox" name="isGM" value="1" />
-				</div>
-			</div>
-			<div class="row">
-				<center><button type="submit" class="btn btn-success">Submit search</button></center>
-			</div>
+			</center>
+				
 		<?php echo form_close(); ?>

@@ -263,13 +263,31 @@ Class Accountmodel extends CI_Model {
 	function search_accts($searchTerms) {
 		// First, figure out what we're searching for
 		if (empty($searchTerms['acct_id']) == false) {
-			$this->db_login->like('account_id', $searchTerms['acct_id']);
+			if (substr($searchTerms['acct_id'], 0, 1) == "=") {
+				$searchTerms['acct_id'] = substr($searchTerms['acct_id'], 1);
+				$this->db_login->where('account_id', $searchTerms['acct_id']);
+			}
+			else {
+				$this->db_login->like('account_id', $searchTerms['acct_id']);
+			}
 		}
 		if (empty($searchTerms['acct_name']) == false) {
-			$this->db_login->like('userid', $searchTerms['acct_name']);
+			if (substr($searchTerms['acct_name'], 0, 1) == "=") {
+				$searchTerms['acct_name'] = substr($searchTerms['acct_name'], 1);
+				$this->db_login->where('userid', $searchTerms['acct_name']);
+			}
+			else {
+				$this->db_login->like('userid', $searchTerms['acct_name']);
+			}
 		}
 		if (empty($searchTerms['email']) == false) {
-			$this->db_login->like('email', $searchTerms['email']);
+			if (substr($searchTerms['email'], 0, 1) == "=") {
+				$searchTerms['email'] = substr($searchTerms['email'], 1);
+				$this->db_login->where('email', $searchTerms['email']);
+			}
+			else {
+				$this->db_login->like('email', $searchTerms['email']);
+			}
 		}
 		if (empty($searchTerms['gender']) == false) {
 			$this->db_login->like('sex', $searchTerms['gender']);
@@ -281,6 +299,7 @@ Class Accountmodel extends CI_Model {
 			$this->db_login->where('unban_time >', 0);
 			$this->db_login->where('state', 5);
 		}
+		$this->db_login->where('sex !=', 'S');
 		$q = $this->db_login->get('login');
 		return $q->result_array();
 	}

@@ -32,8 +32,7 @@ class Account extends MY_Controller {
 	
 	public function search() {
 		$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
-		$data['accts'] = $this->accountmodel->list_accounts();
-		$this->load->view('account/search', $data);
+		$this->load->view('account/search');
 		$this->load->view('footer-nocharts');
 	}
 	
@@ -407,6 +406,7 @@ Thank you.");
 		$data['str_key_list'] = $this->accountmodel->get_str_key_list($aid);
 		$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
 		$data['storage_items'] = $this->accountmodel->get_storage_items($aid);
+		//data['storage_items_json'] = json_encode($data['storage_items']);
 		return $data;
 	}
 	
