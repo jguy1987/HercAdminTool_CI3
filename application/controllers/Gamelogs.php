@@ -15,11 +15,11 @@ class Gamelogs extends MY_Controller {
 		$this->load->library('form_validation');
 	}
 	
-	public function atcmd() {
+	public function atcmdsearch() {
 		if ($this->adminmodel->check_perm($this->session_data['group'],'atcmdlog') == True) {
 			$this->usermodel->update_user_active($this->session_data['id'],"gamelog/atcmd");
 			$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_log();
-			$this->load->view('gamelogs/atcmd', $data);
+			$this->load->view('gamelogs/atcmdsearch', $data);
 		}
 		else {
 			$data['referpage'] = "noperm";
@@ -28,16 +28,22 @@ class Gamelogs extends MY_Controller {
 		$this->load->view('footer-nocharts');
 	}
 	
-	public function atcmdsearch() {
-		$atcmdSearch = array(
-			'char_name'		=> $this->input->post('char_name'),
-			'atcmd'			=> $this->input->post('atcmd'),
-			'date_start'	=> $this->input->post('date_start'),
-			'date_end'		=> $this->input->post('date_end'),
-			'map'				=> $this->input->post('map'),
-		);
-		$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_search($atcmdSearch);
-		$this->load->view('gamelogs/atcmd', $data);
+	public function atcmdresults() {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'atcmdlog') == True) {
+			$atcmdSearch = array(
+				'char_name'		=> $this->input->post('char_name'),
+				'atcmd'			=> $this->input->post('atcmd'),
+				'date_start'	=> $this->input->post('date_start'),
+				'date_end'		=> $this->input->post('date_end'),
+				'map'				=> $this->input->post('map'),
+			);
+			$data['atcmd_log'] = $this->gamelogmodel->get_atcmd_search($atcmdSearch);
+			$this->load->view('gamelogs/atcmd', $data);
+		}
+		else {
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied', $data);
+		}
 		$this->load->view('footer-nocharts');
 	}
 	

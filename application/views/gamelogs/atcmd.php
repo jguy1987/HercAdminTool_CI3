@@ -7,38 +7,6 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<button type="button" class="btn btn-info" data-toggle="collapse" data-parent="#accordion" href="#searchCollapse">Search @cmd logs</button>
-		<div id="searchCollapse" class="panel-collapse collapse">
-			<?php echo form_open('gamelogs/atcmdsearch', array('class' => 'form-inline')); ?>
-				<div class="row">
-					<div class="col-md-3">
-						<label>Character Name</label>
-						<input type="text" name="char_name" class="form-control" />
-					</div>
-					<div class="col-md-3">
-						<label>@ Command</label>
-						<input type="text" name="atcmd" class="form-control" />
-					</div>
-					<div class="col-md-6">
-						<label>Date:</label>
-						<input type="text" class="form-control form_datetime" value="" name="date_start" />
-						<label>&nbsp;to&nbsp;</label>
-						<input type="text" class="form-control form_datetime" value="" name="date_end" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<label>Map</label>
-						<input type="text" name="map" class="form-control" />
-					</div>
-				</div>
-				<div class="row">
-					<center><button type="submit" class="btn btn-success">Submit search</button></center>
-				</div>
-				<br />
-			<?php echo form_close(); ?>
-		</div>
-		<?php echo validation_errors(); ?>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
 				<thead>

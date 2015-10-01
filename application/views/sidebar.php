@@ -62,7 +62,7 @@
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['atcmdlog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/atcmd">@command</a>
+								<a href="/gamelogs/atcmdsearch">@command</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['branchlog'] == 1) { ?>
