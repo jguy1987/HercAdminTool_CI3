@@ -22,7 +22,8 @@ class Character extends MY_Controller {
 		$data['char_list'] = $this->charmodel->get_char_list();
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/list', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function whosonline() {
@@ -36,7 +37,8 @@ class Character extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function details($cid) {
@@ -47,7 +49,8 @@ class Character extends MY_Controller {
 		$data['item_types'] = $this->config->item('itemTypes');
 		$data += $this->load_char_data($cid);
 		$this->load->view('character/details', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function verifyedit() {
@@ -119,7 +122,7 @@ class Character extends MY_Controller {
 			$data['char_id'] = $chgChar['charid'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	function edititem() {
@@ -162,7 +165,7 @@ class Character extends MY_Controller {
 			$data['char_id'] = $this->input->post('charid');
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	function search() {
@@ -170,7 +173,8 @@ class Character extends MY_Controller {
 		$data['char_list'] = $this->charmodel->get_char_list();
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/search', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function resultlist() {
@@ -188,7 +192,8 @@ class Character extends MY_Controller {
 		$data['char_list'] = $this->charmodel->search_chars($searchTerms);
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/list', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function resetpos($cid) {
@@ -203,7 +208,7 @@ class Character extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	function kick($cid) {

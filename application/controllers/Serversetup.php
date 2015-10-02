@@ -16,5 +16,6 @@ class Serversetup extends MY_Controller {
 	
 	function stats() {
 		$this->load->view('server/stats', $data);
+		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}

@@ -17,5 +17,6 @@ class Tickets extends MY_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('sidebar');
 		$this->load->view('tickets/ticketlist');
+		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}

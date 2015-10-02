@@ -19,13 +19,14 @@ class Admin extends MY_Controller {
 			$this->usermodel->update_user_active($this->session_data['id'],"admin/users");
 			$data['admin_results'] = $this->adminmodel->list_admins();
 			$this->load->view('admin/users', $data);
-			$this->load->view('footer-nocharts');
+			$this->load->view('footer');
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function groups() {
@@ -41,7 +42,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function adduser() {
@@ -54,7 +56,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function edituser($userid) {
@@ -73,7 +76,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-			$this->load->view('footer-nocharts');
+			$this->load->view('footer');
 	}
 	
 	public function verifyuser() { // Verify edit.
@@ -115,7 +118,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "useredit";
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function verifyadduser() {
@@ -146,7 +149,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "useradd";
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function resetusers() {
@@ -162,7 +165,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function addgroup() {
@@ -175,7 +179,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function editgroup($gid) {
@@ -189,7 +193,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function verifygroupadd() {
@@ -210,7 +214,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "groupadd";
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function verifygroupedit() {
@@ -236,7 +240,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "groupedit";
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function delgroup($gid) {
@@ -259,7 +263,7 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function news() {
@@ -272,7 +276,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function lockusers() {		
@@ -280,13 +285,13 @@ class Admin extends MY_Controller {
 			$this->adminmodel->users_login_status($this->session_data['id'], 'lock');
 			$data['referpage'] = "lockusers";
 			$this->load->view('formsuccess', $data);
-			$this->load->view('footer-nocharts');
+			$this->load->view('footer');
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');		
+		$this->load->view('footer');		
 	}
 		
 	function unlockusers() {
@@ -294,13 +299,13 @@ class Admin extends MY_Controller {
 			$this->adminmodel->users_login_status($this->session_data['id'], 'unlock');
 			$data['referpage'] = "unlockusers";
 			$this->load->view('formsuccess', $data);
-			$this->load->view('footer-nocharts');
+			$this->load->view('footer');
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');		
+		$this->load->view('footer');		
 	}
 	
 	function send_admin_email($email_data,$type) {

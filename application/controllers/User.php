@@ -16,7 +16,8 @@ class User extends MY_Controller {
 			$this->load->view('sidebar', $data);
 			$this->usermodel->update_user_active($this->session_data['id'],"user/settings");
 			$this->load->view('user/settings');
-			$this->load->view('footer-nocharts');
+			$this->load->view('datatables-scripts');
+			$this->load->view('footer');
 		}
 		else {
 			//If no session, redirect to login page

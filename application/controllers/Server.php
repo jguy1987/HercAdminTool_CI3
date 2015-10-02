@@ -32,7 +32,8 @@ class Server extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function select_server($sid) {
@@ -42,7 +43,7 @@ class Server extends MY_Controller {
 		$data['refered_from'] = $this->session->userdata('refered_from');
 		$data['server_select'] = $sid;
 		$this->load->view('formsuccess', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function hercules() {
@@ -55,7 +56,8 @@ class Server extends MY_Controller {
 		$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
 		$data['herc_stats'] = $this->servermodel->get_herc_stats(1);
 		$this->load->view('server/hercinfo', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function maintenance($action) {
@@ -152,13 +154,15 @@ class Server extends MY_Controller {
 				$data['maint_result'] = "updatefiles";
 				$this->load->view('server/maintresult', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function console($server) {
 		$data['server_log'] = $this->servermodel->return_console($this->session->userdata('server_select'), $server, 1000);
 		$data['server'] = $server;
 		$this->load->view('server/console', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 }

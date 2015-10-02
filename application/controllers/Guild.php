@@ -18,7 +18,8 @@ class Guild extends MY_Controller {
 	function listguilds() {
 		$data['guild_list'] = $this->guildmodel->list_guilds();
 		$this->load->view('guild/list', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function search() {
@@ -32,7 +33,8 @@ class Guild extends MY_Controller {
 		);
 		$data['guild_list'] = $this->guildmodel->list_search($guildSearch);
 		$this->load->view('guild/list', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function details($gid) {
@@ -41,7 +43,8 @@ class Guild extends MY_Controller {
 		$data['class_list'] = $this->config->item('jobs');
 		$data += $this->load_guild_data($gid);
 		$this->load->view('guild/details', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function leaderassign() {

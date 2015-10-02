@@ -25,7 +25,8 @@ class Gamelogs extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function atcmdresults() {
@@ -44,7 +45,8 @@ class Gamelogs extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function check_datetime($date) {

@@ -17,7 +17,7 @@ class Account extends MY_Controller {
 
 	public function create() {
 		$this->load->view('account/create');
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function details($aid) {
@@ -27,13 +27,14 @@ class Account extends MY_Controller {
 		$data['item_types'] = $this->config->item('itemTypes');
 		$data += $this->load_acct_data($aid);
 		$this->load->view('account/details',$data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function search() {
 		$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
 		$this->load->view('account/search');
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function resultlist() {
@@ -48,7 +49,8 @@ class Account extends MY_Controller {
 		);
 		$data['accts'] = $this->accountmodel->search_accts($searchTerms);
 		$this->load->view('account/list', $data);
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function verifycreate() {
@@ -73,7 +75,7 @@ class Account extends MY_Controller {
 			$data['referpage'] = "acctadd";
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function addnote() {
@@ -94,7 +96,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $newNote['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function addblock() {
@@ -121,7 +124,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $newBan['account_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function delblock() {
@@ -143,7 +147,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $remBan['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function verifyedit() {
@@ -173,7 +178,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $chgAcct['account_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function resetpass($aid) {
@@ -189,7 +195,7 @@ class Account extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function addnumflag() {
@@ -214,7 +220,7 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $addFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function addstrflag() {
@@ -239,7 +245,7 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $addFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('footer');
 	}
 	
 	public function editnumflag() {
@@ -263,7 +269,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $editFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	public function editstrflag() {
@@ -287,7 +294,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $editFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function edititem() {
@@ -329,7 +337,8 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $this->input->post('acctid');
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('footer-nocharts');
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
 	}
 	
 	function send_acct_email($data,$newAcct,$type) {
@@ -406,7 +415,6 @@ Thank you.");
 		$data['str_key_list'] = $this->accountmodel->get_str_key_list($aid);
 		$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
 		$data['storage_items'] = $this->accountmodel->get_storage_items($aid);
-		//data['storage_items_json'] = json_encode($data['storage_items']);
 		return $data;
 	}
 	
