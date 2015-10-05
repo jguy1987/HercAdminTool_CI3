@@ -5,7 +5,6 @@ Class Usermodel extends CI_Model {
 		$this->db_login->from('hat_users');
 		$this->db_login->where('username', $username);
 		$this->db_login->where('passwd', MD5($passwd));
-		$this->db_login->limit(1);
 	 
 		$query = $this->db_login->get();
 	 
@@ -48,6 +47,37 @@ Class Usermodel extends CI_Model {
 		$this->db_login->set('userid', $uid);
 		$this->db_login->set('ip', $ip);
 		$this->db_login->insert('hat_loginlog');
+	}
+	
+	function get_user_settings($uid) {
+		$this->db_login->select('hat_users.*,hat_groups.name AS groupname');
+		$this->db_login->from('hat_users');
+		$this->db_login->where('hat_users.id', $uid);
+		$this->db_login->join('hat_groups', 'hat_users.groupid = hat_groups.id');
+		$q = $this->db_login->get();
+		return $q->row();
+	}
+	
+	function get_user_logins($uid) {
+		$q = $this->db_login->get_where('hat_loginlog', array('userid' => $uid));
+		return $q->result_array($q);
+	}
+	
+	function get_user_permissions($gid) {
+		$q = $this->db_login->get_where('hat_groups', array('id' => $gid));
+		$q_result = $q->result_array();
+		$perms = array();
+		$hat_perms2 = array();
+		$hat_perms = $this->config->item('permissions');
+		foreach($hat_perms as $value) {
+			$hat_perms2 += $value;
+		}
+		foreach($q_result as $k=>$v) {
+			if ($v == 1) {
+				$perms += array($hat_perms2[$k]);
+			}
+		}
+		return $perms;
 	}
 }
 ?>
