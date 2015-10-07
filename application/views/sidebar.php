@@ -14,11 +14,6 @@
 			<li>
 				<a href="<?php echo base_url(); ?>"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 			</li>
-			<?php if ($check_perm['serverstats'] == 1) { ?>
-				<li>
-					<a href="/server/stats"><i class="fa fa-dashboard fa-fw"></i> Server Performance</a>
-				</li>
-			<?php } ?>
 			<li>
 				<a href="#"><i class="fa fa-user fa-fw"></i> Accounts<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">

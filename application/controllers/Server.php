@@ -14,28 +14,6 @@ class Server extends MY_Controller {
 		$this->load->view('sidebar', $data);
 	}
 	
-	public function stats() {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'serverstats') == True) {
-			$this->usermodel->update_user_active($this->session_data['id'],"server/stats");
-			$json_url = base_url('assets/linfo/?out=json');
-			$data['server_stats'] = $this->servermodel->get_server_stats($json_url);
-			$data['herc_stats'] = $this->servermodel->get_herc_stats(0);
-			$data['mysql_stats'] = $this->servermodel->get_mysql_stats();
-			$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
-			$servers = array("login", "char", "map");
-			foreach ($servers as $svr){
-				$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr, 20);
-			}
-			$this->load->view('server/stats', $data);
-		}
-		else {
-			$data['referpage'] = "noperm";
-			$this->load->view('accessdenied',$data);
-		}
-		$this->load->view('datatables-scripts');
-		$this->load->view('footer');
-	}
-	
 	public function select_server($sid) {
 		$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);
 		$this->session->set_userdata('server_select', $sid);
