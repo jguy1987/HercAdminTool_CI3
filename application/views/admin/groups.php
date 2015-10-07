@@ -10,7 +10,7 @@
 	<div class="panel-body">
 		<div class="table-responsive">
 			<a href="/admin/addgroup/"><button type="button" class="btn btn-primary">Add New Group</button></a><br /><br />
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 				<thead>
 					<tr>
 						<th style="width: 38px;">GroupID</th>

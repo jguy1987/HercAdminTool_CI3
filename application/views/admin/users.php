@@ -14,7 +14,7 @@
 			<a href="/admin/unlockusers"><button type="button" class="btn btn-success">Enable All Users</button></a>&nbsp;
 			<a href="/admin/resetusers"><button type="button" class="btn btn-warning">Reset All Passwords</button></a>
 			<br /><br />
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 				<thead>
 					<tr>
 						<th style="width: 38px;">UserID</th>

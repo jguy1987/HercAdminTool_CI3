@@ -145,6 +145,7 @@
 	$(document).ready(function() {
 		$('#dataTables-listlg').DataTable({
 			"responsive": true,
+			"bScrollAutoCss": false,
 			"lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
 			"searching": false,
 		});
@@ -154,8 +155,23 @@
 	$(document).ready(function() {
 		$('#dataTables-listsm').DataTable({
 			"responsive": true,
+			"bScrollAutoCss": false,
 			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
-			"defaultContent": "",
+			"defaultContent": '',
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-listflags').DataTable({
+			"responsive": true,
+			"bScrollAutoCss": false,
+			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
+			"defaultContent": '',
+			"aoColumnDefs": [
+				{ "sWidth": '60px', "targets": 1 },
+				{ "sWidth": '60px', "targets": 2 }
+			],
 		});
 	});
 </script>
