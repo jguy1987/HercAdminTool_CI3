@@ -429,7 +429,7 @@
 							</thead>
 							<tbody>
 								<script>
-									var content = [];
+									var content_storage = [];
 								</script>
 								<?php foreach ($storage_items as $storageItem) { ?>
 									<tr item_id="<?php echo $storageItem['id']; ?>">
@@ -497,7 +497,7 @@
 										".form_close()."
 									</div>"; ?>
 									<script>
-										content[<?php echo $storageItem["id"]; ?>] = <?php echo json_encode($json); ?>;
+										content_storage[<?php echo $storageItem["id"]; ?>] = <?php echo json_encode($json); ?>;
 									</script>
 								<?php } ?>
 							</tbody>

@@ -165,6 +165,7 @@ class Character extends MY_Controller {
 			$data['char_id'] = $this->input->post('charid');
 			$this->load->view('formsuccess', $data);
 		}
+		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
