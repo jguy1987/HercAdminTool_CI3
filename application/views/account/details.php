@@ -470,7 +470,7 @@
 										$disabled = " ";
 									}
 									$json = "<div class='slider'>".
-										form_open('/account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acctid' => $acct_data->account_id))."
+										form_open('/account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acct_id' => $acct_data->account_id))."
 											<div class='panel-body'>
 												<div class='row'>
 													<div class='col-xs-3'>

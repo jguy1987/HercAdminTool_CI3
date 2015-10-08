@@ -81,9 +81,7 @@ class Account extends MY_Controller {
 	public function addnote() {
 		$this->form_validation->set_rules('note', 'Note','trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
-			$data['accts'] = $this->accountmodel->list_accounts();
-			$this->load->view('account/listaccts', $data);
+			$this->resultlist();
 		}
 		else {
 			$newNote = array(
@@ -96,7 +94,6 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $newNote['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
@@ -106,9 +103,7 @@ class Account extends MY_Controller {
 		}
 		$this->form_validation->set_rules('banComments', 'Ban Comments', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
-			$data['accts'] = $this->accountmodel->list_accounts();
-			$this->load->view('account/listaccts', $data);
+			$this->resultlist();
 		}
 		else {
 			$newBan = array(
@@ -124,16 +119,13 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $newBan['account_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
 	public function delblock() {
 		$this->form_validation->set_rules('unbanComments', 'Un-Ban Comments', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/listaccts");
-			$data['accts'] = $this->accountmodel->list_accounts();
-			$this->load->view('account/listaccts', $data);
+			$this->resultlist();
 		}
 		else {
 			$remBan = array(
@@ -147,7 +139,6 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $remBan['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
@@ -158,10 +149,7 @@ class Account extends MY_Controller {
 		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[10]');
 		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data += $this->load_acct_data($this->input->post('account_id'));
-			$this->load->view('account/details',$data);
+			$this->details($this->input->post('acct_id'));
 		}
 		else {
 			$chgAcct = array(
@@ -178,7 +166,6 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $chgAcct['account_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
@@ -202,10 +189,7 @@ class Account extends MY_Controller {
 		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_num_db.key]');
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data += $this->load_acct_data($this->input->post('acct_id'));
-			$this->load->view('account/details',$data);
+			$this->details($this->input->post('acct_id'));
 		}
 		else {
 			$addFlag = array(
@@ -227,10 +211,7 @@ class Account extends MY_Controller {
 		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_str_db.key]');
 		$this->form_validation->set_rules('value',"Value",'trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data += $this->load_acct_data($this->input->post('acct_id'));
-			$this->load->view('account/details',$data);
+			$this->details($this->input->post('acct_id'));
 		}
 		else {
 			$addFlag = array(
@@ -251,10 +232,7 @@ class Account extends MY_Controller {
 	public function editnumflag() {
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data += $this->load_acct_data($this->input->post('acct_id'));
-			$this->load->view('account/details',$data);
+			$this->details($this->input->post('acct_id'));
 		}
 		else {
 			$editFlag = array(
@@ -269,17 +247,13 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $editFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
 	public function editstrflag() {
 		$this->form_validation->set_rules('value',"Value",'trim|required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data += $this->load_acct_data($this->input->post('acct_id'));
-			$this->load->view('account/details',$data);
+			$this->details($this->input->post('acct_id'));
 		}
 		else {
 			$editFlag = array(
@@ -294,7 +268,6 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $editFlag['acct_id'];
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	
@@ -313,12 +286,7 @@ class Account extends MY_Controller {
 			$this->form_validation->set_rules('card3', "Card 4", 'callback_check_card');
 		}
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data['equipLocation'] = $this->config->item('equipLocations');
-			$data['item_types'] = $this->config->item('itemTypes');
-			$data += $this->load_acct_data($aid);
-			$this->load->view('account/details', $data);
+			$this->details($this->input->post('acct_id'));
 		}
 		else {
 			$itemLoc = "storage";
@@ -337,7 +305,6 @@ class Account extends MY_Controller {
 			$data['acct_id'] = $this->input->post('acctid');
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
 	

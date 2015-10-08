@@ -162,5 +162,8 @@
 			<?php } ?>
 		</ul>
 	</div>
+	<p>&nbsp;Powered by Hercules Admin Tool</p>
+	<p>&nbsp;Version 0.4.24.193</p>
+	</div>
 </div>
 </nav>

@@ -84,13 +84,7 @@ class Character extends MY_Controller {
 		$this->form_validation->set_rules('hair_color', "Hair Color ID", 'trim|required|integer');
 		$this->form_validation->set_rules('clothes_color', "Clothes Color ID", 'trim|required|integer');
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"character/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data['perm_list'] = $this->config->item('permissions');
-			$data['equipLocation'] = $this->config->item('equipLocations');
-			$data['item_types'] = $this->config->item('itemTypes');
-			$data += $this->load_char_data($this->input->post('charid'));
-			$this->load->view('character/details', $data);
+			$this->details($this->input->post('charid'));
 		}
 		else {
 			$chgChar = array(
@@ -140,13 +134,7 @@ class Character extends MY_Controller {
 			$this->form_validation->set_rules('card3', "Card 4", 'callback_check_card');
 		}
 		if ($this->form_validation->run() == FALSE) {
-			$this->usermodel->update_user_active($this->session_data['id'],"character/details");
-			$data['class_list'] = $this->config->item('jobs');
-			$data['perm_list'] = $this->config->item('permissions');
-			$data['equipLocation'] = $this->config->item('equipLocations');
-			$data['item_types'] = $this->config->item('itemTypes');
-			$data += $this->load_char_data($this->input->post('charid'));
-			$this->load->view('character/details', $data);
+			$this->details($this->input->post('charid'));
 		}
 		else {
 			$itemLoc = $this->input->post('item_loc');
