@@ -58,16 +58,16 @@ class Character extends MY_Controller {
 		$max_jlevel = $this->config->item('max_job_level') + 1;
 		$data['charinfo'] = $this->charmodel->get_char_info($this->input->post('charid'));
 		if ($data['charinfo']->name != $this->input->post('char_name')) {
-			$check_charname = "trim|required|min_length[4]|max_length[25]|xss_clean|is_unique[char.name]";
+			$check_charname = "trim|required|min_length[4]|max_length[25]|is_unique[char.name]";
 		}
 		else {
-			$check_charname = "trim|required|min_length[4]|max_length[25]|xss_clean";
+			$check_charname = "trim|required|min_length[4]|max_length[25]";
 		}
 		$this->form_validation->set_rules('char_name', "Character Name", $check_charname);
 		$this->form_validation->set_rules('char_num', "Character Slot", 'trim|required|greater_than[-1]|less_than[9]');
 		$this->form_validation->set_rules('zeny', "Zeny", 'trim|required|greater_than[0]|less_than[2100000000]');
-		$this->form_validation->set_rules('base_level', "Base Level", 'trim|required|greater_than[0]|less_than[{$max_blevel}]');
-		$this->form_validation->set_rules('job_level', "Job Level", 'trim|required|greater_than[0]|less_than[{$max_jlevel}]');
+		$this->form_validation->set_rules('base_level', "Base Level", 'trim|required|greater_than[-1]|less_than[{$max_blevel}]');
+		$this->form_validation->set_rules('job_level', "Job Level", 'trim|required|greater_than[-1]|less_than[{$max_jlevel}]');
 		$this->form_validation->set_rules('base_exp', "Base Experience", 'trim|required|integer');
 		$this->form_validation->set_rules('job_exp', "Job Experience", 'trim|required|integer');
 		$this->form_validation->set_rules('status_point', "Status Point", 'trim|required|integer');

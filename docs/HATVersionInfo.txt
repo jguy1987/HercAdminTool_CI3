@@ -1,0 +1,53 @@
+HAT Versioning Explained.
+
+The HAT has versioning information to ensure that we can trace an installation
+back to a certain timeframe. 
+
+The version is stored in the sidebar, under all the menus. it will be updated
+upon every push to the master.
+
+The version information is laid out as such:
+
+
+AA	.	BB	.	CC	-	DDD
+^		 ^		 ^		 ^
+|		 |		 |		 |--- commit #
+|		 |		 |
+|		 |		 |--- Minor Version
+|		 |
+|		 |---- Major version
+|
+|---- Release Number
+
+
+
+AA - Release Number
+-------------------------------------------------------------------------------
+The release number is dialed up for every major release of the panel we do. It
+will only be dialed up when the panel is considered ready for production and
+"stable" and a "zip" file is tagged for release and released as an "official"
+version.
+
+BB - Major version
+-------------------------------------------------------------------------------
+The major version is dialed up whenever a major feature gets completed or
+released. This allows us to keep a running tally on how many major features
+were completed during a timeframe. 
+
+CC - Minor Version
+-------------------------------------------------------------------------------
+This is simply a bugfix or ehancement that was done during a major feature. 
+This could increment into the 100's sometimes. It could be relating to 
+the major feature or some other previous to this.
+
+DDD - Commit #
+-------------------------------------------------------------------------------
+This is just a simple counter that is used to count the commit # in Github. 
+Everytime you commit locally remember to increment this number for proper 
+tracking.
+
+
+So, for an example:
+
+Version 0.5.65-187
+This is release 0, major feature 5, bugfix/enhancement 65 and commit # 187.

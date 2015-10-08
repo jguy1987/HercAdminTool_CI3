@@ -31,7 +31,8 @@ Class Servermodel extends CI_Model {
 		$serverstart = new DateTime($laststartdate->lastlogin);
 		$now = date('Y-m-d H:i:s');
 		$sinceStart = $serverstart->diff(new DateTime($now));
-		$sinceStartf = $sinceStart->d."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
+		//$sinceStartf = $sinceStart->format('%zd&nbsp;%hh&nbsp;%im&nbsp;%ss');
+		$sinceStartf = $sinceStart->days."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
 		// Get users online
 		$q7 = $this->db_charmap->get_where('char', array('online' => 1));
 

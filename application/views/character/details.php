@@ -91,8 +91,8 @@
 												<td><label>Job Level</label></td><td><input type="number" class="form-control" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
 											</tr>
 											<tr>
-												<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="1" value="<?php echo $charinfo->base_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_exp" min="1" value="<?php echo $charinfo->job_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
+												<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="0" value="<?php echo $charinfo->base_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
+												<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_exp" min="0" value="<?php echo $charinfo->job_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
 											</tr>
 											<tr>
 												<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="0" max="9999" value="<?php echo $charinfo->status_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
