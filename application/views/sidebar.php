@@ -57,7 +57,7 @@
 					<ul class="nav nav-second-level">
 						<?php if ($check_perm['atcmdlog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/atcmdsearch">@command</a>
+								<a href="/gamelogs/atcmd_search">@command</a>
 							</li>
 						<?php } ?>
 						<?php if ($check_perm['branchlog'] == 1) { ?>
@@ -87,7 +87,7 @@
 						<?php } ?>
 						<?php if ($check_perm['picklog'] == 1) { ?>
 							<li>
-								<a href="/gamelogs/pick">pick</a>
+								<a href="/gamelogs/pick_search">pick</a>
 							</li>
 						<?php } ?>									
 						<?php if ($check_perm['zenylog'] == 1) { ?>								
@@ -163,7 +163,7 @@
 		</ul>
 	</div>
 	<p>&nbsp;Powered by Hercules Admin Tool</p>
-	<p>&nbsp;Version 0.4.25.194</p>
+	<p>&nbsp;Version 0.4.25.195-picklog-1</p>
 	</div>
 </div>
 </nav>

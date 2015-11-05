@@ -153,6 +153,19 @@
 </script>
 <script>
 	$(document).ready(function() {
+		$('#dataTables-listxlg').DataTable({
+			"responsive": true,
+			"orderClasses": false,
+			"bSortClasses": false,
+			"bDeferRender": true,
+			"bScrollAutoCss": false,
+			"lengthMenu": [ [100, 250, 500, -1], [100, 250, 500, "All"] ],
+			"searching": false,
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
 		$('#dataTables-listsm').DataTable({
 			"responsive": true,
 			"bScrollAutoCss": false,
