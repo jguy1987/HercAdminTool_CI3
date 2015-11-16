@@ -364,6 +364,15 @@ $config["permissions"] = array(
 		'backupdb'			=> "Backup Database",
 		'sftp'				=> "Server SFTP Access",
 		'serverconfig'		=> "Server Configuration Access (View/Edit)",
+		'sqlquery'			=> "Issue query directly to SQL Server",				
+	),
+	'analysis'		=> array( // Permissions related to viewing server analysis.
+		'itemcount'			=> "View Item Count by Character",
+		'level1zeny'		=> "View Lv1 Chars with more than 1m zeny",
+		'nocharaccts'		=> "View Accounts with no characters",
+		'top100'				=> "View Top 100 characters by any parameter",
+		'mvpkill'			=> "View MVP Kills by MVP",
+		'delcharsaccts'	=> "View accounts with deleted characters",
 	),
 	'log'				=> array( // Permissions related to log management
 		'atcmdlog'			=> "View @command logs",

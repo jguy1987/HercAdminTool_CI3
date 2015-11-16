@@ -133,6 +133,43 @@
 					</ul>
 				</li>
 			<?php } ?>
+			<?php if ($check_perm['level1zeny'] == 1 || $check_perm['nocharaccts'] == 1 || $check_perm['delcharsaccts'] == 1 || $check_perm['top100'] == 1 || $check_perm['mvpkill'] == 1 || $check_perm['itemcount'] == 1) { ?>
+				<li>
+					<a href="#"><i class="fa fa-hdd-o fa-fw"></i> Server Analysis<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<?php if ($check_perm['itemcount'] == 1) { ?>
+							<li>
+								<a href="/analysis/itemcount">Item Count by character</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['level1zeny'] == 1) { ?>
+							<li>
+								<a href="/analysis/level1zeny">Level 1 Characters > 1m zeny</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['nocharaccts'] == 1) { ?>
+							<li>
+								<a href="/analysis/nocharaccts">Accounts with no characters</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['delcharsaccts'] == 1) { ?>
+							<li>
+								<a href="/analysis/delchars">Accounts with deleted characters</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['top100'] == 1) { ?>
+							<li>
+								<a href="/analysis/top100">Top100 Characters by parameter</a>
+							</li>
+						<?php } ?>
+						<?php if ($check_perm['mvpkill'] == 1) { ?>
+							<li>
+								<a href="/analysis/mvpkill">MVP Kill amount</a>
+							</li>
+						<?php } ?>
+					</ul>
+				</li>
+			<?php } ?>
 			<?php if ($check_perm['editadmin'] == 1 || $check_perm['editgroups'] == 1) { ?>
 			<li>
 				<a href="#"><i class="fa fa-user-md fa-fw"></i> Panel Admin<span class="fa arrow"></span></a>

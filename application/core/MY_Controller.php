@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller {
 		$this->db_login = $this->load->database($this->config->item('login_server'), TRUE, TRUE);
 		$this->load->model('accountmodel');
 		$this->load->model('adminmodel');
+		$this->load->model('analysismodel');
 		$this->load->model('itemmodel');
 		$this->load->model('usermodel');
 		$this->load->model('dashboardmodel');
@@ -19,6 +20,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('gamelogmodel');
 		$this->load->model('charmodel');
 		$this->load->model('guildmodel');
+		//$this->output->enable_profiler(TRUE);
 		if ($this->session->userdata('loggedin')) {
 			// Load Session data.
 			$this->session_data = $this->session->userdata('loggedin');
