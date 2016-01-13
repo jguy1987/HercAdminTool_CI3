@@ -26,7 +26,7 @@
 				echo "All admin user accounts have had their passwords reset and have received emails with their new passwords. Return to the <a href='/admin/users'>user management page</a>.";
 				break;
 			case "acctadd":
-				echo "User's game account processed successfully. User has received an email with their password and pincode. Return to the <a href='/account/listaccts'>account management page</a>.";
+				echo "User's game account processed successfully. User has received an email with their password and pincode. Return to the <a href='/account/search'>account management page</a>.";
 				break;
 			case "acctnoteadd":
 				echo "Note added successfully. Return to the <a href='/account/details/".$acct_id."#notes'>account notes page</a>.";
