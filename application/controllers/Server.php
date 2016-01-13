@@ -31,7 +31,9 @@ class Server extends MY_Controller {
 			$data['server_log'][$svr] = $this->servermodel->return_console($this->session->userdata('server_select'), $svr, 15);
 		}
 		$data['serverName'] = $servers[$this->session->userdata('server_select')]['servername'];
-		$data['online_status'] = $this->servermodel->server_online_check($this->session->userdata('server_select'));
+		$data['online_status']['login'] = $this->servermodel->server_online_check($this->session->userdata('server_select'), "login");
+		$data['online_status']['char'] = $this->servermodel->server_online_check($this->session->userdata('server_select'), "char");
+		$data['online_status']['map'] = $this->servermodel->server_online_check($this->session->userdata('server_select'), "map");
 		$data['herc_stats'] = $this->servermodel->get_herc_stats(1);
 		$this->load->view('server/hercinfo', $data);
 		$this->load->view('datatables-scripts');
@@ -45,91 +47,76 @@ class Server extends MY_Controller {
 		switch( $action ) {
 			case "start":
 				// Start the server
-				$startInfo = $this->servermodel->server_start($this->session->userdata('server_select'));
-				if ($startInfo['result'] == 0) { // Server failed to start for some reason (will output log)
-					$data['maint_result'] = "didnotstart";
-					$this->load->view('server/maintresult', $data);
-				}
-				elseif ($startInfo['result'] == 1) { // A process is already running on one of the ports, server cannot start.
-					echo "Servers already running!";
-				}
-				elseif ($startInfo['result'] == 2) { // Server started.
-					$data['action'] = $action;
-					//$data['last_10'] = $startInfo['last_10'];
-					$data['maint_result'] = "startsuccess";
-					$this->load->view('server/maintresult', $data);
-				}
+				$data['maintresult'] = $this->servermodel->all_server_toggle($this->session->userdata('server_select'), "start");
+				$this->load->view('server/maintresult', $data);
 				break;
 			case "stop":
-				$this->servermodel->server_stop($this->session->userdata('server_select'));
-				$data['maint_result'] = "stop";
+				$data['maintresult'] = $this->servermodel->all_server_toggle($this->session->userdata('server_select'), "stop");
 				$this->load->view('server/maintresult', $data);
 				break;
 			case "restart":
-				$this->servermodel->server_stop($this->session->userdata('server_select'));
-				$startInfo = $this->servermodel->server_start($this->session->userdata('server_select'));
-				if ($startInfo['result'] == 0) { // Server failed to start for some reason (will output log)
-					$data['maint_result'] = "didnotstart";
+				$stopInfo = $this->servermodel->all_server_toggle($this->session->userdata('server_select'), "stop");
+				if ($stopInfo == "stop") {
+					$data['maintresult'] = $this->servermodel->all_server_toggle($this->session->userdata('server_select'), "start");
 					$this->load->view('server/maintresult', $data);
 				}
-				elseif ($startInfo['result'] == 1) { // A process is already running on one of the ports, server cannot start.
-					echo "Servers already running!";
-				}
-				elseif ($startInfo['result'] == 2) { // Server started.
-					$data['action'] = $action;
-					//$data['last_10'] = $startInfo['last_10'];
-					$data['maint_result'] = "restartsuccess";
+				else if ($stopInfo == "stopfail") {
+					$data['maintresult'] = $stopInfo;
 					$this->load->view('server/maintresult', $data);
 				}
 				break;
 			case "toggle":
 				$server = $this->uri->segment(4);
 				if ($server === FALSE) {
-					$data['maint_result'] = "toggleservermissing";
+					$data['maintresult'] = "toggleservermissing";
 					$this->load->view('server/maintresult', $data);
 				}
 				else {
 					$toggleresult = $this->servermodel->server_toggle($this->session->userdata('server_select'), $server);
-					if ($toggleresult == 0) { // Server did not start.
-						$data['maint_result'] = "toggleserverfailed";
+					if ($toggleresult == "startfail") { // Server did not start.
+						$data['maintresult'] = "toggleserverfailed";
 						$this->load->view('server/maintresult', $data);
 					}
-					elseif ($toggleresult == 1) { // Server was stopped
-						$data['maint_result'] = "toggleserverstopsuccess";
+					elseif ($toggleresult == "stop") { // Server was stopped
+						$data['maintresult'] = "toggleserverstopsuccess";
 						$this->load->view('server/maintresult', $data);
 					}
-					elseif ($toggleresult == 2) { // Server started.
-						$data['maint_result'] = "toggleserverstartsuccess";
+					elseif ($toggleresult == "start") { // Server started.
+						$data['maintresult'] = "toggleserverstartsuccess";
+						$this->load->view('server/maintresult', $data);
+					}
+					else if ($toggleresult == "stopfail") {
+						$data['maintresult'] = $toggleresult;
 						$this->load->view('server/maintresult', $data);
 					}
 				}
 				break;
 			case "screen_wipe":
 				exec("screen -wipe");
-				$data['maint_result'] = "screenwipe";
+				$data['maintresult'] = "screenwipe";
 				$this->load->view('server/maintresult', $data);
 				break;
 			case "reloadscript":
 				$this->servermodel->send_maint_cmd($this->session->userdata('server_select'), $action);
 				$data['cmd_used'] = $action;
-				$data['maint_result'] = "cmdsent";
+				$data['maintresult'] = "cmdsent";
 				$this->load->view('server/maintresult', $data);
 				break;
 			case "reloadbattleconf":
 				$this->servermodel->send_maint_cmd($this->session->userdata('server_select'), $action);
 				$data['cmd_used'] = $action;
-				$data['maint_result'] = "cmdsent";
+				$data['maintresult'] = "cmdsent";
 				$this->load->view('server/maintresult', $data);
 				break;
 			case "reloadatcommand":
 				$this->servermodel->send_maint_cmd($this->session->userdata('server_select'), $action);
 				$data['cmd_used'] = $action;
-				$data['maint_result'] = "cmdsent";
+				$data['maintresult'] = "cmdsent";
 				$this->load->view('server/maintresult', $data);
 				break;
 			case "updatefiles":
 				$data['update_result'] = $this->servermodel->update_files($this->session->userdata('server_select'));
-				$data['maint_result'] = "updatefiles";
+				$data['maintresult'] = "updatefiles";
 				$this->load->view('server/maintresult', $data);
 		}
 		$this->load->view('datatables-scripts');

@@ -89,139 +89,164 @@ Class Servermodel extends CI_Model {
 		return $serverData;
 	}
 	
-	function server_online_check($sid) {
-		// 0 = server online
+	function server_online_check($sid, $svr) {
+		// Checks the server online status. Returns true or false. True = server is online
+		// $svr needs to be "login", "char", "map" or "all"
 		$servers = $this->config->item('ragnarok_servers');
-		$login_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['login_port'], $errno, $errstr, 3);
-		$char_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['char_port'], $errno, $errstr, 3);
-		$map_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['map_port'], $errno, $errstr, 3);
-		if (!$map_server || !$char_server || !$login_server) { // One of the servers is not running.
-			$status = 0;
-			if (!$login_server) { // the login server is not running.
-				$status = $status + 1;
+		if ($svr == "all") {
+			$login_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['login_port'], $errno, $errstr, 3);
+			$char_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['char_port'], $errno, $errstr, 3);
+			$map_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['map_port'], $errno, $errstr, 3);
+			if (!$map_server || !$char_server || !$login_server) { // One of the servers is not running.
+				return false;
 			}
-			if (!$char_server) { // char server not running.
-				$status = $status + 2;
+			else {
+				return true;
 			}
-			if (!$map_server) { // Map server not running.
-				$status = $status + 4;
-			}
-			// In the above, the values are bitmasks. 
-			// 1 = login server not running.
-			// 2 = char server not running.
-			// 4 = map server not running.
-			// Example, if the login and map server were not running, we would return 5.
-			// If the char and map server were not running, we would return 6.
-			return $status;
 		}
 		else {
-			return 0;
-		}
-	}
-	
-	function server_start($sid) {
-		$servers = $this->config->item('ragnarok_servers');
-		// Check to make sure server isn't already running on that port
-		$sstatus = $this->server_online_check($sid);
-		if ($sstatus == 0) { // Server already running, return result 1
-			return array('result' => 1);
-		}
-		else { // No servers running, proceed.
-			$pid = array();
-			$login_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['login_port'], $errno, $errstr, 3);
-			if (!$login_server) { //Login server is not running, need to start it.
-				exec("screen -dmS login-server");
-				
-				$loginOut = "".$this->config->item('hat_path')."application/hat_log/login-server.log";
-				$loginPid = "".$this->config->item('hat_path')."application/hat_log/login-server.pid";
-				exec(sprintf("screen -S login-server -X stuff \"cd %s\"'\n'", $servers[$sid]['server_path']));
-				exec(sprintf("screen -S login-server -X stuff \"./%s > %s\"'\n'", $servers[$sid]['login_server_exec'], $loginOut));
-				sleep(3);
-				$pid['login'] = exec(sprintf("lsof -t -i :%s", $servers[$sid]['login_port']));
-			}
-			
-			$screenChar = "screen -dmS char-server-".$servers[$sid]['map_servername']."";
-			exec($screenChar);
-			$charOut = "".$this->config->item('hat_path')."application/hat_log/char-server-".$servers[$sid]['map_servername'].".log";
-			$charPid = "".$this->config->item('hat_path')."application/hat_log/char-server-".$servers[$sid]['map_servername'].".pid";
-			exec(sprintf("screen -S char-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path']));
-			exec(sprintf("screen -S char-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut));
-			sleep(3);
-			$pid['char'] = exec(sprintf("lsof -t -i :%s", $servers[$sid]['char_port']));
-			
-			$screenMap = "screen -dmS map-server-".$servers[$sid]['map_servername']."";
-			exec($screenMap);
-			$mapOut = "".$this->config->item('hat_path')."application/hat_log/map-server-".$servers[$sid]['map_servername'].".log";
-			$mapPid = "".$this->config->item('hat_path')."application/hat_log/map-server-".$servers[$sid]['map_servername'].".pid";
-			exec(sprintf("screen -S map-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path']));
-			exec(sprintf("screen -S map-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut));
-			sleep(5);
-			$pid['map'] = exec(sprintf("lsof -t -i :%s", $servers[$sid]['map_port']));
-			if ($this->server_online_check($sid) != 0) { // One of the servers did not start. killall the processes (don't want to kill the wrong server), destroy the screen, get the full logs of the servers and return 0.
-				// TODO replace with function
-				exec(sprintf("kill %s", $pid['login']));
-				exec(sprintf("kill %s", $pid['char']));
-				exec(sprintf("kill %s", $pid['map']));
-				sleep(5);
-				exec("screen -S login-server -X stuff \"exit\"'\n'"); // Kill the login server screen.
-				exec(sprintf("screen -S char-server-%s -X stuff \"exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the char server screen.
-				exec(sprintf("screen -S map-server-%s -X stuff \"exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the map server screen.
-				exec('screen -wipe'); // Wipe screens to remove dead.
-				return array('result' => 0); // Let user know servers did not start.
+			$port = $svr."_port";
+			$server = @fsockopen($servers[$sid]['ip'], $servers[$sid][$port], $errno, $errstr, 3);
+			if (!$server) { // Server did not start.
+				return false;
 			}
 			else {
-				return array('result' => 2); // Servers started successfully.
+				return true;
 			}
 		}
 	}
 	
-	function server_stop($sid) {
+	function server_toggle($sid, $svr) {
+		// Starts or stops the server(s). $srv can either be "login", "char", "map".
+		// If the server is running on the open port, the function will attempt to stop it.
+		// If the server is not running on the port, the function will attempt to start it.
 		$servers = $this->config->item('ragnarok_servers');
-		exec("screen -S login-server -X stuff \"server exit\"'\n'");
-		exec(sprintf("screen -S char-server-%s -X stuff \"server exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the char server
-		exec(sprintf("screen -S map-server-%s -X stuff \"server exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the map server.
-		sleep(7); // Wait for servers to close.
-		exec("screen -S login-server -X stuff \"exit\"'\n'"); // Kill the login server screen.
-		exec(sprintf("screen -S char-server-%s -X stuff \"exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the char server screen.
-		exec(sprintf("screen -S map-server-%s -X stuff \"exit\"'\n'", $servers[$sid]['map_servername'])); // Kill the map server screen.
-	}
-	
-	function server_toggle($sid, $server) {
-		$servers = $this->config->item('ragnarok_servers');
-		$port = $server."_port";
-		if ($server == "login") {
-			$serverName = "login-server";
-			$output = "".$this->config->item('hat_path')."application/hat_log/".$server."-server.log";
-		}
-		elseif ($server == "char" || $server == "map") {
-			$serverName = $server."-server-".$servers[$sid]['map_servername'];
-			$output = "".$this->config->item('hat_path')."application/hat_log/".$server."-server-".$servers[$sid]['map_servername'].".log";
-		}
-		$serverStatus = @fsockopen($servers[$sid]['ip'], $servers[$sid][$port], $errno, $errstr, 3);
-		if ($serverStatus) { // Server is online, turn it off.
-			exec(sprintf("screen -S %s -X stuff \"server exit\"'\n'", $serverName)); // Kill the server.
-			sleep(4);
-			exec(sprintf("screen -S %s -X stuff \"exit\"'\n'", $serverName)); // Kill the server screen.
-			return 1; // Return server now offline
-		}
-		elseif (!$serverStatus) { // Server is offline, turn it on.
-			$screen = "screen -dmS ".$serverName;
-			exec($screen);
-			$serverExec = $server."_server_exec";
-			exec(sprintf("screen -S %s -X stuff \"cd %s\"'\n'", $serverName, $servers[$sid]['server_path']));
-			exec(sprintf("screen -S %s -X stuff \"./%s > %s\"'\n'", $serverName, $servers[$sid][$serverExec], $output));
-			sleep(5);
-			$pid = exec(sprintf("lsof -t -i :%s", $servers[$sid][$port]));
-			$serverStatus = @fsockopen($servers[$sid]['ip'], $servers[$sid][$port], $errno, $errstr, 3);
-			if (!$serverStatus) { // Server did not start!
-				exec(sprintf("kill %s", $pid));
-				exec(sprintf("screen -S %s -X stuff \"exit\"'\n'", $serverName));
-				exec('screen -wipe'); // Wipe screens to remove dead.
-				return 0; // Let user know servers did not start.
+		$checks = 0;
+		$status = $this->server_online_check($sid, $svr);
+		if ($status == false) { // This server is not running, start it.
+			$this->server_start($sid, $svr);
+			while ($this->server_online_check($sid, $svr) == false && $checks < 6) { // while the server has not started OR we haven't tried more than 5 times...
+				sleep(2);
+				$checks += 1;
+			}
+			if ($this->server_online_check($sid, $svr) == false) {
+				exec(sprintf("screen -S %s-server-%s -X stuff \"exit\"'\n'", $svr, $servers[$sid]['map_servername'])); // Kill the server screen.
+				return "startfail";
 			}
 			else {
-				return 2; // Server was off, started successfully.
+				return "start";
 			}
+		}
+		else if ($status == "true") { // The login server is running, let's stop it
+			exec(sprintf("screen -S %s-server-%s -X stuff \"server exit\"'\n'", $svr, $servers[$sid]['map_servername'])); // Kill the server screen.
+			sleep(3); // Wait a few seconds to let it close.
+			// Then make sure it is stopped.
+			while ($this->server_online_check($sid, $svr) == true && $checks < 6) {
+				sleep(2);
+				$checks += 1;
+			}
+			if ($this->server_online_check($sid, $svr) == false) {
+				// Server is stopped. Confirm with user and kill the screen
+				exec(sprintf("screen -S %s-server-%s -X stuff \"exit\"'\n'", $svr, $servers[$sid]['map_servername'])); // Kill the server screen.
+				return "stop";
+			}
+			else {
+				// server did not stop...notify the user
+				return "stopfail";
+			}
+		}
+		exec('screen -wipe'); // Wipe screens to remove dead.
+	}
+	
+	function server_start($sid, $svr) {
+		$servers = $this->config->item('ragnarok_servers');
+		switch ($svr) {
+			case "login":
+				$screenLogin = "screen -dmS login-server-".$servers[$sid]['map_servername']."";
+				exec($screenLogin); // Open a screen for the login server
+				$loginOut = "".$this->config->item('hat_path')."application/hat_log/login-server.log"; // Set the file path for the login server console logs
+				exec(sprintf("screen -S login-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directory to the login-server exec
+				exec(sprintf("screen -S login-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['login_server_exec'], $loginOut)); // Run the command to start the login server.
+				break;
+			case "char":
+				$screenChar = "screen -dmS char-server-".$servers[$sid]['map_servername']."";
+				exec($screenChar); // Open a screen for the Char server
+				$charOut = "".$this->config->item('hat_path')."application/hat_log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
+				exec(sprintf("screen -S char-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directory to the char-server exec
+				exec(sprintf("screen -S char-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut)); // Run the command to start the char server.
+				break;
+			case "map":
+				$screenMap = "screen -dmS map-server-".$servers[$sid]['map_servername']."";
+				exec($screenMap); // Open a screen for the map server
+				$mapOut = "".$this->config->item('hat_path')."application/hat_log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
+				exec(sprintf("screen -S map-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directort to the map-server exec
+				exec(sprintf("screen -S map-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut)); // Run the command to start the map server.
+				break;
+		}
+	}
+	/* function login_server_start($sid) {
+		$servers = $this->config->item('ragnarok_servers');
+		exec("screen -dmS login-server"); // Open a screen for the login server
+		$loginOut = "".$this->config->item('hat_path')."application/hat_log/login-server.log"; // Set the file path for the login server console logs
+		exec(sprintf("screen -S login-server -X stuff \"cd %s\"'\n'", $servers[$sid]['server_path'])); // Change directory to the login-server exec
+		exec(sprintf("screen -S login-server -X stuff \"./%s > %s\"'\n'", $servers[$sid]['login_server_exec'], $loginOut)); // Run the command to start the login server.
+	}
+	
+	function char_server_start($sid) {
+		$servers = $this->config->item('ragnarok_servers');
+		$screenChar = "screen -dmS char-server-".$servers[$sid]['map_servername']."";
+		exec($screenChar); // Open a screen for the Char server
+		$charOut = "".$this->config->item('hat_path')."application/hat_log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
+		exec(sprintf("screen -S char-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directory to the char-server exec
+		exec(sprintf("screen -S char-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut)); // Run the command to start the char server.
+	}
+	
+	function map_server_start($sid) {
+		$servers = $this->config->item('ragnarok_servers');
+		$screenMap = "screen -dmS map-server-".$servers[$sid]['map_servername']."";
+		exec($screenMap); // Open a screen for the map server
+		$mapOut = "".$this->config->item('hat_path')."application/hat_log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
+		exec(sprintf("screen -S map-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directort to the map-server exec
+		exec(sprintf("screen -S map-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut)); // Run the command to start the map server.
+	} */
+	
+	function all_server_toggle($sid, $cmd) {
+		// This function accepts server id ($sid) and command ($cmd)
+		// Command can be start or stop. If "start", the function will attempt to start all three servers. If "stop", it will stop all three servers.
+		$arr = array();
+		switch ($cmd) {
+			case "start":
+				// Check to see if any of the servers are already started.
+				$result['login'] = $this->server_online_check($sid, "login");
+				$result['char'] = $this->server_online_check($sid, "char");
+				$result['map'] = $this->server_online_check($sid, "map");
+				// Attempt to start the missing server(s).
+				foreach ($result as $k=>$v) {
+					if ($v == false) { // This server hasn't been started
+						$result[$k] = $this->server_toggle($sid, $k);
+						if ($result[$k] == false) { // This server is still not running
+							return "didnotstart";
+						}
+					}
+				}
+				return "startsuccess";
+				break;
+			case "stop":
+				// Check to see if any of the servers aren't running.
+				$result['login'] = $this->server_online_check($sid, "login");
+				$result['char'] = $this->server_online_check($sid, "char");
+				$result['map'] = $this->server_online_check($sid, "map");
+				// Attempt to stop the running server(s).
+				foreach ($result as $k=>$v) {
+					if ($v == true) { // This server is running
+						$result[$k] = $this->server_toggle($sid, $k);
+						if ($result[$k] == "stopfail") { // This server is still running, did not stop.
+							return "stopfail";
+						}
+					}
+				}
+				return "stop";
+				break;
 		}
 	}
 	

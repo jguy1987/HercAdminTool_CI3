@@ -6,15 +6,18 @@
 			</div>
 		</div>
 		<div class="col-lg-12">
-			<?php switch( $maint_result ) {
+			<?php switch( $maintresult ) {
 				case "didnotstart": 
 					echo "The servers did not start. You can find the full logs below to troubleshoot. <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "startsuccess":
-					echo "Server started successfully. <a href='/server/hercules'>Return to server maintenance page</a>";
+					echo "Servers started successfully. <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "stop":
 					echo "Server stopped. <a href='/server/hercules'>Return to server maintenance page</a>";
+					break;
+				case "stopfail":
+					echo "One or more servers did not stop. Please check the logs and <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "restartsuccess":
 					echo "Server was restarted. <a href='/server/hercules'>Return to server maintenance page</a>";
