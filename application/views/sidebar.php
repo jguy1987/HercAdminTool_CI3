@@ -199,8 +199,11 @@
 			<?php } ?>
 		</ul>
 	</div>
+	<br />
 	<p>&nbsp;Powered by Hercules Admin Tool</p>
-	<p>&nbsp;Version 0.4.25.195-picklog-1</p>
+	<p>&nbsp;(c) Jguy, John Mish 2014-2016</p>
+	<p>&nbsp;Released under GNU GPL v3 or later</p>
+	<p>&nbsp;<a href="https://github.com/jguy1987/HercAdminTool">GitHub</a></p>
 	</div>
 </div>
 </nav>
