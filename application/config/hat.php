@@ -12,6 +12,9 @@ $config['panelname'] = "HercAdminTool";
 // Server Name. 
 $config['servername'] = "YourRO";
 
+// Email From. The email address from where mail will originate.
+$config['emailfrom'] = "adminpanel@yourdomain.com";
+
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
 

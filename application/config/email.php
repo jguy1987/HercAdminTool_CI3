@@ -1,9 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /* Email Settings. Settings for email here. */
 
-// Email From. The email address from where mail will originate.
-$config['emailfrom'] = "adminpanel@yourdomain.com";
-
 // Protocol. The mail sending protocol. Valid options: mail, sendmail, or smtp
 $config['protocol'] = 'sendmail';
 

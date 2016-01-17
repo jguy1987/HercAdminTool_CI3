@@ -315,24 +315,28 @@ class Account extends MY_Controller {
 			case "newacct":
 				$this->email->subject("Your game account for {$this->config->item('servername')} has been created.");
 				$this->email->message("Hello {$newAcct['userid']},
-Your game account for {$this->config->item('servername')} has been created. You may use these details to immediately login to the game and start playing!
+Your game account for {$this->config->item('servername')} has been created by a Gamemaster. You may use these details to immediately login to the game and start playing!
 
 Username: {$newAcct['userid']}
 Password: {$data['passwd']}
 Pincode: {$data['pincode']}
 
-Thank you.");
+Thank you.
+
+Your {$this->config->item('servername')} team");
 				$this->email->send();
 				return $this->email->print_debugger();
 				break;
 			case "chgpass":
-				$this->email->subject("Your password for {$this->config->item('servername')} has been reset.");
+				$this->email->subject("Your password for {$this->config->item('servername')} has been reset!.");
 				$this->email->message("Hello {$newAcct['userid']},
-Your password for {$this->config->item('servername')} has been reset. You will immediately use this password to login to the game and start playing!
+Your password for {$this->config->item('servername')} has been reset by a Gamemaster. You will immediately use this password to login to the game and start playing!
 
 Password: {$data['pass']}
 
-Thank you.");
+Thank you.
+
+Your {$this->config->item('servername')} team");
 				$this->email->send();
 				break;
 		}
