@@ -1,6 +1,8 @@
 HercAdminTool
 =========
 
+[![Join the chat at https://gitter.im/jguy1987/HercAdminTool](https://badges.gitter.im/jguy1987/HercAdminTool.svg)](https://gitter.im/jguy1987/HercAdminTool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Contents:
 ---------
 
