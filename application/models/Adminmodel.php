@@ -119,6 +119,7 @@ Class Adminmodel extends CI_Model {
 	
 	function resetallpwd() {
 		$this->db_login->select('id, username, pemail');
+		$this->db_login->where('groupid <', $this->session_data['group']);
 		$q = $this->db_login->get('hat_users');
 		$passwd = array();
 		foreach ($q->result_array() as $r) {

@@ -326,7 +326,7 @@
 							<h4>Str Flags</h4>
 							<button type="button" class="btn btn-info" id="addStrFlagOpen" data-toggle="modal" data-target="#addStrFlag" data-id="<?php echo $acct_data->account_id; ?>">Add StrFlag</button>
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-listflags">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listflags2">
 									<thead>
 										<tr>
 											<th>Key Name</th>

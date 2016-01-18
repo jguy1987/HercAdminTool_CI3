@@ -176,7 +176,31 @@
 </script>
 <script>
 	$(document).ready(function() {
+		$('#dataTables-listsm2').DataTable({
+			"responsive": true,
+			"bScrollAutoCss": false,
+			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
+			"defaultContent": '',
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
 		$('#dataTables-listflags').DataTable({
+			"responsive": true,
+			"bScrollAutoCss": false,
+			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
+			"defaultContent": '',
+			"aoColumnDefs": [
+				{ "sWidth": '60px', "targets": 1 },
+				{ "sWidth": '60px', "targets": 2 }
+			],
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-listflags2').DataTable({
 			"responsive": true,
 			"bScrollAutoCss": false,
 			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],

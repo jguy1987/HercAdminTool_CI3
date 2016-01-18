@@ -53,7 +53,7 @@
 	<div class="col-lg-6 col-lg-offset-3">
 		<h4>Login logs</h4>
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-listsm2">
 				<thead>
 					<tr>
 						<th>Date/Time</th>

@@ -510,7 +510,7 @@
 						<h4>Character Edit History</h4>
 						<div class="col-lg-6">
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
+								<table class="table table-striped table-bordered table-hover" id="dataTables-listsm2">
 									<thead>
 										<tr>
 											<th style="width: 100px;">Datetime</th>

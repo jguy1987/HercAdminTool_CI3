@@ -14,25 +14,31 @@ Class Servermodel extends CI_Model {
 		// Get total amount of characters in a guild
 		$this->db_charmap->select('char_id');
 		$this->db_charmap->from('char');
-		$this->db_charmap->where('guild_id IS NOT NULL');
+		$this->db_charmap->where('guild_id > 0');
 		$q4 = $this->db_charmap->get();		
 		// Get total amount of zeny on all characters
 		$this->db_charmap->select_sum('zeny');
 		$q5 = $this->db_charmap->get('char');
 		$zeny = $q5->row();
 		// Get server uptime
-		$this->db_login->select('lastlogin');
-		$this->db_login->from('login');
-		$servers = $this->config->item('ragnarok_servers');
-		$servername = $servers[$this->session->userdata('server_select')]['map_servername'];
-		$this->db_login->where('userid', $servername);
-		$q6 = $this->db_login->get();
-		$laststartdate = $q6->row();
-		$serverstart = new DateTime($laststartdate->lastlogin);
-		$now = date('Y-m-d H:i:s');
-		$sinceStart = $serverstart->diff(new DateTime($now));
-		//$sinceStartf = $sinceStart->format('%zd&nbsp;%hh&nbsp;%im&nbsp;%ss');
-		$sinceStartf = $sinceStart->days."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
+		// First, if the server is offline, don't even check this
+		if ($this->server_online_check($this->session->userdata('server_select'), "all") == false) {
+			$sinceStartf = "<span style='color:red'>Server Offline</span>";
+		}
+		else {
+			$this->db_login->select('lastlogin');
+			$this->db_login->from('login');
+			$servers = $this->config->item('ragnarok_servers');
+			$servername = $servers[$this->session->userdata('server_select')]['map_servername'];
+			$this->db_login->where('userid', $servername);
+			$q6 = $this->db_login->get();
+			$laststartdate = $q6->row();
+			$serverstart = new DateTime($laststartdate->lastlogin);
+			$now = date('Y-m-d H:i:s');
+			$sinceStart = $serverstart->diff(new DateTime($now));
+			//$sinceStartf = $sinceStart->format('%zd&nbsp;%hh&nbsp;%im&nbsp;%ss');
+			$sinceStartf = $sinceStart->days."d&nbsp;".$sinceStart->h."h&nbsp;".$sinceStart->i."m&nbsp;".$sinceStart->s."s&nbsp;";
+		}
 		// Get users online
 		$q7 = $this->db_charmap->get_where('char', array('online' => 1));
 
