@@ -152,10 +152,16 @@ Class Charmodel extends CI_Model {
 		$this->db_login->set('old_value', $lastPos);
 		$this->db_login->insert('hat_chareditlog');
 		
+		// Get what map we need to reset position to
+		$servers = $this->config->item('ragnarok_servers');
+		$mapname = $servers[$this->session->userdata('server_select')]['reset_map'];
+		$mapx = $servers[$this->session->userdata('server_select')]['reset_x'];
+		$mapy = $servers[$this->session->userdata('server_select')]['reset_y'];
 		// Then change the database...
-		$this->db_charmap->set('last_map', $this->config->item('reset_map'));
-		$this->db_charmap->set('last_x', $this->config->item('reset_x'));
-		$this->db_charmap->set('last_y', $this->config->item('reset_y'));
+		
+		$this->db_charmap->set('last_map', $mapname);
+		$this->db_charmap->set('last_x', $mapx);
+		$this->db_charmap->set('last_y', $mapy);
 		$this->db_charmap->where('char_id', $cid);
 		$this->db_charmap->update('char');
 	}
