@@ -38,31 +38,16 @@ at the minimum:
 * PHP5
 * MySQL
 * git
-* sendmail
+* sendmail or an external SMTP server
 * An RO Server running Hercules.
 
-NOTE: Your Hercules server MUST use Item and mob DB's in SQL and be updated for proper functionality. 
-If you do not, then you will NOT be able to edit those as part of this panel. You will still be 
-able to send items to players, delete items from players and guilds and such, but editing items 
-or mobs will not be possible through the control panel. It might be in the future I will add this,
-but for right now, it is too much time and work and may not even work quickly or at all. If someone has
-a PHP script they would like to give me for this purpose, please feel free to donate. 
 
 The above is tested to function. Ngix, Lighthttpd and the likes are untested, but I would appreciate
 the feedback if you got it to work or not.
 
 4. Installation
 ---------
-At the moment there is no point to install the panel as it's just flesh and bones right now, 
-no real functionality as far as RO Server Managing is concerned. If you wanted to 
-install, though, some simple steps:
-
-* Copy everything to web directory. 
-* Run admintool.sql on your desired database
-* Edit /application/config/config.php and /application/config/database.php to your desired settings
-* Point your web browser to the correct URL
-
-Coming soon will be an actual install script so that everything is done for you, even the download of the panel.
+See the document in /docs/HatUserGuide.docx for full installation instructions.
 
 5. A list of planned features?
 ---------
