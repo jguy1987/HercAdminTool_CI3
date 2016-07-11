@@ -1,6 +1,34 @@
 <?php
 Class Servermodel extends CI_Model {
+	
+	public $servers;
+	public $login_servers;
+	public $login_srv_id;
+	public $login_ssh_conn;
+	public $charmap_ssh_conn;
+	public function __construct() {
+		include(APPPATH . '/third_party/phpseclib/Net/SSH2.php');
+		set_include_path(get_include_path() . PATH_SEPARATOR . APPPATH . 'third_party/phpseclib');
+		$servers = $this->config->item('ragnarok_servers');
+		$login_servers = $this->config->item('login_servers');
+		$login_srv_id = $servers['1']['login_server_group'];
 
+		$this->login_ssh_conn = new Net_SSH2($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
+		if ($login_servers[$login_srv_id]['login_ssh_method'] == "plain") {
+			$this->login_ssh_conn->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass']);
+		}
+		else if ($login_servers[$login_srv_id]['login_ssh_method'] == "key") {
+			// Not supported yet
+		}
+		$this->charmap_ssh_conn = new Net_SSH2($servers[$this->session->userdata('server_select')]['server_ssh_ip'], $servers[$this->session->userdata('server_select')]['server_ssh_port']);
+		if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "plain") {
+			$this->charmap_ssh_conn->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass']);
+		}
+		else if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "key") {
+			// Not implemented yet
+		}
+	}
+	
 	function get_herc_stats($t) {
 		// Get total amount of accounts
 		$this->db_login->select('account_id');
@@ -99,11 +127,23 @@ Class Servermodel extends CI_Model {
 		// Checks the server online status. Returns true or false. True = server is online
 		// $svr needs to be "login", "char", "map" or "all"
 		$servers = $this->config->item('ragnarok_servers');
+		$login_servers = $this->config->item('login_servers');
+		$login_srv_id = $servers['1']['login_server_group'];
 		if ($svr == "all") {
-			$login_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['login_port'], $errno, $errstr, 3);
-			$char_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['char_port'], $errno, $errstr, 3);
-			$map_server = @fsockopen($servers[$sid]['ip'], $servers[$sid]['map_port'], $errno, $errstr, 3);
+			$login_server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 3);
+			$char_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['char_port'], $errno, $errstr, 3);
+			$map_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['map_port'], $errno, $errstr, 3);
 			if (!$map_server || !$char_server || !$login_server) { // One of the servers is not running.
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		else if ($svr == "login") {
+
+			$server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 3);
+			if (!$server) { // Server did not start.
 				return false;
 			}
 			else {
@@ -112,7 +152,7 @@ Class Servermodel extends CI_Model {
 		}
 		else {
 			$port = $svr."_port";
-			$server = @fsockopen($servers[$sid]['ip'], $servers[$sid][$port], $errno, $errstr, 3);
+			$server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid][$port], $errno, $errstr, 3);
 			if (!$server) { // Server did not start.
 				return false;
 			}
@@ -136,7 +176,13 @@ Class Servermodel extends CI_Model {
 				$checks += 1;
 			}
 			if ($this->server_online_check($sid, $svr) == false) {
-				exec(sprintf("screen -S %s-server-%s -X stuff \"exit\"'\n'", $svr, $servers[$sid]['map_servername'])); // Kill the server screen.
+				$cmd = sprintf("screen -S %s-server-%s -X stuff 'exit\n'", $svr, $servers[$sid]['map_servername']);
+				if ($svr == "login") {
+					$this->login_ssh_conn->exec($cmd); // Kill the server screen.
+				}
+				else if ($svr == "char" || $svr == "map") {
+					$this->charmap_ssh_conn->exec($cmd); // Kill the server screen.
+				}
 				return "startfail";
 			}
 			else {
@@ -144,7 +190,13 @@ Class Servermodel extends CI_Model {
 			}
 		}
 		else if ($status == "true") { // The login server is running, let's stop it
-			exec(sprintf("screen -S %s-server-%s -X stuff \"server exit\"'\n'", $svr, $servers[$sid]['map_servername'])); // Kill the server screen.
+			$cmd = sprintf("screen -S %s-server-%s -X stuff 'server exit\n'", $svr, $servers[$sid]['map_servername']);
+			if ($svr == "login") {
+				$this->login_ssh_conn->exec($cmd); // Kill the server.
+			}
+			else if ($svr == "char" || $svr == "map") {
+				$this->charmap_ssh_conn->exec($cmd); // Kill the server.
+			}
 			sleep(3); // Wait a few seconds to let it close.
 			// Then make sure it is stopped.
 			while ($this->server_online_check($sid, $svr) == true && $checks < 6) {
@@ -153,7 +205,13 @@ Class Servermodel extends CI_Model {
 			}
 			if ($this->server_online_check($sid, $svr) == false) {
 				// Server is stopped. Confirm with user and kill the screen
-				exec(sprintf("screen -S %s-server-%s -X stuff \"exit\"'\n'", $svr, $servers[$sid]['map_servername'])); // Kill the server screen.
+				$cmd = sprintf("screen -S %s-server-%s -X stuff 'exit\n'", $svr, $servers[$sid]['map_servername']);
+				if ($svr == "login") {
+					$this->login_ssh_conn->exec($cmd); // Kill the server screen.
+				}
+				else if ($svr == "char" || $svr == "map") {
+					$this->charmap_ssh_conn->exec($cmd); // Kill the server screen.
+				}
 				return "stop";
 			}
 			else {
@@ -161,32 +219,42 @@ Class Servermodel extends CI_Model {
 				return "stopfail";
 			}
 		}
-		exec('screen -wipe'); // Wipe screens to remove dead.
+		$this->charmap_ssh_conn->exec('screen -wipe\n'); 
+		$this->login_ssh_conn->exec('screen -wipe\n');// Wipe screens to remove dead.
 	}
 	
 	function server_start($sid, $svr) {
 		$servers = $this->config->item('ragnarok_servers');
+		$login_servers = $this->config->item('login_servers');
+		$login_srv_id = $servers['1']['login_server_group'];
+		$cmd_screen = sprintf("screen -dmS %s-server-%s'\n'", $svr, $servers[$sid]['map_servername']);
+		$charOut = "".$servers[$sid]['server_path']."/log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
+		$mapOut = "".$servers[$sid]['server_path']."/log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
+		$loginOut = "".$login_servers[$login_srv_id]['login_server_path']."/log/login-server.log"; // Set the file path for the login server console logs
+		$cmd_login = "screen -S login-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$login_servers[$login_srv_id]['login_server_path']." && ./".$login_servers[$login_srv_id]['login_server_exec']." > ".$loginOut."\n'";
+		$cmd_char = "screen -S char-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$servers[$sid]['server_path']." && ./".$servers[$sid]['char_server_exec']." > ".$charOut."\n'";
+		$cmd_map = "screen -S map-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$servers[$sid]['server_path']." && ./".$servers[$sid]['map_server_exec']." > ".$mapOut."\n'";
+		//echo $cmd_login;
+		//$cmd_cd_login = sprintf("screen -S login-server-%s -X stuff cd %s'\n'", $servers[$sid]['map_servername'], $login_servers[$login_srv_id]['login_server_path']);
+		//$cmd_start_login = sprintf("screen -S login-server-%s -X stuff ./%s > %s'\n'", $servers[$sid]['map_servername'], $login_servers[$login_srv_id]['login_server_exec'], $loginOut);
+		//$cmd_cd_charmap = sprintf("screen -S %s-server-%s -X stuff cd %s\'\n'", $svr, $servers[$sid]['map_servername'], $servers[$sid]['server_path']);
+		//$cmd_start_char = sprintf("screen -S %s-server-%s -X stuff ./%s > %s'\n'", $svr, $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut);
+		//$cmd_start_map = sprintf("screen -S %s-server-%s -X stuff ./%s > %s'\n'", $svr, $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut);
 		switch ($svr) {
 			case "login":
-				$screenLogin = "screen -dmS login-server-".$servers[$sid]['map_servername']."";
-				exec($screenLogin); // Open a screen for the login server
-				$loginOut = "".$this->config->item('hat_path')."application/hat_log/login-server.log"; // Set the file path for the login server console logs
-				exec(sprintf("screen -S login-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directory to the login-server exec
-				exec(sprintf("screen -S login-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['login_server_exec'], $loginOut)); // Run the command to start the login server.
+				$this->login_ssh_conn->exec($cmd_screen); // Open a screen for the login server
+				$this->login_ssh_conn->exec($cmd_login); // Change directory to the login-server exec
+				//$this->login_ssh_conn->exec($cmd_start_login); // Run the command to start the login server.
 				break;
 			case "char":
-				$screenChar = "screen -dmS char-server-".$servers[$sid]['map_servername']."";
-				exec($screenChar); // Open a screen for the Char server
-				$charOut = "".$this->config->item('hat_path')."application/hat_log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
-				exec(sprintf("screen -S char-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directory to the char-server exec
-				exec(sprintf("screen -S char-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut)); // Run the command to start the char server.
+				$this->charmap_ssh_conn->exec($cmd_screen); // Open a screen for the Char server
+				$this->charmap_ssh_conn->exec($cmd_char); // Change directory to the char-server exec
+				//$this->charmap_ssh_conn->exec($cmd_start_char); // Run the command to start the char server.
 				break;
 			case "map":
-				$screenMap = "screen -dmS map-server-".$servers[$sid]['map_servername']."";
-				exec($screenMap); // Open a screen for the map server
-				$mapOut = "".$this->config->item('hat_path')."application/hat_log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
-				exec(sprintf("screen -S map-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directort to the map-server exec
-				exec(sprintf("screen -S map-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut)); // Run the command to start the map server.
+				$this->charmap_ssh_conn->exec($cmd_screen); // Open a screen for the map server
+				$this->charmap_ssh_conn->exec($cmd_map); // Change directort to the map-server exec
+				//$this->charmap_ssh_conn->exec($cmd_start_map); // Run the command to start the map server.
 				break;
 		}
 	}
@@ -258,25 +326,7 @@ Class Servermodel extends CI_Model {
 	
 	function send_maint_cmd($sid, $action) {
 		$servers = $this->config->item('ragnarok_servers');
-		exec(sprintf("screen -S map-server-%s -X stuff \"gm use @%s\"'\n'", $servers[$sid]['map_servername'], $action)); // Use the specified command.
-	}
-	
-	function update_files($sid) {
-		$servers = $this->config->item('ragnarok_servers');
-		switch( $servers[$sid]['update_method'] ) {
-			case "svn":
-				exec(sprintf("svn update %s", $servers[$sid]['server_path']), $result);
-				return $result;
-				break;
-			case "git":
-				exec(sprintf("git --git-dir=%s.git", $servers[$sid]['server_path']), $result);
-				return $result;
-				break;
-			case "off":
-				$result = "This feature is disabled.";
-				return $result;
-				break;
-		}
+		ssh2_exec($this->charmap_ssh_conn, sprintf("screen -S map-server-%s -X stuff \"gm use @%s\"'\n'", $servers[$sid]['map_servername'], $action)); // Use the specified command.
 	}
 	
 	function return_console($sid, $server, $lines) {

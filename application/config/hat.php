@@ -18,17 +18,44 @@ $config['emailfrom'] = "adminpanel@yourdomain.com";
 // Time to inactive. How long in minutes before we render an admin "inactive" and remove him from the active admin list (default 15 (minutes))
 $config['inactive_time'] = 15;
 
-// Does your login table have a last_mac column (yes or no)?
-$config['last_mac_addon'] = "yes";
-
 // Full path to the root of your HAT installation (where the application, system and assets folders live). Include forward AND trailing slash! 
 $config['hat_path'] = "/var/www/hat/"; 
 
-// Server Setup. Follow the /doc/MultipleCharMap.txt guidlines.
+// Server Setup. Follow the UserGuide!
 
-// The database group for the login server.
-$config['login_server'] = "ragnarok";
-
+$config['login_servers'] = array(
+	'1' => array(		// Group ID of login servers. 
+		'login_database_group'		=> "ragnarok",			// Connection group in database.php that holds the connection information for this login server.
+		'login_ip'						=> "127.0.0.1",			// IP that the login server is listening on
+		'login_port'					=> 6900,				// Port for this login server
+		'login_ssh_ip'						=> "127.0.0.1",			// IP for SSH login
+		'login_ssh_port'				=> 22,					// Port # for SSH connections to this server.
+		'login_ssh_method'				=> "key",				// How to auth to the server? key = pub/private key, plain = plaintext user/pass
+		'login_ssh_user'				=> "ragnarok",			// Username to connect to the SSH for the login server
+		'login_ssh_pass'				=> "password",			// Password to connect to the SSH server if method = plain
+		'login_ssh_pubkeyfile'			=> "/home/user/.ssh/id_rsa.pub",		// Your public SSH key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
+		'login_ssh_prikeyfile'			=> "/home/user/.ssh/id_rsa", // Your private key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
+		'login_server_path'				=> "/home/ragnarok",	// Path to the login server exec and files
+		'login_server_exec'				=> "login-server",		// Login Server Executable
+		'last_mac_addon'				=> "yes",				// Does your login table have a last_mac column (yes or no)?
+		
+	),
+	/*'2' => array(		// Group ID of login servers. 
+		'login_database_group'		=> "ragnarok_2",			// Connection group in database.php that holds the connection information for this login server.
+		'login_ip'						=> "127.0.0.1",			// IP that the login server is listening on
+		'login_port'					=> 6900,				// Port for this login server
+		'login_ssh_ip'						=> "127.0.0.1",			// IP for SSH login
+		'login_ssh_port'				=> 22,					// Port # for SSH connections to this server.
+		'login_ssh_method'				=> "key",				// How to auth to the server? key = pub/private key, plain = plaintext user/pass
+		'login_ssh_user'				=> "ragnarok",			// Username to connect to the SSH for the login server
+		'login_ssh_pass'				=> "password",			// Password to connect to the SSH server if method = plain
+		'login_ssh_pubkeyfile'			=> "/home/user/.ssh/id_rsa.pub",		// Your public SSH key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
+		'login_ssh_prikeyfile'			=> "/home/user/.ssh/id_rsa", // Your private key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
+		'login_server_path'				=> "/home/ragnarok",	// Path to the login server exec and files
+		'login_server_exec'				=> "login-server",		// Login Server Executable
+		'last_mac_addon'				=> "yes",				// Does your login table have a last_mac column (yes or no)?
+	),*/
+);
 // Default server ID to direct logged in users to
 $config['default_server_id'] = 1;
 
@@ -38,18 +65,23 @@ $config['ragnarok_servers'] = array(
 		'map_servername'		=> "s1",					// The servername as in the login table and what you set in char_server.conf and map_server.conf
 		'main_database_group'		=> "ragnarok",			// The database group in database.php config file that holds this database connection info for all char/map databases (less logs)
 		'log_database_group'	=> "ragnarok_log",	// the database group that holds the log tables for this server.
-		'ip'						=> "127.0.0.1",		// IP that the server is listening on
-		'login_port'			=> 6900,					// Login Port number for this server
-		'char_port'				=> 6121,					// Character Port number for this server
-		'map_port'				=> 5121,					// Map Port number for this server
+		'server_ip'						=> "127.0.0.1",		// IP that the server is listening on
+		'login_server_group'	=> 1,				// Login server group that this server listens for connections on.
+		'char_port'				=> 6121,					// Character Server Port number for this server
+		'map_port'				=> 5121,					// Map Server Port number for this server
+		'server_ssh_ip'						=> "127.0.0.1",			// IP that the login server is listening on (also how we connect via SSH)
+		'server_ssh_port'				=> 22,					// Port # for SSH connections to this server.
+		'server_ssh_method'				=> "key",				// How to auth to the server? key = pub/private key, plain = plaintext user/pass
+		'server_ssh_user'				=> "ragnarok",			// Username to connect to the SSH for the login server
+		'server_ssh_pass'				=> "password",			// Password to connect to the SSH server if method = plain
+		'server_ssh_pubkeyfile'			=> "/home/user/.ssh/id_rsa.pub",		// Your public SSH key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
+		'server_ssh_prikeyfile'			=> "/home/user/.ssh/id_rsa", // Your private key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
 		'server_path'			=> "/home/ragnarok/",	// Path to server files.
-		'login_server_exec'	=> "login-server",	// Login server executable 
 		'char_server_exec'	=> "char-server",		// Char server executable
 		'map_server_exec'		=> "map-server",		// Map server executable
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
-		'update_method'		=> "svn",				// Update method. Three possible choices, svn = will issue "svn up" command, git = will issue "git pull", off = disable function. NOTE: to be able to use this the repository must have already been cloned or checked out.
 	),
 	/*'2'	=> array(
 		'servername'			=> "Server2",  		// Human readable server name. Will be selectable by the user.
@@ -57,9 +89,16 @@ $config['ragnarok_servers'] = array(
 		'main_database_group'		=> "ragnarok2",		// The database group in database.php config file that holds this database connection info.
 		'log_database_group'	=> "ragnarok_log",	// the database group that holds the log tables for this server.
 		'ip'						=> "127.0.0.1",		// IP that the server is listening on
-		'login_port'			=> 6900,					// Login Port number for this server
+		'login_server_group'	=> 1,				// Login server group that this server listens for connections on.
 		'char_port'				=> 6121,					// Character Port number for this server
 		'map_port'				=> 5121,					// Map Port number for this server
+		'server_ssh_ip'						=> "127.0.0.1",			// IP that the login server is listening on (also how we connect via SSH)
+		'server_ssh_port'				=> 22,					// Port # for SSH connections to this server.
+		'server_ssh_method'				=> "key",				// How to auth to the server? key = pub/private key, plain = plaintext user/pass
+		'server_ssh_user'				=> "ragnarok",			// Username to connect to the SSH for the login server
+		'server_ssh_pass'				=> "password",			// Password to connect to the SSH server if method = plain
+		'server_ssh_pubkeyfile'			=> "/home/user/.ssh/id_rsa.pub",		// Your public SSH key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
+		'server_ssh_prikeyfile'			=> "/home/user/.ssh/id_rsa", // Your private key path in your HAT installation for your remote server. NOTE this should NOT be in your web directory where hat is located!
 		'server_path'			=> "/home/ragnarok/",	// Path to server files.
 		'login_server_exec'	=> "login-server",	// Login server executable 
 		'char_server_exec'	=> "char-server",		// Char server executable
@@ -67,7 +106,6 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
-		'update_method'		=> "svn",				// Update method. Three possible choices, svn = will issue "svn up" command, git = will issue "git pull", off = disable function. NOTE: to be able to use this the repository must have already been pulled or checked out.
 	),*/
 );
 			

@@ -7,9 +7,14 @@ class MY_Controller extends CI_Controller {
 	public $db_login;
 	public $db_charmap;
 	public $db_charmaplog;
+	public $ssh2_lib;
 	public function __construct() {
 		parent::__construct();
-		$this->db_login = $this->load->database($this->config->item('login_server'), TRUE, TRUE);
+		$servers = $this->config->item('ragnarok_servers');
+		$login_servers = $this->config->item('login_servers');
+		$login_srv_id = $servers['1']['login_server_group'];
+		$login_srv = $login_servers[$login_srv_id]['login_database_group'];
+		$this->db_login = $this->load->database($login_srv, TRUE, TRUE);
 		$this->load->model('accountmodel');
 		$this->load->model('adminmodel');
 		$this->load->model('analysismodel');
@@ -27,7 +32,6 @@ class MY_Controller extends CI_Controller {
 			// Load permission lists and put all permissions into an array for easy retrieval
 			$perm_list = $this->config->item('permissions');
 			$this->check_perm = $this->usermodel->get_perms($this->session_data['group'],$perm_list);
-			$servers = $this->config->item('ragnarok_servers');
 			$this->maindatabase = $servers[$this->session->userdata('server_select')]['main_database_group'];
 			$this->db_charmap = $this->load->database($this->maindatabase, TRUE, TRUE);
 			$this->logdatabase = $servers[$this->session->userdata('server_select')]['log_database_group'];
