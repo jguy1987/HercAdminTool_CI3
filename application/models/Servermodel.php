@@ -8,21 +8,26 @@ Class Servermodel extends CI_Model {
 	public $charmap_ssh_conn;
 	public function __construct() {
 		include(APPPATH . '/third_party/phpseclib/Net/SSH2.php');
+		include(APPPATH . '/third_party/phpseclib/Net/SFTP.php');
 		set_include_path(get_include_path() . PATH_SEPARATOR . APPPATH . 'third_party/phpseclib');
 		$servers = $this->config->item('ragnarok_servers');
 		$login_servers = $this->config->item('login_servers');
 		$login_srv_id = $servers['1']['login_server_group'];
 
 		$this->login_ssh_conn = new Net_SSH2($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
+		$this->login_sftp = new Net_SFTP($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
 		if ($login_servers[$login_srv_id]['login_ssh_method'] == "plain") {
 			$this->login_ssh_conn->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass']);
+			$this->login_sftp->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass']);
 		}
 		else if ($login_servers[$login_srv_id]['login_ssh_method'] == "key") {
 			// Not supported yet
 		}
 		$this->charmap_ssh_conn = new Net_SSH2($servers[$this->session->userdata('server_select')]['server_ssh_ip'], $servers[$this->session->userdata('server_select')]['server_ssh_port']);
+		$this->charmap_sftp = new Net_SFTP($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
 		if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "plain") {
 			$this->charmap_ssh_conn->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass']);
+			$this->charmap_sftp->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass']);
 		}
 		else if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "key") {
 			// Not implemented yet
@@ -230,7 +235,7 @@ Class Servermodel extends CI_Model {
 		$cmd_screen = sprintf("screen -dmS %s-server-%s'\n'", $svr, $servers[$sid]['map_servername']);
 		$charOut = "".$servers[$sid]['server_path']."/log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
 		$mapOut = "".$servers[$sid]['server_path']."/log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
-		$loginOut = "".$login_servers[$login_srv_id]['login_server_path']."/log/login-server.log"; // Set the file path for the login server console logs
+		$loginOut = "".$login_servers[$login_srv_id]['login_server_path']."/log/login-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the login server console logs
 		$cmd_login = "screen -S login-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$login_servers[$login_srv_id]['login_server_path']." && ./".$login_servers[$login_srv_id]['login_server_exec']." > ".$loginOut."\n'";
 		$cmd_char = "screen -S char-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$servers[$sid]['server_path']." && ./".$servers[$sid]['char_server_exec']." > ".$charOut."\n'";
 		$cmd_map = "screen -S map-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$servers[$sid]['server_path']." && ./".$servers[$sid]['map_server_exec']." > ".$mapOut."\n'";
@@ -331,17 +336,27 @@ Class Servermodel extends CI_Model {
 	
 	function return_console($sid, $server, $lines) {
 		$servers = $this->config->item('ragnarok_servers');
+		$login_servers = $this->config->item('login_servers');
+		$login_srv_id = $servers['1']['login_server_group'];
+		$charOut = "".$servers[$sid]['server_path']."/log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
+		$mapOut = "".$servers[$sid]['server_path']."/log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
+		$loginOut = "".$login_servers[$login_srv_id]['login_server_path']."/log/login-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the login server console logs
 		if ($server == "login") {
-			$filepath = "".$this->config->item('hat_path')."application/hat_log/".$server."-server.log";
+			$this->login_sftp->get($loginOut, "".$this->config->item('hat_path')."application/logs/".$server."-server-".$servers[$sid]['map_servername'].".log");
+			$filepath = "".$this->config->item('hat_path')."application/logs/".$server."-server-".$servers[$sid]['map_servername'].".log";
 		}
-		else {
-			$filepath = "".$this->config->item('hat_path')."application/hat_log/".$server."-server-".$servers[$sid]['map_servername'].".log";
+		else if ($server == "char") {
+			$this->charmap_sftp->get($charOut, "".$this->config->item('hat_path')."application/logs/".$server."-server-".$servers[$sid]['map_servername'].".log");
+			$filepath = "".$this->config->item('hat_path')."application/logs/".$server."-server-".$servers[$sid]['map_servername'].".log";
 		}
+		else if ($server == "map") {
+			$this->charmap_sftp->get($mapOut, "".$this->config->item('hat_path')."application/logs/".$server."-server-".$servers[$sid]['map_servername'].".log");
+			$filepath = "".$this->config->item('hat_path')."application/logs/".$server."-server-".$servers[$sid]['map_servername'].".log";
+		}
+		
 		$adaptive = true;
-		// Open file
 		$f = @fopen($filepath, "rb");
 		if ($f === false) return false;
-
 		// Sets buffer size
 		if (!$adaptive) $buffer = 4096;
 		else $buffer = ($lines < 2 ? 64 : ($lines < 10 ? 512 : 4096));
