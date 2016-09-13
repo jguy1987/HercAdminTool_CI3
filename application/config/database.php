@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-$active_group = 'ragnarok';
+$active_group = 'hat';
 $query_builder = TRUE;
 
 $db['hat'] = array(

@@ -40,7 +40,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://admin.aesiraonline.com">HercAdminTool</a>
+				<a class="navbar-brand" href="<?php echo $this->config->item('base_url'); ?>">HercAdminTool</a>
 			</div>
 			<ul class="nav navbar-top-links navbar-right">
 				Welcome, <?php echo $username; ?>!
