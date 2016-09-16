@@ -29,7 +29,7 @@ class Analysis extends MY_Controller {
 	
 	public function itemcount_result() {
 		if ($this->adminmodel->check_perm($this->session_data['group'],'itemcount') == True) {
-			$inputID = $this->input->post('inputID']); // fix for older PHP versions. Can't pass object through empty.
+			$inputID = $this->input->post('inputID'); // fix for older PHP versions. Can't pass object through empty.
 			if (empty($inputID) == false) {
 				$searchResults = $this->analysismodel->get_itemcount($this->input->post('inputID'));
 				// Break apart the array:
