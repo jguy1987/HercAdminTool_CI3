@@ -126,7 +126,7 @@
 										<table class="table table-striped" id="dataTables-example">
 											<tr>
 												<td><label>STR</label></td><td><input type="number" class="form-control" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>INT</label></td><td><input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->INT; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
+												<td><label>INT</label></td><td><input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->int; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
 											</tr>
 											<tr>
 												<td><label>AGI</label></td><td><input type="number" class="form-control" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
