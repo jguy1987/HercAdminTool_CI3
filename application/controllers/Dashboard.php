@@ -17,12 +17,13 @@ class Dashboard extends MY_Controller {
 	public function index() {
 		$session_data = $this->session->userdata('loggedin');
 		$this->usermodel->update_user_active($this->session_data['id'],"dashboard");
+		$servers = $this->config->item('ragnarok_servers');
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
 		$data2['herc_stats'] = $this->servermodel->get_herc_stats(0);
 		$data2['active_admins']	= $this->dashboardmodel->get_active_admins();
-		if ($this->adminmodel->check_perm($this->session_data['group'],'serverstats') == True) {
-			$json_url = base_url('assets/linfo/?out=json');
-			$data2['server_stats'] = $this->servermodel->get_server_stats($json_url);
+		if ($this->adminmodel->check_perm($this->session_data['group'],'serverstats') == True && $servers[$this->session->userdata('server_select')]['showsysinfo'] == "yes") {
+			$data2['server_performance'] = $this->servermodel->get_server_performance($this->session->userdata('server_select'));
+			//$data2['server_stats'] = $this->servermodel->get_server_stats($json_url);
 			$data2['mysql_stats'] = $this->servermodel->get_mysql_stats();
 			$data2['server_perm'] = True;
 		}

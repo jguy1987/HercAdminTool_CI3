@@ -92,7 +92,7 @@ Class Servermodel extends CI_Model {
 	}
 	
 	function get_mysql_stats() {
-		$stats = mysqli_stat($this->db_login->conn_id);
+		$stats = mysqli_stat($this->db_charmap->conn_id);
 		$mySQLstats = array();
 		foreach (explode("  ", $stats) as $k) {
 			$ret = explode(': ', $k);
@@ -101,31 +101,53 @@ Class Servermodel extends CI_Model {
 		return $mySQLstats;
 	}
 	
-	function get_server_stats($json_url) {
-		$json = file_get_contents($json_url);
-		$serverData = json_decode($json, true);
-		
-		// Fix some of the formats to be more human readable...
-		$RAMused = $serverData['RAM']['total'] - $serverData['RAM']['free'];
-		$swapused = $serverData['RAM']['swapTotal'] - $serverData['RAM']['swapFree'];
-		$serverData['RAM']['used_pct'] = round($RAMused / $serverData['RAM']['total'] * 100, 2);
-		$serverData['RAM']['swapUsed_pct'] = round($swapused / $serverData['RAM']['swapTotal'] * 100, 2);
-		$serverData['RAM']['total'] = $this->format_bytes($serverData['RAM']['total']);
-		$serverData['RAM']['free'] = $this->format_bytes($serverData['RAM']['free']);
-		$serverData['RAM']['swapTotal'] = $this->format_bytes($serverData['RAM']['swapTotal']);
-		$serverData['RAM']['swapFree'] = $this->format_bytes($serverData['RAM']['swapFree']);
-		$serverData['RAM']['used'] = $this->format_bytes($RAMused);
-		$serverData['RAM']['swapUsed'] = $this->format_bytes($swapused);
-		foreach ($serverData['Network Devices'] as $dev=>$v) {
-			$serverData['Network Devices'][$dev]['received_f'] = $this->format_bytes($serverData['Network Devices'][$dev]['recieved']['bytes']);
-			$serverData['Network Devices'][$dev]['sent_f'] = $this->format_bytes($serverData['Network Devices'][$dev]['sent']['bytes']);
+	function get_server_performance($sid) {
+		// Check server stats. 
+		// Returns either: 
+		// $serverData if all was OK.
+		// 1 if the module(s) is/are not installed.
+		// 2 if the XML file failed to load.
+		$dir = $this->config->item('hat_path')."assets/psutil/get_sys_info.py";
+		$serverStatXML = $this->config->item('hat_path')."application/logs/serverstat.xml";
+		// First, make sure that psutils and lxml is available on the remote server. Script can't run if its not there.
+		$psutilOut = $this->charmap_ssh_conn->exec("python -c 'import pkgutil; print(1 if pkgutil.find_loader(\"psutil\") else 0)'");
+		$lxmlOut = $this->charmap_ssh_conn->exec("python -c 'import pkgutil; print(1 if pkgutil.find_loader(\"lxml\") else 0)'");
+		if ($psutilOut == 1 && $lxmlOut == 1) { // Both modules exist on the remote server, OK to proceed.
+			// Copy over the get_sys_info script onto the remote server and run.
+			$this->charmap_sftp->put('get_sys_info.py', $dir, NET_SFTP_LOCAL_FILE);
+			$this->charmap_ssh_conn->exec('python get_sys_info.py');
+			// Grab the resulting XML file and copy it back to HAT. Place in logs directory.
+			$this->charmap_sftp->get('serverstat.xml', $serverStatXML);
+			// Parse the XML for inclusion into script.
+			if (file_exists($serverStatXML)) {
+				$xml = simplexml_load_file($serverStatXML);
+			}
+			else {
+				return 2;
+			}
+			
+			$serverData['name'] = $xml->basic->name;
+			$serverData['OS'] = $xml->basic->os;
+			$serverData['boot'] = date('Y-m-d H:i:s', intval($xml->basic->boottime));
+			$serverData['loadavg'] = $xml->cpu->loadavg;
+			$serverData['proc'] = $xml->cpu->proccount;
+			$serverData['RAM']['used'] = $this->format_bytes($xml->mem->virtual->used);
+			$serverData['RAM']['free'] = $this->format_bytes($xml->mem->virtual->avail);
+			$serverData['RAM']['total'] = $this->format_bytes($xml->mem->virtual->total);
+			$serverData['RAM']['used_pct'] = $xml->mem->virtual->pct;
+			$serverData['RAM']['swapUsed'] = $this->format_bytes($xml->mem->swap->used);
+			$serverData['RAM']['swapFree'] = $this->format_bytes($xml->mem->swap->avail);
+			$serverData['RAM']['swapTotal'] = $this->format_bytes($xml->mem->swap->total);
+			$serverData['RAM']['swapUsed_pct'] = $xml->mem->swap->pct;
+			$serverData['disk']['total'] = $this->format_bytes($xml->disk->total);
+			$serverData['disk']['used'] = $this->format_bytes($xml->disk->used);
+			$serverData['disk']['free'] = $this->format_bytes($xml->disk->free);
+			$serverData['disk']['used_percent'] = round($xml->disk->used / $xml->disk->total * 100, 2);
+			return $serverData;
 		}
-		foreach ($serverData['Mounts'] as $mid=>$vid) {
-			$serverData['Mounts'][$mid]['size'] = $this->format_bytes($serverData['Mounts'][$mid]['size']);
-			$serverData['Mounts'][$mid]['used'] = $this->format_bytes($serverData['Mounts'][$mid]['used']);
-			$serverData['Mounts'][$mid]['free'] = $this->format_bytes($serverData['Mounts'][$mid]['free']);
+		else {
+			return 1;
 		}
-		return $serverData;
 	}
 	
 	function server_online_check($sid, $svr) {
@@ -239,55 +261,21 @@ Class Servermodel extends CI_Model {
 		$cmd_login = "screen -S login-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$login_servers[$login_srv_id]['login_server_path']." && ./".$login_servers[$login_srv_id]['login_server_exec']." > ".$loginOut."\n'";
 		$cmd_char = "screen -S char-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$servers[$sid]['server_path']." && ./".$servers[$sid]['char_server_exec']." > ".$charOut."\n'";
 		$cmd_map = "screen -S map-server-".$servers[$sid]['map_servername']." -X stuff 'cd ".$servers[$sid]['server_path']." && ./".$servers[$sid]['map_server_exec']." > ".$mapOut."\n'";
-		//echo $cmd_login;
-		//$cmd_cd_login = sprintf("screen -S login-server-%s -X stuff cd %s'\n'", $servers[$sid]['map_servername'], $login_servers[$login_srv_id]['login_server_path']);
-		//$cmd_start_login = sprintf("screen -S login-server-%s -X stuff ./%s > %s'\n'", $servers[$sid]['map_servername'], $login_servers[$login_srv_id]['login_server_exec'], $loginOut);
-		//$cmd_cd_charmap = sprintf("screen -S %s-server-%s -X stuff cd %s\'\n'", $svr, $servers[$sid]['map_servername'], $servers[$sid]['server_path']);
-		//$cmd_start_char = sprintf("screen -S %s-server-%s -X stuff ./%s > %s'\n'", $svr, $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut);
-		//$cmd_start_map = sprintf("screen -S %s-server-%s -X stuff ./%s > %s'\n'", $svr, $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut);
 		switch ($svr) {
 			case "login":
 				$this->login_ssh_conn->exec($cmd_screen); // Open a screen for the login server
 				$this->login_ssh_conn->exec($cmd_login); // Change directory to the login-server exec
-				//$this->login_ssh_conn->exec($cmd_start_login); // Run the command to start the login server.
 				break;
 			case "char":
 				$this->charmap_ssh_conn->exec($cmd_screen); // Open a screen for the Char server
 				$this->charmap_ssh_conn->exec($cmd_char); // Change directory to the char-server exec
-				//$this->charmap_ssh_conn->exec($cmd_start_char); // Run the command to start the char server.
 				break;
 			case "map":
 				$this->charmap_ssh_conn->exec($cmd_screen); // Open a screen for the map server
 				$this->charmap_ssh_conn->exec($cmd_map); // Change directort to the map-server exec
-				//$this->charmap_ssh_conn->exec($cmd_start_map); // Run the command to start the map server.
 				break;
 		}
 	}
-	/* function login_server_start($sid) {
-		$servers = $this->config->item('ragnarok_servers');
-		exec("screen -dmS login-server"); // Open a screen for the login server
-		$loginOut = "".$this->config->item('hat_path')."application/hat_log/login-server.log"; // Set the file path for the login server console logs
-		exec(sprintf("screen -S login-server -X stuff \"cd %s\"'\n'", $servers[$sid]['server_path'])); // Change directory to the login-server exec
-		exec(sprintf("screen -S login-server -X stuff \"./%s > %s\"'\n'", $servers[$sid]['login_server_exec'], $loginOut)); // Run the command to start the login server.
-	}
-	
-	function char_server_start($sid) {
-		$servers = $this->config->item('ragnarok_servers');
-		$screenChar = "screen -dmS char-server-".$servers[$sid]['map_servername']."";
-		exec($screenChar); // Open a screen for the Char server
-		$charOut = "".$this->config->item('hat_path')."application/hat_log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
-		exec(sprintf("screen -S char-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directory to the char-server exec
-		exec(sprintf("screen -S char-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['char_server_exec'], $charOut)); // Run the command to start the char server.
-	}
-	
-	function map_server_start($sid) {
-		$servers = $this->config->item('ragnarok_servers');
-		$screenMap = "screen -dmS map-server-".$servers[$sid]['map_servername']."";
-		exec($screenMap); // Open a screen for the map server
-		$mapOut = "".$this->config->item('hat_path')."application/hat_log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
-		exec(sprintf("screen -S map-server-%s -X stuff \"cd %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['server_path'])); // Change directort to the map-server exec
-		exec(sprintf("screen -S map-server-%s -X stuff \"./%s > %s\"'\n'", $servers[$sid]['map_servername'], $servers[$sid]['map_server_exec'], $mapOut)); // Run the command to start the map server.
-	} */
 	
 	function all_server_toggle($sid, $cmd) {
 		// This function accepts server id ($sid) and command ($cmd)
@@ -417,6 +405,7 @@ Class Servermodel extends CI_Model {
 	}
 	
 	function format_bytes($bytes) {
+		$bytes = intval($bytes);
 		$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
 
 		$bytes = max($bytes, 0);

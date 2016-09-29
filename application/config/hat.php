@@ -82,6 +82,7 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
+		'showsysinfo'			=> "yes",				// Show system performance information on Dashboard (yes or no)? Note: Installation of some third party libraries required on server running Hercules. Consult the user guide.
 	),
 	/*'2'	=> array(
 		'servername'			=> "Server2",  		// Human readable server name. Will be selectable by the user.
@@ -106,6 +107,7 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
+		'showsysinfo'			=> "yes",				// Show system performance information on Dashboard (yes or no)? Note: Installation of some third party libraries required on server running Hercules. Consult the user guide.
 	),*/
 );
 			
