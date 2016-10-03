@@ -80,7 +80,7 @@ $autoload['helper'] = array('url','form');
 |
 */
 
-$autoload['config'] = array('hat');
+$autoload['config'] = array('hat', 'hat_bugtracker');
 
 
 /*

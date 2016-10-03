@@ -174,4 +174,31 @@ Class Adminmodel extends CI_Model {
 			return False;
 		}
 	}
+	
+	function get_list_devs() {
+		// Get list of groups that are marked "isdev", i.e. can have bugs assigned to them.
+		$users = array();
+		$q = $this->db_hat->get_where('hat_groups', array('isdev' => '1'));
+		$q_array = $q->result_array();
+		foreach ($q_array as $k=>$v) {
+			// Select all users and their user ID's that are part of that group.
+			$this->db_hat->select('id,username');
+			$this->db_hat->where('groupid', $v['id']);
+			$q_users = $this->db_hat->get('hat_users');
+			foreach ($q_users->result_array() as $row) {
+				$users[$row['id']] = $row['username'];
+			}
+		}
+		return $users;
+	}
+	
+	function list_admins_by_name() {
+		// Returns an array with the key being userid, value being name.
+		$users = array();
+		$q = $this->db_hat->get('hat_users');
+		foreach ($q->result_array() as $k=>$v) {
+				$users[$v['id']] = $v['username'];
+		}
+		return $users;
+	}
 }

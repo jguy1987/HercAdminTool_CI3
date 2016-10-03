@@ -11,6 +11,7 @@ class MY_Controller extends CI_Controller {
 	public $ssh2_lib;
 	public function __construct() {
 		parent::__construct();
+
 		$this->load->model('usermodel');
 		$this->db_hat = $this->load->database('hat', TRUE, TRUE);
 		//$this->output->enable_profiler(TRUE);
@@ -20,12 +21,12 @@ class MY_Controller extends CI_Controller {
 			$this->load->model('adminmodel');
 			$this->load->model('analysismodel');
 			$this->load->model('itemmodel');
-
 			$this->load->model('dashboardmodel');
 			$this->load->model('servermodel');
 			$this->load->model('gamelogmodel');
 			$this->load->model('charmodel');
 			$this->load->model('guildmodel');
+			$this->load->model('bugmodel');
 			$servers = $this->config->item('ragnarok_servers');
 			$login_servers = $this->config->item('login_servers');
 			$login_srv_id = $servers[$this->session->userdata('server_select')]['login_server_group'];

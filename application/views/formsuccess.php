@@ -76,6 +76,15 @@
 			case "charkick":
 				echo "Character kicked! Return to the <a href='/character/details/".$char_id."'>character details page</a>.";
 				break;
+			case "newbug":
+				echo "New bug added! Return to the <a href='/bugtracker/buglist'>list of bugs</a>.";
+				break;
+			case "newcomment":
+				echo "New comment added! Return to the <a href='/bugtracker/details/".$bug_id."'>bug details page</a>.";
+				break;
+			case "editbug":
+				echo "Edited bug details successfully. Return to the <a href='/bugtracker/details/".$bug_id."'>bug details page</a>.";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

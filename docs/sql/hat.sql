@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `hat_bugs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hat_bugs` (
-  `id` mediumint(7) NOT NULL AUTO_INCREMENT,
+  `bug_id` mediumint(7) NOT NULL AUTO_INCREMENT,
   `starter` smallint(4) NOT NULL,
   `startdate` datetime NOT NULL,
   `status` tinyint(2) NOT NULL,
@@ -63,13 +63,31 @@ CREATE TABLE `hat_bugs` (
   `category` tinyint(3) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `server` tinyint(3) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  PRIMARY KEY (`bug_id`),
+  UNIQUE KEY `bug_id` (`bug_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=65001 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `hat_bugs`
+--
+
+DROP TABLE IF EXISTS `hat_bugcomments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hat_bugcomments` (
+	`commentid` mediumint(7) NOT NULL AUTO_INCREMENT,
+	`datetime` datetime NOT NULL,
+	`bug_id` mediumint(7) NOT NULL,
+	`userid` smallint(4) NOT NULL,
+	`comment` text NOT NULL,
+	PRIMARY KEY (`commentid`),
+	UNIQUE KEY `commentid` (`commentid`)
+) ENGINE=InnoDB AUTO_INCREMENT=30000 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hat_bugcomments`
 --
 
 --
@@ -160,6 +178,7 @@ CREATE TABLE `hat_groups` (
   `makeprivate` tinyint(1) DEFAULT NULL,
   `assignbug` tinyint(1) DEFAULT NULL,
   `editbugs` tinyint(1) DEFAULT NULL,
+  `isdev` tinyint(1) NOT NULL,
   `viewprivate` tinyint(1) DEFAULT NULL,
   `viewaccounts` tinyint(1) DEFAULT NULL,
   `viewchars` tinyint(1) DEFAULT NULL,
@@ -175,7 +194,7 @@ CREATE TABLE `hat_groups` (
 
 LOCK TABLES `hat_groups` WRITE;
 /*!40000 ALTER TABLE `hat_groups` DISABLE KEYS */;
-INSERT INTO `hat_groups` VALUES (1,'Trial Gamemaster',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0),(25,'Gamemaster',1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0),(50,'Super Gamemaster',1,1,1,1,0,0,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,0,1,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0),(75,'Game Administrator',1,1,1,1,0,0,1,1,1,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0),(80,'Developer',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0),(98,'Co-Owner',1,1,1,1,1,98,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0),(99,'Owner',1,1,1,1,1,99,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+INSERT INTO `hat_groups` VALUES (1,'Trial Gamemaster',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0),(25,'Gamemaster',1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0),(50,'Super Gamemaster',1,1,1,1,0,0,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,0,1,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0),(75,'Game Administrator',1,1,1,1,0,0,1,1,1,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0),(80,'Developer',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0),(98,'Co-Owner',1,1,1,1,1,98,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0),(99,'Owner',1,1,1,1,1,99,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
 /*!40000 ALTER TABLE `hat_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 

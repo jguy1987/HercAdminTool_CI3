@@ -60,5 +60,31 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+$(function() {
+	$("#status").change(function() {
+		if ($(this).val() == "19") {
+			$("#resolution").prop("disabled", false);
+		}
+		else
+			var element = document.getElementById('resolution');
+			element.value = "-";
+			$("#resolution").prop("disabled", true);
+	});
+});
+</script>
+<script type="text/javascript">
+$(function() {
+	$("#status").change(function() {
+		if ($(this).val() == "18") {
+			$("#assigned").prop("disabled", false);
+		}
+		else
+			var element = document.getElementById('assigned');
+			element.value = "-";
+			$("#assigned").prop("disabled", true);
+	});
+});
+</script>
 </body>
 </html>

@@ -82,6 +82,7 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
+		'use_bugtracker'		=> "yes",			// Use the bugtracker for this server, yes or no?
 		'showsysinfo'			=> "yes",				// Show system performance information on Dashboard (yes or no)? Note: Installation of some third party libraries required on server running Hercules. Consult the user guide.
 	),
 	/*'2'	=> array(
@@ -89,7 +90,7 @@ $config['ragnarok_servers'] = array(
 		'map_servername'		=> "s2",					// The servername as in the login table and what you set in char_server.conf and map_server.conf
 		'main_database_group'		=> "ragnarok2",		// The database group in database.php config file that holds this database connection info.
 		'log_database_group'	=> "ragnarok_log",	// the database group that holds the log tables for this server.
-		'ip'						=> "127.0.0.1",		// IP that the server is listening on
+		'server_ip'						=> "127.0.0.1",		// IP that the server is listening on
 		'login_server_group'	=> 1,				// Login server group that this server listens for connections on.
 		'char_port'				=> 6121,					// Character Port number for this server
 		'map_port'				=> 5121,					// Map Port number for this server
@@ -107,6 +108,7 @@ $config['ragnarok_servers'] = array(
 		'reset_map'				=> "prontera", 		// Map name to reset players to
 		'reset_x'				=> "142",				// X coordinate to reset players to
 		'reset_y'				=> "241",				// Y coordinate to reset players to
+		'use_bugtracker'		=> "yes",			// Use the bugtracker for this server, yes or no?
 		'showsysinfo'			=> "yes",				// Show system performance information on Dashboard (yes or no)? Note: Installation of some third party libraries required on server running Hercules. Consult the user guide.
 	),*/
 );
@@ -307,15 +309,16 @@ $config['itemTypes'] = array(
 
 $config["permissions"] = array(
 	'account'		=> array( // Permissions related to account management
+		'viewaccounts'		=> "View Accounts",
 		'viewemail'			=> "View Email Address",
 		'editacctemail' 	=> "Edit Account Email Address",
 		'resetacctpass' 	=> "Reset Account Password",
 		'editgender' 		=> "Edit Account Gender",
 		'addaccount'		=> "Add Game Account",
-		'editacctgroup'	=> "Edit game account group ID",
+		'editacctgroup'		=> "Edit game account group ID",
 		'acctgroupmax'		=> "Max group level in game account able to edit", // This determines if the user can edit any GM in-game accounts by their Group ID. Even if they have permissions to edit the email, if the group ID of the account is higher than this, they can't edit it.
 		'editacctbd'		=> "Edit Account Birthdate",
-		'editacctslots'	=> "Edit Account Reserved Slots",
+		'editacctslots'		=> "Edit Account Reserved Slots",
 		'usepurge'			=> "Purge Inactive Accounts",
 		'banaccount'		=> "Ban Account",
 		'unbanaccount'		=> "Unban Account",
@@ -323,12 +326,13 @@ $config["permissions"] = array(
 		'editstorageitem'	=> "Edit Item in Account Storage",
 	),
 	'character'		=> array( // Permissions related to Character Management
+		'viewchars'			=> "View Characters",
 		'whosonline'		=> "View Who's Online",
 		'editcharname'		=> "Edit Character Name",
 		'editcharslot'		=> "Edit Character Slot",
 		'editcharzeny'		=> "Edit Character Zeny",
 		'editcharlv'		=> "Edit Character Levels",
-		'editcharstats'	=> "Edit Character Stats",
+		'editcharstats'		=> "Edit Character Stats",
 		'editcharjob'		=> "Change Character Job",
 		'editcharlook'		=> "Change Character Look",
 		'delcharitem'		=> "Delete Any Character Item",
@@ -345,16 +349,18 @@ $config["permissions"] = array(
 		'addadmin'			=> "Add Admin",
 		'editadmin'			=> "Edit Admin",
 		'deladmin'			=> "Remove Admin",
-		'deladmingroup'	=> "Remove Admin Group",
+		'deladmingroup'		=> "Remove Admin Group",
 		'hatconfig'			=> "AdminTool Configuration Access",
-		'editadminnews'	=> "Edit Admin Announcements",
-		'viewadminlogs'	=> "View Admin Logs",
+		'editadminnews'		=> "Edit Admin Announcements",
+		'viewadminlogs'		=> "View Admin Logs",
 	),
 	'guild'			=> array( // Permissions related to guild management
-		'editguildname'	=> "Edit Guild Name",
+		'viewguilds'		=> "View guilds",
+		'editguildname'		=> "Edit Guild Name",
 		'editguildlv'		=> "Edit Guild Level/XP",
 		'delguild'			=> "Delete Guild",
 		'changeleader'		=> "Change Guild Leader",
+		'managecastles'		=> "Manage Guild Castles",
 	),
 	'ticket'			=> array( // Permissions related to ticket management
 		'viewtickets'		=> "View Tickets",
@@ -380,18 +386,28 @@ $config["permissions"] = array(
 		'itemcount'			=> "View Item Count by Character",
 		'level1zeny'		=> "View Lv1 Chars with more than 1m zeny",
 		'nocharaccts'		=> "View Accounts with no characters",
-		'top100'				=> "View Top 100 characters by any parameter",
+		'top100'			=> "View Top 100 characters by any parameter",
 		'mvpkill'			=> "View MVP Kills by MVP",
-		'delcharsaccts'	=> "View accounts with deleted characters",
+		'delcharsaccts'		=> "View accounts with deleted characters",
 	),
 	'log'				=> array( // Permissions related to log management
 		'atcmdlog'			=> "View @command logs",
 		'branchlog'			=> "View Branch logs",
 		'chatlog'			=> "View Chat Logs",
 		'loginlog'			=> "View Login Logs",
-		'mvplog'				=> "View MVP Logs",
-		'npclog'				=> "View NPC Logs",
+		'mvplog'			=> "View MVP Logs",
+		'npclog'			=> "View NPC Logs",
 		'picklog'			=> "View Item Pick Logs",
 		'zenylog'			=> "View Zeny Transaction Logs",
+	),
+	'bugtracker'		=> array( // Permissions related to bugtracker management
+		'viewbugs'			=> "View bugs",
+		'openbugs'			=> "Open a new bug",
+		'changestatus'		=> "Change the Status of bugs",
+		'makeprivate'		=> "Make a bug private",
+		'assignbug'			=> "Assign a bug",
+		'editbugs'			=> "Edit bugs",
+		'isdev'				=> "Is Developer (can be assigned bugs)?",
+		'viewprivate'		=> "View Private bugs",
 	),
 );
