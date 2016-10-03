@@ -85,6 +85,9 @@
 			case "editbug":
 				echo "Edited bug details successfully. Return to the <a href='/bugtracker/details/".$bug_id."'>bug details page</a>.";
 				break;
+			case "usersettingschange":
+				echo "Edited your settings successfully! Return to <a href='/user/settings'>settings page</a>";
+				break;
 			default:
 				echo "Return to the <a href='/'>dashboard</a>.";
 				break;

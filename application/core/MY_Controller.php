@@ -9,6 +9,7 @@ class MY_Controller extends CI_Controller {
 	public $db_charmaplog;
 	public $db_hat;
 	public $ssh2_lib;
+	public $global_data;
 	public function __construct() {
 		parent::__construct();
 
@@ -41,6 +42,9 @@ class MY_Controller extends CI_Controller {
 			$this->db_charmap = $this->load->database($this->maindatabase, TRUE, TRUE);
 			$this->logdatabase = $servers[$this->session->userdata('server_select')]['log_database_group'];
 			$this->db_charmaplog = $this->load->database($this->logdatabase, TRUE, TRUE);
+			// Get list of groups with ID's so that we can display on header.
+			$this->global_data['group_list'] = $this->adminmodel->list_groups_by_name();
+			$this->load->vars($this->global_data);
 		}				
    }
 }

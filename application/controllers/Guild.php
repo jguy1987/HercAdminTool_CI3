@@ -11,6 +11,8 @@ class Guild extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
@@ -38,13 +40,15 @@ class Guild extends MY_Controller {
 	}
 	
 	function details($gid) {
-		$this->usermodel->update_user_active($this->session_data['id'],"guild/details");
-		$data = array();
-		$data['class_list'] = $this->config->item('jobs');
-		$data += $this->load_guild_data($gid);
-		$this->load->view('guild/details', $data);
-		$this->load->view('datatables-scripts');
-		$this->load->view('footer');
+		if ($this->adminmodel->check_perm($this->session_data['group'],'viewguilds') == True && $this->vacation == 0) {
+			$this->usermodel->update_user_active($this->session_data['id'],"guild/details");
+			$data = array();
+			$data['class_list'] = $this->config->item('jobs');
+			$data += $this->load_guild_data($gid);
+			$this->load->view('guild/details', $data);
+			$this->load->view('datatables-scripts');
+			$this->load->view('footer');
+		}
 	}
 	
 	function leaderassign() {

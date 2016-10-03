@@ -11,12 +11,14 @@ class Bugtracker extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 	}
 
 
 	public function buglist() {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'viewbugs') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'viewbugs') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"bugtracker/list");
 			$data = $this->load_bug_data();
 			$data['buglist'] = $this->bugmodel->list_bugs();
@@ -31,7 +33,7 @@ class Bugtracker extends MY_Controller {
 	}
 	
 	public function newbug() {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'openbugs') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'openbugs') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"bugtracker/new");
 			$data = $this->load_bug_data();
 			$this->load->view('bugtracker/newbug', $data);
@@ -74,7 +76,7 @@ class Bugtracker extends MY_Controller {
 	}
 	
 	public function details($bid) {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'viewbugs') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'viewbugs') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"bugtracker/details");
 			$data['bug_details'] = $this->bugmodel->get_bug_details($bid);
 			$data['bug_history'] = $this->bugmodel->get_bug_history($bid);

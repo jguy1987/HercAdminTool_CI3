@@ -13,6 +13,8 @@ class Character extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
@@ -42,15 +44,17 @@ class Character extends MY_Controller {
 	}
 	
 	function details($cid) {
-		$this->usermodel->update_user_active($this->session_data['id'],"character/details");
-		$data['class_list'] = $this->config->item('jobs');
-		$data['perm_list'] = $this->config->item('permissions');
-		$data['equipLocation'] = $this->config->item('equipLocations');
-		$data['item_types'] = $this->config->item('itemTypes');
-		$data += $this->load_char_data($cid);
-		$this->load->view('character/details', $data);
-		$this->load->view('datatables-scripts');
-		$this->load->view('footer');
+		if ($this->adminmodel->check_perm($this->session_data['group'],'viewchars') == True && $this->vacation == 0) {
+			$this->usermodel->update_user_active($this->session_data['id'],"character/details");
+			$data['class_list'] = $this->config->item('jobs');
+			$data['perm_list'] = $this->config->item('permissions');
+			$data['equipLocation'] = $this->config->item('equipLocations');
+			$data['item_types'] = $this->config->item('itemTypes');
+			$data += $this->load_char_data($cid);
+			$this->load->view('character/details', $data);
+			$this->load->view('datatables-scripts');
+			$this->load->view('footer');
+		}
 	}
 	
 	function verifyedit() {
@@ -186,7 +190,7 @@ class Character extends MY_Controller {
 	}
 	
 	function resetpos($cid) {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'changeposition') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'changeposition') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"character/resetpos");
 			$this->charmodel->reset_char_pos($cid, $this->session_data['id']);
 			$data['referpage'] = "resetpos";
@@ -201,7 +205,7 @@ class Character extends MY_Controller {
 	}
 	
 	function kick($cid) {
-		$this->servermodel->apply_server_kick($result->char_id, $this->session->userdata('server_select'));
+		$this->servermodel->apply_server_kick($result->char_id, $this->session->userdata('server_select') && $this->vacation == 0);
 		$data['referpage'] = "charkick";
 		$data['char_id'] = $cid;
 		$this->load->view('formsuccess', $data);

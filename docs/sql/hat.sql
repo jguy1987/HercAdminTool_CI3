@@ -351,9 +351,16 @@ CREATE TABLE `hat_users` (
   `disablelogin` tinyint(1) NOT NULL,
   `lastactive` datetime DEFAULT NULL,
   `lastmodule` varchar(45) NOT NULL,
+  `vacation` tinyint(1) NOT NULL DEFAULT 0,
+  `vacationsince` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2002 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `hat_users`
+--
+
+INSERT INTO `hat_users` (`username`, `password`, `pemail`, `createdate`, `groupid`, `disablelogin`) VALUES ('admin', MD5('changeme1!'), 'tempemail@yourdomain.com', NOW(), 99, 0);
 

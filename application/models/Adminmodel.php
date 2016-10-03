@@ -34,6 +34,9 @@ Class Adminmodel extends CI_Model {
 	}
 	
 	function editadminuser($data) {
+		if ($data['vacation'] == 1) {
+			$data['vacationsince'] = date("Y-m-d H:i:s");
+		}
 		// First, check to see if we need to generate a new pass:
 		if ($data['genpass'] == true) {
 			// Generate new 15 char password, convert to MD5 and store it for email
@@ -176,9 +179,14 @@ Class Adminmodel extends CI_Model {
 	}
 	
 	function get_list_devs() {
-		// Get list of groups that are marked "isdev", i.e. can have bugs assigned to them.
+		// Get list of groups that are marked "isdev" and not in vacation mode, i.e. can have bugs assigned to them.
 		$users = array();
-		$q = $this->db_hat->get_where('hat_groups', array('isdev' => '1'));
+		$this->db_hat->select('hat_users.*, hat_groups.*, hat_users.id AS userid, hat_groups.id AS id');
+		$this->db_hat->from('hat_users');
+		$this->db_hat->join('hat_groups', 'hat_users.id = hat_groups.id');
+		$this->db_hat->where('hat_users.vacation', 0);
+		$this->db_hat->where('hat_groups.isdev', 1);
+		$q = $this->db_hat->get();
 		$q_array = $q->result_array();
 		foreach ($q_array as $k=>$v) {
 			// Select all users and their user ID's that are part of that group.
@@ -197,8 +205,26 @@ Class Adminmodel extends CI_Model {
 		$users = array();
 		$q = $this->db_hat->get('hat_users');
 		foreach ($q->result_array() as $k=>$v) {
-				$users[$v['id']] = $v['username'];
+			$users[$v['id']] = $v['username'];
 		}
 		return $users;
+	}
+	
+	function list_groups_by_name() {
+		// Returns an array with the key being groupid, value being name.
+		$groups = array();
+		$q = $this->db_hat->get('hat_groups');
+		foreach ($q->result_array() as $k=>$v) {
+			$groups[$v['id']] = $v['name'];
+		}
+		return $groups;
+	}
+	
+	function get_vacation_admins() {
+		$users = array();
+		$this->db_hat->select('vacation, vacationsince, username');
+		$this->db_hat->where('vacation', 1);
+		$q = $this->db_hat->get('hat_users');
+		return $q->result_array();
 	}
 }

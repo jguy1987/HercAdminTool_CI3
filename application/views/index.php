@@ -113,32 +113,39 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6 <?php if ($server_perm == False) { echo "col-lg-offset-6"; } ?>">
+		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Admin Announcements
+					<i class="fa fa-bar-chart-o fa-fw"></i> Account Registrations Past 7 days
 				</div>
 				<div class="panel-body">
-					<ul class="chat">
-						<?php foreach ($admin_news as $aNews): ?>
-						<li class="left clearfix">
-							<div class="chat-body clearfix">
-								<div class="header">
-									<strong class="primary-font"><?php echo $aNews['username']; ?></strong>
-									<small class="pull-right text-muted">
-										<i class="fa fa-clock-o fa-fw"></i> <?php echo $aNews['date']; ?>
-									</small>
-								</div>
-								<p>
-									<?php echo $aNews['content']; ?>
-								</p>
-							</div>
-						</li>
-						<?php endforeach; ?>
-					</ul>
+					<div id="acct-regs" style="height: 234px;"></div>
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Admins in Vacation Mode
+				</div>
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<th>Admin</th>
+							<th>Since</th>
+						</thead>
+						<tbody>
+							<?php foreach($vacation_admins as $k=>$v): ?>
+								<tr>
+									<td><?php echo $v['username']; ?></td>
+									<td><?php echo $v['vacationsince']; ?></td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>		
 	</div>
 	<div class="row">
 		<div class="col-lg-6">
@@ -171,13 +178,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-6 <?php if ($server_perm == False) { echo "col-lg-offset-6"; } ?>">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-bar-chart-o fa-fw"></i> Account Registrations Past 7 days
+					Admin Announcements
 				</div>
 				<div class="panel-body">
-					<div id="acct-regs" style="height: 234px;"></div>
+					<ul class="chat">
+						<?php foreach ($admin_news as $aNews): ?>
+						<li class="left clearfix">
+							<div class="chat-body clearfix">
+								<div class="header">
+									<strong class="primary-font"><?php echo $aNews['username']; ?></strong>
+									<small class="pull-right text-muted">
+										<i class="fa fa-clock-o fa-fw"></i> <?php echo $aNews['date']; ?>
+									</small>
+								</div>
+								<p>
+									<?php echo $aNews['content']; ?>
+								</p>
+							</div>
+						</li>
+						<?php endforeach; ?>
+					</ul>
 				</div>
 			</div>
 		</div>

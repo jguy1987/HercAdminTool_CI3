@@ -12,6 +12,8 @@ class Account extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 	}
 
@@ -21,14 +23,16 @@ class Account extends MY_Controller {
 	}
 	
 	public function details($aid) {
-		$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
-		$data['class_list'] = $this->config->item('jobs');
-		$data['equipLocation'] = $this->config->item('equipLocations');
-		$data['item_types'] = $this->config->item('itemTypes');
-		$data += $this->load_acct_data($aid);
-		$this->load->view('account/details',$data);
-		$this->load->view('datatables-scripts');
-		$this->load->view('footer');
+		if ($this->adminmodel->check_perm($this->session_data['group'],'viewaccounts') == True && $this->vacation == 0) {
+			$this->usermodel->update_user_active($this->session_data['id'],"accounts/details");
+			$data['class_list'] = $this->config->item('jobs');
+			$data['equipLocation'] = $this->config->item('equipLocations');
+			$data['item_types'] = $this->config->item('itemTypes');
+			$data += $this->load_acct_data($aid);
+			$this->load->view('account/details',$data);
+			$this->load->view('datatables-scripts');
+			$this->load->view('footer');
+		}
 	}
 	
 	public function search() {
@@ -171,7 +175,7 @@ class Account extends MY_Controller {
 	
 	public function resetpass($aid) {
 		// Check to make sure admin has permissions to reset password
-		if ($this->adminmodel->check_perm($this->session_data['group'],'resetacctpass') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'resetacctpass') == True && $this->vacation == 0) {
 			$chgPass = $this->accountmodel->reset_pass($aid, $this->session_data['id']);
 			$this->send_acct_email($chgPass,$chgPass,"chgpass");
 			$data['referpage'] = "resetpass";

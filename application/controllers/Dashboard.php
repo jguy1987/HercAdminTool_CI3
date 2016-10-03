@@ -11,6 +11,8 @@ class Dashboard extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 	}
 
@@ -21,9 +23,9 @@ class Dashboard extends MY_Controller {
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
 		$data2['herc_stats'] = $this->servermodel->get_herc_stats(0);
 		$data2['active_admins']	= $this->dashboardmodel->get_active_admins();
+		$data2['vacation_admins'] = $this->adminmodel->get_vacation_admins();
 		if ($this->adminmodel->check_perm($this->session_data['group'],'serverstats') == True && $servers[$this->session->userdata('server_select')]['showsysinfo'] == "yes") {
 			$data2['server_performance'] = $this->servermodel->get_server_performance($this->session->userdata('server_select'));
-			//$data2['server_stats'] = $this->servermodel->get_server_stats($json_url);
 			$data2['mysql_stats'] = $this->servermodel->get_mysql_stats();
 			$data2['server_perm'] = True;
 		}

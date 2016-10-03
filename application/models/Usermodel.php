@@ -63,21 +63,41 @@ Class Usermodel extends CI_Model {
 		return $q->result_array($q);
 	}
 	
-	function get_user_permissions($gid) {
-		$q = $this->db_hat->get_where('hat_groups', array('id' => $gid));
-		$q_result = $q->result_array();
-		$perms = array();
-		$hat_perms2 = array();
-		$hat_perms = $this->config->item('permissions');
-		foreach($hat_perms as $value) {
-			$hat_perms2 += $value;
+	function check_vacation_mode($uid) {
+		// Just a simple function to check if the user is in vacation mode.
+		$this->db_hat->select('vacation');
+		$q = $this->db_hat->get_where('hat_users', array('id' => $uid));
+		$row = $q->row();
+		return $row->vacation;
+	}
+	
+	function checkpass($currpass, $uid) {
+		$this->db_hat->select('passwd');
+		$this->db_hat->where('id', $uid);
+		$q = $this->db_hat->get('hat_users');
+		$pass = $q->row();
+		if ($pass->passwd == md5($currpass)) {
+			return TRUE;
 		}
-		foreach($q_result as $k=>$v) {
-			if ($v == 1) {
-				$perms += array($hat_perms2[$k]);
-			}
+		else {
+			return FALSE;
 		}
-		return $perms;
+	}
+	
+	function change_password($newPass, $uid) {
+		$this->db_hat->set('passwd', md5($newPass));
+		$this->db_hat->where('id', $uid);
+		$this->db_hat->update('hat_users');
+	}
+	
+	function update_user($chgUser) {
+		$this->db_hat->set('pemail', $chgUser['pemail']);
+		$this->db_hat->set('vacation', $chgUser['vacation']);
+		if ($chgUser['vacation'] == 1) {
+			$this->db_hat->set('vacationsince', 'NOW()', FALSE);
+		}
+		$this->db_hat->where('id', $chgUser['id']);
+		$this->db_hat->update('hat_users');
 	}
 }
 ?>

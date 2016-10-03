@@ -11,12 +11,14 @@ class Gamelogs extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
 	
 	public function atcmd_search() {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'atcmdlog') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'atcmdlog') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"gamelog/atcmd");
 			$this->load->view('gamelogs/atcmdsearch');
 		}
@@ -49,7 +51,7 @@ class Gamelogs extends MY_Controller {
 	}
 	
 	public function pick_search() {
-		if ($this->adminmodel->check_perm($this->session_data['group'],'picklog') == True) {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'picklog') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"gamelog/pick");
 			// Get current date/time and back 24 hours.
 			$data['curDatetime'] = date('Y-m-d H:i:s');

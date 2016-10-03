@@ -7,6 +7,7 @@ class Tickets extends MY_Controller {
 		if (!$this->session->userdata('loggedin')) {
 			redirect('user/login', 'refresh');
 		}
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 	}
 
 

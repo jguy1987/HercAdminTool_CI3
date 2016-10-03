@@ -43,7 +43,7 @@
 				<a class="navbar-brand" href="<?php echo $this->config->item('base_url'); ?>">HercAdminTool</a>
 			</div>
 			<ul class="nav navbar-top-links navbar-right">
-				Welcome, <?php echo $username; ?>!
+				Welcome, <strong><?php echo $username; ?></strong>! You are logged in as <strong><?php echo $group_list[$this->session_data['group']]; ?></strong>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<?php 
@@ -64,7 +64,7 @@
 						<?php } ?>
 					</ul>
 				</li>
-				<li class="dropdown">
+				<!--<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
 					</a>
@@ -121,7 +121,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="fa fa-user fa-fw"></i> <?php echo $username; ?> <i class="fa fa-caret-down"></i>

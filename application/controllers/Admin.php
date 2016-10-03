@@ -11,6 +11,8 @@ class Admin extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$this->load->view('sidebar', $data);
 	}
 	
@@ -63,7 +65,7 @@ class Admin extends MY_Controller {
 	public function edituser($userid) {
 		if ($this->adminmodel->check_perm($this->session_data['group'],'editadmin') == True) {
 			$data['userinfo'] = $this->adminmodel->get_user_data($userid);
-			if ($data['userinfo']->groupid >= $this->session_data['group']) {
+			if ($data['userinfo']->groupid >= $this->session_data['group'] && $data['userinfo']->id != $this->session_data['id']) {
 				$data['referpage'] = "groupdeny";
 				$this->load->view('accessdenied',$data);
 			}
@@ -90,7 +92,9 @@ class Admin extends MY_Controller {
 		}
 		$this->form_validation->set_rules('username', 'Username', $userRules);
 		$this->form_validation->set_rules('pemail', 'Email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('group-select', 'Group', 'callback_check_group');
+		if ($data['userinfo']->id != $this->session_data['id']) {
+			$this->form_validation->set_rules('group-select', 'Group', 'callback_check_group');
+		}
 		if ($this->form_validation->run() == FALSE) {
 			$data['grouplist'] = $this->adminmodel->list_groups();
 			$this->load->view('admin/edituser', $data);
@@ -103,7 +107,8 @@ class Admin extends MY_Controller {
 				'gameacctid'	=> $this->input->post('gameacctid'),
 				'groupid'		=> $this->input->post('group-select'),
 				'disablelogin'	=> $this->input->post('active'),
-				'genpass'		=> $this->input->post('genpass')
+				'genpass'		=> $this->input->post('genpass'),
+				'vacation'		=> $this->input->post('vacation'),
 			);
 			$newPass = $this->adminmodel->editadminuser($data);
 			if (isset($newPass)) {
