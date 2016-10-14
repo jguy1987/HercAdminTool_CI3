@@ -101,7 +101,7 @@
 							<?php } ?>									
 							<?php if ($check_perm['zenylog'] == 1 && $vacation == 0) { ?>								
 								<li>
-									<a href="/gamelogs/zeny">zeny</a>
+									<a href="/gamelogs/zeny_search">zeny</a>
 								</li>	
 							<?php } ?>
 						</ul>

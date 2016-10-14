@@ -43,7 +43,6 @@ Class Gamelogmodel extends CI_Model {
 				$this->db_charmaplog->order_by('time', 'desc');
 				// And start the search too.
 				$this->db_charmaplog->where('char_id', $char_id_q->char_id);
-				echo "1";
 			}
 			elseif (substr($pickSearch['char_name'], 0, 1) != "=") { // The user wants to search wildcard for that character...
 				$char_ids = array(); // Make a blank array for the char_id's to select
@@ -61,7 +60,6 @@ Class Gamelogmodel extends CI_Model {
 				foreach($char_ids as $id) {
 					$this->db_charmaplog->or_where('char_id', $id);
 				}
-				echo "2";
 			}
 		}
 		else if (empty($pickSearch['char_id']) == false) { // User entered char ID, regardless if they entered a Charname
@@ -78,33 +76,28 @@ Class Gamelogmodel extends CI_Model {
 		else { // All the fields are empty or an error, default to start query.
 			$this->db_charmaplog->select('*');
 			$this->db_charmaplog->order_by('time', 'desc');
-			echo "3";
 		}
 		// Next, if the array $pickSearch['types'] is populated, we need to search for everything in it.
 		if (empty($pickSearch['types']) == false) {
 			foreach($pickSearch['types'] as $type) {
 				$this->db_charmaplog->or_where('type', $type);
 			}
-			echo "4";
 		}
 		// Dates...
 		if (empty($pickSearch['date_start']) == false) {
 			$this->db_charmaplog->where('time >=', $pickSearch['date_start']);
-			echo "5";
 		}
 		if (empty($pickSearch['date_end']) == false) {
 			$this->db_charmaplog->where('time <=', $pickSearch['date_end']);
-			echo "6";
 		}
 		// Map:
 		if (empty($pickSearch['map']) == false) {
 			if (substr($pickSearch['map'], 0, 1) == "=") { // If the user wants to search specifically for that map...
-				$this->db_charmaplog->where('map', $atcmdSearch['map']);
+				$this->db_charmaplog->where('map', $pickSearch['map']);
 			}
 			else {
-				$this->db_charmaplog->like('map', $atcmdSearch['map']);
+				$this->db_charmaplog->like('map', $pickSearch['map']);
 			}
-			echo "7";
 		}
 		//and card ids. Did user search for any?
 		if (empty($pickSearch['card_id']) == false) {
@@ -117,7 +110,6 @@ Class Gamelogmodel extends CI_Model {
 				$this->db_charmaplog->where('card2', $id);
 				$this->db_charmaplog->where('card3', $id);
 			}
-			echo "8";
 		}
 		// and Unique ID
 		if (empty($pickSearch['unique_id']) == false) {
@@ -127,12 +119,119 @@ Class Gamelogmodel extends CI_Model {
 			else {
 				$this->db_charmaplog->like('unique_id', $pickSearch['unique_id']);
 			}
-			echo "9";
 		}
 		// Finally, generate and return the results:
 		$this->db_charmaplog->limit('10000'); // Limit amount of entries. Too much data == no loading.
 		$q = $this->db_charmaplog->get('picklog');
-		echo "A";
+		return $q->result_array();
+	}
+	
+	function get_zeny_search($zenySearch) {
+		// First, if we have a character name entered and NOT an ID, we need to get the ID of that char name
+		if (empty($pickSearch['source_char_name']) == false && empty($pickSearch['source_char_id']) == true) { // User entered a char name and NOT an ID
+			if (substr($zenySearch['source_char_name'], 0, 1) == "=") { // User wants to specifically search for that character.
+				$nameSearch = substr($zenySearch['source_char_name'], 1);
+				$q = $this->db_charmap->get_where('char', array('name' => $nameSearch));
+				$sourceCharQ = $q->row();
+			}
+			elseif (substr($zenySearch['source_char_name'], 0, 1) != "=") {
+				$source_char_ids = array();
+				$this->db_charmap->select('char_id');
+				$this->db_charmap->like('name', $zenySearch['source_char_name']);
+				$q = $this->db_charmap->get('char');
+				foreach ($q->result_array() as $r) {
+					$source_char_ids[] += $r['char_id'];
+				}
+			}
+		}
+		if (empty($pickSearch['dest_char_name']) == false && empty($pickSearch['dest_char_id']) == true) { // User entered a char name and NOT an ID
+			if (substr($zenySearch['dest_char_name'], 0, 1) == "=") { // User wants to specifically search for that character.
+				$nameSearch = substr($zenySearch['dest_char_name'], 1);
+				$q = $this->db_charmap->get_where('char', array('name' => $nameSearch));
+				$destCharQ = $q->row();
+			}
+			elseif (substr($zenySearch['dest_char_name'], 0, 1) != "=") {
+				$dest_char_ids = array();
+				$this->db_charmap->select('char_id');
+				$this->db_charmap->like('name', $zenySearch['dest_char_name']);
+				$q = $this->db_charmap->get('char');
+				foreach ($q->result_array() as $r) {
+					$dest_char_ids[] += $r['char_id'];
+				}
+			}
+		}
+		$this->db_charmaplog->select('*');
+		$this->db_charmaplog->order_by('time', 'desc');
+		if (empty($pickSearch['source_char_name']) == false && empty($pickSearch['source_char_id']) == true) { // User entered a char name and NOT an ID
+			if (substr($zenySearch['source_char_name'], 0, 1) == "=") { // User wants to specifically search for that character.
+				$this->db_charmaplog->where('src_id', $sourceCharQ->char_id);
+			}
+			elseif (substr($zenySearch['source_char_name'], 0, 1) != "=") {
+				foreach ($source_char_ids as $id) {
+					$this->db_charmaplog->or_where('src_id', $id);
+				}
+			}
+		}
+		elseif (empty($zenySearch['source_char_id']) == false) { // User entered char ID, regardless if they entered a Charname
+			if (substr($zenySearch['source_char_id'], 0, 1) == "=") {
+				$srccharidSearch = substr($zenySearch['source_char_id'], 1);
+				$this->db_charmaplog->where('src_id', $srccharidSearch);
+			}
+			else {
+				$this->db_charmaplog->like('char_id', $zenySearch['source_char_id']);
+			}
+		}
+		if (empty($pickSearch['dest_char_name']) == false && empty($pickSearch['dest_char_id']) == true) { // User entered a char name and NOT an ID
+			if (substr($zenySearch['dest_char_name'], 0, 1) == "=") { // User wants to specifically search for that character.
+				$this->db_charmaplog->where('src_id', $destCharQ->char_id);
+			}
+			elseif (substr($zenySearch['dest_char_name'], 0, 1) != "=") {
+				foreach ($dest_char_ids as $id) {
+					$this->db_charmaplog->or_where('src_id', $id);
+				}
+			}
+		}
+		elseif (empty($zenySearch['dest_char_id']) == false) { // User entered char ID, regardless if they entered a Charname
+			if (substr($zenySearch['dest_char_id'], 0, 1) == "=") {
+				$srccharidSearch = substr($zenySearch['dest_char_id'], 1);
+				$this->db_charmaplog->where('src_id', $srccharidSearch);
+			}
+			else {
+				$this->db_charmaplog->like('char_id', $zenySearch['dest_char_id']);
+			}
+		}
+		// Dates...
+		if (empty($zenySearch['date_start']) == false) {
+			$this->db_charmaplog->where('time >=', $zenySearch['date_start']);
+		}
+		if (empty($zenySearch['date_end']) == false) {
+			$this->db_charmaplog->where('time <=', $zenySearch['date_end']);
+		}
+		// Map:
+		if (empty($zenySearch['map']) == false) {
+			if (substr($zenySearch['map'], 0, 1) == "=") { // If the user wants to search specifically for that map...
+				$this->db_charmaplog->where('map', $zenySearch['map']);
+			}
+			else {
+				$this->db_charmaplog->like('map', $zenySearch['map']);
+			}
+		}
+		// Next, if the array $zenySearch['types'] is populated, we need to search for everything in it.
+		if (empty($zenySearch['types']) == false) {
+			foreach($zenySearch['types'] as $type) {
+				$this->db_charmaplog->or_where('type', $type);
+			}
+		}
+		// Finally, Zeny between. The first field is greater than, last field is less than. Either can be blank.
+		if (empty($zenySearch['zeny_low']) == false) {
+			$this->db_charmaplog->or_where('amount >=', $zenySearch['zeny_low']);
+		}
+		if (empty($zenySearch['zeny_high']) == false) {
+			$this->db_charmaplog->or_where('amount <=', $zenySearch['zeny_high']);
+		}
+		// Finally, generate and return the results:
+		$this->db_charmaplog->limit('10000'); // Limit amount of entries. Too much data == no loading.
+		$q = $this->db_charmaplog->get('zenylog');
 		return $q->result_array();
 	}
 }
