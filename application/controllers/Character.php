@@ -205,7 +205,7 @@ class Character extends MY_Controller {
 	}
 	
 	function kick($cid) {
-		$this->servermodel->apply_server_kick($result->char_id, $this->session->userdata('server_select') && $this->vacation == 0);
+		$this->servermodel->apply_server_kick($cid, $this->session->userdata('server_select') && $this->vacation == 0);
 		$data['referpage'] = "charkick";
 		$data['char_id'] = $cid;
 		$this->load->view('formsuccess', $data);

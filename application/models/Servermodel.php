@@ -401,7 +401,7 @@ Class Servermodel extends CI_Model {
 		$this->db_charmap->select('name');
 		$q = $this->db_charmap->get_where('char', array('char_id' => $cid));
 		$result = $q->row();
-		exec(sprintf("screen -S map-server-%s -X stuff \"gm use @kick %s\"'\n'", $servers[$sid]['map_servername'], $result->name)); // Kick the user off the server.
+		$this->charmap_ssh_conn->exec(sprintf("screen -S map-server-%s -X stuff \"gm use @kick %s\"'\n'", $servers[$sid]['map_servername'], $result->name));
 	}
 	
 	function format_bytes($bytes) {
