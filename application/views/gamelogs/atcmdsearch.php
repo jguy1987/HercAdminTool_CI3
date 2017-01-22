@@ -8,7 +8,7 @@
 	</div>
 	<div class="panel-body">
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('gamelogs/atcmdresults'); ?>
+		<?php echo form_open('gamelogs/atcmd_results'); ?>
 			<center>
 				<table class="table">
 					<tr>
