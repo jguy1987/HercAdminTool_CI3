@@ -155,7 +155,7 @@ Class Servermodel extends CI_Model {
 		// $svr needs to be "login", "char", "map" or "all"
 		$servers = $this->config->item('ragnarok_servers');
 		$login_servers = $this->config->item('login_servers');
-		$login_srv_id = $servers['1']['login_server_group'];
+		$login_srv_id = $servers[$sid]['login_server_group'];
 		if ($svr == "all") {
 			$login_server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 3);
 			$char_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['char_port'], $errno, $errstr, 3);
@@ -253,7 +253,7 @@ Class Servermodel extends CI_Model {
 	function server_start($sid, $svr) {
 		$servers = $this->config->item('ragnarok_servers');
 		$login_servers = $this->config->item('login_servers');
-		$login_srv_id = $servers['1']['login_server_group'];
+		$login_srv_id = $servers[$sid]['login_server_group'];
 		$cmd_screen = sprintf("screen -dmS %s-server-%s'\n'", $svr, $servers[$sid]['map_servername']);
 		$charOut = "".$servers[$sid]['server_path']."/log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
 		$mapOut = "".$servers[$sid]['server_path']."/log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
@@ -319,13 +319,13 @@ Class Servermodel extends CI_Model {
 	
 	function send_maint_cmd($sid, $action) {
 		$servers = $this->config->item('ragnarok_servers');
-		ssh2_exec($this->charmap_ssh_conn, sprintf("screen -S map-server-%s -X stuff \"gm use @%s\"'\n'", $servers[$sid]['map_servername'], $action)); // Use the specified command.
+		$this->charmap_ssh_conn->exec(sprintf("screen -S map-server-%s -X stuff \"gm use @%s\"'\n'", $servers[$sid]['map_servername'], $action)); // Use the specified command.
 	}
 	
 	function return_console($sid, $server, $lines) {
 		$servers = $this->config->item('ragnarok_servers');
 		$login_servers = $this->config->item('login_servers');
-		$login_srv_id = $servers['1']['login_server_group'];
+		$login_srv_id = $servers[$sid]['login_server_group'];
 		$charOut = "".$servers[$sid]['server_path']."/log/char-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the char server console logs
 		$mapOut = "".$servers[$sid]['server_path']."/log/map-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the map server console logs
 		$loginOut = "".$login_servers[$login_srv_id]['login_server_path']."/log/login-server-".$servers[$sid]['map_servername'].".log"; // Set the file path for the login server console logs
@@ -414,5 +414,35 @@ Class Servermodel extends CI_Model {
 		
 		$bytes /= pow(1024, $pow);
 		return round($bytes, 2) . ' ' . $units[$pow]; 
+	}
+	
+	function update_files($sid) {
+		// This function runs either svn up or git pull origin master
+		$servers = $this->config->item('ragnarok_servers');
+		$login_servers = $this->config->item('login_servers');
+		$login_srv_id = $servers[$sid]['login_server_group'];
+		switch ($login_servers[$login_srv_id]['login_update_method']) {
+			case "svn":
+				$cmd_login = "cd ".$login_servers[$login_srv_id]['login_server_path']." && svn up\n'";
+				break;
+			case "git":
+				$cmd_login = "cd ".$login_servers[$login_srv_id]['login_server_path']." && git pull origin master'\n'";
+				break;
+			default:
+				return 2;
+		}
+		switch ($servers[$sid]['charmap_update_method']) {
+			case "svn":
+				$cmd_charmap = "cd ".$servers[$sid]['server_path']." && svn up'\n'";
+				break;
+			case "git":
+				$cmd_charmap = "cd ".$servers[$sid]['server_path']." && git pull origin master'\n'";
+				break;
+			default:
+				return 2;
+		}
+		$this->login_ssh_conn->exec($cmd_login);
+		$this->charmap_ssh_conn->exec($cmd_charmap);
+		return 1;
 	}
 }

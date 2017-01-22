@@ -41,11 +41,12 @@
 					echo $cmd_used." sent. Results reflected in logs. <a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				case "updatefiles":
-					echo "The update operation completed successfully. Below is the output:<br />";
-					foreach ($update_result as $k=>$v) {
-						echo $v;
+					if ($update_result == 1) {
+						echo "The update operation completed successfully.";
 					}
-					echo "<br /><br />";
+					if ($update_result == 2) {
+						echo "You have an error in your hat.php, under update method. Either the update via HAT is disabled, or you have an invalid entry. No update was able to be done.";
+					}
 					echo "<a href='/server/hercules'>Return to server maintenance page</a>";
 					break;
 				default:

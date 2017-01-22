@@ -38,7 +38,7 @@ $config['login_servers'] = array(
 		'login_server_path'				=> "/home/ragnarok",	// Path to the login server exec and files
 		'login_server_exec'				=> "login-server",		// Login Server Executable
 		'last_mac_addon'				=> "yes",				// Does your login table have a last_mac column (yes or no)?
-		
+		'login_update_method'			=> "disabled",			// Login server update method. 'disabled' = Disabled through CP, 'svn' = "Subversion Version control", 'git' = GIT Repository
 	),
 	/*'2' => array(		// Group ID of login servers. 
 		'login_database_group'		=> "ragnarok_2",			// Connection group in database.php that holds the connection information for this login server.
@@ -54,6 +54,7 @@ $config['login_servers'] = array(
 		'login_server_path'				=> "/home/ragnarok",	// Path to the login server exec and files
 		'login_server_exec'				=> "login-server",		// Login Server Executable
 		'last_mac_addon'				=> "yes",				// Does your login table have a last_mac column (yes or no)?
+		'login_update_method'			=> "disabled",			// Login server update method. 'disabled' = Disabled through CP, 'svn' = "Subversion Version control", 'git' = GIT Repository
 	),*/
 );
 // Default server ID to direct logged in users to
@@ -84,6 +85,7 @@ $config['ragnarok_servers'] = array(
 		'reset_y'				=> "241",				// Y coordinate to reset players to
 		'use_bugtracker'		=> "yes",			// Use the bugtracker for this server, yes or no?
 		'showsysinfo'			=> "yes",				// Show system performance information on Dashboard (yes or no)? Note: Installation of some third party libraries required on server running Hercules. Consult the user guide.
+		'charmap_update_method'	=> "disabled",			// Char/Map server update method. 'disabled' = Disabled through CP, 'svn' = "Subversion Version control", 'git' = GIT Repository
 	),
 	/*'2'	=> array(
 		'servername'			=> "Server2",  		// Human readable server name. Will be selectable by the user.
@@ -110,6 +112,7 @@ $config['ragnarok_servers'] = array(
 		'reset_y'				=> "241",				// Y coordinate to reset players to
 		'use_bugtracker'		=> "yes",			// Use the bugtracker for this server, yes or no?
 		'showsysinfo'			=> "yes",				// Show system performance information on Dashboard (yes or no)? Note: Installation of some third party libraries required on server running Hercules. Consult the user guide.
+		'charmap_update_method'	=> "disabled",			// Char/Map server update method. 'disabled' = Disabled through CP, 'svn' = "Subversion Version control", 'git' = GIT Repository
 	),*/
 );
 			
