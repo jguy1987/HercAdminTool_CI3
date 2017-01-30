@@ -31,40 +31,100 @@
 									<i class="fa fa-user-md fa-fw"></i> General Account Info
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>Account ID</label></td><td><?php echo $acct_data->account_id; ?></td>
-												<td>&nbsp;</td>
-												<td><label>Create&nbsp;Date</label></td><td><?php echo $acct_data->createdate; ?></td>
-											</tr>
-											<tr>
-												<td><label>Account Name</label></td><td><?php echo $acct_data->userid; ?></td>
-												<td>&nbsp;</td>
-												<td><label>Gender</label></td><td><input type="radio" name="gender" id="optionsRadiosInline1" value="M" <?php if ($acct_data->sex == "M") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0 && $acct_data->sex == "F") { echo "disabled"; } ?>/>Male&nbsp;<input type="radio" name="gender" id="optionsRadiosInline2" value="F" <?php if ($acct_data->sex == "F") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0 && $acct_data->sex == "M") { echo "disabled"; } ?> />Female</td>
-											</tr>
-											<tr>
-												<td><label>Email Address</label></td><td><input class="form-control" size="40px" name="email" value="<?php echo $acct_data->email; ?>" <?php if ($check_perm['editacctemail'] == 0) { echo "readonly"; } ?> /></td>
-												<td>&nbsp;</td>
-												<td><label>Group ID</label></td><td><input type="number" class="form-control" size="40px" min="0" max="99" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>Last Login</label></td><td><?php echo $acct_data->lastlogin; ?></td>
-												<td>&nbsp;</td>
-												<td><label>Birthdate</label></td><td><input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" <?php if ($check_perm['editacctbd'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>Character Reserved Slots</label></td><td><input type="number" min="0" max="9" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "readonly"; } ?> /></td>
-												<td>&nbsp;</td>
-												<td><label>Options</label></td>
-												<td>
-													<a href="/account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a>&nbsp;
-													<a href="/account/resetpin/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a>&nbsp;
-													<a href="/account/emailuser/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-info">Send Email</button></a>&nbsp;
-													<a href="/account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>
-												</td>
-											</tr>
-										</table>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Account ID</label>
+											</div>
+											<div class="col-sm-8">
+												<?php echo $acct_data->account_id; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Account Name</label>
+											</div>
+											<div class="col-sm-8">
+												<?php echo $acct_data->userid; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Email Address</label>
+											</div>
+											<div class="col-sm-8">
+												<input class="form-control" size="40px" name="email" value="<?php echo $acct_data->email; ?>" <?php if ($check_perm['editacctemail'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Last Login</label>
+											</div>
+											<div class="col-sm-8">
+												<?php echo $acct_data->lastlogin; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Character Reserved Slots</label>
+											</div>
+											<div class="col-sm-8">
+												<input type="number" min="0" max="9" class="form-control" name="charslots" value="<?php echo $acct_data->character_slots; ?>" <?php if ($check_perm['editacctslots'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Create&nbsp;Date</label>
+											</div>
+											<div class="col-sm-8">
+												<td><?php echo $acct_data->createdate; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Gender</label>
+											</div>
+											<div class="col-sm-8">
+												<input type="radio" name="gender" id="optionsRadiosInline1" value="M" <?php if ($acct_data->sex == "M") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0 && $acct_data->sex == "F") { echo "disabled"; } ?>/>Male&nbsp;&nbsp;<input type="radio" name="gender" id="optionsRadiosInline2" value="F" <?php if ($acct_data->sex == "F") { echo "checked"; } ?> <?php if ($check_perm['editgender'] == 0 && $acct_data->sex == "M") { echo "disabled"; } ?> />Female
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Group ID</label>
+											</div>
+											<div class="col-sm-8">
+												<input type="number" class="form-control" size="40px" min="0" max="99" name="groupid" value="<?php echo $acct_data->group_id; ?>" <?php if ($check_perm['editacctgroup'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Birthdate</label>
+											</div>
+											<div class="col-sm-8">
+												<input type="text" class="form-control form_date" name="birthdate" value="<?php echo $acct_data->birthdate; ?>" <?php if ($check_perm['editacctbd'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Options</label>
+											</div>
+											<div class="col-sm-8">
+												<a href="/account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a> 
+												<a href="/account/resetpin/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a> 
+												<a href="/account/emailuser/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-info">Send Email</button></a> 
+												<a href="/account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -77,19 +137,34 @@
 									<i class="fa fa-unlock fa-fw"></i> Account State
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>Account Banned?</label></td><td><?php if ($acct_data->state == 0 && $acct_data->unban_time == 0) { echo "No"; } else { echo "Yes"; } ?></td>
-												<td>&nbsp;</td>
-												<td><label>Ban Expiriation Time</label></td><td><?php if ($acct_data->state == 0 && $acct_data->unban_time == 0) { echo "Not banned"; } elseif ($acct_data->unban_time > 0) { echo date('Y-m-d H:i:s', $acct_data->unban_time); } elseif ($acct_data->state == 5) { echo "Permanent"; } ?></td>
-											</tr>
-											<tr>
-												<td><label>Expiration Time</label></td><td><?php if ($acct_data->expiration_time == 0) { echo "0"; } else { echo date('Y-m-d H:i:s', $acct_data->expiration_time); } ?></td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td><td>&nbsp;</td>
-											</tr>
-										</table>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Account Banned?</label>
+											</div>
+											<div class="col-sm-4">
+												<?php if ($acct_data->state == 0 && $acct_data->unban_time == 0) { echo "No"; } else { echo "Yes"; } ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Expiration Time</label>
+											</div>
+											<div class="col-sm-4">
+												<?php if ($acct_data->expiration_time == 0) { echo "0"; } else { echo date('Y-m-d H:i:s', $acct_data->expiration_time); } ?>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Ban Expiriation Time</label>
+											</div>
+											<div class="col-sm-4">
+												<?php if ($acct_data->state == 0 && $acct_data->unban_time == 0) { echo "Not banned"; } elseif ($acct_data->unban_time > 0) { echo date('Y-m-d H:i:s', $acct_data->unban_time); } elseif ($acct_data->state == 5) { echo "Permanent"; } ?>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -102,24 +177,54 @@
 									<i class="fa fa-th-list fa-fw"></i> Loginlog Information
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>Login Count</label></td><td><?php echo $acct_data->logincount; ?></td>
-												<td>&nbsp;</td>
-												<td><label>Last IP</label></td><td><?php echo $acct_data->last_ip; ?></td>
-											</tr>
-											<tr>
-												<td><label>Registration IP</label></td><td><?php echo $acct_data->register_ip; ?></td>
-												<td>&nbsp;</td>
-												<td><label>Auth IP</label></td><td><?php echo $acct_data->auth_ip; ?></td>
-											</tr>
-											<?php if ($this->config->item('last_mac_addon') == "yes") { ?>
-												<tr>
-													<td><label>Last MAC</label></td><td><?php echo $acct_data->last_mac; ?></td>
-												</tr>
-											<?php } ?>
-										</table>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Login Count</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $acct_data->logincount; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Last IP</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $acct_data->last_ip; ?>
+											</div>
+										</div>
+										<?php if ($this->config->item('last_mac_addon') == "yes") { ?>
+											<br />
+											<div class="row">
+												<div class="col-sm-8">
+													<label>Last MAC</label>
+												</div>
+												<div class="col-sm-4">
+													<?php echo $acct_data->last_mac; ?>
+												</div>
+											</div>
+										<?php } ?>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Registration IP</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $acct_data->register_ip; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Auth IP</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $acct_data->auth_ip; ?>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -133,7 +238,7 @@
 					<div class="row">
 						<div align="right"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBlock" <?php if ($check_perm['banaccount'] == 0) { echo "disabled"; } ?> >Add New Block</button></div>
 						<div class="table-responsive">
-							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-banlist">
 								<thead>
 									<tr>
 										<th style="width: 125px;">Block Date</th>
@@ -148,7 +253,6 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php if (empty($block_list)) { echo "<tr class='odd gradeX'><td colspan='9'><center>No data!</center></td></tr>"; } ?>
 									<?php foreach ($block_list as $bd): ?>
 										<tr class="odd gradeX">
 											<td><?php echo $bd['blockdate']; ?></td>
@@ -545,7 +649,7 @@
 					<h4>Characters on this Account</h4>
 					<div class="panel-body">
 						<div class="table-responsive">
-							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-charlist">
 								<thead>
 									<tr>
 										<th style="width: 50px;">Slot</th>

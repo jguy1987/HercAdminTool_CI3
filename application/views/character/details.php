@@ -41,37 +41,130 @@
 									<i class="fa fa-user-md fa-fw"></i> General Character Info
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>Character Name</label></td><td><input type="text" class="form-control" name="char_name" value="<?php echo $charinfo->name; ?>" <?php if ($check_perm['editcharname'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Character ID</label></td><td><?php echo $charinfo->char_id; ?></td>
-											</tr>
-											<tr>
-												<td><label>Create Date</label></td><td><?php echo $charinfo->create_time; ?></td>
-												<td><label>Last Played</label></td><td><?php echo $charinfo->lastlogin_time; ?></td>
-											</tr>
-											<tr>
-												<td><label>Slot #</label></td><td><input type="number" min="0" max="9" class="form-control" name="char_num" value="<?php echo $charinfo->char_num; ?>"  <?php if ($check_perm['editcharslot'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Account ID</label></td><td><a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a></td>
-											</tr>
-											<tr>
-												<td><label>Guild</label></td><td><a href="/guild/details/<?php echo $charinfo->guild_id; ?>"><?php echo $charinfo->guild_name; ?></a></td>
-												<td><label>Party</label></td><td><a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a></td>
-											</tr>
-											<tr>
-												<td><label>Zeny</label></td><td><input type="number" class="form-control" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>"  <?php if ($check_perm['editcharzeny'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Class</label></td><td><?php echo $class_list[$charinfo->class]; ?> </td>
-											</tr>
-											<tr>
-												<td><label>HP / MaxHP</label></td><td><?php echo $charinfo->hp; ?>&nbsp;/&nbsp;<?php echo $charinfo->max_hp; ?></td>
-												<td><label>SP / MaxSP</label></td><td><?php echo $charinfo->sp; ?>&nbsp;/&nbsp;<?php echo $charinfo->max_sp; ?></td>
-											</tr>
-											<tr>
-												<td><label>Last Position</label></td><td><?php echo $charinfo->last_map; ?>&nbsp;<?php echo $charinfo->last_x; ?>,&nbsp;<?php echo $charinfo->last_y; ?></td>
-												<td><label>Saved Position</label></td><td><?php echo $charinfo->save_map; ?>&nbsp;<?php echo $charinfo->save_x; ?>,&nbsp;<?php echo $charinfo->save_y; ?></td>
-											</tr>
-										</table>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Character Name</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" name="char_name" value="<?php echo $charinfo->name; ?>" <?php if ($check_perm['editcharname'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Create Date</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->create_time; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Slot #</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" min="0" max="9" class="form-control" name="char_num" value="<?php echo $charinfo->char_num; ?>"  <?php if ($check_perm['editcharslot'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Guild</label>
+											</div>
+											<div class="col-sm-4">
+												<a href="/guild/details/<?php echo $charinfo->guild_id; ?>"><?php echo $charinfo->guild_name; ?></a>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Class</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $class_list[$charinfo->class]; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>HP / MaxHP</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->max_hp; ?>&nbsp;/&nbsp;<?php echo $charinfo->hp; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Last Position</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->last_map; ?>&nbsp;<?php echo $charinfo->last_x; ?>,&nbsp;<?php echo $charinfo->last_y; ?>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Character ID</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->char_id; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Last Played</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->lastlogin_time; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Account ID</label>
+											</div>
+											<div class="col-sm-4">
+												<a href="/account/details/<?php echo $charinfo->account_id; ?>"><?php echo $charinfo->account_id; ?></a>
+											</div>
+										</div>
+										<br /><div class="row">
+											<div class="col-sm-8">
+												<label>Party</label>
+											</div>
+											<div class="col-sm-4">
+												<a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a>
+											</div>
+										</div>
+										<br /><div class="row">
+											<div class="col-sm-8">
+												<label>Zeny</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="zeny" min="0" max="2100000000" value="<?php echo $charinfo->zeny; ?>"  <?php if ($check_perm['editcharzeny'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br /><div class="row">
+											<div class="col-sm-8">
+												<label>SP / MaxSP</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->max_sp; ?>&nbsp;/&nbsp;<?php echo $charinfo->sp; ?>
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-8">
+												<label>Saved Position</label>
+											</div>
+											<div class="col-sm-4">
+												<?php echo $charinfo->save_map; ?>&nbsp;<?php echo $charinfo->save_x; ?>,&nbsp;<?php echo $charinfo->save_y; ?>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -84,21 +177,59 @@
 									<i class="fa fa-user-md fa-fw"></i> Character Level Info
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>Base Level</label></td><td><input type="number" class="form-control" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Job Level</label></td><td><input type="number" class="form-control" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>Base Exp</label></td><td><input type="number" class="form-control" name="base_exp" min="0" value="<?php echo $charinfo->base_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Job Exp</label></td><td><input type="number" class="form-control" name="job_exp" min="0" value="<?php echo $charinfo->job_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>Status Points</label></td><td><input type="number" class="form-control" name="status_point" min="0" max="9999" value="<?php echo $charinfo->status_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Skill Points</label></td><td><input type="number" class="form-control" name="skill_point" min="0" max="9999" value="<?php echo $charinfo->skill_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-										</table>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Base Level</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="base_level" min="1" max="<?php echo $this->config->item('max_base_level'); ?>" value="<?php echo $charinfo->base_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Base Exp</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="base_exp" min="0" value="<?php echo $charinfo->base_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Status Points</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="status_point" min="0" max="9999" value="<?php echo $charinfo->status_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Job Level</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="job_level" min="1" max="<?php echo $this->config->item('max_job_level'); ?>" value="<?php echo $charinfo->job_level; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br /><div class="row">
+											<div class="col-sm-6">
+												<label>Job Exp</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="job_exp" min="0" value="<?php echo $charinfo->job_exp; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br /><div class="row">
+											<div class="col-sm-6">
+												<label>Skill Points</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="skill_point" min="0" max="9999" value="<?php echo $charinfo->skill_point; ?>" <?php if ($check_perm['editcharlv'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -109,7 +240,7 @@
 									<i class="fa fa-user-md fa-fw"></i> Options
 								</div>
 								<div class="panel-body">
-									<a href="/character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>&nbsp;
+									<a href="/character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
 									<a href="/character/resetpos/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
 								</div>
 							</div>
@@ -122,24 +253,79 @@
 									<i class="fa fa-user-md fa-fw"></i> Character Stats
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>STR</label></td><td><input type="number" class="form-control" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>INT</label></td><td><input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->int; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>AGI</label></td><td><input type="number" class="form-control" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>DEX</label></td><td><input type="number" class="form-control" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-												<td><label>VIT</label></td><td><input type="number" class="form-control" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>LUK</label></td><td><input type="number" class="form-control" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>Manner</label></td><td><input type="number" class="form-control" name="manner" value="<?php echo $charinfo->manner; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-												<td><label>Karma</label></td><td><input type="number" class="form-control" name="karma" value="<?php echo $charinfo->karma; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-										</table>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-4">
+												<label>STR</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="str" min="1" max="999" value="<?php echo $charinfo->str; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>AGI</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="agi" min="1" max="999" value="<?php echo $charinfo->agi; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>VIT</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="vit" min="1" max="999" value="<?php echo $charinfo->vit; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Manner</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="manner" value="<?php echo $charinfo->manner; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-sm-4">
+												<label>INT</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="int" min="1" max="999" value="<?php echo $charinfo->int; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>DEX</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="dex" min="1" max="999" value="<?php echo $charinfo->dex; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>LUK</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="luk" min="1" max="999" value="<?php echo $charinfo->luk; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Karma</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" name="karma" value="<?php echo $charinfo->karma; ?>" <?php if ($check_perm['editcharstats'] == 0) { echo "readonly"; } ?> />
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -150,24 +336,38 @@
 									<i class="fa fa-user-md fa-fw"></i> Character Appearance
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-striped" id="dataTables-example">
-											<tr>
-												<td><label>Hair Style ID</label></td><td><input type="number" class="form-control" name="hair" min="0" max="999" value="<?php echo $charinfo->hair; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-											<tr>
-												<td><label>Hair Color ID</label></td><td><input type="number" class="form-control" name="hair_color" min="0" max="999" value="<?php echo $charinfo->hair_color; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> /></td>	
-											</tr>
-											<tr>
-												<td><label>Clothes Color ID</label></td><td><input type="number" class="form-control" size="40px" name="clothes_color" min="0" max="999" value="<?php echo $charinfo->clothes_color; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> /></td>
-											</tr>
-										</table>
+									<div class="row">
+										<div class="col-sm-8">
+											<label>Hair Style ID</label>
+										</div>
+										<div class="col-sm-4">
+											<input type="number" class="form-control" name="hair" min="0" max="999" value="<?php echo $charinfo->hair; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> />
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-sm-8">
+											<label>Hair Color ID</label>
+										</div>
+										<div class="col-sm-4">
+											<input type="number" class="form-control" name="hair_color" min="0" max="999" value="<?php echo $charinfo->hair_color; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> />
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-sm-8">
+											<label>Clothes Color ID</label>
+										</div>
+										<div class="col-sm-4">
+											<input type="number" class="form-control" size="40px" name="clothes_color" min="0" max="999" value="<?php echo $charinfo->clothes_color; ?>" <?php if ($check_perm['editcharlook'] == 0) { echo "readonly"; } ?> />
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<br /><center><button type="submit" class="btn btn-primary">Submit changes</button>&nbsp;</center><br />
+					<br />
+					<center><button type="submit" class="btn btn-primary">Submit changes</button>&nbsp;</center><br />
 					<?php echo form_close(); ?>
 				</div>
 				<div class="tab-pane fade in" id="items">
