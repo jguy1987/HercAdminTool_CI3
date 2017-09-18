@@ -5,7 +5,6 @@
 			"lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
 			"searching": false,
 			"bScrollAutoCss": false,
-			"scrollX": true,
 			"defaultContent": '',
 			"aoColumnDefs": [
 				{ "sWidth": '60px', "targets": 0 },
@@ -43,7 +42,6 @@
 			"bPaginate": false,
 			"bLengthChange": false,
 			"searching": false,
-			"scrollX": true,
 			"defaultContent": '',
 			"aoColumnDefs": [
 				{ "sWidth": '60px', "targets": 0 },
@@ -80,7 +78,6 @@
 			"bPaginate": false,
 			"bLengthChange": false,
 			"searching": false,
-			"scrollX": true,
 			"defaultContent": '',
 			"aoColumnDefs": [
 				{ "sWidth": '60px', "targets": 0 },
@@ -117,7 +114,6 @@
 			"bPaginate": false,
 			"bLengthChange": false,
 			"searching": false,
-			"scrollX": true,
 			"defaultContent": '',
 			"aoColumnDefs": [
 				{ "sWidth": '60px', "targets": 0 },
@@ -152,7 +148,6 @@
 		$('#dataTables-listlg').DataTable({
 			"responsive": true,
 			"bScrollAutoCss": false,
-			"scrollX": true,
 			"lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
 			"searching": false,
 		});
@@ -166,7 +161,6 @@
 			"bSortClasses": false,
 			"bDeferRender": true,
 			"bScrollAutoCss": false,
-			"scrollX": true,
 			"lengthMenu": [ [100, 250, 500, -1], [100, 250, 500, "All"] ],
 			"searching": false,
 		});
@@ -177,7 +171,6 @@
 		$('#dataTables-listsm').DataTable({
 			"responsive": true,
 			"bScrollAutoCss": false,
-			"scrollX": true,
 			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
 			"defaultContent": '',
 		});
@@ -188,7 +181,6 @@
 		$('#dataTables-listsm2').DataTable({
 			"responsive": true,
 			"bScrollAutoCss": false,
-			"scrollX": true,
 			"lengthMenu": [ [10, 20, 50], [10, 20, 50] ],
 			"defaultContent": '',
 		});
@@ -199,7 +191,6 @@
 		$('#dataTables-charlist').DataTable({
 			"responsive": true,
 			"bScrollAutoCss": false,
-			"scrollX": true,
 			"paging": false,
 			"info": false,
 			"defaultContent": '',

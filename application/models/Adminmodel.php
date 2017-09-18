@@ -61,7 +61,7 @@ Class Adminmodel extends CI_Model {
 	
 	function get_loginlog($uid) {
 		$this->db_hat->select('datetime,ip');
-		$query = $this->db_login->get_where('hat_loginlog', array('userid' => $uid));
+		$query = $this->db_hat->get_where('hat_loginlog', array('userid' => $uid));
 		return $query->result_array();
 	}
 	

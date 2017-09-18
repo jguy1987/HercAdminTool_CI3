@@ -362,5 +362,5 @@ CREATE TABLE `hat_users` (
 -- Dumping data for table `hat_users`
 --
 
-INSERT INTO `hat_users` (`username`, `password`, `pemail`, `createdate`, `groupid`, `disablelogin`) VALUES ('admin', MD5('changeme1!'), 'tempemail@yourdomain.com', NOW(), 99, 0);
+INSERT INTO `hat_users` (`username`, `passwd`, `pemail`, `createdate`, `groupid`, `disablelogin`) VALUES ('admin', MD5('changeme1!'), 'tempemail@yourdomain.com', NOW(), 99, 0);
 

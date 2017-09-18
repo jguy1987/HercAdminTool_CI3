@@ -9,7 +9,7 @@
 	<p>Listing in-game accounts. Click on the edit button or the account ID to edit that account.</p>
 	<div class="panel-body">
 		<a href="/account/search" class="btn btn-info">Modify Search</a>
-		<br />		
+		<br /><br />	
 		<?php echo validation_errors(); ?>
 		<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
 			<thead>
