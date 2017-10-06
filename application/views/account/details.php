@@ -83,7 +83,7 @@
 												<label>Create&nbsp;Date</label>
 											</div>
 											<div class="col-sm-8">
-												<td><?php echo $acct_data->createdate; ?>
+												<td><?php echo $reg_data->createdate; ?>
 											</div>
 										</div>
 										<br />
@@ -213,7 +213,7 @@
 												<label>Registration IP</label>
 											</div>
 											<div class="col-sm-4">
-												<?php echo $acct_data->register_ip; ?>
+												<?php echo $reg_data->register_ip; ?>
 											</div>
 										</div>
 										<br />
@@ -222,7 +222,7 @@
 												<label>Auth IP</label>
 											</div>
 											<div class="col-sm-4">
-												<?php echo $acct_data->auth_ip; ?>
+												<?php echo $reg_data->auth_ip; ?>
 											</div>
 										</div>
 									</div>

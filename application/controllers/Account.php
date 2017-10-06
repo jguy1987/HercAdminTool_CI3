@@ -153,7 +153,7 @@ class Account extends MY_Controller {
 		$this->form_validation->set_rules('charslots',"Character Slots",'trim|required|greater_than[-1]|less_than[10]');
 		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
 		if ($this->form_validation->run() == FALSE) {
-			$this->details($this->input->post('acct_id'));
+			$this->details($this->input->post('account_id'));
 		}
 		else {
 			$chgAcct = array(
@@ -368,8 +368,8 @@ Your {$this->config->item('servername')} team");
 	
 	function check_groupid_perm($groupid) {
 		$session_data = $this->session->userdata('loggedin');
-		$this->db_login->select('acctgroupmax');
-		$query = $this->db_login->get_where('hat_groups', array('id' => $session_data['group']));
+		$this->db_hat->select('acctgroupmax');
+		$query = $this->db_hat->get_where('hat_groups', array('id' => $session_data['group']));
 		$queryResult = $query->row();
 		if ($queryResult->acctgroupmax >= $groupid) {
 			return True;
@@ -383,12 +383,23 @@ Your {$this->config->item('servername')} team");
 	function load_acct_data($aid) {
 		// Code cleanup. Move the loading of all account data information to a seperate function to condense code.
 		$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
+		$data['reg_data'] = $this->accountmodel->get_reg_details($aid);
 		$data['char_list'] = $this->accountmodel->get_char_list($aid);
 		$data['acct_notes'] = $this->accountmodel->get_acct_notes($aid);
+		foreach ($data['acct_notes'] as $noteid=>$v) {
+			$data['acct_notes'][$noteid]['username'] = $this->adminmodel->get_admin_name($v['userid']);
+		}
 		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
+		foreach ($data['block_list'] as $blockid=>$v2) {
+			$data['block_list'][$blockid]['blockname'] = $this->adminmodel->get_admin_name($v2['block_user']);
+			$data['block_list'][$blockid]['ublockname'] = $this->adminmodel->get_admin_name($v2['unblock_user']);
+		}
 		$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
 		$data['str_key_list'] = $this->accountmodel->get_str_key_list($aid);
 		$data['chg_acct_list'] = $this->accountmodel->get_acct_changes($aid);
+		foreach ($data['chg_acct_list'] as $chgid=>$v3) {
+			$data['chg_acct_list'][$chgid]['username'] = $this->adminmodel->get_admin_name($v3['user']);
+		}
 		$data['storage_items'] = $this->accountmodel->get_storage_items($aid);
 		return $data;
 	}

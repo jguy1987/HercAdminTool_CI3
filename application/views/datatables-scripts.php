@@ -228,7 +228,6 @@
 <script>
 	$(document).ready(function() {
 		$('#dataTables-banlist').DataTable({
-			"scrollX": true,
 			"bScrollAutoCss": true,
 			"info": false,
 			"defaultContent": '',

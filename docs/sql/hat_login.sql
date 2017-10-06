@@ -11,7 +11,7 @@ CREATE TABLE `hat_accteditlog` (
   `user` smallint(4) NOT NULL,
   `datetime` datetime NOT NULL,
   `chg_attr` varchar(20) NOT NULL,
-  `old_value` varchar(60) NOT NULL,
+  `old_value` varchar(60) NULL,
   `new_value` varchar(60) NOT NULL,
   PRIMARY KEY (`chg_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
@@ -73,5 +73,6 @@ CREATE TABLE IF NOT EXISTS `hat_herc_login` (
 	`account_id` mediumint(7) NOT NULL,
 	`createdate` DATE NOT NULL,
 	`register_ip` VARCHAR(15) NOT NULL, 
-	`auth_ip` VARCHAR(15) NOT NULL
+	`auth_ip` VARCHAR(15) NOT NULL,
+	PRIMARY KEY (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

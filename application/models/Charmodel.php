@@ -65,10 +65,9 @@ Class Charmodel extends CI_Model {
 	}
 	
 	function get_char_hist($cid) {
-		$this->db_charmap->select('hat_chareditlog.*,hat_users.username,hat_users.id');
+		$this->db_charmap->select('*');
 		$this->db_charmap->from('hat_chareditlog')->order_by('hat_chareditlog.datetime','desc');
-		$this->db_charmap->where('hat_chareditlog.char_id', $cid);
-		$this->db_charmap->join('hat_users','hat_chareditlog.user = hat_users.id');
+		$this->db_charmap->where('char_id', $cid);
 		$query = $this->db_charmap->get();
 		return $query->result_array();
 	}

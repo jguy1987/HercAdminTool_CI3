@@ -50,29 +50,26 @@ Class Accountmodel extends CI_Model {
 	}
 	
 	function get_acct_notes($aid) {
-		$this->db_login->select('hat_acctnotes.acct_id,hat_acctnotes.datetime,hat_acctnotes.userid,hat_acctnotes.note,hat_users.id,hat_users.username');
-		$this->db_login->from('hat_acctnotes')->order_by('hat_acctnotes.note_id','desc');
-		$this->db_login->where('hat_acctnotes.acct_id',$aid);
-		$this->db_login->join('hat_users', 'hat_acctnotes.userid = hat_users.id');
+		$this->db_login->select('*');
+		$this->db_login->from('hat_acctnotes')->order_by('note_id','desc');
+		$this->db_login->where('acct_id',$aid);
 		$q = $this->db_login->get();
+		
 		return $q->result_array();
 	}
 	
 	function get_block_hist($aid) {
-		$this->db_login->select('hat_blockinfo.*,p1.username AS blockname,p2.username AS ublockname');
+		$this->db_login->select('*');
 		$this->db_login->from('hat_blockinfo')->order_by('hat_blockinfo.blockid','desc');
-		$this->db_login->join('hat_users AS p1', 'hat_blockinfo.block_user = p1.id','left');
-		$this->db_login->join('hat_users AS p2', 'hat_blockinfo.unblock_user = p2.id','left');
 		$this->db_login->where('hat_blockinfo.acct_id',$aid);
 		$q = $this->db_login->get();
 		return $q->result_array();
 	}
 	
 	function get_acct_changes($aid) {
-		$this->db_login->select('hat_accteditlog.*,hat_users.username,hat_users.id');
-		$this->db_login->from('hat_accteditlog')->order_by('hat_accteditlog.datetime','desc');
-		$this->db_login->where('hat_accteditlog.acct_id', $aid);
-		$this->db_login->join('hat_users','hat_accteditlog.user = hat_users.id');
+		$this->db_login->select('*');
+		$this->db_login->from('hat_accteditlog')->order_by('datetime','desc');
+		$this->db_login->where('acct_id', $aid);
 		$query = $this->db_login->get();
 		return $query->result_array();
 	}
@@ -125,7 +122,7 @@ Class Accountmodel extends CI_Model {
 				}
 			}
 		}
-		$this->db->flush_cache();
+		$this->db_login->reset_query();
 		// Then, change data in the login table
 		$this->db_login->where('account_id', $chgAcct['account_id']);
 		unset($chgAcct['user'],$chgAcct['account_id']);
@@ -261,46 +258,49 @@ Class Accountmodel extends CI_Model {
 	}
 	
 	function search_accts($searchTerms) {
+		$this->db_login->select('login.account_id AS account_id, login.userid AS userid, login.sex AS sex, login.group_id AS group_id, login.email AS email, login.lastlogin AS lastlogin, login.unban_time AS unban_time, login.state AS state, hat_herc_login.createdate AS createdate');
+		$this->db_login->from('login');
+		$this->db_login->join('hat_herc_login', 'login.account_id = hat_herc_login.account_id', 'left outer');
 		// First, figure out what we're searching for
 		if (empty($searchTerms['acct_id']) == false) {
 			if (substr($searchTerms['acct_id'], 0, 1) == "=") {
 				$searchTerms['acct_id'] = substr($searchTerms['acct_id'], 1);
-				$this->db_login->where('account_id', $searchTerms['acct_id']);
+				$this->db_login->where('login.account_id', $searchTerms['acct_id']);
 			}
 			else {
-				$this->db_login->like('account_id', $searchTerms['acct_id']);
+				$this->db_login->like('login.account_id', $searchTerms['acct_id']);
 			}
 		}
 		if (empty($searchTerms['acct_name']) == false) {
 			if (substr($searchTerms['acct_name'], 0, 1) == "=") {
 				$searchTerms['acct_name'] = substr($searchTerms['acct_name'], 1);
-				$this->db_login->where('userid', $searchTerms['acct_name']);
+				$this->db_login->where('login.userid', $searchTerms['acct_name']);
 			}
 			else {
-				$this->db_login->like('userid', $searchTerms['acct_name']);
+				$this->db_login->like('login.userid', $searchTerms['acct_name']);
 			}
 		}
 		if (empty($searchTerms['email']) == false) {
 			if (substr($searchTerms['email'], 0, 1) == "=") {
 				$searchTerms['email'] = substr($searchTerms['email'], 1);
-				$this->db_login->where('email', $searchTerms['email']);
+				$this->db_login->where('login.email', $searchTerms['email']);
 			}
 			else {
-				$this->db_login->like('email', $searchTerms['email']);
+				$this->db_login->like('login.email', $searchTerms['email']);
 			}
 		}
 		if (empty($searchTerms['gender']) == false) {
-			$this->db_login->like('sex', $searchTerms['gender']);
+			$this->db_login->like('login.sex', $searchTerms['gender']);
 		}
 		if ($searchTerms['isGM'] == 1) {
-			$this->db_login->where('group_id >', 0);
+			$this->db_login->where('login.group_id >', 0);
 		}
 		if ($searchTerms['isBanned'] == 1) {
-			$this->db_login->where('unban_time >', 0);
-			$this->db_login->where('state', 5);
+			$this->db_login->where('login.unban_time >', 0);
+			$this->db_login->where('login.state', 5);
 		}
-		$this->db_login->where('sex !=', 'S');
-		$q = $this->db_login->get('login');
+		$this->db_login->where('login.sex !=', 'S');
+		$q = $this->db_login->get();
 		return $q->result_array();
 	}
 	
@@ -356,5 +356,20 @@ Class Accountmodel extends CI_Model {
 		$this->db_login->where('account_id', $editFlag['acct_id']);
 		$this->db_login->where('key', $editFlag['key']);
 		$this->db_login->update($table);
+	}
+	
+	function get_reg_details($aid) {
+		$this->db_login->select('*');
+		$q = $this->db_login->get_where('hat_herc_login', array('account_id' => $aid));
+		if ($q->num_rows() > 0) {
+			return $q->row();
+		}
+		else {
+			$row = new stdClass();
+			$row->createdate = "n/a";
+			$row->register_ip = "n/a";
+			$row->auth_ip = "n/a";
+			return $row;
+		}
 	}
 }

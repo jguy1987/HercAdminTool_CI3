@@ -217,6 +217,9 @@ class Character extends MY_Controller {
 		$data['char_cartItems'] = $this->charmodel->get_cart_items($cid);
 		$data['charlog_data'] = $this->charmodel->get_charlog($cid);
 		$data['char_edit_hist'] = $this->charmodel->get_char_hist($cid);
+		foreach ($data['char_edit_hist'] as $id=>$v) {
+			$data['char_edit_hist'][$id]['username'] = $this->adminmodel->get_admin_name($v['userid']);
+		}
 		$data['friends_list'] = $this->charmodel->get_friend_list($cid);
 		return $data;
 	}

@@ -227,4 +227,12 @@ Class Adminmodel extends CI_Model {
 		$q = $this->db_hat->get('hat_users');
 		return $q->result_array();
 	}
+	
+	function get_admin_name($id) {
+		// Get's the admin name from their ID.
+		$this->db_hat->select('username');
+		$q = $this->db_hat->get_where('hat_users', array('id' => $id));
+		$result = $q->row();
+		return $result->username;
+	}
 }
