@@ -18,6 +18,7 @@ class User extends MY_Controller {
 			$data['permissions'] = $this->config->item('permissions');
 			$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 			$this->load->view('header', $data);
+			$data['ssh_conn'] = $this->config->item('ssh_conn');
 			$this->load->view('sidebar', $data);
 			$data['user_settings'] = $this->usermodel->get_user_settings($this->session_data['id']);
 			$data['user_loginlog'] = $this->usermodel->get_user_logins($this->session_data['id']);
@@ -64,6 +65,7 @@ class User extends MY_Controller {
 				$data['permissions'] = $this->config->item('permissions');
 				$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 				$this->load->view('header', $data);
+				$data['ssh_conn'] = $this->config->item('ssh_conn');
 				$this->load->view('sidebar', $data);
 				$data['referpage'] = "usersettingschange";
 				$this->load->view('formsuccess', $data);
@@ -75,6 +77,7 @@ class User extends MY_Controller {
 				$data['permissions'] = $this->config->item('permissions');
 				$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 				$this->load->view('header', $data);
+				$data['ssh_conn'] = $this->config->item('ssh_conn');
 				$this->load->view('sidebar', $data);
 				$data['user_settings'] = $this->usermodel->get_user_settings($this->session_data['id']);
 				$data['user_loginlog'] = $this->usermodel->get_user_logins($this->session_data['id']);

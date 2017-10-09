@@ -13,6 +13,7 @@ class Gamelogs extends MY_Controller {
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$data['ssh_conn'] = $this->config->item('ssh_conn');
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}

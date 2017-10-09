@@ -23,6 +23,12 @@ $config['hat_path'] = "/var/www/hat/";
 
 // Server Setup. Follow the UserGuide!
 
+// Allow HAT to try and connect to your SSH server and issue commands. 0 is disable (no SSH), 1 is enable. If you disable this then you cannot:
+// * Issue commands against the running Hercules Server (broadcast, all atcommands, reloadbattleconf, reloadscripts, etc) will not be possible.
+// * Start, stop and restart the Hercules server from the panel.
+// * Issue git sync or svn up commands, or recompile the server from the panel.
+$config['ssh_conn'] = 1;
+
 $config['login_servers'] = array(
 	'1' => array(		// Group ID of login servers. 
 		'login_database_group'		=> "ragnarok",			// Connection group in database.php that holds the connection information for this login server.

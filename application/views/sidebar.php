@@ -112,9 +112,11 @@
 				<li>
 					<a href="#"><i class="fa fa-hdd-o fa-fw"></i> Server Administration<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
+						<?php if ($ssh_conn == 1) { ?>
 						<li>
 							<a href="/server/hercules">Hercules Info/Maintenance</a>
 						</li>
+						<?php } ?>
 						<?php if ($check_perm['itemshop'] == 1 && $vacation == 0) { ?>
 							<li>
 								<a href="/server/itemshop">Item Shop</a>

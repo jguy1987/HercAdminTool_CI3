@@ -7,30 +7,39 @@ Class Servermodel extends CI_Model {
 	public $login_ssh_conn;
 	public $charmap_ssh_conn;
 	public function __construct() {
-		include(APPPATH . '/third_party/phpseclib/Net/SSH2.php');
-		include(APPPATH . '/third_party/phpseclib/Net/SFTP.php');
-		set_include_path(get_include_path() . PATH_SEPARATOR . APPPATH . 'third_party/phpseclib');
+		require_once(APPPATH . '/third_party/vendor/autoload.php');
 		$servers = $this->config->item('ragnarok_servers');
 		$login_servers = $this->config->item('login_servers');
 		$login_srv_id = $servers['1']['login_server_group'];
-
-		$this->login_ssh_conn = new Net_SSH2($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
-		$this->login_sftp = new Net_SFTP($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
-		if ($login_servers[$login_srv_id]['login_ssh_method'] == "plain") {
-			$this->login_ssh_conn->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass']);
-			$this->login_sftp->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass']);
-		}
-		else if ($login_servers[$login_srv_id]['login_ssh_method'] == "key") {
-			// Not supported yet
-		}
-		$this->charmap_ssh_conn = new Net_SSH2($servers[$this->session->userdata('server_select')]['server_ssh_ip'], $servers[$this->session->userdata('server_select')]['server_ssh_port']);
-		$this->charmap_sftp = new Net_SFTP($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
-		if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "plain") {
-			$this->charmap_ssh_conn->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass']);
-			$this->charmap_sftp->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass']);
-		}
-		else if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "key") {
-			// Not implemented yet
+		
+		if ($this->config->item('ssh_conn') == 1) {
+			$this->login_ssh_conn = new \phpseclib\Net\SSH2($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
+			$this->login_sftp = new \phpseclib\Net\SFTP($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
+			if ($login_servers[$login_srv_id]['login_ssh_method'] == "plain") {
+				if (!$this->login_ssh_conn->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass'])) {
+					exit("Not able to make connection with your Login SSH server. Check your IP/Port, SSH Server status and credentials in hat.php.");
+				}
+				else {
+					$this->login_sftp->login($login_servers[$login_srv_id]['login_ssh_user'], $login_servers[$login_srv_id]['login_ssh_pass']);
+				}
+				}
+			else if ($login_servers[$login_srv_id]['login_ssh_method'] == "key") {
+				// Not supported yet
+			}
+			
+			$this->charmap_ssh_conn = new \phpseclib\Net\SSH2($servers[$this->session->userdata('server_select')]['server_ssh_ip'], $servers[$this->session->userdata('server_select')]['server_ssh_port']);
+			$this->charmap_sftp = new \phpseclib\Net\SFTP($login_servers[$login_srv_id]['login_ssh_ip'], $login_servers[$login_srv_id]['login_ssh_port']);
+			if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "plain") {
+				if (!$this->charmap_ssh_conn->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass'])) {
+					exit("Not able to make connection with your Char/Map SSH server. Check your IP/Port, SSH Server status and credentials in hat.php.");
+				}
+				else {
+					$this->charmap_sftp->login($servers[$this->session->userdata('server_select')]['server_ssh_user'], $servers[$this->session->userdata('server_select')]['server_ssh_pass']);
+				}
+			} 
+			else if ($servers[$this->session->userdata('server_select')]['server_ssh_method'] == "key") {
+				// Not implemented yet
+			}
 		}
 	}
 	
@@ -114,7 +123,7 @@ Class Servermodel extends CI_Model {
 		$lxmlOut = $this->charmap_ssh_conn->exec("python -c 'import pkgutil; print(1 if pkgutil.find_loader(\"lxml\") else 0)'");
 		if ($psutilOut == 1 && $lxmlOut == 1) { // Both modules exist on the remote server, OK to proceed.
 			// Copy over the get_sys_info script onto the remote server and run.
-			$this->charmap_sftp->put('get_sys_info.py', $dir, NET_SFTP_LOCAL_FILE);
+			$this->charmap_sftp->put('get_sys_info.py', $dir, 'NET_SFTP_LOCAL_FILE');
 			$this->charmap_ssh_conn->exec('python get_sys_info.py');
 			// Grab the resulting XML file and copy it back to HAT. Place in logs directory.
 			$this->charmap_sftp->get('serverstat.xml', $serverStatXML);
