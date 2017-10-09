@@ -47,7 +47,7 @@
 				<div class="col-lg-3">
 					<label>Bugtracker Module Permissions</label><br />
 					<?php foreach($permissions['bugtracker'] as $perm=>$text): ?>
-						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" />&nbsp;<?php echo $text; ?><br />
+						<input type="checkbox" name="perm[<?php echo $perm; ?>]" value="1" <?php if ($grpInfo->{$perm} == 1) { echo "checked"; } ?> />&nbsp;<?php echo $text; ?><br />
 					<?php endforeach; ?>
 				</div>
 			</div>
