@@ -11,12 +11,20 @@
 //============================================================
 
 -	script	HAT_Utility	-1,{
-	// First, we want to insert the time the map server connects to the character server so we can establish server uptime...
-	OnInterIfInitOnce:
-		// Get current time.
-		.date$ = gettimestr("%Y-%m-%d %H:%M:%S",21);
-		// Insert current time into database
-		query_sql("INSERT INTO `hat_sstatus` (`starttime`) VALUES ('"+.date$+"')");
-		
+	
+	OnMinute00:
+	OnMinute05:
+	OnMinute10:
+	OnMinute15:
+	OnMinute20:
+	OnMinute25:
+	OnMinute30:
+	OnMinute35:
+	OnMinute40:
+	OnMinute45:
+	OnMinute50:
+	OnMinute55:
+	// Tasks to check every 5 minutes, like broadcasts.
+
 	
 }

@@ -454,4 +454,10 @@ Class Servermodel extends CI_Model {
 		$this->charmap_ssh_conn->exec($cmd_charmap);
 		return 1;
 	}
+	
+	function get_broadcast_list() {
+		$this->db_charmap->select('*');
+		$q = $this->db_charmap->get('hat_broadcasts');
+		return $q->result_array();
+	}
 }

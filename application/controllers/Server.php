@@ -133,4 +133,22 @@ class Server extends MY_Controller {
 		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 	}
+	
+	public function broadcast() {
+		if ($this->adminmodel->check_perm($this->session_data['group'],'announcement') == True) {
+			$this->usermodel->update_user_active($this->session_data['id'],"server/broadcast");
+			$data['broadcasts'] = $this->servermodel->get_broadcast_list();
+			foreach ($data['broadcasts'] as $id=>$v) {
+				$data['broadcasts'][$id]['username'] = $this->adminmodel->get_admin_name($v['userid']);
+			}
+			$this->load->view('server/broadcast', $data);
+			$this->load->view('footer');
+		}
+		else {
+			$data['referpage'] = "noperm";
+			$this->load->view('accessdenied',$data);
+		}
+		$this->load->view('datatables-scripts');
+		$this->load->view('footer');
+	}
 }

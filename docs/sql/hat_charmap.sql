@@ -20,3 +20,17 @@ CREATE TABLE `hat_chareditlog` (
 --
 -- Dumping data for table `hat_chareditlog`
 --
+
+
+CREATE TABLE IF NOT EXISTS `hat_broadcasts` (
+  `b_id` int(6) NOT NULL,
+  `userid` int(4) NOT NULL,
+  `contents` varchar(60) NOT NULL,
+  `contents2` varchar(60) DEFAULT NULL,
+  `contents3` varchar(60) DEFAULT NULL,
+  `contents4` varchar(60) DEFAULT NULL,
+  `createdate` datetime NOT NULL,
+  `b_interval` int(3) NOT NULL,
+  `b_lastevent` datetime NOT NULL,
+  `enabled` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;

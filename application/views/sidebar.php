@@ -127,6 +127,11 @@
 								<a href="/server/config">Server Configuration</a>
 							</li>
 						<?php } ?>
+						<?php if ($check_perm['announcement'] == 1) { ?>
+							<li>
+								<a href="/server/broadcast">Server Broadcasts</a>
+							</li>
+						<?php } ?>
 					</ul>
 				</li>
 			<?php } ?>
