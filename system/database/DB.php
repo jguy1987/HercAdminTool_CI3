@@ -98,7 +98,7 @@ function &DB($params = '', $query_builder_override = NULL)
 		}
 		elseif ( ! isset($db[$active_group]))
 		{
-			show_error('You have specified an invalid database connection group ('.$active_group.') in your config/database.php file.');
+			show_error('You have specified a database connection group setting ('.$active_group.') in application/config/hat.php that does not exist in application/config/database.php.');
 		}
 
 		$params = $db[$active_group];
