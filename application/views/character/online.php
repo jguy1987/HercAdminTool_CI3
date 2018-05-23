@@ -28,8 +28,8 @@
 				<tbody>
 					<?php foreach ($online_list as $oChar): ?>
 						<tr class="odd gradeX">
-							<td><a href="/account/details/<?php echo $oChar['account_id']; ?>"><?php echo $oChar['account_id']; ?></td>
-							<td><a href="/character/details/<?php echo $oChar['char_id']; ?>"><?php echo $oChar['char_id']; ?></td>
+							<td><a href="account/details/<?php echo $oChar['account_id']; ?>"><?php echo $oChar['account_id']; ?></td>
+							<td><a href="character/details/<?php echo $oChar['char_id']; ?>"><?php echo $oChar['char_id']; ?></td>
 							<td><?php echo $oChar['name']; ?></td>
 							<td><?php echo $class_list[$oChar['class']]; ?></td>
 							<td><?php echo $oChar['base_level']; ?></td>
@@ -37,7 +37,7 @@
 							<td><?php echo $oChar['zeny']; ?></td>
 							<td><?php echo $oChar['guild_name']; ?></td>
 							<td><?php echo $oChar['last_map']."&nbsp;".$oChar['last_x'].",&nbsp;".$oChar['last_y']; ?></td>
-							<td><a href="/character/kick/<?php echo $oChar['char_id']; ?>"><button type="button" class="btn btn-danger">Kick</button></a>&nbsp;Ban&nbsp;</td>
+							<td><a href="character/kick/<?php echo $oChar['char_id']; ?>"><button type="button" class="btn btn-danger">Kick</button></a>&nbsp;Ban&nbsp;</td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>

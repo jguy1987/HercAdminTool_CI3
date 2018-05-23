@@ -17,7 +17,7 @@
 			<div class="tab-pane fade in active" id="details">
 				<h4>Basic Guild Info</h4><br />
 				<?php echo validation_errors(); ?>
-				<?php echo form_open('/guild/verifyedit', array('class' => 'form-inline'), array('guild_id' => $guildinfo->guild_id)); ?>
+				<?php echo form_open('guild/verifyedit', array('class' => 'form-inline'), array('guild_id' => $guildinfo->guild_id)); ?>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
@@ -80,9 +80,9 @@
 										<tbody>
 											<?php foreach($guildMembers as $member) { ?>
 												<tr>
-													<td><a href="/character/details/<?php echo $member['char_id']; ?>"><?php echo $member['name']; ?></a></td>
+													<td><a href="character/details/<?php echo $member['char_id']; ?>"><?php echo $member['name']; ?></a></td>
 													<td><?php echo $guildPositions[$member['position']]['name']; ?>&nbsp;(<?php echo $member['position']; ?>)</td>
-													<td><a href="/account/details/<?php echo $member['account_id']; ?>"><?php echo $member['account_id']; ?></a></td>
+													<td><a href="account/details/<?php echo $member['account_id']; ?>"><?php echo $member['account_id']; ?></a></td>
 													<td><?php echo $class_list[$member['class']]; ?></td>
 													<td><?php echo $member['lv']; ?></td>
 													<td><?php if ($member['online'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>

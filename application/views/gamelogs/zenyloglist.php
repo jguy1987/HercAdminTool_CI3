@@ -23,8 +23,8 @@
 					<?php foreach ($zenylogResults as $logItem) { ?>
 						<tr>
 							<td><?php echo $logItem['time']; ?></td>
-							<td><a href="/character/details/<?php echo $logItem['src_id']; ?>"><?php echo $logItem['src_id']; ?></td>
-							<td><a href="/character/details/<?php echo $logItem['char_id']; ?>"><?php echo $logItem['char_id']; ?></td>
+							<td><a href="character/details/<?php echo $logItem['src_id']; ?>"><?php echo $logItem['src_id']; ?></td>
+							<td><a href="character/details/<?php echo $logItem['char_id']; ?>"><?php echo $logItem['char_id']; ?></td>
 							<td><?php echo $logItem['type']; ?></td>
 							<td><?php echo $logItem['amount']; ?></td>
 							<td><?php echo $logItem['map'] ?></td>

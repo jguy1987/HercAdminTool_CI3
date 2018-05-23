@@ -8,7 +8,7 @@
 	</div>			
 	<div class="col-lg-4">
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('/admin/verifyadduser'); ?>
+		<?php echo form_open('admin/verifyadduser'); ?>
 		<fieldset>
 			<div class="form-group">
 				<label>Username</label>

@@ -61,9 +61,9 @@
 				<tbody>
 					<?php foreach ($guild_list as $guild) { ?>
 						<tr>
-							<td><a href="/guild/details/<?php echo $guild['guild_id']; ?>"><?php echo $guild['guild_id']; ?></a></td>
+							<td><a href="guild/details/<?php echo $guild['guild_id']; ?>"><?php echo $guild['guild_id']; ?></a></td>
 							<td><?php echo $guild['name']; ?></td>
-							<td><a href="/character/details/<?php echo $guild['char_id']; ?>"><?php echo $guild['master']; ?></a></td>
+							<td><a href="character/details/<?php echo $guild['char_id']; ?>"><?php echo $guild['master']; ?></a></td>
 							<td><?php echo $guild['member_cnt']; ?></td>
 							<td><?php echo $guild['guild_lv']; ?></td>
 							<td></td>

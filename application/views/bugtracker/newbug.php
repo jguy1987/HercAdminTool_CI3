@@ -8,7 +8,7 @@
 	</div>
 	<div class="panel-body">
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('/bugtracker/newbug_process'); ?>
+		<?php echo form_open('bugtracker/newbug_process'); ?>
 		<fieldset>
 			<div class="row">
 				<div class="col-lg-6">

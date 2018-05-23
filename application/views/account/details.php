@@ -23,7 +23,7 @@
 				<div class="tab-pane fade in active" id="details">
 					<h4>Basic Account Info</h4>
 					<?php echo validation_errors(); ?>
-					<?php echo form_open('/account/verifyedit', array('class' => 'form-inline'), array('account_id' => $acct_data->account_id)); ?>
+					<?php echo form_open('account/verifyedit', array('class' => 'form-inline'), array('account_id' => $acct_data->account_id)); ?>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="panel panel-default">
@@ -119,10 +119,10 @@
 												<label>Options</label>
 											</div>
 											<div class="col-sm-8">
-												<a href="/account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a> 
-												<a href="/account/resetpin/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a> 
-												<a href="/account/emailuser/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-info">Send Email</button></a> 
-												<a href="/account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>
+												<a href="account/resetpass/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset Password</button></a> 
+												<a href="account/resetpin/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a> 
+												<a href="account/emailuser/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-info">Send Email</button></a> 
+												<a href="account/kick/<?php echo $acct_data->account_id; ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>
 											</div>
 										</div>
 									</div>
@@ -293,7 +293,7 @@
 							</div>
 							<div class="modal-body">
 								<?php echo validation_errors(); ?>
-								<?php echo form_open('/account/addblock', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+								<?php echo form_open('account/addblock', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
 								<table>
 									<tr><td width="25%"><label>Type</label></td>
 									<td width="450px"><select class="form-control" id="banType" name="banType" style="width:100%;">
@@ -329,7 +329,7 @@
 							</div>
 							<div class="modal-body">
 								<?php echo validation_errors(); ?>
-								<?php echo form_open('/account/delblock', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+								<?php echo form_open('account/delblock', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
 								<input type="hidden" id="blockidval" name="blockidval" />
 								<table>
 									<tr><td width="25%"><label>Unblock Comment</label></td>
@@ -356,7 +356,7 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<?php echo validation_errors(); ?>
-										<?php echo form_open('/account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
+										<?php echo form_open('account/addnote', '', array('acct_id' => $acct_data->account_id)); ?>
 										<fieldset>
 											<textarea class="form-control" rows="3" name="note"></textarea>
 											<button type="submit" class="btn btn-default">Add note</button><br />
@@ -412,7 +412,7 @@
 										<?php foreach($num_key_list as $nKL_item): ?>
 											<tr class="odd gradex">
 												<td><?php echo $nKL_item['key']; ?></td>
-												<?php echo form_open('/account/editnumflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id, 'key' => $nKL_item['key'])); ?>
+												<?php echo form_open('account/editnumflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id, 'key' => $nKL_item['key'])); ?>
 												<td><input type="number" class="form-control" name="index" value="<?php echo $nKL_item['index']; ?>" /></td>
 												<td><input type="number" class="form-control" name="value" value="<?php echo $nKL_item['value']; ?>" /></td>
 												<td>
@@ -443,7 +443,7 @@
 										<?php foreach($str_key_list as $sKL_item): ?>
 											<tr class="odd gradex">
 												<td><?php echo $sKL_item['key']; ?></td>
-												<?php echo form_open('/account/editstrflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id, 'key' => $sKL_item['key'])); ?>
+												<?php echo form_open('account/editstrflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id, 'key' => $sKL_item['key'])); ?>
 												<td><input type="number" class="form-control" name="index" value="<?php echo $sKL_item['index']; ?>" /></td>
 												<td><input type="text" class="form-control" name="value" value="<?php echo $sKL_item['value']; ?>" /></td>
 												<td>
@@ -467,7 +467,7 @@
 								</div>
 								<div class="modal-body">
 									<?php echo validation_errors(); ?>
-									<?php echo form_open('/account/addnumflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+									<?php echo form_open('account/addnumflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
 										<input type="hidden" id="acct_id" name="acct_id" />
 										<label>Key Name:</label>
 										<input type="text" class="form-control" name="key" />
@@ -496,7 +496,7 @@
 								</div>
 								<div class="modal-body">
 									<?php echo validation_errors(); ?>
-									<?php echo form_open('/account/addstrflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
+									<?php echo form_open('account/addstrflag', array('class' => 'form-inline'), array('acct_id' => $acct_data->account_id)); ?>
 										<input type="hidden" id="acct_id2" name="acct_id" />
 										<label>Key Name:</label>
 										<input type="text" class="form-control" name="key" />
@@ -574,7 +574,7 @@
 										$disabled = " ";
 									}
 									$json = "<div class='slider'>".
-										form_open('/account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acct_id' => $acct_data->account_id))."
+										form_open('account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acct_id' => $acct_data->account_id))."
 											<div class='panel-body'>
 												<div class='row'>
 													<div class='col-xs-3'>
@@ -667,14 +667,14 @@
 									<?php foreach ($char_list as $char_data): ?>
 										<tr class="odd gradeX">
 											<td><?php echo $char_data['char_num']; ?></td>
-											<td><a href="/character/details/<?php echo $char_data['char_id']; ?>"><?php echo $char_data['char_id']; ?></a>&nbsp;<?php if ($char_data['delete_date'] > 0) { ?><button class="btn btn-danger btn-xs disabled">DELETION PENDING</button><?php } ?></td>
+											<td><a href="character/details/<?php echo $char_data['char_id']; ?>"><?php echo $char_data['char_id']; ?></a>&nbsp;<?php if ($char_data['delete_date'] > 0) { ?><button class="btn btn-danger btn-xs disabled">DELETION PENDING</button><?php } ?></td>
 											<td><?php echo $char_data['name']; ?></td>
 											<td><?php echo $char_data['sex']; ?></td>
 											<td><?php echo $class_list[$char_data['class']]; ?></td>
 											<td><?php echo $char_data['base_level']; ?>/<?php echo $char_data['job_level']; ?></td>
-											<td><a href="/guild/details/<?php echo $char_data['guild_id']; ?>"><?php echo $char_data['guild_name']; ?></a></td>
+											<td><a href="guild/details/<?php echo $char_data['guild_id']; ?>"><?php echo $char_data['guild_name']; ?></a></td>
 											<td><?php if ($char_data['online'] == 1) { echo "Yes"; } elseif ($char_data['online'] == 0) { echo "No"; }?></td>
-											<td><a href="/character/resetpos/<?php echo $char_data['char_id']; ?>" class="btn btn-sm btn-success <?php if ($char_data['delete_date'] > 0) { echo "disabled"; } ?>">Reset Position</a></td>
+											<td><a href="character/resetpos/<?php echo $char_data['char_id']; ?>" class="btn btn-sm btn-success <?php if ($char_data['delete_date'] > 0) { echo "disabled"; } ?>">Reset Position</a></td>
 										</tr>
 									<?php endforeach; ?>
 								</tbody>

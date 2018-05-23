@@ -13,19 +13,19 @@
 					</div>
 					<div class="panel-body">
 						<?php if ($online_status['login'] == false) { ?> 
-							<a href="/server/maintenance/toggle/login"><button class="btn btn-danger">Login</button></a>
+							<a href="server/maintenance/toggle/login"><button class="btn btn-danger">Login</button></a>
 						<?php } else { ?>
-							<a href="/server/maintenance/toggle/login"><button class="btn btn-success">Login</button></a>
+							<a href="server/maintenance/toggle/login"><button class="btn btn-success">Login</button></a>
 						<?php } ?>
 						<?php if ($online_status['char'] == false) { ?>
-							<a href="/server/maintenance/toggle/char"><button class="btn btn-danger">Character</button></a>
+							<a href="server/maintenance/toggle/char"><button class="btn btn-danger">Character</button></a>
 						<?php } else { ?>
-							<a href="/server/maintenance/toggle/char"><button class="btn btn-success">Character</button></a>
+							<a href="server/maintenance/toggle/char"><button class="btn btn-success">Character</button></a>
 						<?php } ?>
 						<?php if ($online_status['map'] == false) { ?>
-							<a href="/server/maintenance/toggle/map"><button class="btn btn-danger">Map</button></a>
+							<a href="server/maintenance/toggle/map"><button class="btn btn-danger">Map</button></a>
 						<?php } else { ?>
-							<a href="/server/maintenance/toggle/map"><button class="btn btn-success">Map</button></a>
+							<a href="server/maintenance/toggle/map"><button class="btn btn-success">Map</button></a>
 						<?php } ?>
 					</div>
 				</div>
@@ -33,16 +33,16 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-bar-chart-o fa-fw"></i> Server Maintenanc<a href="/server/maintenance/screen_wipe">e</a>
+						<i class="fa fa-bar-chart-o fa-fw"></i> Server Maintenanc<a href="server/maintenance/screen_wipe">e</a>
 					</div>
 					<div class="panel-body">
-						<a href="/server/maintenance/start"><button type="button" class="btn btn-success <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Start Server</button></a>
-						<a href="/server/maintenance/stop"><button type="button" class="btn btn-danger <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Stop Server</button></a>
-						<a href="/server/maintenance/restart"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Restart Server</button></a><br /><br />
-						<a href="/server/maintenance/updatefiles"><button type="button" class="btn btn-info <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Update Files</button></a><br /><br />
-						<a href="/server/maintenance/reloadscript"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Reload Scripts</button></a>
-						<a href="/server/maintenance/reloadbattleconf"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Reload Battle Conf</button></a>
-						<a href="/server/maintenance/reloadatcommand"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Reload @command</button></a>
+						<a href="server/maintenance/start"><button type="button" class="btn btn-success <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Start Server</button></a>
+						<a href="server/maintenance/stop"><button type="button" class="btn btn-danger <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Stop Server</button></a>
+						<a href="server/maintenance/restart"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Restart Server</button></a><br /><br />
+						<a href="server/maintenance/updatefiles"><button type="button" class="btn btn-info <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Update Files</button></a><br /><br />
+						<a href="server/maintenance/reloadscript"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Reload Scripts</button></a>
+						<a href="server/maintenance/reloadbattleconf"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Reload Battle Conf</button></a>
+						<a href="server/maintenance/reloadatcommand"><button type="button" class="btn btn-warning <?php if ($check_perm['servermaint'] == 0) { echo "disabled"; } ?>">Reload @command</button></a>
 					</div>
 				</div>
 			</div>

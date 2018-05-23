@@ -25,7 +25,7 @@
 						<div class="table-responsive">
 							<table class="table table-striped" id="dataTables-example">
 							<?php echo validation_errors(); ?>
-							<?php echo form_open('/bugtracker/verifyedit', array('class' => 'form-inline'), array('bug_id' => $bug_details->bug_id)); ?>
+							<?php echo form_open('bugtracker/verifyedit', array('class' => 'form-inline'), array('bug_id' => $bug_details->bug_id)); ?>
 								<tr>
 									<td><label>Ticket ID</label></td><td><?php echo $bug_details->bug_id; ?></td><td><label>Submitter</label></td><td><?php echo $bug_details->starter_name; ?></td><td><label>Submit Date</label></td><td><?php echo $bug_details->startdate; ?></td>
 								</tr>
@@ -160,7 +160,7 @@
 				<div class="col-lg-12">
 					<div class="panel panel-info">
 						<div class="panel-heading"><label>Add new comment</label></div>
-						<?php echo form_open('/bugtracker/addcomment', array('class' => 'form-inline'), array('bug_id' => $bug_details->bug_id)); ?>
+						<?php echo form_open('bugtracker/addcomment', array('class' => 'form-inline'), array('bug_id' => $bug_details->bug_id)); ?>
 						<div class="panel-body">
 							<center><textarea class="form-control" rows="4" cols="120" name="comment"></textarea></center>
 						</div>

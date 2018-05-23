@@ -86,7 +86,7 @@ Class Servermodel extends CI_Model {
 
 		$data = array(
 			'Server Uptime'				=> $sinceStartf,
-			'<a href="/character/whosonline">Players Online</a>'				=> number_format($q7->num_rows()),
+			'<a href="character/whosonline">Players Online</a>'				=> number_format($q7->num_rows()),
 			'Accounts Registered'		=> number_format($q->num_rows()),
 			'Characters Created'			=> number_format($q2),
 			'Guilds Established'			=> number_format($q3),

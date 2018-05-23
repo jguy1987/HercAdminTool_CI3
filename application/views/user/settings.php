@@ -8,7 +8,7 @@
 	</div>
 	<p>Here you can change the settings for your admin panel account</p>
 	
-	<?php echo form_open('/user/verifyedit', '', array('userid' => $user_settings->id)); ?>
+	<?php echo form_open('user/verifyedit', '', array('userid' => $user_settings->id)); ?>
 	<p>Note: You must enter your current password in order to make any changes on this page. Do not enter a New Password if you do not intend to change it.</p>
 	<strong><?php echo validation_errors(); ?></strong>
 	<div class="row">

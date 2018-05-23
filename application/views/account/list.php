@@ -8,7 +8,7 @@
 	</div>
 	<p>Listing in-game accounts. Click on the edit button or the account ID to edit that account.</p>
 	<div class="panel-body">
-		<a href="/account/search" class="btn btn-info">Modify Search</a>
+		<a href="account/search" class="btn btn-info">Modify Search</a>
 		<br /><br />	
 		<?php echo validation_errors(); ?>
 		<table class="table table-striped table-bordered table-hover" id="dataTables-listlg">
@@ -27,7 +27,7 @@
 			<tbody>
 				<?php foreach ($accts as $acct_data): ?>
 				<tr class="odd gradeX">
-					<td><a href="/account/details/<?php echo $acct_data['account_id']; ?>"><?php echo $acct_data['account_id']; ?></td>
+					<td><a href="account/details/<?php echo $acct_data['account_id']; ?>"><?php echo $acct_data['account_id']; ?></td>
 					<td><?php if ($acct_data['group_id'] > 0) { ?><div style="color:#FF0000; "> <?php } ?><?php echo $acct_data['userid']; ?><?php if ($acct_data['group_id'] > 0) { ?></div><?php } ?></td>
 					<td><?php echo $acct_data['sex']; ?></td>
 					<td><?php echo $acct_data['email']; ?></td>

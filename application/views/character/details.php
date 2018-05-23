@@ -33,7 +33,7 @@
 				<div class="tab-pane fade in active" id="details">
 					<h4>Basic Character Info</h4><br />
 					<?php echo validation_errors(); ?>
-					<?php echo form_open('/character/verifyedit', array('class' => 'form-inline'), array('charid' => $charinfo->char_id)); ?>
+					<?php echo form_open('character/verifyedit', array('class' => 'form-inline'), array('charid' => $charinfo->char_id)); ?>
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="panel panel-default">
@@ -240,8 +240,8 @@
 									<i class="fa fa-user-md fa-fw"></i> Options
 								</div>
 								<div class="panel-body">
-									<a href="/character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
-									<a href="/character/resetpos/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
+									<a href="character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
+									<a href="character/resetpos/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
 								</div>
 							</div>
 						</div>	
@@ -436,7 +436,7 @@
 													$disabled = " ";
 												}
 												$json = "<div class='slider'>".
-													form_open('/character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
+													form_open('character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
 														<div class='panel-body'>
 															<div class='row'>
 																<div class='col-xs-3'>
@@ -536,7 +536,7 @@
 													$disabled = " ";
 												}
 												$json = "<div class='slider'>".
-													form_open('/character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
+													form_open('character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
 														<div class='panel-body'>
 															<div class='row'>
 																<div class='col-xs-3'>
@@ -634,7 +634,7 @@
 													$disabled = " ";
 												}
 												$json = "<div class='slider'>".
-													form_open('/character/edititem', array('class' => 'form-inline'), array('id' => $cartItem['id'], 'item_loc' => "cart", 'charid' => $charinfo->char_id))."
+													form_open('character/edititem', array('class' => 'form-inline'), array('id' => $cartItem['id'], 'item_loc' => "cart", 'charid' => $charinfo->char_id))."
 														<div class='panel-body'>
 															<div class='row'>
 																<div class='col-xs-3'>
@@ -697,7 +697,7 @@
 											<tr>
 												<td><?php echo $charLog['time']; ?></td>
 												<td><?php echo $charLog['char_msg']; ?></td>
-												<td><a href="/account/details/<?php echo $charLog['account_id']; ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
+												<td><a href="account/details/<?php echo $charLog['account_id']; ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
 												<td><?php echo $charLog['name']; ?></td>
 												<td><?php echo "".$charLog['str']."&nbsp;/&nbsp;".$charLog['agi']."&nbsp;/&nbsp;".$charLog['vit']."&nbsp;/&nbsp;".$charLog['INT']."&nbsp;/&nbsp;".$charLog['dex']."&nbsp;/&nbsp;".$charLog['luk'].""; ?></td>
 												<td><?php echo "".$charLog['hair']."&nbsp;/&nbsp;".$charLog['hair_color'].""; ?></td>
@@ -750,9 +750,9 @@
 									<tbody>
 										<?php foreach ($friends_list as $friend) { ?>
 											<tr>
-												<td><a href="/character/details/<?php echo $friend['char_id']; ?>"><?php echo $friend['char_id']; ?></a></td>
+												<td><a href="character/details/<?php echo $friend['char_id']; ?>"><?php echo $friend['char_id']; ?></a></td>
 												<td><?php echo $friend['name']; ?></td>
-												<td><a href="/account/details/<?php echo $friend['friend_account']; ?>"><?php echo $friend['friend_account']; ?></a></td>
+												<td><a href="account/details/<?php echo $friend['friend_account']; ?>"><?php echo $friend['friend_account']; ?></a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

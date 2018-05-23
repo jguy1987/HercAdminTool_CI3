@@ -9,7 +9,7 @@
 	<p>This page is used to create an account for the GAME through the backend. Such an account will not require email authorization. The password and pincode will be automatically generated and sent to the user.</p>
 	<div class="col-lg-3">
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('/account/verifycreate'); ?>
+		<?php echo form_open('account/verifycreate'); ?>
 		<fieldset>
 			<div class="form-group">
 				<label>Account Name</label>

@@ -14,7 +14,7 @@
 					<?php
 					if ($server_perm == True) {
 						if ($server_performance == 1) {
-							echo "<label>The proper python module(s) do not exist on your Hercules server!</label>";
+							echo "<label>The proper python module(s) do not exist on your Hercules server or you do not have the proper settings in your hat.php!</label>";
 						}
 						else if ($server_performance == 2) {
 							echo "<label>Error. The data failed to load.</label>";
