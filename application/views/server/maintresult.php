@@ -8,37 +8,37 @@
 		<div class="col-lg-12">
 			<?php switch( $maintresult ) {
 				case "didnotstart": 
-					echo "The servers did not start. You can find the full logs below to troubleshoot. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "The servers did not start. You can find the full logs below to troubleshoot. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "startsuccess":
-					echo "Servers started successfully. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "Servers started successfully. <a href='".base_url('server/hercule's)."'>Return to server maintenance page</a>";
 					break;
 				case "stop":
-					echo "Server stopped. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "Server stopped. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "stopfail":
-					echo "One or more servers did not stop. Please check the logs and <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "One or more servers did not stop. Please check the logs and <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "restartsuccess":
-					echo "Server was restarted. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "Server was restarted. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "toggleservermissing":
-					echo "The server to toggle was missing from your query. Please <a href='server/hercules'>go back</a> and try again.";
+					echo "The server to toggle was missing from your query. Please <a href='".base_url('server/hercules')."'>go back</a> and try again.";
 					break;
 				case "toggleserverfailed":
-					echo "An error occurred while restarting the server. Please <a href='server/hercules'>go back</a>, review the logs and try again.";
+					echo "An error occurred while restarting the server. Please <a href='".base_url('server/hercules')."'>go back</a>, review the logs and try again.";
 					break;
 				case "toggleserverstopsuccess":
-					echo "The server was stopped successfully. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "The server was stopped successfully. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "toggleserverstartsuccess":
-					echo "The server was started successfully. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo "The server was started successfully. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "screenwipe":
-					echo "Screens wiped! Please <a href='server/hercules'>go back</a> and try again.";
+					echo "Screens wiped! Please <a href='".base_url('server/hercules')."'>go back</a> and try again.";
 					break;
 				case "cmdsent":
-					echo $cmd_used." sent. Results reflected in logs. <a href='server/hercules'>Return to server maintenance page</a>";
+					echo $cmd_used." sent. Results reflected in logs. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "updatefiles":
 					if ($update_result == 1) {
@@ -47,7 +47,7 @@
 					if ($update_result == 2) {
 						echo "You have an error in your hat.php, under update method. Either the update via HAT is disabled, or you have an invalid entry. No update was able to be done.";
 					}
-					echo "<a href='server/hercules'>Return to server maintenance page</a>";
+					echo "<a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				default:
 					echo "An unknown error occurred. Report to developer!";

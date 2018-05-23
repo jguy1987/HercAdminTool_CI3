@@ -23,8 +23,8 @@
 					<?php foreach ($atcmd_log as $logItem) { ?>
 						<tr>
 							<td><?php echo $logItem['atcommand_date']; ?></td>
-							<td><a href="account/details/<?php echo $logItem['account_id']; ?>"><?php echo $logItem['account_id']; ?></td>
-							<td><a href="character/details/<?php echo $logItem['char_id']; ?>"><?php echo $logItem['char_id']; ?></td>
+							<td><a href="<?php echo base_url('account/details/'.$logItem['account_id'].''); ?>"><?php echo $logItem['account_id']; ?></td>
+							<td><a href="<?php echo base_url('character/details/'.$logItem['char_id'].''); ?>"><?php echo $logItem['char_id']; ?></td>
 							<td><?php echo $logItem['char_name']; ?></td>
 							<td><?php echo $logItem['map']; ?></td>
 							<td><?php echo $logItem['command'] ?></td>

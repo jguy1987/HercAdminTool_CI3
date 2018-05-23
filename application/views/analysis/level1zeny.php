@@ -22,8 +22,8 @@
 				<tbody>
 					<?php foreach($zenyResult as $zenyEntry): ?>
 						<tr>
-							<td><?php echo $zenyEntry['char_id']; ?></td>
-							<td><?php echo $zenyEntry['account_id']; ?></td>
+							<td><a href="<?php echo base_url('character/details/'.$zenyEntry['char_id'].''); ?>"><?php echo $zenyEntry['char_id']; ?></a></td>
+							<td><a href="<?php echo base_url('account/details/'.$zenyEntry['account_id'].''); ?>"><?php echo $zenyEntry['account_id']; ?></a></td>
 							<td><?php echo $zenyEntry['name']; ?></td>
 							<td><?php echo $zenyEntry['zeny']; ?></td>
 							<td><?php echo $class_list[$zenyEntry['class']]; ?></td>

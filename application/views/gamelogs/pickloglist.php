@@ -24,7 +24,7 @@
 					<?php foreach ($picklogResults as $logItem) { ?>
 						<tr>
 							<td><?php echo $logItem['time']; ?></td>
-							<td><a href="character/details/<?php echo $logItem['char_id']; ?>"><?php echo $logItem['char_id']; ?></td>
+							<td><a href="<?php echo base_url('character/details/'.$logItem['char_id'].''); ?>"><?php echo $logItem['char_id']; ?></td>
 							<td><?php echo $logItem['type']; ?></td>
 							<td><?php echo $logItem['nameid']; ?></td>
 							<td><?php echo $logItem['amount']; ?></td>

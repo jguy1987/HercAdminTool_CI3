@@ -240,8 +240,8 @@
 									<i class="fa fa-user-md fa-fw"></i> Options
 								</div>
 								<div class="panel-body">
-									<a href="character/kick/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
-									<a href="character/resetpos/<?php echo $charinfo->char_id; ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
+									<a href="<?php echo base_url('character/kick/'.$charinfo->char_id.''); ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
+									<a href="<?php echo base_url('character/resetpos/'.$charinfo->char_id.''); ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
 								</div>
 							</div>
 						</div>	
@@ -697,7 +697,7 @@
 											<tr>
 												<td><?php echo $charLog['time']; ?></td>
 												<td><?php echo $charLog['char_msg']; ?></td>
-												<td><a href="account/details/<?php echo $charLog['account_id']; ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
+												<td><a href="<?php echo base_url('account/details/'.$charLog['account_id'].''); ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
 												<td><?php echo $charLog['name']; ?></td>
 												<td><?php echo "".$charLog['str']."&nbsp;/&nbsp;".$charLog['agi']."&nbsp;/&nbsp;".$charLog['vit']."&nbsp;/&nbsp;".$charLog['INT']."&nbsp;/&nbsp;".$charLog['dex']."&nbsp;/&nbsp;".$charLog['luk'].""; ?></td>
 												<td><?php echo "".$charLog['hair']."&nbsp;/&nbsp;".$charLog['hair_color'].""; ?></td>
@@ -750,9 +750,9 @@
 									<tbody>
 										<?php foreach ($friends_list as $friend) { ?>
 											<tr>
-												<td><a href="character/details/<?php echo $friend['char_id']; ?>"><?php echo $friend['char_id']; ?></a></td>
+												<td><a href="<?php echo base_url('character/details/'.$friend['char_id'].''); ?>"><?php echo $friend['char_id']; ?></a></td>
 												<td><?php echo $friend['name']; ?></td>
-												<td><a href="account/details/<?php echo $friend['friend_account']; ?>"><?php echo $friend['friend_account']; ?></a></td>
+												<td><a href="<?php echo base_url('account/details/'.$friend['friend_account'].''); ?>"><?php echo $friend['friend_account']; ?></a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

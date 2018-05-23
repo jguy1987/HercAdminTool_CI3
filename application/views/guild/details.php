@@ -32,7 +32,7 @@
 											<td><label>Guild ID</label></td><td><?php echo $guildinfo->guild_id; ?></td>
 										</tr>
 										<tr>
-											<td><label>Guild Master</label></td><td><a href="/character/details/<?php echo $guildinfo->char_id; ?>"><?php echo $guildinfo->master; ?></td>
+											<td><label>Guild Master</label></td><td><a href="<?php echo base_url('character/details/'.$guildinfo->char_id.''); ?>"><?php echo $guildinfo->master; ?></td>
 											<td><label>Average Level</label></td><td><?php echo $guildinfo->average_lv; ?></td>
 										</tr>
 										<tr>
@@ -80,13 +80,13 @@
 										<tbody>
 											<?php foreach($guildMembers as $member) { ?>
 												<tr>
-													<td><a href="character/details/<?php echo $member['char_id']; ?>"><?php echo $member['name']; ?></a></td>
+													<td><a href="<?php echo base_url('character/details/'.$member['char_id'].''); ?>"><?php echo $member['name']; ?></a></td>
 													<td><?php echo $guildPositions[$member['position']]['name']; ?>&nbsp;(<?php echo $member['position']; ?>)</td>
-													<td><a href="account/details/<?php echo $member['account_id']; ?>"><?php echo $member['account_id']; ?></a></td>
+													<td><a href="<?php echo base_url('account/details/'.$member['account_id'].''); ?>"><?php echo $member['account_id']; ?></a></td>
 													<td><?php echo $class_list[$member['class']]; ?></td>
 													<td><?php echo $member['lv']; ?></td>
 													<td><?php if ($member['online'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>
-													<td><?php echo form_open('/guild/leaderassign', '', array('guild_id' => $guildinfo->guild_id, 'new_leader_name' => $member['name'], 'old_leader_id' => $guildinfo->char_id, 'new_leader_id' => $member['char_id'])); ?><button type="submit" class="btn btn-info">Promote</button><?php echo form_close(); ?></td>
+													<td><?php echo form_open('guild/leaderassign', '', array('guild_id' => $guildinfo->guild_id, 'new_leader_name' => $member['name'], 'old_leader_id' => $guildinfo->char_id, 'new_leader_id' => $member['char_id'])); ?><button type="submit" class="btn btn-info">Promote</button><?php echo form_close(); ?></td>
 												</tr>
 											<?php } ?>
 										</tbody>

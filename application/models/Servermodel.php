@@ -83,10 +83,11 @@ Class Servermodel extends CI_Model {
 		}
 		// Get users online
 		$q7 = $this->db_charmap->get_where('char', array('online' => 1));
-
+		
+		$whosOnlineLink = "<a href='".base_url('character/whosonline')."'>Players Online</a>";
 		$data = array(
 			'Server Uptime'				=> $sinceStartf,
-			'<a href="character/whosonline">Players Online</a>'				=> number_format($q7->num_rows()),
+			$whosOnlineLink				=> number_format($q7->num_rows()),
 			'Accounts Registered'		=> number_format($q->num_rows()),
 			'Characters Created'			=> number_format($q2),
 			'Guilds Established'			=> number_format($q3),

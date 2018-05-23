@@ -55,7 +55,7 @@
 					<ul class="dropdown-menu">
 						<?php foreach ($servers as $k=>$v) { ?>
 							<li>
-								<a href="server/select_server/<?php echo $k; ?>">
+								<a href="<?php echo base_url('server/select_server/'.$k.''); ?>">
 									<div>
 										<?php echo $v['servername']; ?>
 									</div>
@@ -128,11 +128,11 @@
 					</a>
 					<ul class="dropdown-menu dropdown-user">
 						<li>
-							<a href="user/settings"><i class="fa fa-gear fa-fw"></i> Your Settings</a>
+							<a href="<?php echo base_url('user/settings'); ?>"><i class="fa fa-gear fa-fw"></i> Your Settings</a>
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="user/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+							<a href="<?php echo base_url('user/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 						</li>
 					</ul>
 				</li>

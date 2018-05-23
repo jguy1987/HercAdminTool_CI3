@@ -9,7 +9,7 @@
 	<p>Listing all groups for Admin Tool.</p>
 	<div class="panel-body">
 		<div class="table-responsive">
-			<a href="/admin/addgroup/"><button type="button" class="btn btn-primary">Add New Group</button></a><br /><br />
+			<a href="<?php echo base_url('admin/addgroup'); ?>"><button type="button" class="btn btn-primary">Add New Group</button></a><br /><br />
 			<table class="table table-striped table-bordered table-hover" id="dataTables-listsm">
 				<thead>
 					<tr>
@@ -28,7 +28,7 @@
 						<?php foreach ($name_results[$group_entry['id']] as $name): ?>
 							<?php echo "<a href='/admin/edituser/".$name['id']."'>".$name['username']."</a>,&nbsp;"; ?>
 						<?php endforeach; ?></td>
-						<td><a href="/admin/editgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/admin/delgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-danger">Delete</button></a>&nbsp;<a href="/sendemail/admingroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-info">Send Email</button></a></td>
+						<td><a href="<?php echo base_url('admin/editgroup/'.$group_entry['id'].''); ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="/admin/delgroup/<?php echo $group_entry['id']; ?>"><button type="button" class="btn btn-danger">Delete</button></a>&nbsp;<a href="<?php echo base_url('sendemail/admingroup/'.$group_entry['id'].''); ?>"><button type="button" class="btn btn-info">Send Email</button></a></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
