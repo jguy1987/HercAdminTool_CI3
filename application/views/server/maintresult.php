@@ -11,7 +11,7 @@
 					echo "The servers did not start. You can find the full logs below to troubleshoot. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "startsuccess":
-					echo "Servers started successfully. <a href='".base_url('server/hercule's)."'>Return to server maintenance page</a>";
+					echo "Servers started successfully. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";
 					break;
 				case "stop":
 					echo "Server stopped. <a href='".base_url('server/hercules')."'>Return to server maintenance page</a>";

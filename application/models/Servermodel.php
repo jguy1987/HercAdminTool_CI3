@@ -167,9 +167,9 @@ Class Servermodel extends CI_Model {
 		$login_servers = $this->config->item('login_servers');
 		$login_srv_id = $servers[$sid]['login_server_group'];
 		if ($svr == "all") {
-			$login_server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 3);
-			$char_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['char_port'], $errno, $errstr, 3);
-			$map_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['map_port'], $errno, $errstr, 3);
+			$login_server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 2);
+			$char_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['char_port'], $errno, $errstr, 2);
+			$map_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['map_port'], $errno, $errstr, 2);
 			if (!$map_server || !$char_server || !$login_server) { // One of the servers is not running.
 				return false;
 			}
@@ -179,7 +179,7 @@ Class Servermodel extends CI_Model {
 		}
 		else if ($svr == "login") {
 
-			$server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 3);
+			$server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 2);
 			if (!$server) { // Server did not start.
 				return false;
 			}
@@ -189,7 +189,7 @@ Class Servermodel extends CI_Model {
 		}
 		else {
 			$port = $svr."_port";
-			$server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid][$port], $errno, $errstr, 3);
+			$server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid][$port], $errno, $errstr, 2);
 			if (!$server) { // Server did not start.
 				return false;
 			}
@@ -208,8 +208,8 @@ Class Servermodel extends CI_Model {
 		$status = $this->server_online_check($sid, $svr);
 		if ($status == false) { // This server is not running, start it.
 			$this->server_start($sid, $svr);
-			while ($this->server_online_check($sid, $svr) == false && $checks < 6) { // while the server has not started OR we haven't tried more than 5 times...
-				sleep(2);
+			while ($this->server_online_check($sid, $svr) == false && $checks < 7) { // while the server has not started OR we haven't tried more than 5 times...
+				sleep(1);
 				$checks += 1;
 			}
 			if ($this->server_online_check($sid, $svr) == false) {
@@ -282,7 +282,7 @@ Class Servermodel extends CI_Model {
 				break;
 			case "map":
 				$this->charmap_ssh_conn->exec($cmd_screen); // Open a screen for the map server
-				$this->charmap_ssh_conn->exec($cmd_map); // Change directort to the map-server exec
+				$this->charmap_ssh_conn->exec($cmd_map); // Change directory to the map-server exec
 				break;
 		}
 	}
