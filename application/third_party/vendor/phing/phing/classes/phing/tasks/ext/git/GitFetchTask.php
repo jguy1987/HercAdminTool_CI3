@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * Wrapper aroung git-fetch
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: 0de7b4504804e074f617010ef52604d1da1e76b7 $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3

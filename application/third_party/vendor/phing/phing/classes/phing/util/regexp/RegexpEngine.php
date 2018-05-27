@@ -25,7 +25,7 @@
  *
  * @author Hans Lellelid <hans@velum.net>
  * @package phing.util.regexp
- * @version $Id: 080377e722e061a58ba3039adbdb9380000031f7 $
+ * @version $Id$
  */
 interface RegexpEngine
 {

@@ -30,7 +30,7 @@ require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
  * Transforms information in a code coverage database to XML
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 2f73afc3401097333c7f187eacb79de9e16a6f35 $
+ * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */

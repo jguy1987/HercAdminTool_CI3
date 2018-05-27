@@ -59,15 +59,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-//$active_group = 'hat';
+$active_group = 'hat';
 $query_builder = TRUE;
 
 $db['hat'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => 'phoenix.jemstuff.home',
+	'username' => 'aesira',
+	'password' => '$@y79662AESIRA',
+	'database' => 'aesira_hat',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -86,10 +86,10 @@ $db['hat'] = array(
 
 $db['ragnarok'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => 'phoenix.jemstuff.home',
+	'username' => 'aesira',
+	'password' => '$@y79662AESIRA',
+	'database' => 'aesira_mystro',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -105,7 +105,6 @@ $db['ragnarok'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
 /*
 $db['ragnarok2'] = array(
 	'dsn'	=> '',

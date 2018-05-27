@@ -26,7 +26,7 @@ require_once 'phing/system/io/PhingFile.php';
  *
  * @package phing.tasks.ext.phpmd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: fa23de508582a5bc1d36fab6153d64df333099c6 $
+ * @version $Id$
  * @since   2.4.1
  */
 class PHPMDFormatterElement

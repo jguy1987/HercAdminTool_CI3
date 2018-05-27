@@ -43,7 +43,7 @@ require_once 'phing/Task.php';
  *      (right now these are just too simple to really justify creating an abstract class)
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: f91ebca00240cc8f22e642115e0aa0da140dc4a4 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class TypedefTask extends Task

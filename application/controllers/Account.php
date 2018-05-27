@@ -9,12 +9,12 @@ class Account extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$data['online_users'] = $this->charmodel->get_online_count();
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
 

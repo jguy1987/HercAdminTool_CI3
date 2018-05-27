@@ -31,7 +31,7 @@ require_once 'phing/Task.php';
  * Subclasses exist for conveniently declaring and registering tasks and types.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Id: d675b0dcedf7cc852b753abcad05a1cc3ba1e99b $
+ * @version  $Id$
  * @package  phing.tasks.system
  */
 class AdhocTask extends Task

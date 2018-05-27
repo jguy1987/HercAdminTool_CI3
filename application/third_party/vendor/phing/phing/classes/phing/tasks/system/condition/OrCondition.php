@@ -29,7 +29,7 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright  2001,2002 THYRELL. All rights reserved
- * @version   $Id: 7d336fe23714db3d5de330e5cf549e49131308b0 $
+ * @version   $Id$
  * @package   phing.tasks.system.condition
  */
 class OrCondition extends ConditionBase implements Condition

@@ -50,7 +50,7 @@ include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
  * @package   phing.tasks.ext.pdo
- * @version   $Id: 6f0271c4fe34f85450002311f9fdb18b359bea8d $
+ * @version   $Id$
  */
 class PDOSQLExecTask extends PDOTask
 {

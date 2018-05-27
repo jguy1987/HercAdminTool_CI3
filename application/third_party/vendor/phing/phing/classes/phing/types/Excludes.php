@@ -28,7 +28,7 @@ require_once 'phing/types/ExcludesNameEntry.php';
  *
  * @package phing.types
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 0a585286fac8dd08f0fcddab3dd7a23f2e3a0776 $
+ * @version $Id$
  * @since   2.4.6
  */
 class Excludes extends DataType

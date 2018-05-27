@@ -33,7 +33,7 @@ require_once 'PhpDocumentor/phpDocumentor/Errors.inc';
  * PhpDocumentor design.
  *
  * @author Timo A. Hummel <privat@timohummel.com> @author felicitus
- * @version $Id: 33771f28a2886e13a8d3c38864d6758311c3e18d $
+ * @version $Id$
  * @package phing.tasks.ext.phpdoc
  */
 class PhingPhpDocumentorErrorTracker extends ErrorTracker

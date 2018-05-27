@@ -31,7 +31,7 @@ include_once 'phing/input/MultipleChoiceInputRequest.php';
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Ulrich Schmidt <usch@usch.net> (Ant)
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version   $Id: 6bf80f75d0676da89348d0bf5682995079e67270 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class InputTask extends Task

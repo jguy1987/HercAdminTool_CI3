@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  *
  * @author Anton Stöckl <anton@stoeckl.de>
  * @author Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
- * @version $Id: 7e1ed209fca1c776aa105241110a78a65284f6ae $
+ * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN
  * @since 2.1.0

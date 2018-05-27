@@ -26,7 +26,7 @@
  * Each condition must implement a method applying to this prototye:
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id: 746f4adc744f89eadf0ccdea8c137cbf5f5614b9 $
+ * @version $Id$
  * @package phing.tasks.system.condition
  */
 interface Condition

@@ -26,7 +26,7 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: b10985cbc87aaad2fa6658942033535e7c1d7666 $
+ * @version   $Id$
  * @package   phing.tasks.system.condition
  */
 class OsCondition implements Condition

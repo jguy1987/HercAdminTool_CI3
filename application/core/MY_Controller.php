@@ -34,6 +34,7 @@ class MY_Controller extends CI_Controller {
 			$this->load->library('session');
 			$this->db_hat = $this->load->database('hat', TRUE, TRUE);
 			$this->load->model('usermodel');
+			$this->load->view('head');
 			//$this->output->enable_profiler(TRUE);
 			if ($this->session->userdata('loggedin')) {
 				// Load models

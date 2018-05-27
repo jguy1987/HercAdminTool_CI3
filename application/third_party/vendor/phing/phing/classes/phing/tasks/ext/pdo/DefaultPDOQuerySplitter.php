@@ -31,7 +31,7 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
- * @version $Id: 43afd902ddb58980b64121603ad61d308ca88975 $
+ * @version $Id$
  */
 class DefaultPDOQuerySplitter extends PDOQuerySplitter
 {

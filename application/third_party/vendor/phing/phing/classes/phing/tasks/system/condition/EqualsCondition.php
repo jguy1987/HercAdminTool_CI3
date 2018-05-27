@@ -27,7 +27,7 @@ require_once 'phing/tasks/system/condition/Condition.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: 624f5e5ba9c48c5b08d31ead22c959c118ca8efa $
+ * @version   $Id$
  * @package   phing.tasks.system.condition
  */
 class EqualsCondition implements Condition

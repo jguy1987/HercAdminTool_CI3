@@ -21,7 +21,7 @@
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 5911dc47d5037c87f6c0c11d815c05361cad9bc0 $
+ * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 class PHPLocFormatterElement

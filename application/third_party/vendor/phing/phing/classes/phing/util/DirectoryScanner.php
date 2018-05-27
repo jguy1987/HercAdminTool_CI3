@@ -110,7 +110,7 @@ include_once 'phing/types/selectors/SelectorUtils.php';
  * @author   Magesh Umasankar, umagesh@rediffmail.com
  * @author   Andreas Aderhold, andi@binarycloud.com
  *
- * @version   $Id: cc81e1eb8ef44a36e9fcc01ff1ce3acc8933f3f3 $
+ * @version   $Id$
  * @package   phing.util
  */
 class DirectoryScanner implements SelectorScanner

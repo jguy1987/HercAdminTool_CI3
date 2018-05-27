@@ -48,7 +48,7 @@ require_once 'phing/Task.php';
  *
  * @category   Tasks
  * @package    phing.tasks.ext
- * @version    $Id: 50d0d2d926e6a51ab78d6801407e90f020dcbad9 $
+ * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask

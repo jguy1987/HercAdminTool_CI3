@@ -26,7 +26,7 @@ require_once 'phing/system/io/PhingFile.php';
  *
  * @package phing.tasks.ext.phpcpd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: c430c57cb2db4bff221d0bcf96ed4396b738da6d $
+ * @version $Id$
  */
 class PHPCPDFormatterElement
 {

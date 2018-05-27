@@ -37,7 +37,7 @@ require_once 'phing/system/lang/EventObject.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: 682468c3d083e65bb05f9aee143c12d6c17e3a4e $
+ * @version   $Id$
  * @package   phing
  */
 class BuildEvent extends EventObject

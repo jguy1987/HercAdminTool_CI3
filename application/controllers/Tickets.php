@@ -8,6 +8,8 @@ class Tickets extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
+		$this->load->view('topnav', $data);
+		$this->load->view('sidebar', $data);
 	}
 
 

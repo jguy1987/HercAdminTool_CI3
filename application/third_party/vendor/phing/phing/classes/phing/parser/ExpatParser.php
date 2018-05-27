@@ -36,7 +36,7 @@ include_once 'phing/system/io/FileReader.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: 0e78856d8464d655550baa5a20b235b4049625f8 $
+ * @version   $Id$
  * @package   phing.parser
  */
 

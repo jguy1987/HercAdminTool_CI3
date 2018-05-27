@@ -25,7 +25,7 @@ require_once 'phing/tasks/system/EchoTask.php';
  * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Id: 45ee18d3a5c2d9188f6fa98ea442be43e9dff547 $
+ * @version  $Id$
  * @package  phing.tasks.system
  */
 class WarnTask extends EchoTask

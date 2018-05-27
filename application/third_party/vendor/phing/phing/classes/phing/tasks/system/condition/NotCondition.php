@@ -29,7 +29,7 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: 9bcbe1b79aee7edb15117fbde13481e5e7ec098a $
+ * @version   $Id$
  * @package   phing.tasks.system.condition
  */
 class NotCondition extends ConditionBase implements Condition

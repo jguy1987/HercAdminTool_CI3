@@ -23,7 +23,7 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
  * Prints Clover XML output of the test
  *
  * @author Daniel Kreckel <daniel@kreckel.koeln>
- * @version $Id: 213f2cf3a9f85b00a9a962f71513d1d99f6dc72d $
+ * @version $Id$
  * @package phing.tasks.ext.formatter
  * @since 2.1.1
  */

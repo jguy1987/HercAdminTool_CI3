@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Commits changes in a local working copy to the repository
  *
  * @author Johan Persson <johanp@aditus.nu>
- * @version $Id: eec7114955b928683994705ad4dc68fe246ef23f $
+ * @version $Id$
  * @package phing.tasks.ext.svn
  * @since 2.4.0
  */

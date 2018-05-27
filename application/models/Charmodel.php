@@ -10,6 +10,12 @@ Class Charmodel extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function get_online_count() {
+		$this->db_charmap->select('char_id');
+		$q = $this->db_charmap->get_where('char', array('online' => 1));
+		return $q->num_rows();
+	}
+	
 	function get_char_list() {
 		$this->db_charmap->select('char.*,guild.guild_id,guild.name AS guild_name,party.party_id,party.name AS party_name');
 		$this->db_charmap->from('char');

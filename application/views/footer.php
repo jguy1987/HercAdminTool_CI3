@@ -1,90 +1,30 @@
-<script>
-    $('#myTabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
+<?php
+?>
 
-    // store the currently selected tab in the hash value
-    $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
-        var id = $(e.target).attr("href").substr(1);
-        window.location.hash = id;
-    });
-
-    // on load of the page: switch to the currently selected tab
-    var hash = window.location.hash;
-    $('#myTabs a[href="' + hash + '"]').tab('show');
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
-		$("#banType").change(function() { toggleFields(); });
-
-	});
-	//this toggles the visibility of our parent permission fields depending on the current selected value of the field
-	function toggleFields() {
-		if ($("#banType").val() == "perm") {
-			$("#banEnd").hide();
-		}
-		else {
-			$("#banEnd").show();
-		}
-	}
-</script>
-<script type="text/javascript">
-	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
-</script>
-<script type="text/javascript">
-	$(".form_date").datetimepicker({format: 'yyyy-mm-dd'});
-</script>
-<script type="text/javascript">
-	$(function() {
-		$(document).on('click','#delBlockOpen',function(e){
-			//process here you can get id using 
-			$('#blockidval').val($(this).data('id')); //and set this id to any hidden field in modal
-		});
-	});
-</script>
-<script type="text/javascript">
-	$(function() {
-		$(document).on('click','#addNumFlagOpen',function(e){
-			//process here you can get id using 
-			$('#acct_id').val($(this).data('id')); //and set this id to any hidden field in modal
-		});
-	});
-</script>
-<script type="text/javascript">
-	$(function() {
-		$(document).on('click','#addStrFlagOpen',function(e){
-			//process here you can get id using 
-			$('#acct_id2').val($(this).data('id')); //and set this id to any hidden field in modal
-		});
-	});
-</script>
-<script type="text/javascript">
-$(function() {
-	$("#status").change(function() {
-		if ($(this).val() == "19") {
-			$("#resolution").prop("disabled", false);
-		}
-		else
-			var element = document.getElementById('resolution');
-			element.value = "-";
-			$("#resolution").prop("disabled", true);
-	});
-});
-</script>
-<script type="text/javascript">
-$(function() {
-	$("#status").change(function() {
-		if ($(this).val() == "18") {
-			$("#assigned").prop("disabled", false);
-		}
-		else
-			var element = document.getElementById('assigned');
-			element.value = "-";
-			$("#assigned").prop("disabled", true);
-	});
-});
-</script>
-</body>
-</html>
+<footer class="footer">
+	<span class="text-right">
+		Powered by <a href="https://github.com/jguy1987/HercAdminTool">Hercules Admin Tool, (c) John Mish</a>
+	</span>
+	<span class="float-right">
+		<small>Page Generated in <?php echo $this->benchmark->elapsed_time();?> seconds</small>
+	</span>
+</footer>
+</div>
+<script src="<?php echo base_url('assets/js/modernizr.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/moment.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/popper.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/detect.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/fastclick.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.blockUI.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.nicescroll.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/pikeadmin.js'); ?>"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	
+	<script src="<?php echo base_url('assets/plugins/waypoints/lib/jquery.waypoints.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/counterup/jquery.counterup.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.scrollTo.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/switchery/switchery.min.js'); ?>"></script>

@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
  * Merges code coverage snippets into a code coverage database
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 6d4732d2b352c992dc03cd92cd83ad1b81bf9e45 $
+ * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */

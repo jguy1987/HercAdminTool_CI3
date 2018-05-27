@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  * Based on the DocBlox Task
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Id: fff99666d63c88940f9b305c2822856fa00ab5ce $
+ * @version   $Id$
  * @since     2.4.10
  * @package   phing.tasks.ext.phpdoc
  */

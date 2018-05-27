@@ -49,7 +49,7 @@ include_once 'phing/system/io/StringReader.php';
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
  * @package   phing.tasks.ext.creole
- * @version   $Id: b0540d6f531fdc2a5103a09c92a54318ebdf8c0b $
+ * @version   $Id$
  */
 class CreoleSQLExecTask extends CreoleTask
 {

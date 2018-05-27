@@ -23,7 +23,7 @@
  * Various utility functions
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 2bed201fd0c78712be2bc9c1eab23f75e646cf4c $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */

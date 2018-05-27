@@ -25,7 +25,7 @@ include_once 'phing/mappers/FileNameMapper.php';
  * Uses glob patterns to perform filename transformations.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id: bbd21ce62611adac2da693d64941edf0272d7f72 $
+ * @version  $Id$
  * @package   phing.mappers
  */
 class GlobMapper implements FileNameMapper

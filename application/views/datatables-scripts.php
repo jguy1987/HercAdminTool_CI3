@@ -155,6 +155,30 @@
 </script>
 <script>
 	$(document).ready(function() {
+		$('#dataTables-acctlist').DataTable({
+			responsive: true,
+			columns: [ 
+			{ responsivePriority: 1 },
+			{ responsivePriority: 1 },
+			{ responsivePriority: 1 },
+			{ responsivePriority: 4 },
+			{ responsivePriority: 3 },
+			{ responsivePriority: 5 },
+			{ responsivePriority: 6 },
+			{ responsivePriority: 7 },
+			{ responsivePriority: 1 }
+			],
+			"columnDefs": [
+			{ "orderable": false, "targets": 0 },
+			{ "orderable": false, "targets": 8 }
+			],
+			"order": [],
+			"lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
 		$('#dataTables-listxlg').DataTable({
 			"responsive": true,
 			"orderClasses": false,

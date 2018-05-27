@@ -30,7 +30,7 @@ require_once 'phing/Task.php';
  * Resulting version number is also published under supplied property.
  *
  * @author      Mike Wittje <mw@mike.wittje.de>
- * @version     $Id: 3e7c572ae9bdb739905b54e831e3985194d65071 $ $Rev $Id: 3e7c572ae9bdb739905b54e831e3985194d65071 $ $Author$
+ * @version     $Id$ $Rev $Id$ $Author$
  * @package     phing.tasks.ext
  */
 class VersionTask extends Task

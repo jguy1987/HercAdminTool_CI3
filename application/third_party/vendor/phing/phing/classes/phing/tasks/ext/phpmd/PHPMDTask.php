@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/phpmd/PHPMDFormatterElement.php';
  *
  * @package phing.tasks.ext.phpmd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 6de5c80e97545cd52494c53490e96c09aa61e703 $
+ * @version $Id$
  * @since   2.4.1
  */
 class PHPMDTask extends Task

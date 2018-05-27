@@ -23,7 +23,7 @@ require_once 'phing/tasks/ext/phploc/AbstractPHPLocFormatter.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: d7cc7bea3ec2cc98a53da57434dc778d1697f565 $
+ * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 class PHPLocCSVFormatter extends AbstractPHPLocFormatter

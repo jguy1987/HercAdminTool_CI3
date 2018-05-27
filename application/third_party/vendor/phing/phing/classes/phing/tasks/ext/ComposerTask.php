@@ -29,7 +29,7 @@ require_once "phing/types/Commandline.php";
  *
  * @author nuno costa <nuno@francodacosta.com>
  * @license MIT
- * @version $Id: be79ded318bcd97deb5b1d7bac9f216dff9bbdfe $
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class ComposerTask extends Task

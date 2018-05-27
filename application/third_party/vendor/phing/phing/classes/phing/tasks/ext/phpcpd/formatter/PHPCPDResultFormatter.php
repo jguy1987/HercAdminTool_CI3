@@ -24,7 +24,7 @@
  *
  * @package phing.tasks.ext.phpcpd.formatter
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: e8921b5a15fd23ce437471250c7161884560e202 $
+ * @version $Id$
  */
 abstract class PHPCPDResultFormatter
 {

@@ -26,7 +26,7 @@ require_once 'phing/system/io/PhingFile.php';
  *
  * @package phing.tasks.ext.pdepend
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: e97cb62953c381f62ab548dfe073b26071f0eb0a $
+ * @version $Id$
  * @since   2.4.1
  */
 class PhpDependAnalyzerElement

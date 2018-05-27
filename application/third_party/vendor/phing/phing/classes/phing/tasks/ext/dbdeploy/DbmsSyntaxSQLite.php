@@ -23,7 +23,7 @@
  * Utility class for generating necessary server-specific SQL commands
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Id: f154ae7623dcdc04e60284fe70bea1da99ab1254 $
+ * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxSQLite extends DbmsSyntax

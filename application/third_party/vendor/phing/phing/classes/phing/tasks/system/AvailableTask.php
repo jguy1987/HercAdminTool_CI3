@@ -30,7 +30,7 @@ include_once 'phing/tasks/system/condition/Condition.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: f41bd7e5c2664f1f58cf5c13d30b8ea2be1fa5e4 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class AvailableTask extends Task implements Condition

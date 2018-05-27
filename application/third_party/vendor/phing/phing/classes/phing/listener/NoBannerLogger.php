@@ -26,7 +26,7 @@ require_once 'phing/listener/DefaultLogger.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: fde85729a4da71d69341a94fb05cbaa1f7c40d5b $
+ * @version   $Id$
  * @package   phing.listener
  */
 class NoBannerLogger extends DefaultLogger

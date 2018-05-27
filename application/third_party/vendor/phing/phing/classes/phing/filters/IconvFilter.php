@@ -39,7 +39,7 @@ include_once 'phing/filters/ChainableReader.php';
  * </pre>
  *
  * @author    Alexey Shockov, <alexey@shockov.com>
- * @version   $Id: fdd2765ea9675f36fde778b3faf373505cc0ccc2 $
+ * @version   $Id$
  * @package   phing.filters
  */
 class IconvFilter

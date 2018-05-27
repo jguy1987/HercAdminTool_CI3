@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * Wrapper around git-gc
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: 5201d8d2dfb0c6ffb371ee85b8aa4bfc731b00c4 $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3

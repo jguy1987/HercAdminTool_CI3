@@ -28,7 +28,7 @@
  * WARNING: this task is highly experimental!
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: aec45bda16dccf81c18561f29f4923bc94fae280 $
+ * @version $Id$
  * @package phing.tasks.ext
  * @see https://github.com/phpdocumentor/Parallel
  * @since 2.4.10

@@ -75,6 +75,10 @@ Class Servermodel extends CI_Model {
 			$this->db_login->where('userid', $servername);
 			$q6 = $this->db_login->get();
 			$laststartdate = $q6->row();
+			if (!isset($laststartdate)) {
+				$data = "servernameinvalid";
+				return $data;
+			}
 			$serverstart = new DateTime($laststartdate->lastlogin);
 			$now = date('Y-m-d H:i:s');
 			$sinceStart = $serverstart->diff(new DateTime($now));

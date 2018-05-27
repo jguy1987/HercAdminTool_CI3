@@ -37,7 +37,7 @@ include_once 'phing/util/StringHelper.php';
  * @author    Hans Lellelid <hans@xmpl.org> (SmartyTask)
  * @author    Jason van Zyl <jvanzyl@apache.org> (TexenTask)
  * @author    Robert Burrell Donkin <robertdonkin@mac.com>
- * @version   $Id: 29768b2a378d342338d3432a2781f3a2fe1e28b0 $
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 class SmartyTask extends Task

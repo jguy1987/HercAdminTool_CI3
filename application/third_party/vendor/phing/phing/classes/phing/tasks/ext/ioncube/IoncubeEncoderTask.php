@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  * @author Michiel Rook <mrook@php.net>
  * @author Andrew Eddie <andrew.eddie@jamboworks.com>
  * @author Domenico Sgarbossa <sbraaaa@yahoo.it>
- * @version $Id: 03f95f42b0965ac16a78438fbc7e77c9eaf89e9c $
+ * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0
  */

@@ -24,7 +24,7 @@
  *
  * @author Andreas Aderhold, andi@binarycloud.com
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id: a5a4cdae56af93ef6e8f999d3d29868ec5e049fe $
+ * @version $Id$
  * @package phing.mappers
  */
 interface FileNameMapper

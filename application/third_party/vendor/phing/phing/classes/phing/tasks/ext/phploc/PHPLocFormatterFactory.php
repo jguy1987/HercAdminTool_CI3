@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/phploc/AbstractPHPLocFormatter.php';
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: df866a6b5cdfae3f31e201fe05789f9616db2059 $
+ * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 class PHPLocFormatterFactory

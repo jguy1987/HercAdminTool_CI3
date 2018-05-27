@@ -47,7 +47,7 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@velum.net>
- * @version   $Id: feaa90aaa736282a3599e8e5f655c31870b436cc $
+ * @version   $Id$
  * @see       PhingFilterReader
  * @package   phing.filters
  */

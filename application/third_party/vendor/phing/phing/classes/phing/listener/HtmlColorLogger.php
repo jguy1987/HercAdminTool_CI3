@@ -47,7 +47,7 @@ include_once 'phing/system/util/Properties.php';
  * @author     Hans Lellelid <hans@xmpl.org> (Phing Ansi Color Logger)
  * @author     Magesh Umasankar (Ant)
  * @package    phing.listener
- * @version    $Id: 5288eb0042a1c3bf2b1d34ed509a6c46adce87fd $
+ * @version    $Id$
  */
 class HtmlColorLogger extends DefaultLogger
 {

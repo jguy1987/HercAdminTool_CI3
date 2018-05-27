@@ -23,7 +23,7 @@ require_once 'phing/tasks/ext/phploc/AbstractPHPLocFormatter.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 11510e1b71f4f3a91df7fd8ce39ed5d24615d991 $
+ * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 class PHPLocXMLFormatter extends AbstractPHPLocFormatter

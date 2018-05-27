@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
  *
  * @package phing.tasks.ext.phpcpd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 99ac61885f274b13a79c125b92a133b65db3b726 $
+ * @version $Id$
  */
 class PHPCPDTask extends Task
 {

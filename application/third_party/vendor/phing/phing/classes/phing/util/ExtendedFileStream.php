@@ -26,7 +26,7 @@ include_once 'phing/system/io/PhingFile.php';
  * Extended file stream wrapper class which auto-creates directories
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 9f3deadd6a2b93620d27fe8959f9f688b4c58171 $
+ * @version $Id$
  * @package phing.util
  */
 class ExtendedFileStream

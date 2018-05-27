@@ -49,7 +49,7 @@ include_once 'phing/filters/XsltFilter.php';
  * FilterChain may contain a chained set of filter readers.
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @version   $Id: d35bf0481e55f713cf67a71878d978f224baa05e $
+ * @version   $Id$
  * @package   phing.types
  */
 class FilterChain extends DataType

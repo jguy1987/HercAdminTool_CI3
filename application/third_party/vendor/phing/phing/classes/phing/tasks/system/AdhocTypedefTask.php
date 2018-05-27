@@ -26,7 +26,7 @@ require_once 'phing/tasks/system/AdhocTask.php';
  * A class for creating adhoc datatypes in build file.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: fa92d7af9fd72f34ae578ca4e8ae4d1de9a80ff5 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class AdhocTypedefTask extends AdhocTask

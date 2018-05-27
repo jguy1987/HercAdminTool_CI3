@@ -323,7 +323,7 @@ abstract class AbstractLiquibaseTask extends Task
 
 /**
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @version $Id: e60f3f6a7b9c03e72b55f514ab85f2e8bb1e3f81 $
+ * @version $Id$
  * @since 2.4.10
  * @package phing.tasks.ext.liquibase
  */
@@ -387,7 +387,7 @@ class LiquibaseParameter extends DataType
 
 /**
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @version $Id: e60f3f6a7b9c03e72b55f514ab85f2e8bb1e3f81 $
+ * @version $Id$
  * @since 2.4.10
  * @package phing.tasks.ext.liquibase
  */

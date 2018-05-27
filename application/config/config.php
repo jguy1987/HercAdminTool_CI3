@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://example.com/';
+$config['base_url'] = 'http://ro.aesiraonline.com/poringadmin/';
 
 /*
 |--------------------------------------------------------------------------
@@ -324,7 +324,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'changeme!';
+$config['encryption_key'] = 'asdfqw423rQ$TQ#$%g2wq345g2w34%G#W$6hertrgaDFGADFgw543whw45htWASERHG';
 
 /*
 |--------------------------------------------------------------------------

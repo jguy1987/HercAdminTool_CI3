@@ -29,7 +29,7 @@ require_once 'phing/BuildLogger.php';
  * -listener.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: e02403f7640929e2b0650bcaf270709fe6281b3c $
+ * @version   $Id$
  * @see       BuildEvent
  * @see       Project::addBuildListener()
  * @package   phing

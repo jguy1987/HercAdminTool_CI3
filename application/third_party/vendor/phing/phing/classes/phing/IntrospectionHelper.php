@@ -38,7 +38,7 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: 9cb68248121b72e0921582078ba48eb02f994006 $
+ * @version   $Id$
  * @package   phing
  */
 class IntrospectionHelper

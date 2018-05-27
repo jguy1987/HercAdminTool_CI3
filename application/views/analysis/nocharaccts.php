@@ -21,7 +21,7 @@
 				<tbody>
 					<?php foreach($accountresult as $accountEntry): ?>
 						<tr>
-							<td><a href="<?php echo base_url('account/details/'.$accountEntry['account_id'].''); ?>"><?php echo $accountEntry['account_id']; ?></a></td>
+							<td><?php echo $accountEntry['account_id']; ?></td>
 							<td><?php echo $accountEntry['userid']; ?></td>
 							<td><?php echo $accountEntry['createdate']; ?></td>
 							<td><?php echo $accountEntry['lastlogin']; ?></td>

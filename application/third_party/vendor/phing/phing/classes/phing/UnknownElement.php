@@ -31,7 +31,7 @@ require_once 'phing/Task.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: 5238ec4e1da8704e3062a4c29d6e680afbe5efb0 $
+ * @version   $Id$
  * @package   phing
  */
 class UnknownElement extends Task

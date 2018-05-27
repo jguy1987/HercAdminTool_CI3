@@ -24,7 +24,7 @@
  *
  * @package phing.types
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 63ab78ae0c05fe95b19878434bce454ce8d82a97 $
+ * @version $Id$
  * @since   2.4.6
  */
 class ExcludesNameEntry

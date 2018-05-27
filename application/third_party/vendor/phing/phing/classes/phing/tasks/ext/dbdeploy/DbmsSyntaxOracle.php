@@ -23,7 +23,7 @@
  * Utility class for generating necessary server-specific SQL commands
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Id: adc9b31780df2145519b4d451cb462527bd200f5 $
+ * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxOracle extends DbmsSyntax

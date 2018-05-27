@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Christian Weiske <cweiske@cweiske.de>
- * @version $Id: a85845d6c6841c7b90d9d2a4689134f88ec69d4e $
+ * @version $Id$
  * @package phing.tasks.system
  */
 class ExecTask extends Task

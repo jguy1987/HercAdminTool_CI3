@@ -82,6 +82,12 @@
 								echo "<p><strong>File</strong>: application/config/database.php</p>";
 								echo "<p><strong>See also</strong>: Configuration in application/config/hat.php</p>";
 								break;
+							case "invalidservername":
+								echo "<h4 class='alert-heading'>Invalid Server Name!</h4>";
+								echo "<p>You have set a char/map 'map_servername' in hat.php that does not exist in your database!</p>";
+								echo "<hr>";
+								echo "<p><strong>File</strong>: application/config/hat.php</p>";
+								break;
 							default:
 								echo "<h4 class='alert-heading'>Generic Application Failure!</h4>";
 								echo "<p>The application has failed. Please submit a bugreport as to what you were doing or trying to do when you saw this error.</p>";

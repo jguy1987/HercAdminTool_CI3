@@ -26,7 +26,7 @@ include_once 'phing/system/io/Reader.php';
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Matthew Hershberger <matthewh@lightsp.com>
- * @version $Id: 398bedf237ea340a7a02d4c77a480a4cd7a34e0c $
+ * @version $Id$
  * @package phing.system.io
  */
 class ConsoleReader extends Reader

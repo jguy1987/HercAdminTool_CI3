@@ -25,7 +25,7 @@ require_once 'phing/BuildException.php';
  * This class throws errors for Expat, the XML processor.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id: 0421e1fce5039a2e55c1e35273382691c5830a48 $
+ * @version  $Id$
  * @package  phing.parser
  */
 class ExpatParseException extends BuildException

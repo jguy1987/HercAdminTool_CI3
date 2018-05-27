@@ -32,7 +32,7 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  *
  * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
- * @version $Id: 2e4cf5659024930ba454c239c5e288e2fd7dab37 $
+ * @version $Id$
  * @link    http://www.phing.info/trac/ticket/499
  * @link    http://www.postgresql.org/docs/current/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
  */

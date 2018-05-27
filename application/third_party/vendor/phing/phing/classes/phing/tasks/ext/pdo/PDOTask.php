@@ -31,7 +31,7 @@ include_once 'phing/types/Reference.php';
  * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @version   $Id: ff221a5d49c565473f836701865b39a315acddb9 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 abstract class PDOTask extends Task

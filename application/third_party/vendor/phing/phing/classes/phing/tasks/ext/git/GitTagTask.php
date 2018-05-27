@@ -27,7 +27,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  *
  * @author Evan Kaufman <evan@digitalflophouse.com>
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: d01c0f1426d0075ae04ff7c156452d08909e966a $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.5
