@@ -21,6 +21,7 @@ class Account extends MY_Controller {
 	public function create() {
 		$this->load->view('account/create');
 		$this->load->view('footer');
+		$this->load->view('account/footer');
 	}
 	
 	public function details($aid) {
@@ -55,8 +56,8 @@ class Account extends MY_Controller {
 		);
 		$data['accts'] = $this->accountmodel->search_accts($searchTerms);
 		$this->load->view('account/list', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('account/footer');
 	}
 	
 	public function verifycreate() {
