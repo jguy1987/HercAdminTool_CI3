@@ -14,4 +14,5 @@
 	<link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
 	<link href="<?php echo base_url('assets/plugins/switchery/switchery.min.css'); ?>" rel="stylesheet" type="text/css">
+	<link href="<?php echo base_url('assets/plugins/datetimepicker/css/daterangepicker.css'); ?>" rel="stylesheet" type="text/css">
 </head>

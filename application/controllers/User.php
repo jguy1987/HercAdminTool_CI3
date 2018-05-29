@@ -7,6 +7,7 @@ class User extends MY_Controller {
 	}
 
 	function login() {
+		$this->load->view('head');
 		$this->load->view('user/login');
 	}
 	

@@ -31,8 +31,9 @@ class Account extends MY_Controller {
 			$data['item_types'] = $this->config->item('itemTypes');
 			$data += $this->load_acct_data($aid);
 			$this->load->view('account/details',$data);
-			$this->load->view('datatables-scripts');
+			//$this->load->view('datatables-scripts');
 			$this->load->view('footer');
+			$this->load->view('account/footer');
 		}
 	}
 	
@@ -382,7 +383,7 @@ Your {$this->config->item('servername')} team");
 	}
 	
 	function load_acct_data($aid) {
-		// Code cleanup. Move the loading of all account data information to a seperate function to condense code.
+		// Code cleanup. Move the loading of all account data information to a separate function to condense code.
 		$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
 		$data['reg_data'] = $this->accountmodel->get_reg_details($aid);
 		$data['char_list'] = $this->accountmodel->get_char_list($aid);
@@ -393,7 +394,12 @@ Your {$this->config->item('servername')} team");
 		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
 		foreach ($data['block_list'] as $blockid=>$v2) {
 			$data['block_list'][$blockid]['blockname'] = $this->adminmodel->get_admin_name($v2['block_user']);
-			$data['block_list'][$blockid]['ublockname'] = $this->adminmodel->get_admin_name($v2['unblock_user']);
+			if ($v2['unblock_user'] != NULL) {
+				$data['block_list'][$blockid]['ublockname'] = $this->adminmodel->get_admin_name($v2['unblock_user']);
+			}
+			else { 
+				$data['block_list'][$blockid]['ublockname'] = "n/a";
+			}
 		}
 		$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
 		$data['str_key_list'] = $this->accountmodel->get_str_key_list($aid);
