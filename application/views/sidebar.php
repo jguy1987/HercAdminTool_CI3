@@ -167,10 +167,22 @@
 						</ul>
 					</li>
 				<?php } ?>
-				<br />
+				<br /><br /><br />
+				<?php 
+					$servers = $this->config->item('ragnarok_servers');
+					$server = $servers[$this->session->userdata('server_select')]['servername'];
+				?>
+				<li class="submenu">
+					<a class="pro" href="javascript:;"><i class="fa fa-hdd-o fa-fw"></i> <span> <?php echo $server; ?> </span> <span class="menu-arrow"></span></a>
+					<ul class="list-unstyled">
+						<?php foreach ($servers as $k=>$v) { ?>
+							<li><a href="<?php echo base_url('server/select_server/'.$k.''); ?>"><?php echo $v['servername']; ?></a></li>
+						<?php } ?>
+					</ul>
+				</li>
 			</ul>
 			<div class="clearfix"></div>
-			</div>
+		</div>
 		<div class="clearfix"></div>
 	</div>
 </div>
