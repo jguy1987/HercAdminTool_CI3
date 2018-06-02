@@ -14,6 +14,7 @@ class Character extends MY_Controller {
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$data['online_users'] = $this->charmodel->get_online_count();
 		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
@@ -24,8 +25,8 @@ class Character extends MY_Controller {
 		$data['char_list'] = $this->charmodel->get_char_list();
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/list', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('character/footer');
 	}
 	
 	function whosonline() {
@@ -39,8 +40,8 @@ class Character extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('character/footer');
 	}
 	
 	function details($cid) {
@@ -52,8 +53,8 @@ class Character extends MY_Controller {
 			$data['item_types'] = $this->config->item('itemTypes');
 			$data += $this->load_char_data($cid);
 			$this->load->view('character/details', $data);
-			$this->load->view('datatables-scripts');
 			$this->load->view('footer');
+			$this->load->view('character/footer');
 		}
 	}
 	
@@ -166,8 +167,8 @@ class Character extends MY_Controller {
 		$data['char_list'] = $this->charmodel->get_char_list();
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/search', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('character/footer');
 	}
 	
 	function resultlist() {
@@ -185,8 +186,8 @@ class Character extends MY_Controller {
 		$data['char_list'] = $this->charmodel->search_chars($searchTerms);
 		$data['class_list'] = $this->config->item('jobs');
 		$this->load->view('character/list', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('character/footer');
 	}
 	
 	function resetpos($cid) {
@@ -218,7 +219,7 @@ class Character extends MY_Controller {
 		$data['charlog_data'] = $this->charmodel->get_charlog($cid);
 		$data['char_edit_hist'] = $this->charmodel->get_char_hist($cid);
 		foreach ($data['char_edit_hist'] as $id=>$v) {
-			$data['char_edit_hist'][$id]['username'] = $this->adminmodel->get_admin_name($v['userid']);
+			$data['char_edit_hist'][$id]['username'] = $this->adminmodel->get_admin_name($v['user']);
 		}
 		$data['friends_list'] = $this->charmodel->get_friend_list($cid);
 		return $data;

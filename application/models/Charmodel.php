@@ -57,7 +57,7 @@ Class Charmodel extends CI_Model {
 	
 	function get_friend_list($cid) {
 		$this->db_charmap->select('friends.*, char.char_id, char.name');
-		$this->db_charmap->from('friends')->order_by('friends.friend_id', 'asc');
+		$this->db_charmap->from('friends');
 		$this->db_charmap->where('friends.char_id', $cid);
 		$this->db_charmap->join('char', 'friends.friend_id = char.char_id', 'left');
 		$q = $this->db_charmap->get();
@@ -65,14 +65,13 @@ Class Charmodel extends CI_Model {
 	}
 	
 	function get_charlog($cid) {
-		$this->db_charmap->order_by('time','desc');
 		$q = $this->db_charmap->get_where('charlog', array('char_id' => $cid));
 		return $q->result_array();
 	}
 	
 	function get_char_hist($cid) {
 		$this->db_charmap->select('*');
-		$this->db_charmap->from('hat_chareditlog')->order_by('hat_chareditlog.datetime','desc');
+		$this->db_charmap->from('hat_chareditlog');
 		$this->db_charmap->where('char_id', $cid);
 		$query = $this->db_charmap->get();
 		return $query->result_array();

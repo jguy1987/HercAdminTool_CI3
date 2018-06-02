@@ -22,7 +22,7 @@
 				<?php } ?>
 				<?php if ($check_perm['viewchars'] == 1 || $check_perm['whosonline'] == 1) { ?>
 					<li class="submenu">
-						<a href="javascript:;"><i class="fa fa-male fa-female fe-fw"></i> <span> Characters </span> <span class="menu-arrow"></span></a>
+						<a href="javascript:;"><i class="fa fa-user fe-fw"></i> <span> Characters </span> <span class="menu-arrow"></span></a>
 						<ul class="list-unstyled">
 							<?php if ($check_perm['viewchars'] == 1 && $vacation == 0) { ?>
 								<li><a href="<?php echo base_url('character/search'); ?>">Search Characters</a></li>
@@ -83,7 +83,7 @@
 				<?php } ?>
 				<?php if ($check_perm['itemshop'] == 1 || $check_perm['serverconfig'] == 1) { ?>
 					<li class="submenu">
-						<a href="javascript:;"><i class="fa fa-hdd-o fa-fw"></i> <span> Server Administration </span> <span class="menu-arrow"></span></a>
+						<a href="javascript:;"><i class="fa fa-wrench fa-fw"></i> <span> Server Administration </span> <span class="menu-arrow"></span></a>
 						<ul class="list-unstyled">
 							<?php if ($ssh_conn == 1) { ?>
 							<li><a href="<?php echo base_url('server/hercules'); ?>">Hercules Info/Maintenance</a></li>
@@ -124,7 +124,7 @@
 				<?php if ($check_perm['level1zeny'] == 1 || $check_perm['nocharaccts'] == 1 || $check_perm['delcharsaccts'] == 1 || $check_perm['top100'] == 1 || $check_perm['mvpkill'] == 1 || $check_perm['itemcount'] == 1) { ?>
 					<?php if ($vacation == 0) { ?>
 						<li class="submenu">
-							<a href="javascript:;"><i class="fa fa-hdd-o fa-fw"></i> <span> Server Analysis </span> <span class="menu-arrow"></span></a>
+							<a href="javascript:;"><i class="fa fa-filter fa-fw"></i> <span> Server Analysis </span> <span class="menu-arrow"></span></a>
 							<ul class="list-unstyled">
 								<?php if ($check_perm['itemcount'] == 1 && $vacation == 0) { ?>
 									<li><a href="<?php echo base_url('analysis/itemcount'); ?>">Item Count by character</a></li>
@@ -150,7 +150,7 @@
 				<?php } ?>
 				<?php if ($check_perm['editadmin'] == 1 || $check_perm['editgroups'] == 1) { ?>
 					<li class="submenu">
-						<a href="javascript:;"><i class="fa fa-user-md fa-fw"></i> <span> Panel Administration </span> <span class="menu-arrow"></span></a>
+						<a href="javascript:;"><i class="fa fa-user-circle fa-fw"></i> <span> Panel Administration </span> <span class="menu-arrow"></span></a>
 						<ul class="list-unstyled">
 							<?php if ($check_perm['editadmin'] == 1) { ?>
 							<li><a href="<?php echo base_url('admin/users'); ?>">User Management</a></li>
@@ -173,7 +173,7 @@
 					$server = $servers[$this->session->userdata('server_select')]['servername'];
 				?>
 				<li class="submenu">
-					<a class="pro" href="javascript:;"><i class="fa fa-hdd-o fa-fw"></i> <span> <?php echo $server; ?> </span> <span class="menu-arrow"></span></a>
+					<a class="pro" href="javascript:;"><i class="fa fa-server fa-fw"></i> <span> <?php echo $server; ?> </span> <span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
 						<?php foreach ($servers as $k=>$v) { ?>
 							<li><a href="<?php echo base_url('server/select_server/'.$k.''); ?>"><?php echo $v['servername']; ?></a></li>
