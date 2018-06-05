@@ -1,12 +1,20 @@
-!-- Page Content -->
-<div id="page-wrapper">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Access Denied!</h1>
+<div class="content-page">
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="breadcrumb-holder">
+						<h1 class="main-title float-left">Access Denied</h1>
+						<ol class="breadcrumb float-right">
+							<a href="<?php echo base_url(); ?>" class="breadcrumb-item">Home</a>
+							<li class="breadcrumb-item">Error</li>
+						</ol>
+						<div class="clearfix"></div>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="col-lg-12">
+			<div class="row">
+				<div class="col-lg-12">
 			<?php switch( $referpage ) { 
 				case "noperm": 
 					echo "<p>Sorry, your group does not give you adequate permission to use this function. Return to the <a href='".base_url()."'>dashboard</a>.";
