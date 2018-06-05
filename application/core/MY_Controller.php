@@ -80,6 +80,7 @@ class MY_Controller extends CI_Controller {
 					die($this->load->view('errdisplay', $error, TRUE));
 				}
 				$this->db_charmaplog = $this->load->database($this->logdatabase, TRUE, TRUE);
+				$this->playersonline = $this->charmodel->get_online_count();
 				// Get list of groups with ID's so that we can display on header.
 				$this->global_data['group_list'] = $this->adminmodel->list_groups_by_name();
 				$this->load->vars($this->global_data);

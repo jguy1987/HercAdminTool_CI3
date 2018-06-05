@@ -119,11 +119,11 @@
 											<div class="form-group row">
 												<label for="guild" class="col-form-label col-md-3">Guild</label>
 												<div class="col-md-3">
-													<div id="guild"><a href="/guild/details/<?php echo $charinfo->guild_id; ?>"><?php echo $charinfo->guild_name; ?></a></div>
+													<div id="guild"><a href="<?php echo base_url('/guild/details/'.$charinfo->guild_id.''); ?>"><?php echo $charinfo->guild_name; ?></a></div>
 												</div>
 												<label for="party" class="col-form-label col-md-3">Party</label>
 												<div class="col-md-3">
-													<div id="party"><a href="/party/details/<?php echo $charinfo->party_id; ?>"><?php echo $charinfo->party_name; ?></a></div>
+													<div id="party"><a href="<?php echo base_url('/party/details/'.$charinfo->party_id.''); ?>"><?php echo $charinfo->party_name; ?></a></div>
 												</div>
 											</div>
 											<div class="form-group row">

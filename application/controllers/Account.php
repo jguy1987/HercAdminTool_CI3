@@ -13,7 +13,7 @@ class Account extends MY_Controller {
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
-		$data['online_users'] = $this->charmodel->get_online_count();
+		$data['online_users'] = $this->playersonline;
 		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
