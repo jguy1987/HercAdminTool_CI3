@@ -9,7 +9,7 @@
 		<nav class="navbar-custom">
 			<ul class="list-inline float-right mb-0">
 				<li class="list-inline-item notif hidden-sm-down">
-					<i class="fa fa-fw fa-group" data-toggle="tooltip" data-placement="bottom" title="Players Online"></i>: &nbsp; <?php echo $online_users; ?>
+					<i class="fa fa-fw fa-group" data-toggle="tooltip" data-placement="bottom" title="Players Online"></i>: &nbsp; <?php echo $this->playersonline; ?>
 				</li>
 				<li class="list-inline-item notif hidden-sm-down">
 					<i class="fa fa-fw fa-ticket" data-toggle="tooltip" data-placement="bottom" title="New Tickets"></i>: &nbsp; 2
