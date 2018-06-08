@@ -12,7 +12,6 @@ class Analysis extends MY_Controller {
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
-		$data['online_users'] = $this->playersonline;
 		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
@@ -21,13 +20,13 @@ class Analysis extends MY_Controller {
 		if ($this->adminmodel->check_perm($this->session_data['group'],'itemcount') == True && $this->vacation == 0) {
 			$this->usermodel->update_user_active($this->session_data['id'],"analysis/itemcount");
 			$this->load->view('analysis/itemcountsearch');
-			$this->load->view('footer');
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('footer');		
+		$this->load->view('footer');
+		$this->load->view('analysis/footer');
 	}
 	
 	public function itemcount_result() {
@@ -53,6 +52,7 @@ class Analysis extends MY_Controller {
 			$this->load->view('accessdenied',$data);
 		}
 		$this->load->view('footer');
+		$this->load->view('analysis/footer');
 	}
 	
 	public function level1zeny() {
@@ -66,6 +66,7 @@ class Analysis extends MY_Controller {
 			$this->load->view('accessdenied',$data);
 		}
 		$this->load->view('footer');
+		$this->load->view('analysis/footer');
 	}
 	
 	public function nocharaccts() {
@@ -78,5 +79,6 @@ class Analysis extends MY_Controller {
 			$this->load->view('accessdenied',$data);
 		}
 		$this->load->view('footer');
+		$this->load->view('analysis/footer');
 	}
 }
