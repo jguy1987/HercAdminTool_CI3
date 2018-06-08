@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-lg-12 col-sm-3">
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered table-hover" id="guildList">
+						<table class="table table-striped table-bordered table-hover" id="dt-default">
 							<thead>
 								<tr>
 									<th>Guild ID</th>

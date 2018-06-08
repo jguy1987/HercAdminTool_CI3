@@ -18,7 +18,8 @@
 //Enable datatable for cartlist
 	$(document).ready(function() {
 		$('#cartlist').DataTable( {
-			responsive: "yes"
+			responsive: "yes",
+			aLengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]]
 		} );
 	} );
 	

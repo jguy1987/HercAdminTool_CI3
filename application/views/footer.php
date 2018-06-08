@@ -28,3 +28,11 @@
 <script src="<?php echo base_url('assets/plugins/switchery/switchery.min.js'); ?>"></script>
 
 <script src="<?php echo base_url('assets/js/pikeadmin.js'); ?>"></script>
+
+<script>
+//Enable datatable for tables which don't need any special options
+	$(document).ready(function() {
+		$('#dt-default').DataTable();
+		responsive: "yes"
+	} );
+</script>

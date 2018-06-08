@@ -21,7 +21,7 @@
 					<a href="<?php echo base_url('admin/unlockusers'); ?>"><button type="button" class="btn btn-success">Enable All Users</button></a>&nbsp;
 					<a href="<?php echo base_url('admin/resetusers'); ?>"><button type="button" class="btn btn-warning">Reset All Passwords</button></a>
 					<br /><br />
-					<table class="table table-bordered table-hover dt-responsive" id="usersList">
+					<table class="table table-bordered table-hover dt-responsive" id="dt-default">
 						<thead>
 							<tr>
 								<th style="width: 38px;">UserID</th>

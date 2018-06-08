@@ -20,19 +20,6 @@
 			$('#blockidval').val($(this).data('id'));
 		});
 	});
-	
-//Enable datatable for acctlist
-	$(document).ready(function() {
-		$('#acctlist').DataTable();
-		responsive: "yes"
-	} );
-	
-//Enable datatable for storagelist
-	$(document).ready(function() {
-		$('#storagelist').DataTable();
-		responsive: "yes"
-	} );
-
 </script>
 
 </body>

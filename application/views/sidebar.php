@@ -86,7 +86,7 @@
 						<a href="javascript:;"><i class="fa fa-wrench fa-fw"></i> <span> Server Administration </span> <span class="menu-arrow"></span></a>
 						<ul class="list-unstyled">
 							<?php if ($ssh_conn == 1) { ?>
-							<li><a href="<?php echo base_url('server/hercules'); ?>">Hercules Info/Maintenance</a></li>
+							<li><a href="<?php echo base_url('server/hercules'); ?>">Server Maintenance</a></li>
 							<?php } ?>
 							<?php if ($check_perm['itemshop'] == 1 && $vacation == 0) { ?>
 								<li><a href="<?php echo base_url('server/itemshop'); ?>">Item Shop</a></li>

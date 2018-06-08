@@ -20,7 +20,7 @@
 					<br /><br />	
 					<?php echo validation_errors(); ?>
 					<div class="table-responsive">
-						<table id="acctlist" class="table table-striped table-bordered table-hover display dt-responsive nowrap">
+						<table id="dt-default" class="table table-striped table-bordered table-hover display dt-responsive nowrap">
 							<thead>
 								<tr>
 									<th width="10px"></th>

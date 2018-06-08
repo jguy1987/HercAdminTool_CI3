@@ -1,10 +1,4 @@
 <script>
-//Enable datatable for usersList
-	$(document).ready(function() {
-		$('#usersList').DataTable();
-		responsive: "yes"
-	} );
-	
 //Enable datatable for groupsList
 	$(document).ready(function() {
 		$('#groupsList').DataTable( {

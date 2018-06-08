@@ -559,7 +559,7 @@
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
-										<table id="storagelist" class="table table-striped table-bordered table-hover display dt-responsive nowrap">
+										<table id="dt-default" class="table table-striped table-bordered table-hover display dt-responsive nowrap">
 											<thead>
 												<th></th>
 												<th>ItemID</th>
