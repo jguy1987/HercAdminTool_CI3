@@ -43,7 +43,7 @@
 									<td><?php echo $acct_data['createdate']; ?></td>
 									<td><?php echo $acct_data['lastlogin']; ?></td>
 									<td><?php if ($acct_data['unban_time'] != 0 || $acct_data['state'] != 0) { echo "Yes"; } else { echo "No"; }?></td>
-									<td><button type="button" class="btn btn-danger">Delete</button></td>
+									<td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

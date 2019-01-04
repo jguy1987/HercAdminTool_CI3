@@ -192,7 +192,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function addnumflag() {
-		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_num_db.key]');
+		$this->form_validation->set_rules('key',"Key",'trim|required|callback_check_num_flag');
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
 			$this->details($this->input->post('acct_id'));
@@ -214,7 +214,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function addstrflag() {
-		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_str_db.key]');
+		$this->form_validation->set_rules('key',"Key",'trim|required|callback_check_str_flag');
 		$this->form_validation->set_rules('value',"Value",'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->details($this->input->post('acct_id'));
@@ -431,6 +431,30 @@ Your {$this->config->item('servername')} team");
 		}
 		else {
 			return true;
+		}
+	}
+	
+	function check_str_flag($flagname) {
+		$this->db_login->select('key');
+		$q = $this->db_login->get_where('acc_reg_str_db', array('key' => $flagname));
+		if ($q->num_rows() > 0) {
+			$this->form_validation->set_message('check_str_flag', "This key already exists. Please choose another.");
+			return False;
+		}
+		else {
+			return True;
+		}
+	}
+	
+	function check_num_flag($flagname) {
+		$this->db_login->select('key');
+		$q = $this->db_login->get_where('acc_reg_num_db', array('key' => $flagname));
+		if ($q->num_rows() > 0) {
+			$this->form_validation->set_message('check_num_flag', "This key already exists. Please choose another.");
+			return False;
+		}
+		else {
+			return True;
 		}
 	}
 }

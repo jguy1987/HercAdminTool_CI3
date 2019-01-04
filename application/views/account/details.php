@@ -132,9 +132,9 @@
 									<h3><i class="fa fa-cogs fa-fw"></i> Account Options</h3>
 								</div>
 								<div class="card-body">
-									<a href="<?php echo base_url('account/resetpass/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-warning">Reset Password</button></a> 
-									<a href="<?php echo base_url('account/resetpin/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a> 
-									<a href="<?php echo base_url('account/emailuser/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-info">Send Email</button></a> 
+									<a href="<?php echo base_url('account/resetpass/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-warning">Reset Password</button></a><br /><br />
+									<a href="<?php echo base_url('account/resetpin/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-warning">Reset PIN</button></a><br /><br />
+									<a href="<?php echo base_url('account/emailuser/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-info">Send Email</button></a><br /><br />
 									<a href="<?php echo base_url('account/kick/'.$acct_data->account_id.''); ?>"><button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="Note this will kick any character logged into this account offline.">Kick Offline</button></a>
 								</div>
 							</div>
@@ -574,80 +574,82 @@
 												<script>
 													var content_storage = [];
 												</script>
-												<?php foreach ($storage_items as $storageItem) { ?>
-													<tr item_id="<?php echo $storageItem['id']; ?>">
-														<td class="details-control"></td>
-														<td><?php echo $storageItem['nameid']; ?></td>
-														<td><?php echo $storageItem['name_japanese']; ?></td>
-														<td><?php echo $storageItem['amount']; ?></td>
-														<td><?php echo $storageItem['identify']; ?></td>
-														<td><?php echo $item_types[$storageItem['type']]; ?></td>
-														<td><?php echo $storageItem['unique_id']; ?></td>
-														<td>
-															<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>">Delete</button>
-														</td>
-													</tr>
-													<?php
-													if ($storageItem['type'] != 4 && $storageItem['type'] != 5) {
-														$readonly = "readonly";
-													}
-													else {
-														$readonly = " ";
-													}
-													if ($storageItem['attribute'] == 1) {
-														$attribute = "checked";
-													}
-													else {
-														$attribute = " ";
-													}
-													if ($storageItem['bound'] == 1) {
-														$bound = "checked";
-													}
-													else {
-														$bound = " ";
-													}
-													if ($check_perm['editstorageitem'] == 0) { 
-														$disabled = "disabled"; 
-													}
-													else {
-														$disabled = " ";
-													}
-													$json = "<div class='slider'>".
-														form_open('account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acct_id' => $acct_data->account_id))."
-															<div class='panel-body'>
-																<div class='row'>
-																	<div class='col-xs-3'>
-																		<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$storageItem['refine']."' ".$readonly." />
+												<?php if (is_array($storage_items)) { ?>
+													<?php foreach ($storage_items as $storageItem) { ?>
+														<tr item_id="<?php echo $storageItem['id']; ?>">
+															<td class="details-control"></td>
+															<td><?php echo $storageItem['nameid']; ?></td>
+															<td><?php echo $storageItem['name_japanese']; ?></td>
+															<td><?php echo $storageItem['amount']; ?></td>
+															<td><?php echo $storageItem['identify']; ?></td>
+															<td><?php echo $item_types[$storageItem['type']]; ?></td>
+															<td><?php echo $storageItem['unique_id']; ?></td>
+															<td>
+																<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editstorageitem'] == 0) { echo "disabled"; } ?>">Delete</button>
+															</td>
+														</tr>
+														<?php
+														if ($storageItem['type'] != 4 && $storageItem['type'] != 5) {
+															$readonly = "readonly";
+														}
+														else {
+															$readonly = " ";
+														}
+														if ($storageItem['attribute'] == 1) {
+															$attribute = "checked";
+														}
+														else {
+															$attribute = " ";
+														}
+														if ($storageItem['bound'] == 1) {
+															$bound = "checked";
+														}
+														else {
+															$bound = " ";
+														}
+														if ($check_perm['editstorageitem'] == 0) { 
+															$disabled = "disabled"; 
+														}
+														else {
+															$disabled = " ";
+														}
+														$json = "<div class='slider'>".
+															form_open('account/edititem', array('class' => 'form-inline'), array('id' => $storageItem['id'], 'item_loc' => 'inventory', 'acct_id' => $acct_data->account_id))."
+																<div class='panel-body'>
+																	<div class='row'>
+																		<div class='col-xs-3'>
+																			<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$storageItem['refine']."' ".$readonly." />
+																		</div>
+																		<div class='col-xs-3'>
+																			<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
+																		</div>
+																		<div class='col-xs-3'>
+																			<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																		</div>
 																	</div>
-																	<div class='col-xs-3'>
-																		<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
-																	</div>
-																	<div class='col-xs-3'>
-																		<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																	<br />
+																	<div class='row'>
+																		<div class='col-xs-3'>
+																			<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$storageItem['card0']."' ".$readonly." /></br>
+																		</div>
+																		<div class='col-xs-3'>
+																			<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$storageItem['card1']."' ".$readonly." /></br>
+																		</div>
+																		<div class='col-xs-3'>
+																			<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$storageItem['card2']."' ".$readonly." /></br>
+																		</div>
+																		<div class='col-xs-3'>
+																			<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$storageItem['card3']."' ".$readonly." /></br>
+																		</div>
+																		<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
 																	</div>
 																</div>
-																<br />
-																<div class='row'>
-																	<div class='col-xs-3'>
-																		<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$storageItem['card0']."' ".$readonly." /></br>
-																	</div>
-																	<div class='col-xs-3'>
-																		<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$storageItem['card1']."' ".$readonly." /></br>
-																	</div>
-																	<div class='col-xs-3'>
-																		<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$storageItem['card2']."' ".$readonly." /></br>
-																	</div>
-																	<div class='col-xs-3'>
-																		<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$storageItem['card3']."' ".$readonly." /></br>
-																	</div>
-																	<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
-																</div>
-															</div>
-														".form_close()."
-													</div>"; ?>
-													<script>
-														content_storage[<?php echo $storageItem["id"]; ?>] = <?php echo json_encode($json); ?>;
-													</script>
+															".form_close()."
+														</div>"; ?>
+														<script>
+															content_storage[<?php echo $storageItem["id"]; ?>] = <?php echo json_encode($json); ?>;
+														</script>
+													<?php } ?>
 												<?php } ?>
 											</tbody>
 										</table>
