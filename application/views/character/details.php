@@ -145,9 +145,9 @@
 											<h3><i class="fa fa-gear fa-fw"></i> Options</h3>
 										</div>
 										<div class="card-body">
-											<a href="<?php echo base_url('character/kick/'.$charinfo->char_id.''); ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a>
-											<a href="<?php echo base_url('character/resetpos/'.$charinfo->char_id.''); ?>"><button type="button" class="btn btn-success">Reset Position</button></a>
-											<button type="button" class="btn btn-warning">Kick from Guild</button>
+											<a href="<?php echo base_url('character/kick/'.$charinfo->char_id.''); ?>"><button type="button" class="btn btn-danger">Kick Offline</button></a><br /><br />
+											<a href="<?php echo base_url('character/resetpos/'.$charinfo->char_id.''); ?>"><button type="button" class="btn btn-success">Reset Position</button></a><br /><br />
+											<button type="button" class="btn btn-warning">Kick from Guild</button><br /><br />
 											<button type="button" class="btn btn-warning">Kick from Party</button>
 										</div>
 									</div>
@@ -301,83 +301,85 @@
 															<script>
 																var content_charequip = [];
 															</script>
-															<?php foreach ($char_items as $charItem) { ?>
-																	<?php if ($charItem['equip'] > 0) { ?>
-																		<tr item_id="<?php echo $charItem['id']; ?>">
-																			<td class="details-control"></td>
-																			<td><?php echo $equipLocation[$charItem['equip']]; ?></td>
-																			<td><?php echo $charItem['nameid']; ?></td>
-																			<td><?php echo $charItem['name_japanese']; ?></td>
-																			<td><?php echo $charItem['amount']; ?></td>
-																			<td><?php echo $item_types[$charItem['type']]; ?></td>
-																			<td><?php echo $charItem['unique_id']; ?></td>
-																			<td>
-																				<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;
-																				<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editcharitem'] == 0) { echo "disabled"; } ?>">Delete</button>
-																			</td>
-																		</tr>
-																	<?php } ?>
-																<?php
-																if ($charItem['type'] != 4 && $charItem['type'] != 5) {
-																	$readonly = "readonly";
-																}
-																else {
-																	$readonly = " ";
-																}
-																if ($charItem['attribute'] == 1) {
-																	$attribute = "checked";
-																}
-																else {
-																	$attribute = " ";
-																}
-																if ($charItem['bound'] == 1) {
-																	$bound = "checked";
-																}
-																else {
-																	$bound = " ";
-																}
-																if ($check_perm['editcharitem'] == 0 || $charinfo->online > 0) {
-																	$disabled = "disabled";
-																}
-																else {
-																	$disabled = " ";
-																}
-																$json = "<div class='slider'>".
-																	form_open('character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
-																		<div class='panel-body'>
-																			<div class='row'>
-																				<div class='col-xs-3'>
-																					<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$charItem['refine']."' ".$readonly." />
+															<?php if (is_array($char_items)) { ?>
+																<?php foreach ($char_items as $charItem) { ?>
+																		<?php if ($charItem['equip'] > 0) { ?>
+																			<tr item_id="<?php echo $charItem['id']; ?>">
+																				<td class="details-control"></td>
+																				<td><?php echo $equipLocation[$charItem['equip']]; ?></td>
+																				<td><?php echo $charItem['nameid']; ?></td>
+																				<td><?php echo $charItem['name_japanese']; ?></td>
+																				<td><?php echo $charItem['amount']; ?></td>
+																				<td><?php echo $item_types[$charItem['type']]; ?></td>
+																				<td><?php echo $charItem['unique_id']; ?></td>
+																				<td>
+																					<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;
+																					<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editcharitem'] == 0) { echo "disabled"; } ?>">Delete</button>
+																				</td>
+																			</tr>
+																		<?php } ?>
+																	<?php
+																	if ($charItem['type'] != 4 && $charItem['type'] != 5) {
+																		$readonly = "readonly";
+																	}
+																	else {
+																		$readonly = " ";
+																	}
+																	if ($charItem['attribute'] == 1) {
+																		$attribute = "checked";
+																	}
+																	else {
+																		$attribute = " ";
+																	}
+																	if ($charItem['bound'] == 1) {
+																		$bound = "checked";
+																	}
+																	else {
+																		$bound = " ";
+																	}
+																	if ($check_perm['editcharitem'] == 0 || $charinfo->online > 0) {
+																		$disabled = "disabled";
+																	}
+																	else {
+																		$disabled = " ";
+																	}
+																	$json = "<div class='slider'>".
+																		form_open('character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
+																			<div class='panel-body'>
+																				<div class='row'>
+																					<div class='col-xs-3'>
+																						<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$charItem['refine']."' ".$readonly." />
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																					</div>
 																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																				<br />
+																				<div class='row'>
+																					<div class='col-xs-3'>
+																						<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$charItem['card0']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$charItem['card1']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$charItem['card2']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$charItem['card3']."' ".$readonly." /></br>
+																					</div>
+																					<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
 																				</div>
 																			</div>
-																			<br />
-																			<div class='row'>
-																				<div class='col-xs-3'>
-																					<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$charItem['card0']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$charItem['card1']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$charItem['card2']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$charItem['card3']."' ".$readonly." /></br>
-																				</div>
-																				<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
-																			</div>
-																		</div>
-																	".form_close()."
-																</div>"; ?>
-																<script>
-																	content_charequip[<?php echo $charItem["id"]; ?>] = <?php echo json_encode($json); ?>;
-																</script>
+																		".form_close()."
+																	</div>"; ?>
+																	<script>
+																		content_charequip[<?php echo $charItem["id"]; ?>] = <?php echo json_encode($json); ?>;
+																	</script>
+																<?php } ?>
 															<?php } ?>
 														</tbody>
 													</table>
@@ -406,82 +408,84 @@
 															<script>
 																var content_charitem = [];
 															</script>
-															<?php foreach ($char_items as $charItem) { ?>
-																	<?php if ($charItem['equip'] == 0) { ?>
-																		<tr item_id="<?php echo $charItem['id']; ?>">
-																			<td class="details-control"></td>
-																			<td><?php echo $charItem['nameid']; ?></td>
-																			<td><?php echo $charItem['name_japanese']; ?></td>
-																			<td><?php echo $charItem['amount']; ?></td>
-																			<td><?php echo $item_types[$charItem['type']]; ?></td>
-																			<td><?php echo $charItem['unique_id']; ?></td>
-																			<td>
-																				<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;
-																				<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editcharitem'] == 0) { echo "disabled"; } ?>">Delete</button>
-																			</td>
-																		</tr>
-																	<?php } ?>
-																<?php
-																if ($charItem['type'] != 4 && $charItem['type'] != 5) {
-																	$readonly = "readonly";
-																}
-																else {
-																	$readonly = " ";
-																}
-																if ($charItem['attribute'] == 1) {
-																	$attribute = "checked";
-																}
-																else {
-																	$attribute = " ";
-																}
-																if ($charItem['bound'] == 1) {
-																	$bound = "checked";
-																}
-																else {
-																	$bound = " ";
-																}
-																if ($check_perm['editcharitem'] == 0 || $charinfo->online > 0) {
-																	$disabled = "disabled";
-																}
-																else {
-																	$disabled = " ";
-																}
-																$json = "<div class='slider'>".
-																	form_open('character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
-																		<div class='panel-body'>
-																			<div class='row'>
-																				<div class='col-xs-3'>
-																					<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$charItem['refine']."' ".$readonly." />
+															<?php if (is_array($char_items)) { ?>
+																<?php foreach ($char_items as $charItem) { ?>
+																		<?php if ($charItem['equip'] == 0) { ?>
+																			<tr item_id="<?php echo $charItem['id']; ?>">
+																				<td class="details-control"></td>
+																				<td><?php echo $charItem['nameid']; ?></td>
+																				<td><?php echo $charItem['name_japanese']; ?></td>
+																				<td><?php echo $charItem['amount']; ?></td>
+																				<td><?php echo $item_types[$charItem['type']]; ?></td>
+																				<td><?php echo $charItem['unique_id']; ?></td>
+																				<td>
+																					<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;
+																					<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editcharitem'] == 0) { echo "disabled"; } ?>">Delete</button>
+																				</td>
+																			</tr>
+																		<?php } ?>
+																	<?php
+																	if ($charItem['type'] != 4 && $charItem['type'] != 5) {
+																		$readonly = "readonly";
+																	}
+																	else {
+																		$readonly = " ";
+																	}
+																	if ($charItem['attribute'] == 1) {
+																		$attribute = "checked";
+																	}
+																	else {
+																		$attribute = " ";
+																	}
+																	if ($charItem['bound'] == 1) {
+																		$bound = "checked";
+																	}
+																	else {
+																		$bound = " ";
+																	}
+																	if ($check_perm['editcharitem'] == 0 || $charinfo->online > 0) {
+																		$disabled = "disabled";
+																	}
+																	else {
+																		$disabled = " ";
+																	}
+																	$json = "<div class='slider'>".
+																		form_open('character/edititem', array('class' => 'form-inline'), array('id' => $charItem['id'], 'item_loc' => "inventory", 'charid' => $charinfo->char_id))."
+																			<div class='panel-body'>
+																				<div class='row'>
+																					<div class='col-xs-3'>
+																						<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$charItem['refine']."' ".$readonly." />
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																					</div>
 																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																				<br />
+																				<div class='row'>
+																					<div class='col-xs-3'>
+																						<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$charItem['card0']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$charItem['card1']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$charItem['card2']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$charItem['card3']."' ".$readonly." /></br>
+																					</div>
+																					<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
 																				</div>
 																			</div>
-																			<br />
-																			<div class='row'>
-																				<div class='col-xs-3'>
-																					<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$charItem['card0']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$charItem['card1']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$charItem['card2']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$charItem['card3']."' ".$readonly." /></br>
-																				</div>
-																				<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
-																			</div>
-																		</div>
-																	".form_close()."
-																</div>"; ?>
-																<script>
-																	content_charitem[<?php echo $charItem["id"]; ?>] = <?php echo json_encode($json); ?>;
-																</script>
+																		".form_close()."
+																	</div>"; ?>
+																	<script>
+																		content_charitem[<?php echo $charItem["id"]; ?>] = <?php echo json_encode($json); ?>;
+																	</script>
+																<?php } ?>
 															<?php } ?>
 														</tbody>
 													</table>
@@ -510,80 +514,82 @@
 															<script>
 																var content_charcart = [];
 															</script>
-															<?php foreach ($char_cartItems as $cartItem) { ?>
-																<tr item_id="<?php echo $cartItem['id']; ?>">
-																	<td class="details-control"></td>
-																	<td><?php echo $cartItem['nameid']; ?></td>
-																	<td><?php echo $cartItem['name_japanese']; ?></td>
-																	<td><?php echo $cartItem['amount']; ?></td>
-																	<td><?php echo $item_types[$cartItem['type']]; ?></td>
-																	<td><?php echo $cartItem['unique_id']; ?></td>
-																	<td>
-																		<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;
-																		<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editcharitem'] == 0) { echo "disabled"; } ?>">Delete</button>
-																	</td>
-																</tr>
-																<?php
-																if ($cartItem['type'] != 4 && $cartItem['type'] != 5) {
-																	$readonly = "readonly";
-																}
-																else {
-																	$readonly = " ";
-																}
-																if ($cartItem['attribute'] == 1) {
-																	$attribute = "checked";
-																}
-																else {
-																	$attribute = " ";
-																}
-																if ($cartItem['bound'] == 1) {
-																	$bound = "checked";
-																}
-																else {
-																	$bound = " ";
-																}
-																if ($check_perm['editcharitem'] == 0 || $charinfo->online > 0) {
-																	$disabled = "disabled";
-																}
-																else {
-																	$disabled = " ";
-																}
-																$json = "<div class='slider'>".
-																	form_open('character/edititem', array('class' => 'form-inline'), array('id' => $cartItem['id'], 'item_loc' => "cart", 'charid' => $charinfo->char_id))."
-																		<div class='panel-body'>
-																			<div class='row'>
-																				<div class='col-xs-3'>
-																					<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$cartItem['refine']."' ".$readonly." />
+															<?php if (is_array($char_cartItems)) { ?>
+																<?php foreach ($char_cartItems as $cartItem) { ?>
+																	<tr item_id="<?php echo $cartItem['id']; ?>">
+																		<td class="details-control"></td>
+																		<td><?php echo $cartItem['nameid']; ?></td>
+																		<td><?php echo $cartItem['name_japanese']; ?></td>
+																		<td><?php echo $cartItem['amount']; ?></td>
+																		<td><?php echo $item_types[$cartItem['type']]; ?></td>
+																		<td><?php echo $cartItem['unique_id']; ?></td>
+																		<td>
+																			<button type="button" class="btn btn-warning btn-sm">Unequip</button>&nbsp;
+																			<button type="button" class="btn btn-danger btn-sm <?php if ($check_perm['editcharitem'] == 0) { echo "disabled"; } ?>">Delete</button>
+																		</td>
+																	</tr>
+																	<?php
+																	if ($cartItem['type'] != 4 && $cartItem['type'] != 5) {
+																		$readonly = "readonly";
+																	}
+																	else {
+																		$readonly = " ";
+																	}
+																	if ($cartItem['attribute'] == 1) {
+																		$attribute = "checked";
+																	}
+																	else {
+																		$attribute = " ";
+																	}
+																	if ($cartItem['bound'] == 1) {
+																		$bound = "checked";
+																	}
+																	else {
+																		$bound = " ";
+																	}
+																	if ($check_perm['editcharitem'] == 0 || $charinfo->online > 0) {
+																		$disabled = "disabled";
+																	}
+																	else {
+																		$disabled = " ";
+																	}
+																	$json = "<div class='slider'>".
+																		form_open('character/edititem', array('class' => 'form-inline'), array('id' => $cartItem['id'], 'item_loc' => "cart", 'charid' => $charinfo->char_id))."
+																			<div class='panel-body'>
+																				<div class='row'>
+																					<div class='col-xs-3'>
+																						<strong>Refine level:</strong>&nbsp;<input type='number' name='refine' class='form-control' value='".$cartItem['refine']."' ".$readonly." />
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																					</div>
 																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Broken?:</strong>&nbsp;<input type='checkbox' name='attribute' class='form-control' value='1' ".$attribute." ".$readonly." />
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Bound?:</strong>&nbsp;<input type='checkbox' name='bound' class='form-control' value='1' ".$bound." />
+																				<br />
+																				<div class='row'>
+																					<div class='col-xs-3'>
+																						<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$cartItem['card0']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$cartItem['card1']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$cartItem['card2']."' ".$readonly." /></br>
+																					</div>
+																					<div class='col-xs-3'>
+																						<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$cartItem['card3']."' ".$readonly." /></br>
+																					</div>
+																					<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
 																				</div>
 																			</div>
-																			<br />
-																			<div class='row'>
-																				<div class='col-xs-3'>
-																					<strong>Card 1:</strong>&nbsp;<input type='number' name='card0' class='form-control' value='".$cartItem['card0']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 2:</strong>&nbsp;<input type='number' name='card1' class='form-control' value='".$cartItem['card1']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 3:</strong>&nbsp;<input type='number' name='card2' class='form-control' value='".$cartItem['card2']."' ".$readonly." /></br>
-																				</div>
-																				<div class='col-xs-3'>
-																					<strong>Card 4:</strong>&nbsp;<input type='number' name='card3' class='form-control' value='".$cartItem['card3']."' ".$readonly." /></br>
-																				</div>
-																				<button type='submit' class='btn btn-success btn-sm ".$disabled."'>Edit</button>
-																			</div>
-																		</div>
-																	".form_close()."
-																</div>"; ?>
-																<script>
-																	content_charcart[<?php echo $cartItem["id"]; ?>] = <?php echo json_encode($json); ?>;
-																</script>
+																		".form_close()."
+																	</div>"; ?>
+																	<script>
+																		content_charcart[<?php echo $cartItem["id"]; ?>] = <?php echo json_encode($json); ?>;
+																	</script>
+																<?php } ?>
 															<?php } ?>
 														</tbody>
 													</table>

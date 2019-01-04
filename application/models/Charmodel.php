@@ -43,7 +43,12 @@ Class Charmodel extends CI_Model {
 		$this->db_charmap->where('inventory.char_id', $cid);
 		$this->db_charmap->join('item_db', 'inventory.nameid = item_db.id', 'left');
 		$q = $this->db_charmap->get();
-		return $q->result_array();
+		if ($q !== FALSE && $q->num_rows() > 0) {
+			return $q->result_array();
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	function get_cart_items($cid) {
@@ -52,7 +57,12 @@ Class Charmodel extends CI_Model {
 		$this->db_charmap->where('cart_inventory.char_id', $cid);
 		$this->db_charmap->join('item_db', 'cart_inventory.nameid = item_db.id', 'left');
 		$q = $this->db_charmap->get();
-		return $q->result_array();
+		if ($q !== FALSE && $q->num_rows() > 0) {
+			return $q->result_array();
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	function get_friend_list($cid) {
