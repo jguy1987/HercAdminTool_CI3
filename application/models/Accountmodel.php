@@ -31,12 +31,27 @@ Class Accountmodel extends CI_Model {
 			'passwd'		=> $newPass,
 			'pincode'	=> $pincode,
 		);	
-		$this->db_login->set('user_pass', $newPassMD5);
-		$this->db_login->set('pincode', $pincode);
-		$this->db_login->set('createdate', 'NOW()', FALSE);
-		$this->db_login->set('register_ip', '127.0.0.1', TRUE);
-		$this->db_login->set('auth_ip', '127.0.0.1', TRUE);
-		$this->db_login->insert('login', $data);
+		$q = array(
+			'userid'				=> $data['userid'],
+			'user_pass'			=> $newPassMD5,
+			'sex'					=> $data['sex'],
+			'email'				=> $data['email'],
+			'group_id'			=> $data['group_id'],
+			'pincode'			=> $pincode,
+			'birthdate'			=> $data['birthdate'],
+			'character_slots' => $data['character_slots'],
+		);
+		
+		$this->db_login->insert('login', $q);
+		$id = $this->db_login->insert_id();
+		$this->db_login->reset_query();
+		$log = array(
+			'account_id'		=> $id,
+			'createdate'		=> date(),
+			'register_ip'		=> '127.0.0.1',
+			'auth_ip'			=> '127.0.0.1',
+		);
+		$this->db_login->insert('hat_herc_login', $log);
 		return $newAcct;
 	}
 	
@@ -80,7 +95,12 @@ Class Accountmodel extends CI_Model {
 		$this->db_charmap->where('storage.account_id', $aid);
 		$this->db_charmap->join('item_db', 'storage.nameid = item_db.id', 'left');
 		$q = $this->db_charmap->get();
-		return $q->result_array();
+		if ($q !== FALSE && $q->num_rows() > 0) {
+			return $q->result_array();
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	function add_note($newNote) {

@@ -38,8 +38,6 @@ class Dashboard extends MY_Controller {
 		}
 		$data2['admin_news'] = $this->dashboardmodel->get_admin_news();
 		$this->load->view('index',$data2);
-		//$this->load->view('dashboard-scripts', $data);
-		//$this->load->view('datatables-scripts');
 		$this->load->view('footer');
 		$this->load->view('dashboard-footer');
 		

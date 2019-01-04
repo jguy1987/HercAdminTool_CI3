@@ -17,9 +17,9 @@
 <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/detect.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/fastclick.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery.blockUI.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/jquery.nicescroll.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/jquery.scrollTo.min.js'); ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>

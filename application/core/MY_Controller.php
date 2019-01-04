@@ -33,7 +33,12 @@ class MY_Controller extends CI_Controller {
 		else {
 			$this->load->library('session');
 			$this->db_hat = $this->load->database('hat', TRUE, TRUE);
-			$this->load->model('usermodel');
+			// Test database to ensure all tables are present.
+			if (!$this->db_hat->table_exists('hat_adminnews') || !$this->db_hat->table_exists('hat_bughistory') || !$this->db_hat->table_exists('hat_bugs') || !$this->db_hat->table_exists('hat_bugcomments') || !$this->db_hat->table_exists('hat_groups') || !$this->db_hat->table_exists('hat_loginlog') || !$this->db_hat->table_exists('hat_sessions') || !$this->db_hat->table_exists('hat_tktfolders') || !$this->db_hat->table_exists('hat_tktlog') || !$this->db_hat->table_exists('hat_tktmain') || !$this->db_hat->table_exists('hat_tktreplies') || !$this->db_hat->table_exists('hat_users')) {
+				$error['errtype'] = "hattables";
+				die($this->load->view('errdisplay', $error, TRUE));
+			
+			}
 			$this->load->view('head');
 			//$this->output->enable_profiler(TRUE);
 			if ($this->session->userdata('loggedin')) {
@@ -48,6 +53,7 @@ class MY_Controller extends CI_Controller {
 				$this->load->model('charmodel');
 				$this->load->model('guildmodel');
 				$this->load->model('bugmodel');
+				$this->load->model('usermodel');
 				$servers = $this->config->item('ragnarok_servers');
 				$login_servers = $this->config->item('login_servers');
 				$login_srv_id = $servers[$this->session->userdata('server_select')]['login_server_group'];
@@ -82,7 +88,7 @@ class MY_Controller extends CI_Controller {
 				$this->db_charmaplog = $this->load->database($this->logdatabase, TRUE, TRUE);
 				$this->playersonline = $this->charmodel->get_online_count();
 				// Get list of groups with ID's so that we can display on header.
-				$this->global_data['group_list'] = $this->adminmodel->list_groups_by_name();
+				//$this->global_data['group_list'] = $this->adminmodel->list_groups_by_name();
 				$this->load->vars($this->global_data);
 			}
 		}

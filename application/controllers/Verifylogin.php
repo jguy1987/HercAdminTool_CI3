@@ -26,6 +26,7 @@ class VerifyLogin extends MY_Controller {
 		$username = $this->input->post('username');
 	 
 		//query the database
+		$this->load->model('usermodel');
 		$result = $this->usermodel->login($username, $passwd);
 	 
 		if($result) {

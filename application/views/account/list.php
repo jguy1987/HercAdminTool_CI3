@@ -23,7 +23,6 @@
 						<table id="dt-default" class="table table-striped table-bordered table-hover display dt-responsive nowrap">
 							<thead>
 								<tr>
-									<th width="10px"></th>
 									<th>Account ID</th>
 									<th>Username</th>
 									<th>Gender</th>
@@ -37,7 +36,6 @@
 							<tbody>
 								<?php foreach ($accts as $acct_data): ?>
 								<tr class="odd gradeX">
-									<td></td>
 									<td><a href="<?php echo base_url('account/details/'.$acct_data['account_id'].''); ?>"><?php echo $acct_data['account_id']; ?></td>
 									<td><?php if ($acct_data['group_id'] > 0) { ?><div style="color:#FF0000; "> <?php } ?><?php echo $acct_data['userid']; ?><?php if ($acct_data['group_id'] > 0) { ?></div><?php } ?></td>
 									<td><?php echo $acct_data['sex']; ?></td>

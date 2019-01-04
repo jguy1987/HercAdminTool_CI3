@@ -15,5 +15,6 @@
 	<link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
 	<link href="<?php echo base_url('assets/plugins/datetimepicker/css/daterangepicker.css'); ?>" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.4.0/gridstack.min.css" rel="stylesheet" type="text/css">
 	
 </head>

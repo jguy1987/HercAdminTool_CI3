@@ -25,7 +25,6 @@ class User extends MY_Controller {
 			$data['user_loginlog'] = $this->usermodel->get_user_logins($this->session_data['id']);
 			$data['grpInfo'] = $this->adminmodel->get_group_data($data['user_settings']->groupid);
 			$this->load->view('user/settings', $data);
-			$this->load->view('datatables-scripts');
 			$this->load->view('footer');
 		}
 		else {
@@ -85,7 +84,6 @@ class User extends MY_Controller {
 				$data['grpInfo'] = $this->adminmodel->get_group_data($data['user_settings']->groupid);
 				$this->load->view('user/settings', $data);
 			}
-			$this->load->view('datatables-scripts');
 			$this->load->view('footer');
 		}
 		else {

@@ -60,7 +60,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function verifycreate() {
-		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|is_unique[login.userid]');
+		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|callback_check_is_username_unique');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
 		$this->form_validation->set_rules('gender', "Gender", 'required');		
 		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
@@ -379,6 +379,18 @@ Your {$this->config->item('servername')} team");
 		else {
 			$this->form_validation->set_message('check_groupid_perm', "You may not create or edit a game account to have a higher group ID than {$queryResult->acctgroupmax}");
 			return False;
+		}
+	}
+	
+	function check_is_username_unique($username) {
+		$this->db_login->select('userid');
+		$query = $this->db_login->get_where('login', array('userid' => $username));
+		if ($query->num_rows() > 0) {
+			$this->form_validation->set_message('check_is_username_unique', "This username already exists. Please choose another.");
+			return False;
+		}
+		else {
+			return True;
 		}
 	}
 	

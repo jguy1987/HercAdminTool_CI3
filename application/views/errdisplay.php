@@ -88,6 +88,13 @@
 								echo "<hr>";
 								echo "<p><strong>File</strong>: application/config/hat.php</p>";
 								break;
+							case "hattables":
+								echo "<h4 class='alert-heading'>HAT Tables not foundd</h4>";
+								echo "<p>It appears that your HAT Database connection is good, but none of the tables were found. Please make sure the entire file in /docs/sql/hat.sql has been loaded into your database.</p>";
+								echo "<hr>";
+								echo "<p><strong>File</strong>: docs/sql/hat.sql</p>";
+								echo "<p><strong>See also</strong>: application/config/database.php</p>";
+								break;
 							default:
 								echo "<h4 class='alert-heading'>Generic Application Failure!</h4>";
 								echo "<p>The application has failed. Please submit a bugreport as to what you were doing or trying to do when you saw this error.</p>";
