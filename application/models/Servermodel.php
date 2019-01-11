@@ -90,13 +90,13 @@ Class Servermodel extends CI_Model {
 		
 		$whosOnlineLink = "<a href='".base_url('character/whosonline')."'>Players Online</a>";
 		$data = array(
-			'Server Uptime'				=> $sinceStartf,
-			$whosOnlineLink				=> number_format($q7->num_rows()),
-			'Accounts Registered'		=> number_format($q->num_rows()),
-			'Characters Created'			=> number_format($q2),
-			'Guilds Established'			=> number_format($q3),
-			'Characters in guilds'		=> number_format($q4->num_rows()),
-			'Zeny in Circulation'		=> number_format($zeny->zeny),
+			'hercUptime'				=> $sinceStartf,
+			'onlineNum'				=> number_format($q7->num_rows()),
+			'acctsNum'		=> number_format($q->num_rows()),
+			'charsNum'			=> number_format($q2),
+			'guildsNum'			=> number_format($q3),
+			'guildsCharsNum'		=> number_format($q4->num_rows()),
+			'zenyNum'		=> number_format($zeny->zeny),
 		);
 		if ($t = 1) {
 			// Get more stats for the maintenance info page.
@@ -148,7 +148,7 @@ Class Servermodel extends CI_Model {
 			$serverData['RAM']['used'] = $this->format_bytes($xml->mem->virtual->used);
 			$serverData['RAM']['free'] = $this->format_bytes($xml->mem->virtual->avail);
 			$serverData['RAM']['total'] = $this->format_bytes($xml->mem->virtual->total);
-			$serverData['RAM']['used_pct'] = $xml->mem->virtual->pct;
+			$serverData['RAM']['used_pct'] = round($xml->mem->virtual->used/$xml->mem->virtual->total*100, 2);
 			$serverData['RAM']['swapUsed'] = $this->format_bytes($xml->mem->swap->used);
 			$serverData['RAM']['swapFree'] = $this->format_bytes($xml->mem->swap->avail);
 			$serverData['RAM']['swapTotal'] = $this->format_bytes($xml->mem->swap->total);
@@ -156,7 +156,7 @@ Class Servermodel extends CI_Model {
 			$serverData['disk']['total'] = $this->format_bytes($xml->disk->total);
 			$serverData['disk']['used'] = $this->format_bytes($xml->disk->used);
 			$serverData['disk']['free'] = $this->format_bytes($xml->disk->free);
-			$serverData['disk']['used_percent'] = round($xml->disk->used / $xml->disk->total * 100, 2);
+			$serverData['disk']['used_pct'] = round($xml->disk->used / $xml->disk->total * 100, 2);
 			return $serverData;
 		}
 		else {
@@ -171,10 +171,10 @@ Class Servermodel extends CI_Model {
 		$login_servers = $this->config->item('login_servers');
 		$login_srv_id = $servers[$sid]['login_server_group'];
 		if ($svr == "all") {
-			$login_server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 2);
-			$char_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['char_port'], $errno, $errstr, 2);
-			$map_server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid]['map_port'], $errno, $errstr, 2);
-			if (!$map_server || !$char_server || !$login_server) { // One of the servers is not running.
+			$login_server = @stream_socket_client("tcp://{$login_servers[$login_srv_id]['login_ip']}:{$login_servers[$login_srv_id]['login_port']}", $errno, $errstr, 1);
+			$char_server = @stream_socket_client("tcp://{$servers[$sid]['server_ip']}:{$servers[$sid]['char_port']}", $errno, $errstr, 1);
+			$map_server = @stream_socket_client("tcp://{$servers[$sid]['server_ip']}:{$servers[$sid]['map_port']}", $errno, $errstr, 1);
+			if (!is_resource($map_server) || !is_resource($char_server) || !is_resource($login_server)) { // One of the servers is not running.
 				return false;
 			}
 			else {
@@ -182,9 +182,8 @@ Class Servermodel extends CI_Model {
 			}
 		}
 		else if ($svr == "login") {
-
-			$server = @fsockopen($login_servers[$login_srv_id]['login_ip'], $login_servers[$login_srv_id]['login_port'], $errno, $errstr, 2);
-			if (!$server) { // Server did not start.
+			$server = @stream_socket_client("tcp://{$login_servers[$login_srv_id]['login_ip']}:{$login_servers[$login_srv_id]['login_port']}", $errno, $errstr, 1);
+			if (!is_resource($server)) { // Server did not start.
 				return false;
 			}
 			else {
@@ -193,8 +192,8 @@ Class Servermodel extends CI_Model {
 		}
 		else {
 			$port = $svr."_port";
-			$server = @fsockopen($servers[$sid]['server_ip'], $servers[$sid][$port], $errno, $errstr, 2);
-			if (!$server) { // Server did not start.
+			$server = @stream_socket_client("tcp://{$servers[$sid]['server_ip']}:{$servers[$sid][$port]}", $errno, $errstr, 1);
+			if (!is_resource($server)) { // Server did not start.
 				return false;
 			}
 			else {

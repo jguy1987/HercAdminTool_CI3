@@ -15,13 +15,13 @@
 				</div>
 			</div>
 			<div class="row">
+				<a href="<?php echo base_url('admin/adduser'); ?>"><button type="button" class="btn btn-primary">Add New User</button></a>&nbsp;
+				<a href="<?php echo base_url('admin/lockusers'); ?>"><button type="button" class="btn btn-danger">Disable All Users</button></a>&nbsp;
+				<a href="<?php echo base_url('admin/unlockusers'); ?>"><button type="button" class="btn btn-success">Enable All Users</button></a>&nbsp;
+				<a href="<?php echo base_url('admin/resetusers'); ?>"><button type="button" class="btn btn-warning">Reset All Passwords</button></a>
+				<br /><br />
 				<div class="table-responsive">
-					<a href="<?php echo base_url('admin/adduser'); ?>"><button type="button" class="btn btn-primary">Add New User</button></a>&nbsp;
-					<a href="<?php echo base_url('admin/lockusers'); ?>"><button type="button" class="btn btn-danger">Disable All Users</button></a>&nbsp;
-					<a href="<?php echo base_url('admin/unlockusers'); ?>"><button type="button" class="btn btn-success">Enable All Users</button></a>&nbsp;
-					<a href="<?php echo base_url('admin/resetusers'); ?>"><button type="button" class="btn btn-warning">Reset All Passwords</button></a>
-					<br /><br />
-					<table class="table table-bordered table-hover dt-responsive" id="dt-default">
+					<table class="table table-striped table-bordered table-hover display dt-responsive nowrap" id="dt-default">
 						<thead>
 							<tr>
 								<th style="width: 38px;">UserID</th>
@@ -38,7 +38,7 @@
 						<tbody>
 							<?php foreach ($admin_results as $admin_entry): ?>
 							<tr>
-								<td><?php echo $admin_entry->userid; ?></td>
+								<td><a href="<?php echo base_url('admin/edituser/'.$admin_entry->userid.''); ?>"><?php echo $admin_entry->userid; ?></a></td>
 								<td><?php echo $admin_entry->username; ?></td>
 								<td><?php echo $admin_entry->pemail; ?></td>
 								<td><a href='<?php echo base_url('account/details/'.$admin_entry->gameacctid.''); ?>'><?php echo $admin_entry->gameacctid; ?></a></td>
@@ -50,7 +50,7 @@
 									<td>No</td>
 								<?php } ?>
 								<td><?php echo $admin_entry->group_name; ?></td>
-								<td><a href="<?php echo base_url('admin/edituser/'.$admin_entry->userid.''); ?>"><button type="button" class="btn btn-success">Edit</button></a>&nbsp;<a href="<?php echo base_url('admin/deluser/'.$admin_entry->userid.''); ?>"><button type="button" class="btn btn-danger">Delete</button></a>&nbsp;<a href="<?php echo base_url('sendemail/adminuser/'.$admin_entry->userid.''); ?>"><button type="button" class="btn btn-info">Send Email</button></a></td>
+								<td><a href="<?php echo base_url('admin/deluser/'.$admin_entry->userid.''); ?>"><button type="button" class="btn btn-danger">Delete</button></a>&nbsp;<a href="<?php echo base_url('sendemail/adminuser/'.$admin_entry->userid.''); ?>"><button type="button" class="btn btn-info">Send Email</button></a></td>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>

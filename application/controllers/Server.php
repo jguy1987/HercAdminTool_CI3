@@ -24,7 +24,7 @@ class Server extends MY_Controller {
 		$data['server_select'] = $sid;
 		$this->load->view('formsuccess', $data);
 		$this->load->view('footer');
-		$this->load->view('server/footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function hercules() {
@@ -40,7 +40,7 @@ class Server extends MY_Controller {
 		$data['herc_stats'] = $this->servermodel->get_herc_stats(1);
 		$this->load->view('server/hercinfo', $data);
 		$this->load->view('footer');
-		$this->load->view('server/footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function maintenance($action) {
@@ -123,7 +123,7 @@ class Server extends MY_Controller {
 				$this->load->view('server/maintresult', $data);
 		}
 		$this->load->view('footer');
-		$this->load->view('server/footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function console($server) {
@@ -131,7 +131,7 @@ class Server extends MY_Controller {
 		$data['server'] = $server;
 		$this->load->view('server/console', $data);
 		$this->load->view('footer');
-		$this->load->view('server/footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function broadcast() {
@@ -148,6 +148,6 @@ class Server extends MY_Controller {
 			$this->load->view('accessdenied',$data);
 		}
 		$this->load->view('footer');
-		$this->load->view('server/footer');
+		#$this->load->view('server/footer');
 	}
 }

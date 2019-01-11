@@ -20,6 +20,7 @@ class Dashboard extends MY_Controller {
 		$session_data = $this->session->userdata('loggedin');
 		$this->usermodel->update_user_active($this->session_data['id'],"dashboard");
 		$servers = $this->config->item('ragnarok_servers');
+		$data2['servername'] = $servers[$this->session->userdata('server_select')]['servername'];
 		$data['acct_regs'] = $this->dashboardmodel->get_acct_reg_by_date();
 		$data2['herc_stats'] = $this->servermodel->get_herc_stats(0);
 		if ($data2['herc_stats'] == "servernameinvalid") {
@@ -39,7 +40,7 @@ class Dashboard extends MY_Controller {
 		$data2['admin_news'] = $this->dashboardmodel->get_admin_news();
 		$this->load->view('index',$data2);
 		$this->load->view('footer');
-		$this->load->view('dashboard-footer');
+		$this->load->view('dashboard-footer', $data);
 		
 	}
 }
