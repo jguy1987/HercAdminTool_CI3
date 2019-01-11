@@ -2,33 +2,94 @@
 
 <script>
 // Enable date/time picker on datestart field.
-	$(function() {
-		$('input[name="date_start"]').daterangepicker({
-			singleDatePicker: true,
-			timePicker: true,
-			autoApply: true,
-			showDropdowns: true,
-			autoUpdateInput: false,
-			locale: {
-				format: "YYYY/MM/DD HH:MM:SS",
-				separator: "-"
-			}
-		});
-	});
+$('input[name="date_start"]').daterangepicker({
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "timePicker": true,
+    "timePicker24Hour": true,
+    "timePickerSeconds": true,
+    "autoApply": true,
+    "locale": {
+        "format": "YYYY/MM/DD HH:mm:ss",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    },
+    "opens": "center"
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
 	
 // Enable date picker on dateend field.
-	$(function() {
-		$('input[name="date_end"]').daterangepicker({
-			singleDatePicker: true,
-			autoApply: true,
-			timePicker: true,
-			showDropdowns: true,
-			locale: {
-				format: "YYYY/MM/DD HH:MM:SS",
-				separator: "-"
-			}
-		});
-	});
+$('input[name="date_end"]').daterangepicker({
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "timePicker": true,
+    "timePicker24Hour": true,
+    "timePickerSeconds": true,
+    "autoApply": true,
+    "locale": {
+        "format": "YYYY/MM/DD HH:mm:ss",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    },
+    "opens": "center"
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
 	
 //Enable datatable for atcmdResults
 	$(document).ready(function() {

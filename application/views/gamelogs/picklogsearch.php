@@ -56,8 +56,8 @@
 					<div class="form-group row">
 						<label for="date" class="col-form-label col-md-6">Date Range</label>
 						<div class="col-md-6" id="date">
-							<label>Start:</label><input type="text" class="form-control form_date" id="datestart" name="date_start" value="" /><br />
-							<label>End:</label><input type="text" class="form-control form_date" id="dateend" name="date_end" value="<?php date('yyyy-dd-mm hh:mm:ss'); ?>" />
+							<label>Start:</label><input type="text" class="form-control form_date" id="date_start" name="date_start" value="" /><br />
+							<label>End:</label><input type="text" class="form-control form_date" id="date_end" name="date_end" value="<?php date('yyyy-dd-mm hh:mm:ss'); ?>" />
 						</div>
 					</div>
 					<div class="form-group row">
