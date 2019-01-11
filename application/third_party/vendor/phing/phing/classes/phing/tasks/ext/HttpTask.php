@@ -29,7 +29,7 @@ require_once 'phing/Task.php';
  *
  * @package phing.tasks.ext
  * @author  Alexey Borzov <avb@php.net>
- * @version $Id: 4b9d4bc0ada3044961fd261245d566a72b3789a9 $
+ * @version $Id$
  */
 abstract class HttpTask extends Task
 {

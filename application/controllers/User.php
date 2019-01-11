@@ -7,6 +7,7 @@ class User extends MY_Controller {
 	}
 
 	function login() {
+		$this->load->view('head');
 		$this->load->view('user/login');
 	}
 	
@@ -17,14 +18,13 @@ class User extends MY_Controller {
 			$data['check_perm'] = $this->check_perm;
 			$data['permissions'] = $this->config->item('permissions');
 			$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
-			$this->load->view('header', $data);
 			$data['ssh_conn'] = $this->config->item('ssh_conn');
+			$this->load->view('topnav', $data);
 			$this->load->view('sidebar', $data);
 			$data['user_settings'] = $this->usermodel->get_user_settings($this->session_data['id']);
 			$data['user_loginlog'] = $this->usermodel->get_user_logins($this->session_data['id']);
 			$data['grpInfo'] = $this->adminmodel->get_group_data($data['user_settings']->groupid);
 			$this->load->view('user/settings', $data);
-			$this->load->view('datatables-scripts');
 			$this->load->view('footer');
 		}
 		else {
@@ -64,8 +64,8 @@ class User extends MY_Controller {
 				$data['check_perm'] = $this->check_perm;
 				$data['permissions'] = $this->config->item('permissions');
 				$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
-				$this->load->view('header', $data);
 				$data['ssh_conn'] = $this->config->item('ssh_conn');
+				$this->load->view('topnav', $data);
 				$this->load->view('sidebar', $data);
 				$data['referpage'] = "usersettingschange";
 				$this->load->view('formsuccess', $data);
@@ -76,15 +76,14 @@ class User extends MY_Controller {
 				$data['check_perm'] = $this->check_perm;
 				$data['permissions'] = $this->config->item('permissions');
 				$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
-				$this->load->view('header', $data);
 				$data['ssh_conn'] = $this->config->item('ssh_conn');
+				$this->load->view('topnav', $data);
 				$this->load->view('sidebar', $data);
 				$data['user_settings'] = $this->usermodel->get_user_settings($this->session_data['id']);
 				$data['user_loginlog'] = $this->usermodel->get_user_logins($this->session_data['id']);
 				$data['grpInfo'] = $this->adminmodel->get_group_data($data['user_settings']->groupid);
 				$this->load->view('user/settings', $data);
 			}
-			$this->load->view('datatables-scripts');
 			$this->load->view('footer');
 		}
 		else {

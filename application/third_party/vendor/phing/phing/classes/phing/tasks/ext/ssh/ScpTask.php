@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  *
  * @author    Michiel Rook <mrook@php.net>
  * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @version   $Id: 34d699a555092a5473d0636c5e45232dc2019c1d $
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 

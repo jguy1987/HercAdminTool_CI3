@@ -35,7 +35,7 @@ include_once 'phing/types/Commandline.php';
  * @author stefano@apache.org (Ant)
  * @author Wolfgang Werner <wwerner@picturesafe.de> (Ant)
  * @author Kevin Ross <kevin.ross@bredex.com> (Ant)
- * @version $Id: c8232b68045eec9d40b1bda18c4b758c6cfbd80f $
+ * @version $Id$
  * @package phing.tasks.system
  */
 class CvsTask extends Task

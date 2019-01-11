@@ -31,7 +31,7 @@ include_once 'phing/filters/XsltFilter.php';
  * in the <filterchains> section.
  *
  * @author    Andreas Aderhold, andi@binarycloud.com
- * @version   $Id: 705dee4ef4327cac49149cc3dfeb5a4749273f1a $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class XsltTask extends CopyTask

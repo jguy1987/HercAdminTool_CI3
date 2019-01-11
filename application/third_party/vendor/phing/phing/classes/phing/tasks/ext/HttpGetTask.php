@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/HttpTask.php';
  *
  * @package phing.tasks.ext
  * @author  Ole Markus With <o.with@sportradar.com>
- * @version $Id: 519893a6517940c2efd8ea989a54657275dcf902 $
+ * @version $Id$
  */
 class HttpGetTask extends HttpTask
 {

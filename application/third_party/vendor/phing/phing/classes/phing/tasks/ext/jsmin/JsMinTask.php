@@ -28,7 +28,7 @@ require_once 'phing/Task.php';
  * can be installed using composer
  *
  * @author Frank Kleine <mikey@stubbles.net>
- * @version $Id: 5581c575662a85f7e1b8c80af2291e74a3aca3f9 $
+ * @version $Id$
  * @package phing.tasks.ext
  * @since 2.3.0
  */

@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-//$active_group = 'hat';
+$active_group = 'hat';
 $query_builder = TRUE;
 
 $db['hat'] = array(
@@ -105,7 +105,6 @@ $db['ragnarok'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
 /*
 $db['ragnarok2'] = array(
 	'dsn'	=> '',

@@ -32,7 +32,7 @@ include_once 'phing/system/io/IniFileParser.php';
  *        - Add support for arrays (separated by ',')
  *
  * @package    phing.system.util
- * @version $Id: 190416eac21bc9e62ab01bec7b78357e18afa10a $
+ * @version $Id$
  */
 class Properties
 {

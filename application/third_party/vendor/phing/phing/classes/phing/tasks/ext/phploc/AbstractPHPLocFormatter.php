@@ -24,7 +24,7 @@ require_once 'phing/system/io/PhingFile.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: a2989958865651cca9c94d8b17c5ecf041f78614 $
+ * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 abstract class AbstractPHPLocFormatter

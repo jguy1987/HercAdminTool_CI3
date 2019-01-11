@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  * value in a property
  *
  * @author      Johan Persson <johan162@gmail.com>
- * @version     $Id: d4b97a2e512ffe10394e203d6a94c498e11ca986 $
+ * @version     $Id$
  * @package     phing.tasks.ext
  */
 class FileSizeTask extends Task

@@ -27,7 +27,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * Repository initialization task
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: 8e8b0c6caa7260a0bb563b71f8af4291067cbef0 $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3

@@ -2,11 +2,12 @@
 Class Dashboardmodel extends CI_Model {
 	function get_acct_reg_by_date() {
 		$dates = array();
-		for ($i=0; $i < 7; $i++) {
+		for ($i=0; $i < 14; $i++) {
 			$dates[] = date("Y-m-d", strtotime('-'. $i .' days'));
 		}
+		$datesRev = array_reverse($dates);
 		$data = array();
-		foreach ($dates as $k) {
+		foreach ($datesRev as $k) {
 			$this->db_login->select('account_id');
 			$this->db_login->where('createdate',$k);
 			$q = $this->db_login->get('hat_herc_login');

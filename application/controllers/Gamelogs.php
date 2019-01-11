@@ -8,12 +8,11 @@ class Gamelogs extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
@@ -27,8 +26,8 @@ class Gamelogs extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('gamelogs/footer');
 	}
 	
 	public function atcmd_results() {
@@ -47,8 +46,8 @@ class Gamelogs extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('gamelogs/footer');
 	}
 	
 	public function pick_search() {
@@ -57,14 +56,15 @@ class Gamelogs extends MY_Controller {
 			// Get current date/time and back 24 hours.
 			$data['curDatetime'] = date('Y-m-d H:i:s');
 			$data['Datetime24prev'] = date('Y-m-d H:i:s',strtotime('-24 hours'));
+			$data['type_list'] = $this->config->item('pickTypes');
 			$this->load->view('gamelogs/picklogsearch', $data);
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('gamelogs/footer');
 	}
 	
 	public function pick_results() {
@@ -81,14 +81,15 @@ class Gamelogs extends MY_Controller {
 				'unique_id'		=> $this->input->post('unique_id')
 			);
 			$data['picklogResults'] = $this->gamelogmodel->get_pick_search($pickSearch);
+			$data['type_list'] = $this->config->item('pickTypes');
 			$this->load->view('gamelogs/pickloglist', $data);
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('gamelogs/footer');
 	}
 	
 	public function zeny_search() {
@@ -96,14 +97,21 @@ class Gamelogs extends MY_Controller {
 			$this->usermodel->update_user_active($this->session_data['id'], "gamelog/zeny");
 			$data['curDatetime'] = date('Y-m-d H:i:s');
 			$data['Datetime24prev'] = date('Y-m-d H:i:s',strtotime('-24 hours'));
+			$data['type_list'] = $this->config->item('pickTypes');
+			unset($data['type_list']["L"]);
+			unset($data['type_list']["R"]);
+			unset($data['type_list']["G"]);
+			unset($data['type_list']["O"]);
+			unset($data['type_list']["U"]);
+			unset($data['type_list']["X"]);
 			$this->load->view('gamelogs/zenylogsearch', $data);
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('gamelogs/footer');
 	}
 	
 	public function zeny_results() {
@@ -122,14 +130,15 @@ class Gamelogs extends MY_Controller {
 				'map'					=> $this->input->post('map')
 			);
 			$data['zenylogResults'] = $this->gamelogmodel->get_zeny_search($zenySearch);
+			$data['type_list'] = $this->config->item('pickTypes');
 			$this->load->view('gamelogs/zenyloglist', $data);
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('gamelogs/footer');
 	}
 	
 	function check_datetime($date) {

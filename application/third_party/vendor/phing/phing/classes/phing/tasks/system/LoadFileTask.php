@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  * Supports filterchains.
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id: 938e80d47e941acc8badd2686d960655f025ac3f $
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class LoadFileTask extends Task

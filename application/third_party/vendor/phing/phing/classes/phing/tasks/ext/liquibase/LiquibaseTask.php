@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
  * That will result in --foo='bar' on the command line.
  *
  * @author Joakim Israelsson <joakim.israelsson.86@gmail.com>
- * @version $Id: c492370d37df91fd100b00fd3a7c1ba7f628b0e1 $
+ * @version $Id$
  * @package phing.tasks.ext.liquibase
  */
 class LiquibaseTask extends AbstractLiquibaseTask

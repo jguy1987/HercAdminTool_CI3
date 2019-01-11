@@ -28,7 +28,7 @@ include_once 'phing/Task.php';
  * Inspired by {@link http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html}
  *
  * @author   Michiel Rook <mrook@php.net>
- * @version  $Id: 2059a94a0c48659f29e244115f17cae9e0b4b65b $
+ * @version  $Id$
  * @package  phing.tasks.system
  */
 class TryCatchTask extends Task

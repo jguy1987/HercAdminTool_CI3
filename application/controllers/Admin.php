@@ -8,12 +8,11 @@ class Admin extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
 	
@@ -22,14 +21,13 @@ class Admin extends MY_Controller {
 			$this->usermodel->update_user_active($this->session_data['id'],"admin/users");
 			$data['admin_results'] = $this->adminmodel->list_admins();
 			$this->load->view('admin/users', $data);
-			$this->load->view('footer');
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function groups() {
@@ -45,8 +43,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function adduser() {
@@ -59,8 +57,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function edituser($userid) {
@@ -70,16 +68,19 @@ class Admin extends MY_Controller {
 				$data['referpage'] = "groupdeny";
 				$this->load->view('accessdenied',$data);
 			}
-			$this->usermodel->update_user_active($this->session_data['id'],"admin/edituser");
-			$data['grouplist'] = $this->adminmodel->list_groups();
-			$data['loginlog_results'] = $this->adminmodel->get_loginlog($userid);
-			$this->load->view('admin/edituser', $data);
+			else {
+				$this->usermodel->update_user_active($this->session_data['id'],"admin/edituser");
+				$data['grouplist'] = $this->adminmodel->list_groups();
+				$data['loginlog_results'] = $this->adminmodel->get_loginlog($userid);
+				$this->load->view('admin/edituser', $data);
+			}
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
 			$this->load->view('footer');
+			$this->load->view('admin/footer');
 	}
 	
 	public function verifyuser() { // Verify edit.
@@ -125,6 +126,7 @@ class Admin extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function verifyadduser() {
@@ -156,6 +158,7 @@ class Admin extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function resetusers() {
@@ -171,8 +174,8 @@ class Admin extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function addgroup() {
@@ -186,6 +189,7 @@ class Admin extends MY_Controller {
 			$this->load->view('accessdenied', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function editgroup($gid) {
@@ -200,6 +204,7 @@ class Admin extends MY_Controller {
 			$this->load->view('accessdenied', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function verifygroupadd() {
@@ -221,6 +226,7 @@ class Admin extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function verifygroupedit() {
@@ -247,6 +253,7 @@ class Admin extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('admin/footer');
 	}
 	
 	public function delgroup($gid) {

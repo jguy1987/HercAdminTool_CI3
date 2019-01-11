@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  * Extends the Writer class to output messages to Phing's log
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 7f4acf8203b01fce283e1a066159aa51146b6831 $
+ * @version $Id$
  * @package phing.util
  */
 class LogWriter extends Writer

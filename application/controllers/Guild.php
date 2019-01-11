@@ -8,12 +8,11 @@ class Guild extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}	
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 		$this->load->library('form_validation');
 	}
@@ -21,8 +20,8 @@ class Guild extends MY_Controller {
 	function listguilds() {
 		$data['guild_list'] = $this->guildmodel->list_guilds();
 		$this->load->view('guild/list', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('guild/footer');
 	}
 	
 	function search() {
@@ -47,8 +46,8 @@ class Guild extends MY_Controller {
 			$data['class_list'] = $this->config->item('jobs');
 			$data += $this->load_guild_data($gid);
 			$this->load->view('guild/details', $data);
-			$this->load->view('datatables-scripts');
 			$this->load->view('footer');
+			$this->load->view('guild/footer');
 		}
 	}
 	

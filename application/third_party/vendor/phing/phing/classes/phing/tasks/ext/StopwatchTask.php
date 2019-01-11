@@ -25,7 +25,7 @@ require_once 'phing/Task.php';
  * Stopwatch.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @version $Id: 46a07222af7bd1fbfd0e39169d5f80a83c6525e1 $
+ * @version $Id$
  * @package phing.tasks.ext.stopwatch
  */
 class StopwatchTask extends Task

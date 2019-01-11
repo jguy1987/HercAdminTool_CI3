@@ -316,6 +316,28 @@ $config['itemTypes'] = array(
 	12	=> "Cash",
 );
 
+/* Array for picklog types. */
+$config['pickTypes'] = array(
+	"M" => "Monster Drop",
+	"P" => "Player Drop",
+	"L" => "Mob Loot Drop/Take",
+	"T" => "Player Trade",
+	"V" => "Player Vend/Take",
+	"S" => "Shop Sell/Take",
+	"N" => "NPC Give/Take",
+	"C" => "Consumed Items",
+	"A" => "GM Give/Take",
+	"R" => "Storage Put/Take",
+	"G" => "Guild Storage Put/Take",
+	"E" => "Mail Attachment",
+	"B" => "Buying Store",
+	"O" => "Produced Items/Ingredients",
+	"I" => "Auctioned Items",
+	"D" => "Stolen from Monster",
+	"U" => "MVP Prizes",
+	"X" => "Other",
+);
+
 $config["permissions"] = array(
 	'account'		=> array( // Permissions related to account management
 		'viewaccounts'		=> "View Accounts",

@@ -1,110 +1,82 @@
-<div id="page-wrapper">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Pick log search</h1>
+<div class="content-page">
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="breadcrumb-holder">
+						<h1 class="main-title float-left">pick log search</h1>
+						<ol class="breadcrumb float-right">
+							<a href="<?php echo base_url(); ?>" class="breadcrumb-item">Home</a>
+							<li class="breadcrumb-item">Game Logs</li>
+							<li class="breadcrumb-item active">pick</li>
+						</ol>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-md-6">
+					<?php echo validation_errors(); ?>
+					<?php echo form_open('gamelogs/pick_results'); ?>
+					<div class="form-group row">
+						<label for="char_name" class="col-form-label col-md-6">Character Name</label>
+						<div class="col-md-6">
+							<input type="text" id="char_name" class="form-control" name="char_name" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="char_id" class="col-form-label col-md-6">Char ID</label>
+						<div class="col-md-6">
+							<input type="number" id="char_id" class="form-control" name="char_id" />
+							<br /><i>Note: Filling in CharID will override Character Name field.</i>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="item_id" class="col-form-label col-md-6">Item ID</label>
+						<div class="col-md-6">
+							<input type="number" id="item_id" class="form-control" name="item_id" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<label class="col-md-6 col-form-label">Pick Type</label>
+							<div class="col-md-6">
+								<?php foreach ($type_list as $k=>$v): ?>
+								<div class="form-check">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" name="type[]" value="<?php echo $k; ?>" /> <?php echo $v; ?>
+									</label>
+								</div>
+								<?php endforeach; ?>
+								<i>Leave blank to search for all</i>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="date" class="col-form-label col-md-6">Date Range</label>
+						<div class="col-md-6" id="date">
+							<label>Start:</label><input type="text" class="form-control form_date" id="datestart" name="date_start" value="" /><br />
+							<label>End:</label><input type="text" class="form-control form_date" id="dateend" name="date_end" value="<?php date('yyyy-dd-mm hh:mm:ss'); ?>" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="map" class="col-form-label col-md-6">Map</label>
+						<div class="col-md-6">
+							<input type="text" id="map" class="form-control" name="map" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="unique_id" class="col-form-label col-md-6">Unique ID</label>
+						<div class="col-md-6">
+							<input type="number" id="unique_id" class="form-control" name="unique_id" />
+						</div>
+					</div>
+					<center><button type="submit" class="btn btn-success">Submit search</button></center>
+					<?php echo form_close(); ?>
+				</div>
+				<div class="col"></div>
 			</div>
 		</div>
-		<p>Searching all pick log records. Leave all fields blank to search for all. All fields are wildcard. Use '=' before any string in any field (except card ID) to search specifically in that field.</p>
-	</div>
-	<div class="panel-body">
-		<?php echo validation_errors(); ?>
-		<?php echo form_open('gamelogs/pick_results'); ?>
-			<center>
-				<table class="table">
-					<tr>
-						<td>
-							<label>Character Name:</label>
-						</td>
-						<td>
-							<input type="text" name="char_name" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label>Char ID:</label>
-						</td>
-						<td>
-							<input type="number" name="char_id" />
-							<br /><i>Note: Filling in CharID will override Character Name field.</i>
-						</td>
-						
-					<tr>
-						<td>
-							<label>Item ID:</label>
-						</td>
-						<td>
-							<input type="number" name="item_id" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label>Type:</label>
-						</td>
-						<td>
-							<input type="checkbox" name="type[]" value="M" /> Monster Drop<br />
-							<input type="checkbox" name="type[]" value="P" /> Player Drop<br />
-							<input type="checkbox" name="type[]" value="L" /> Mob Loot Drop/Take<br />
-							<input type="checkbox" name="type[]" value="T" /> Player Trade<br />
-							<input type="checkbox" name="type[]" value="V" /> Player Vend/Take<br />
-							<input type="checkbox" name="type[]" value="S" /> Shop Sell/Take<br />
-							<input type="checkbox" name="type[]" value="N" /> NPC Give/Take<br />
-							<input type="checkbox" name="type[]" value="C" /> Consumed Items<br />
-							<input type="checkbox" name="type[]" value="A" /> GM Give/Take<br />
-							<input type="checkbox" name="type[]" value="R" /> Storage<br />
-							<input type="checkbox" name="type[]" value="G" /> Guild Storage<br />
-							<input type="checkbox" name="type[]" value="E" /> Mail Attachment<br />
-							<input type="checkbox" name="type[]" value="B" /> Buying Store<br />
-							<input type="checkbox" name="type[]" value="O" /> Produced Items/Ingredients<br />
-							<input type="checkbox" name="type[]" value="I" /> Auctioned Items<br />
-							<input type="checkbox" name="type[]" value="X" /> Other<br />
-							<input type="checkbox" name="type[]" value="D" /> Stolen from Monster<br />
-							<input type="checkbox" name="type[]" value="U" /> MVP prizes<br />
-							<br /><i>Leave blank to search for all</i>
-						</td>
-						
-					</tr>
-					<tr>
-						<td>
-							<label>Date:</label>
-						</td>
-						<td>
-							<input type="text" class="form_datetime" value="<?php echo $Datetime24prev; ?>" name="date_start" placeholder="YYYY-MM-DD HH:MM:SS"/>
-							&nbsp;to&nbsp;
-							<input type="text" class="form_datetime" value="<?php echo $curDatetime; ?>" name="date_end" placeholder="YYYY-MM-DD HH:MM:SS" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label>Map:</label>
-						</td>
-						<td>
-							<input type="text" name="map" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label>With card ID:</label>
-						</td>
-						<td>
-							<input type="text" name="card_id" />
-							<br /><i>Note: This search not working yet</i>
-						</td>
-						
-					</tr>
-					<tr>
-						<td>
-							<label>Unique ID:</label>
-						</td>
-						<td>
-							<input type="number" name="unique_id" />
-						</td>
-					</tr>
-				</table>	
-				<div class="row">
-					<button type="submit" class="btn btn-success">Submit search</button>
-				</div>				
-			</center>
-		<?php echo form_close(); ?>
 	</div>
 </div>

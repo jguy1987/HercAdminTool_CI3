@@ -27,7 +27,7 @@ include_once 'phing/types/Parameter.php';
  * and configuration of a Configurable FilterReader.
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @version   $Id: 31c0eed7c2c8a83cd5055890b2034ae83089452e $
+ * @version   $Id$
  * @see       FilterReader
  * @package   phing.types
  */

@@ -28,7 +28,7 @@ require_once 'phing/types/Excludes.php';
  * Stops the build if any of the specified coverage threshold was not reached
  *
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 1cf68f1a4ec652811a5fd9db8353cae9a88ee03e $
+ * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since   2.4.1
  */

@@ -8,12 +8,11 @@ class Bugtracker extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
 
@@ -29,8 +28,8 @@ class Bugtracker extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('bugtracker/footer');
 	}
 	
 	public function newbug() {
@@ -43,8 +42,8 @@ class Bugtracker extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('bugtracker/footer');
 	}
 	
 	public function newbug_process() {
@@ -64,6 +63,7 @@ class Bugtracker extends MY_Controller {
 				'starter'	=> $this->session_data['id'],
 				'category'	=> $this->input->post('category'),
 				'version'	=> $this->input->post('version'),
+				'private'	=> $this->input->post('private'),
 				'status'	=> '1',
 				'comment'	=> nl2br($this->input->post('comment')),
 				'reproduce'	=> nl2br($this->input->post('reproduce')),
@@ -74,6 +74,7 @@ class Bugtracker extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('bugtracker/footer');
 	}
 	
 	public function details($bid) {
@@ -91,8 +92,8 @@ class Bugtracker extends MY_Controller {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('bugtracker/footer');
 	}
 	
 	public function verifyedit() {
@@ -132,6 +133,7 @@ class Bugtracker extends MY_Controller {
 			$this->load->view('formsuccess', $data);
 		}
 		$this->load->view('footer');
+		$this->load->view('bugtracker/footer');
 	}
 	
 	public function addcomment() {
@@ -156,8 +158,8 @@ class Bugtracker extends MY_Controller {
 			$data['referpage'] = "newcomment";
 			$this->load->view('formsuccess', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('bugtracker/footer');
 	}
 	
 	function load_bug_data() {

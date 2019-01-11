@@ -25,7 +25,7 @@ require_once 'phing/Task.php';
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
  * @author  Dirk Thomas <dirk.thomas@4wdmedia.de>
- * @version $Id: e635b2512b71e17b616bda5e66b412984c0718b0 $
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class PhpCodeSnifferTask extends Task

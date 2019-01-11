@@ -29,7 +29,7 @@ include_once 'phing/util/StringHelper.php';
  * Encodes files using Zeng Guard Encoder
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id: aacbd9ea1b3f9e13178cea0f5ff625f921076a32 $
+ * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */

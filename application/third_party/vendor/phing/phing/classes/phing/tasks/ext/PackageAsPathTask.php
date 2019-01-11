@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  * Convert dot-notation packages to relative paths.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: 7fee76167437d1ca7bdca2fef13aafc08811085f $
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 class PackageAsPathTask extends Task

@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  * value in a property
  *
  * @author      Johan Persson <johan162@gmail.com>
- * @version     $Id: 9557fd39412c948a2387145de7876edd0392ca2e $
+ * @version     $Id$
  * @package     phing.tasks.ext
  */
 class FileHashTask extends Task

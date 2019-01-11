@@ -25,7 +25,7 @@ require_once 'phing/Task.php';
  * Wrapper to disable PHPCS's destructor
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id: 0165de67f7d92e363d668430c692ab7f3658dec6 $
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class PhpCodeSnifferTask_Wrapper extends PHP_CodeSniffer

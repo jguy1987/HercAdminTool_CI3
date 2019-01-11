@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Checks out a repository to a local directory
  *
  * @author Andrew Eddie <andrew.eddie@jamboworks.com>
- * @version $Id: 34178e3af0b03b5da591c716f43bbc49a25cdcb4 $
+ * @version $Id$
  * @package phing.tasks.ext.svn
  * @since 2.3.0
  */

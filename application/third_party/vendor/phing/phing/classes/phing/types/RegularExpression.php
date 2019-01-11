@@ -31,7 +31,7 @@ include_once 'phing/util/regexp/Regexp.php';
  * regular expression type you are using.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Id: 4b0da5e4e84cc48bb4e9c669c305448d3d59b11a $
+ * @version   $Id$
  * @see       phing.util.regex.RegexMatcher
  * @package   phing.types
  */

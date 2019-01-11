@@ -8,12 +8,11 @@ class Server extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
 	
@@ -25,6 +24,7 @@ class Server extends MY_Controller {
 		$data['server_select'] = $sid;
 		$this->load->view('formsuccess', $data);
 		$this->load->view('footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function hercules() {
@@ -39,8 +39,8 @@ class Server extends MY_Controller {
 		$data['online_status']['map'] = $this->servermodel->server_online_check($this->session->userdata('server_select'), "map");
 		$data['herc_stats'] = $this->servermodel->get_herc_stats(1);
 		$this->load->view('server/hercinfo', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function maintenance($action) {
@@ -122,16 +122,16 @@ class Server extends MY_Controller {
 				$data['maintresult'] = "updatefiles";
 				$this->load->view('server/maintresult', $data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function console($server) {
 		$data['server_log'] = $this->servermodel->return_console($this->session->userdata('server_select'), $server, 1000);
 		$data['server'] = $server;
 		$this->load->view('server/console', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		#$this->load->view('server/footer');
 	}
 	
 	public function broadcast() {
@@ -142,13 +142,12 @@ class Server extends MY_Controller {
 				$data['broadcasts'][$id]['username'] = $this->adminmodel->get_admin_name($v['userid']);
 			}
 			$this->load->view('server/broadcast', $data);
-			$this->load->view('footer');
 		}
 		else {
 			$data['referpage'] = "noperm";
 			$this->load->view('accessdenied',$data);
 		}
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		#$this->load->view('server/footer');
 	}
 }

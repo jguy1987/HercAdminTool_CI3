@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
  *
  * @package phing.tasks.ext.pdepend
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 7ef44b418426e61cb1ea3b8cf87b289d79f663aa $
+ * @version $Id$
  * @since   2.4.1
  */
 class PhpDependTask extends Task

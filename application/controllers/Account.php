@@ -9,18 +9,18 @@ class Account extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
 		$this->vacation = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['vacation'] = $this->usermodel->check_vacation_mode($this->session_data['id']);
 		$data['ssh_conn'] = $this->config->item('ssh_conn');
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
 
 	public function create() {
 		$this->load->view('account/create');
 		$this->load->view('footer');
+		$this->load->view('account/footer');
 	}
 	
 	public function details($aid) {
@@ -31,8 +31,9 @@ class Account extends MY_Controller {
 			$data['item_types'] = $this->config->item('itemTypes');
 			$data += $this->load_acct_data($aid);
 			$this->load->view('account/details',$data);
-			$this->load->view('datatables-scripts');
+			//$this->load->view('datatables-scripts');
 			$this->load->view('footer');
+			$this->load->view('account/footer');
 		}
 	}
 	
@@ -54,12 +55,12 @@ class Account extends MY_Controller {
 		);
 		$data['accts'] = $this->accountmodel->search_accts($searchTerms);
 		$this->load->view('account/list', $data);
-		$this->load->view('datatables-scripts');
 		$this->load->view('footer');
+		$this->load->view('account/footer');
 	}
 	
 	public function verifycreate() {
-		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|is_unique[login.userid]');
+		$this->form_validation->set_rules('acctname', 'Username', 'trim|required|min_length[4]|max_length[25]|callback_check_is_username_unique');
 		$this->form_validation->set_rules('email', 'Email Address','trim|required|valid_email');
 		$this->form_validation->set_rules('gender', "Gender", 'required');		
 		$this->form_validation->set_rules('groupid', "Group ID", 'callback_check_groupid_perm');
@@ -191,7 +192,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function addnumflag() {
-		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_num_db.key]');
+		$this->form_validation->set_rules('key',"Key",'trim|required|callback_check_num_flag');
 		$this->form_validation->set_rules('value',"Value",'trim|required|is_number');
 		if ($this->form_validation->run() == FALSE) {
 			$this->details($this->input->post('acct_id'));
@@ -213,7 +214,7 @@ class Account extends MY_Controller {
 	}
 	
 	public function addstrflag() {
-		$this->form_validation->set_rules('key',"Key",'trim|required|is_unique[acc_reg_str_db.key]');
+		$this->form_validation->set_rules('key',"Key",'trim|required|callback_check_str_flag');
 		$this->form_validation->set_rules('value',"Value",'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->details($this->input->post('acct_id'));
@@ -381,8 +382,20 @@ Your {$this->config->item('servername')} team");
 		}
 	}
 	
+	function check_is_username_unique($username) {
+		$this->db_login->select('userid');
+		$query = $this->db_login->get_where('login', array('userid' => $username));
+		if ($query->num_rows() > 0) {
+			$this->form_validation->set_message('check_is_username_unique', "This username already exists. Please choose another.");
+			return False;
+		}
+		else {
+			return True;
+		}
+	}
+	
 	function load_acct_data($aid) {
-		// Code cleanup. Move the loading of all account data information to a seperate function to condense code.
+		// Code cleanup. Move the loading of all account data information to a separate function to condense code.
 		$data['acct_data'] = $this->accountmodel->get_acct_details($aid);
 		$data['reg_data'] = $this->accountmodel->get_reg_details($aid);
 		$data['char_list'] = $this->accountmodel->get_char_list($aid);
@@ -393,7 +406,12 @@ Your {$this->config->item('servername')} team");
 		$data['block_list'] = $this->accountmodel->get_block_hist($aid);
 		foreach ($data['block_list'] as $blockid=>$v2) {
 			$data['block_list'][$blockid]['blockname'] = $this->adminmodel->get_admin_name($v2['block_user']);
-			$data['block_list'][$blockid]['ublockname'] = $this->adminmodel->get_admin_name($v2['unblock_user']);
+			if ($v2['unblock_user'] != NULL) {
+				$data['block_list'][$blockid]['ublockname'] = $this->adminmodel->get_admin_name($v2['unblock_user']);
+			}
+			else { 
+				$data['block_list'][$blockid]['ublockname'] = "n/a";
+			}
 		}
 		$data['num_key_list'] = $this->accountmodel->get_num_key_list($aid);
 		$data['str_key_list'] = $this->accountmodel->get_str_key_list($aid);
@@ -413,6 +431,30 @@ Your {$this->config->item('servername')} team");
 		}
 		else {
 			return true;
+		}
+	}
+	
+	function check_str_flag($flagname) {
+		$this->db_login->select('key');
+		$q = $this->db_login->get_where('acc_reg_str_db', array('key' => $flagname));
+		if ($q->num_rows() > 0) {
+			$this->form_validation->set_message('check_str_flag', "This key already exists. Please choose another.");
+			return False;
+		}
+		else {
+			return True;
+		}
+	}
+	
+	function check_num_flag($flagname) {
+		$this->db_login->select('key');
+		$q = $this->db_login->get_where('acc_reg_num_db', array('key' => $flagname));
+		if ($q->num_rows() > 0) {
+			$this->form_validation->set_message('check_num_flag', "This key already exists. Please choose another.");
+			return False;
+		}
+		else {
+			return True;
 		}
 	}
 }

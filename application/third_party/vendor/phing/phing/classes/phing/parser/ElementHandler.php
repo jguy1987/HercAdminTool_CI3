@@ -31,7 +31,7 @@ require_once 'phing/UnknownElement.php';
  *
  * @author    Michiel Rook <mrook@php.net>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: cf184abc517b45b04db2dd95827cd0e3998b0712 $
+ * @version   $Id$
  * @package   phing.parser
  */
 class ElementHandler extends AbstractHandler

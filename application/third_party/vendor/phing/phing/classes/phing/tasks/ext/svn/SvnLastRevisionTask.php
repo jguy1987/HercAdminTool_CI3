@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Stores the number of the last revision of a workingcopy in a property
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 61bd055f46bd8430785610a76271250d2e30786e $
+ * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN
  * @since 2.1.0

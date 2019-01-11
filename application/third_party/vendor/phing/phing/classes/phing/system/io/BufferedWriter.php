@@ -25,7 +25,7 @@ include_once 'phing/system/io/Writer.php';
  * Convenience class for writing files.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: 4ee126846fc7a26f86eb5ad68012fb4eff878d57 $
+ * @version   $Id$
  * @package   phing.system.io
  */
 class BufferedWriter extends Writer

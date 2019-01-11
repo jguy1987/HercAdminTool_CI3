@@ -30,7 +30,7 @@ require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
  * Runs PHPUnit tests.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: 7184c30b7252a939bc6a3b8b7e59b412fa244625 $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @see BatchTest
  * @since 2.1.0

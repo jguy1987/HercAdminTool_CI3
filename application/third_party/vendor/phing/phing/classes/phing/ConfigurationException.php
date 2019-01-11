@@ -23,7 +23,7 @@
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Id: f5672973a0e8f94bc824729aed7285130e4322a3 $
+ * @version  $Id$
  * @package  phing
  */
 class ConfigurationException extends Exception

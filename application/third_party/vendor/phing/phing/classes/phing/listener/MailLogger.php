@@ -28,7 +28,7 @@ include_once 'phing/system/util/Properties.php';
  *
  * @author     Michiel Rook <mrook@php.net>
  * @package    phing.listener
- * @version    $Id: 130043b9c5265eac0037f234cad0c2cbe5a73c11 $
+ * @version    $Id$
  */
 class MailLogger extends DefaultLogger
 {

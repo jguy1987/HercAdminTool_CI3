@@ -30,7 +30,7 @@ include_once 'phing/system/io/PhingFile.php';
  * @author   Greg Beaver
  * @author   Hans Lellelid <hans@xmpl.org>
  * @package  phing.tasks.ext.pearpackage
- * @version  $Id: 4287f56d47c2d793bc22417402f8c37daf3745f3 $
+ * @version  $Id$
  */
 class PEAR_PackageFileManager_Fileset
 {

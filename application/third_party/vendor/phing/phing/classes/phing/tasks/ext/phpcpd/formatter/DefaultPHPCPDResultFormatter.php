@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
  *
  * @package phing.tasks.ext.phpcpd.formatter
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id: 20db9b04d2f5ea6acc7db0f00d83daa6b8580cec $
+ * @version $Id$
  */
 class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
 {

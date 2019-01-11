@@ -25,7 +25,7 @@ require_once 'phing/input/MultipleChoiceInputRequest.php';
  * Encapsulates an input request that returns a boolean (yes/no).
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id: 8f108ef006e6cc3be1e0449384ff96e53b8e2e39 $
+ * @version $Id$
  * @package phing.input
  */
 class YesNoInputRequest extends MultipleChoiceInputRequest

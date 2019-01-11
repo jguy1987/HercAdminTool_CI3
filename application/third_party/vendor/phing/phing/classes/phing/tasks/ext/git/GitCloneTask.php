@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * Wrapper around git-clone
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: ab02e5fd181d7c037a76cc58b9f6a022892e1281 $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3

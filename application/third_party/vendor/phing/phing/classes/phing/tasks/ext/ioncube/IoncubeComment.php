@@ -23,7 +23,7 @@
  * Wrapper for comments for ionCube tasks
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: a07beee075383ef21856e1931b9867085b033b67 $
+ * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0
  */

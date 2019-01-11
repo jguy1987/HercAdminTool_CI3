@@ -25,7 +25,7 @@ require_once 'phing/Task.php';
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
  *
  * @author   Knut Urdalen <knut.urdalen@telio.no>
- * @version  $Id: d9b238ee17a88afe34f9db53a4c944c92ac27278 $
+ * @version  $Id$
  * @package  phing.tasks.ext
  */
 class XmlLintTask extends Task

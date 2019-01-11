@@ -28,7 +28,7 @@ include_once 'phing/Task.php';
  *
  * @author   Michiel Rook <mrook@php.net>
  * @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- * @version  $Id: 6e8a0340847844261a75b7b0eb37ad92e58e1f9b $
+ * @version  $Id$
  * @package  phing.tasks.ext
  */
 class MailTask extends Task

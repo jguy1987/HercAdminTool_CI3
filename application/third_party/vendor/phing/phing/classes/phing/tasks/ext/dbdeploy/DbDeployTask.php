@@ -30,7 +30,7 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
  *     userid="dbdeploy" password="dbdeploy" dir="db" outputfile="">
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Id: 2800e23b0fecfddc209dec5c7985e0c8eace0959 $
+ * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbDeployTask extends Task

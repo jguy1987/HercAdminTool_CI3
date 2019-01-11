@@ -26,7 +26,7 @@ include_once 'phing/Task.php';
  *
  * @author   Michiel Rook <mrook@php.net>
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id: c6629f7d06eb05a6f89fe92917286e370512e787 $
+ * @version  $Id$
  * @package  phing.tasks.system
  */
 class EchoTask extends Task

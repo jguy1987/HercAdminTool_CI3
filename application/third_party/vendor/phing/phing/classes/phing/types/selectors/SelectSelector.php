@@ -32,7 +32,7 @@ require_once 'phing/types/selectors/AndSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id: 7c818dba6e4f6075f71fee4beb41767a280706ad $
+ * @version   $Id$
  * @package   phing.types.selectors
  */
 class SelectSelector extends AndSelector

@@ -39,7 +39,7 @@ require_once 'phing/parser/ProjectConfigurator.php';
  * dependencies or via the <phing> or <phingcall> task mechanisms.
  *
  * @author Bryan Davis <bpd@keynetics.com>
- * @version $Id: a3cbb4362c17c028400e48e62ea3e2caee4a3482 $
+ * @version $Id$
  * @package phing.tasks.system
  */
 class ImportTask extends Task

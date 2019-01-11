@@ -30,7 +30,7 @@ include_once 'phing/system/io/FileParserFactory.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: eca2f1475da5e3a296736a5eefc44a1184f49f63 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class PropertyTask extends Task

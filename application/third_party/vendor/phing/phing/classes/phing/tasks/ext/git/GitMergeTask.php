@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * Wrapper aroung git-merge
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: e5d20b926ab512d72bfc19ac2f1ccc80d09f036c $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3

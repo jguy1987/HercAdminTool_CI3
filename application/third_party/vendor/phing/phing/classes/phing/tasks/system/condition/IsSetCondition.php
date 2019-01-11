@@ -27,7 +27,7 @@ require_once 'phing/tasks/system/condition/Condition.php';
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id: e2ad6d80f1e516b7d6bf6a0e384705450b0a2862 $
+ * @version $Id$
  * @package phing.tasks.system.condition
  */
 class IsSetCondition extends ProjectComponent implements Condition

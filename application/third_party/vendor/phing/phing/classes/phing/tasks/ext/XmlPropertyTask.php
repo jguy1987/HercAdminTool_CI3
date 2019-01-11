@@ -26,7 +26,7 @@ include_once 'phing/tasks/system/PropertyTask.php';
  * Task for setting properties from an XML file in buildfiles.
  *
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
- * @version   $Id: d9741f5e9084e1c59c5dfeb32524d56fe052ecfc $
+ * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.4.0
  * @link      http://ant.apache.org/manual/CoreTasks/xmlproperty.html

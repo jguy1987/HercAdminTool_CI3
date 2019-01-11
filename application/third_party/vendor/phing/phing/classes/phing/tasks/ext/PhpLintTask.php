@@ -28,7 +28,7 @@ require_once 'phing/system/io/FileWriter.php';
  *
  * @author   Knut Urdalen <knut.urdalen@telio.no>
  * @author   Stefan Priebsch <stefan.priebsch@e-novative.de>
- * @version  $Id: 6352a87c4c3b940a0afd55b21645206a23960e0b $
+ * @version  $Id$
  * @package  phing.tasks.ext
  */
 class PhpLintTask extends Task

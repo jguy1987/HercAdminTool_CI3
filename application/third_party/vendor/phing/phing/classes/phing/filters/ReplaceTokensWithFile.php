@@ -48,7 +48,7 @@ include_once 'phing/filters/ChainableReader.php';
  * </filterreader></pre>
  *
  * @author    johan persson, johanp@aditus.nu
- * @version   $Id: 2ce2fe6389844147fcaa7f85308157891a38e7af $
+ * @version   $Id$
  * @see       ReplaceTokensWithFile
  * @package   phing.filters
  */

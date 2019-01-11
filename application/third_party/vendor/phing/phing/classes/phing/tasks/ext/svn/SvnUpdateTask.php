@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Updates a repository in local directory
  *
  * @author Andrew Eddie <andrew.eddie@jamboworks.com>
- * @version $Id: e29c24db4d10667a89d1829fe80075fbf8e3292c $
+ * @version $Id$
  * @package phing.tasks.ext.svn
  * @since 2.3.0
  */

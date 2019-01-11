@@ -41,7 +41,7 @@ include_once 'phing/system/io/PhingFile.php';
  * (or a mixture of files="" and listfile="" can be used)
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id: 3f90e744c1e410a8b6fb2cd3868b26b3c46bac9f $
+ * @version $Id$
  * @package phing.types
  */
 class FileList extends DataType

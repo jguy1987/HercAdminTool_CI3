@@ -27,7 +27,7 @@ include_once 'phing/filters/ReplaceTokens.php'; // For class Token
  * Class that allows reading tokens from INI files.
  *
  * @author    Manuel Holtgewe
- * @version   $Id: 1787bbe5c2ac3fc35faf21652eed36899bff61b6 $
+ * @version   $Id$
  * @package   phing.filters.util
  */
 class IniFileTokenReader extends TokenReader

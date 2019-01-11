@@ -86,7 +86,7 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  * @author   Stuart Binge <stuart.binge@complinet.com>
  * @author   Hans Lellelid <hans@xmpl.org>
  * @package  phing.tasks.ext
- * @version  $Id: 89cfb9d4709a4e67b4f77d4da5b6c6249624230f $
+ * @version  $Id$
  */
 class PearPackage2Task extends PearPackageTask
 {

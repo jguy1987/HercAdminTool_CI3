@@ -26,7 +26,7 @@
  * license properties or it can use a template.
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id: 2e1e3730b96f5d5ea32d54fda8d9333b34eeaaba $
+ * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */

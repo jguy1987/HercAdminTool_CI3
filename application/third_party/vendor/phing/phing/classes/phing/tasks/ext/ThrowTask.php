@@ -27,7 +27,7 @@ require_once 'phing/tasks/system/FailTask.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Nico Seessle <nico@seessle.de> (Ant)
- * @version   $Id: 3b63d08533321a87618f87c564bde9d609b91f36 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class ThrowTask extends FailTask

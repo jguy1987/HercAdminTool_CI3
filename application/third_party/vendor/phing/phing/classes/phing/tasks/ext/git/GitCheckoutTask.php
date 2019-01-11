@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * Wrapper around git-checkout
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: 0eb5ad0732bc3acd74df7f9256b37952ddce3212 $
+ * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3

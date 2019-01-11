@@ -24,7 +24,7 @@
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: feed38557f156bd1c61593a048f37c2e246faf87 $
+ * @version   $Id$
  * @package   phing.parser
  */
 

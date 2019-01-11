@@ -27,7 +27,7 @@ include_once 'phing/filters/ChainableReader.php';
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
  *
  * @author    Hans Lellelid, hans@velum.net
- * @version   $Id: 9e156ae0693bd973b8e0f89490814171365197da $
+ * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  * @todo -c use new PHP functions to perform this instead of regex.

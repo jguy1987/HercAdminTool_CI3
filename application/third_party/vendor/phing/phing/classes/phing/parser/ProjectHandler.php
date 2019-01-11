@@ -29,7 +29,7 @@ require_once 'phing/parser/ElementHandler.php';
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright (c) 2001,2002 THYRELL. All rights reserved
- * @version   $Id: d0fb923d8e3582c8d9c75a59f19d0ba4ea6812f8 $
+ * @version   $Id$
  * @package   phing.parser
  */
 class ProjectHandler extends AbstractHandler

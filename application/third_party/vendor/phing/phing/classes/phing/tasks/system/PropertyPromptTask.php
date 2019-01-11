@@ -31,7 +31,7 @@ include_once 'phing/input/InputRequest.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Anthony J. Young-Garner <ajyoung@alum.mit.edu> (Ant)
- * @version   $Id: de25faf5f70bf92026b2d934db52a6a05d8dce5e $
+ * @version   $Id$
  * @package   phing.tasks.system
  * @deprecated - in favor of the more capable InputTask
  */

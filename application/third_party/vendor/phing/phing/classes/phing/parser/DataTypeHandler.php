@@ -31,7 +31,7 @@ include_once 'phing/RuntimeConfigurable.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: b8f555762a9eb7b012fb7712a208979dc18f82ab $
+ * @version   $Id$
  * @package   phing.parser
  */
 

@@ -41,7 +41,7 @@ include_once 'phing/tasks/system/PropertyTask.php';
  * </pre>
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id: 43be7ce86f93e18cd2030bb4c764b3e385feebe6 $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class PhingTask extends Task

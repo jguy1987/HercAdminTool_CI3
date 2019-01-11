@@ -32,7 +32,7 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: 4778e42a996baf0141a3c1b2de65f5e8fec17fef $
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class ConditionTask extends ConditionBase

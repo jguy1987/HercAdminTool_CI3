@@ -41,7 +41,7 @@ require_once 'phing/Task.php';
  *
  * @author Jorrit Schippers <jorrit at ncode dot nl>
  * @contributor Steffen Sørensen <steffen@sublife.dk>
- * @version $Id: 2e99e9d604f7d72f784cd742100df6d09486c102 $
+ * @version $Id$
  * @since 2.3.1
  * @package  phing.tasks.ext
  */

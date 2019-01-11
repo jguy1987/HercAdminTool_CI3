@@ -8,9 +8,8 @@ class Serversetup extends MY_Controller {
 			redirect('user/login', 'refresh');
 		}
 		$data['username'] = $this->session_data['username'];
-		
-		$this->load->view('header', $data);
 		$data['check_perm'] = $this->check_perm;
+		$this->load->view('topnav', $data);
 		$this->load->view('sidebar', $data);
 	}
 	

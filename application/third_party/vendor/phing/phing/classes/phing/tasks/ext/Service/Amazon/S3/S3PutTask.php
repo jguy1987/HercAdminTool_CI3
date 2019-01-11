@@ -24,7 +24,7 @@ require_once dirname(dirname(__FILE__)) . '/S3.php';
 /**
  * Stores an object on S3
  *
- * @version $Id: 37e9c57cc495b2eb764a5bbd6221a7d6ad115127 $
+ * @version $Id$
  * @package phing.tasks.ext
  * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @extends Service_Amazon_S3

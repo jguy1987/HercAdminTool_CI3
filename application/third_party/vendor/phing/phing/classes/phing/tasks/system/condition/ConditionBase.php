@@ -33,7 +33,7 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id: 51ec1dd117e7c11d416654a444491cab3028073d $
+ * @version   $Id$
  * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent

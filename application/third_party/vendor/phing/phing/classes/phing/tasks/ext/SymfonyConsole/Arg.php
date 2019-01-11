@@ -27,7 +27,7 @@ require_once "phing/types/DataType.php";
  *
  * @author nuno costa <nuno@francodacosta.com>
  * @license GPL
- * @version $Id: 0e03453bfaa39363850a37e44da2cf435cdf66e6 $
+ * @version $Id$
  * @package phing.tasks.ext.symfony
  */
 class Arg extends DataType

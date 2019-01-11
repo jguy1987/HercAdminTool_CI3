@@ -30,7 +30,7 @@ require_once 'PhpDocumentor/phpDocumentor/Setup.inc.php';
  * PhpDocumentor design.
  *
  * @author Hans Lellelid <hans@xmpl.org>@author hans
- * @version $Id: 3c0527274eb0d0c2c6ed888ff23fe5b38367bb04 $
+ * @version $Id$
  * @package phing.tasks.ext.phpdoc
  */
 class PhingPhpDocumentorSetup extends phpDocumentor_setup
