@@ -632,7 +632,7 @@
 																		<td><?php echo $charLog['char_msg']; ?></td>
 																		<td><a href="<?php echo base_url('account/details/'.$charLog['account_id'].''); ?>#characters"><?php echo $charLog['account_id']; ?></a></td>
 																		<td><?php echo $charLog['name']; ?></td>
-																		<td><?php echo "".$charLog['str']."&nbsp;/&nbsp;".$charLog['agi']."&nbsp;/&nbsp;".$charLog['vit']."&nbsp;/&nbsp;".$charLog['INT']."&nbsp;/&nbsp;".$charLog['dex']."&nbsp;/&nbsp;".$charLog['luk'].""; ?></td>
+																		<td><?php echo "".$charLog['str']."&nbsp;/&nbsp;".$charLog['agi']."&nbsp;/&nbsp;".$charLog['vit']."&nbsp;/&nbsp;".$charLog['int']."&nbsp;/&nbsp;".$charLog['dex']."&nbsp;/&nbsp;".$charLog['luk'].""; ?></td>
 																		<td><?php echo "".$charLog['hair']."&nbsp;/&nbsp;".$charLog['hair_color'].""; ?></td>
 																	</tr>
 																<?php } ?>

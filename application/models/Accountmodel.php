@@ -47,7 +47,7 @@ Class Accountmodel extends CI_Model {
 		$this->db_login->reset_query();
 		$log = array(
 			'account_id'		=> $id,
-			'createdate'		=> date(),
+			'createdate'		=> date("Y-m-d"),
 			'register_ip'		=> '127.0.0.1',
 			'auth_ip'			=> '127.0.0.1',
 		);
