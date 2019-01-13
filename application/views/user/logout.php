@@ -37,7 +37,7 @@
 					 </div>
 					 <div class="panel-body">
 						<h2>You are now logged out!</h2>
-						<a href="user/login/">Log in again</a>
+						<a href="<?php echo base_url('user/login'); ?>">Log in again</a>
 					 </div>
 				</div>
 			</div>
