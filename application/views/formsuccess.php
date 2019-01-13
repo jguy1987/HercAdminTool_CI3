@@ -91,6 +91,15 @@
 								case "usersettingschange":
 									echo "Edited your settings successfully! Return to <a href='".base_url('user/settings')."'>settings page</a>";
 									break;
+								case "addnews":
+									echo "Admin news item added successfully. Return to the <a href='".base_url('admin/news')."'>news list</a>";
+									break;
+								case "editnews":
+									echo "Admin news item edited successfully. Return to the <a href='".base_url('admin/news')."'>news list</a>";
+									break;
+								case "deletenews":
+									echo "Admin news item {$id} deleted. Return to the <a href='".base_url('admin/news')."'>news list</a>";
+									break;
 								default:
 									echo "Return to the <a href='".base_url()."'>dashboard</a>.";
 									break;

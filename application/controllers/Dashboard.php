@@ -37,7 +37,7 @@ class Dashboard extends MY_Controller {
 		else {
 			$data2['server_perm'] = False;
 		}
-		$data2['admin_news'] = $this->dashboardmodel->get_admin_news();
+		$data2['admin_news'] = $this->adminmodel->get_admin_news();
 		$this->load->view('index',$data2);
 		$this->load->view('footer');
 		$this->load->view('dashboard-footer', $data);

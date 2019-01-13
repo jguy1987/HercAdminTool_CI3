@@ -14,6 +14,13 @@
 		order: [[0, 'desc']],
 		} );
 	} );
+	
+// Get ID and send to modal on news edit
+	$(function() {
+		$(document).on('click','#editNewsOpen',function(e){
+			$('#newsidval').val($(this).data('id'));
+		});
+	});
 
 </script>
 

@@ -32,7 +32,9 @@
 <script>
 //Enable datatable for tables which don't need any special options
 	$(document).ready(function() {
-		$('#dt-default').DataTable();
-		responsive: "yes"
+		$('#dt-default').DataTable( {
+			responsive: "yes",
+			order: [],
+		} );
 	} );
 </script>

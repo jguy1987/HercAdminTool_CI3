@@ -32,13 +32,4 @@ Class Dashboardmodel extends CI_Model {
 		$query = $this->db_hat->get();
 		return $query->result_array();
 	}
-	
-	function get_admin_news() {
-		$this->db_hat->select('hat_adminnews.*,hat_users.username');
-		$this->db_hat->from('hat_adminnews')->order_by('hat_adminnews.id','desc');
-		$this->db_hat->where('hat_adminnews.active', 1);
-		$this->db_hat->join('hat_users', 'hat_adminnews.user = hat_users.id');
-		$query = $this->db_hat->get();
-		return $query->result_array();
-	}
 }

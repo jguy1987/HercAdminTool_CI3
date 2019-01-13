@@ -131,6 +131,29 @@
 							</table>
 						</div>
 					</div>
+					<div class="card mb3">
+						<div class="card-header">
+							<h3><i class="fa fa-envelope-o"></i> Admin Messages</h3>
+						</div>
+						<div class="card-body">
+							<div class="widget-messages nicescroll" style="height: 400px;">
+								<?php if ($admin_news != 0) { ?>
+									<?php foreach($admin_news as $k) { ?>
+										<?php if ($k['active'] == 1) { ?>
+											<div class="message-item">
+												<?php if ($k['pinned'] == 1) { echo "<i class='fa fa-thumb-tack'></i>"; } ?>
+												<p class="message-item-user"><?php echo $k['username']; ?></p>
+												<p class="message-item-msg"><?php echo $k['content']; ?></p>
+												<p class="message-item-date"><?php echo $k['date']; ?></p>
+											</div>
+										<?php } ?>
+									<?php } ?>
+								<?php } else { ?>
+									<p>No news to display!</p>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

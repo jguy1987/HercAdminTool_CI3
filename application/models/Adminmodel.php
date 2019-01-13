@@ -241,4 +241,39 @@ Class Adminmodel extends CI_Model {
 			return $q->row()->username;
 		}
 	}
+	
+	function get_admin_news() {
+		$this->db_hat->select('hat_adminnews.*,hat_users.username');
+		$this->db_hat->from('hat_adminnews')->order_by('hat_adminnews.active','desc');
+		$this->db_hat->order_by('hat_adminnews.pinned','desc');
+		$this->db_hat->order_by('hat_adminnews.id','desc');
+		$this->db_hat->join('hat_users', 'hat_adminnews.user = hat_users.id');
+		$q = $this->db_hat->get();
+		if ($q !== FALSE && $q->num_rows() > 0) {
+			return $q->result_array();
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	function add_admin_news($data) {
+		// Get current date/time
+		$data['date'] = date("Y-m-d H:i:s");
+		$this->db_hat->insert('hat_adminnews', $data);
+		echo $this->db_hat->last_query();
+		return $this->db_hat->affected_rows();
+	}
+	
+	function edit_admin_news($data) {
+		$this->db_hat->where('id', $data['id']);
+		$this->db_hat->update('hat_adminnews', $data);
+		echo $this->db_hat->last_query();
+		return $this->db_hat->affected_rows();
+	}
+	
+	function delete_admin_news($id) {
+		$this->db_hat->delete('hat_adminnews', array('id' => $id));
+		return $this->db_hat->affected_rows();
+	}
 }
