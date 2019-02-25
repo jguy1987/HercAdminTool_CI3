@@ -30,17 +30,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($admin_news as $item): ?>
-								<tr>
-									<td><a href="#" id="editNewsOpen" data-toggle="modal" data-target="#editNews<?php echo $item['id']; ?>" data-id="<?php echo $item['id']; ?>"><?php echo $item['id']; ?></td>
-									<td><?php echo $item['username']; ?></td>
-									<td><?php echo $item['date']; ?></td>
-									<?php $short_content = strlen($item['content']) > 100 ? substr($item['content'],0,100)."..." : $item['content']; ?>
-									<td><?php echo $short_content; ?></td>
-									<td><?php if ($item['active'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>
-									<td><?php if ($item['pinned'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>
-									<td><a href="<?php echo base_url('admin/deletenews/'.$item['id'].''); ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>&nbsp;</td>
-								</tr>
+							<?php if (empty($admin_news) == false) { ?>
+								<?php foreach ($admin_news as $item): ?>
+									<tr>
+										<td><a href="#" id="editNewsOpen" data-toggle="modal" data-target="#editNews<?php echo $item['id']; ?>" data-id="<?php echo $item['id']; ?>"><?php echo $item['id']; ?></td>
+										<td><?php echo $item['username']; ?></td>
+										<td><?php echo $item['date']; ?></td>
+										<?php $short_content = strlen($item['content']) > 100 ? substr($item['content'],0,100)."..." : $item['content']; ?>
+										<td><?php echo $short_content; ?></td>
+										<td><?php if ($item['active'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>
+										<td><?php if ($item['pinned'] == 1) { echo "Yes"; } else { echo "No"; } ?></td>
+										<td><a href="<?php echo base_url('admin/deletenews/'.$item['id'].''); ?>"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>&nbsp;</td>
+									</tr>
 								<div class="modal fade" id="editNews<?php echo $item['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editNewsLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -74,6 +75,7 @@
 									</div>
 								</div>
 							<?php endforeach; ?>
+						<?php } ?>
 						</tbody>
 					</table>
 				</div>
