@@ -1,81 +1,57 @@
-HercAdminTool
-=========
+# CodeIgniter 4 Framework
 
-[![Join the chat at https://gitter.im/jguy1987/HercAdminTool](https://badges.gitter.im/jguy1987/HercAdminTool.svg)](https://gitter.im/jguy1987/HercAdminTool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## What is CodeIgniter?
 
-Contents:
----------
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
+More information can be found at the [official site](http://codeigniter.com).
 
-* 1 What is HercAdminTool?
-* 2 What makes this panel stand out?
-* 3 How do I use it? What are the system requirements?
-* 4 Installation
-* 5 A list of planned features?
-* 6 Notes
+This repository holds the distributable version of the framework,
+including the user guide. It has been built from the 
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-1. What is HercAdminTool?
----------
-HercAdminTool (or HAT) is an online administration panel for your Ragnarok Online server running 
-the emulator Hercules. It is written in PHP, Javascript, powered with Codeigniter and Bootstrap 
-backends and as hosted on GitHub, it completely open source software, released under the 
-Apache license. This gives you the power to modify, redistribute and such, as long as you 
-return credits to me.
+More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
 
-2. What makes this panel stand out?
----------
-It is understandable for someone to ask this question with all the control panels out there. 
-HAT is built with security in mind. The panel is built to be completely hidden from your users 
-behind an indesript URL. Want part of your RO server hosted on yourdomain.com/fluffybunnies? Perfect!
-Hide the panel behind an .htaccess and no one except your GM's will know its there. no longer will
-you be exposing your control panel to your users on the front page of your website.
-
-3. How do I use it? What are the system requirements?
----------
-HAT is written in PHP, uses MySQL as it's backend and is a web application. Therefore, you will require, 
-at the minimum:
-
-* Apache2 server
-* PHP5
-* MySQL
-* git
-* sendmail or an external SMTP server
-* An RO Server running Hercules.
+The user guide corresponding to this version of the framework can be found
+[here](https://codeigniter4.github.io/userguide/). 
 
 
-The above is tested to function. Ngix, Lighthttpd and the likes are untested, but I would appreciate
-the feedback if you got it to work or not.
+## Important Change with index.php
 
-4. Installation
----------
-See the document in /docs/HatUserGuide.docx for full installation instructions.
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-5. A list of planned features?
----------
-The control panel is designed with the user in mind. Here are some of the features we've either completed
-or are planning:
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-* Account interface - View/edit account information. Reset passwords, change gender of account, 
-ban/unban account, change email of account, view/delete items in storage, ban/unban IP
-* Character interface - View/edit character information. Set any parameter of a character, 
-view inventories, delete items, send character mail, remove guild membership information.
-* Log interface - View any server log, search by everything in logs
-* Statistics interface - View how many items are on the server, where they are and who has 
-them in what quantity, delete those items, how many accounts, how many characters, etc.
-* Admin Interface - View/Edit GM list, assign/revoke permissions, create/edit/destroy groups, 
-change HAT configuration parameters, view HAT logs
-* Server Interface - Edit any configuration item on the server (battle.conf, maps.conf, groups.conf, etc) 
-with a graphical interface, edit/delete/add items/mobs from /db/ folder or SQL with graphical interface, 
-SFTP interface to server to upload/delete files or folders (will require java), download any file to your PC locally, 
-backup server files/databases to any other server, the same server or to your local PC
-* Sales Interface - View/Edit Cash Shop Items, view sales by item or character, view donation totals
-* Ticket Interface - View/Reply to tickets, open new tickets for users, assign tickets to group levels.
+**Please** read the user guide for a better explanation of how CI4 works!
+The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
 
-6. Notes
----------
-As mentioned, the panel is not even close to done yet, and at the moment just has some backend account
-management interfaces. I hope to work on this almost full time to create something robust and useful.
+## Repository Management
 
-For tracking, I will be using Github for all feedback and issue tracking. If you find something
-critical, please report it to me there. If you wish to assist, please submit a pull request!
+We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-Best wishes for a 2015!
+This repository is a "distribution" one, built by our release preparation script. 
+Problems with it can be raised on our forum, or as issues in the main repository.
+
+## Contributing
+
+We welcome contributions from the community.
+
+Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing.md) section in the development repository.
+
+## Server Requirements
+
+PHP version 7.2 or higher is required, with the following extensions installed: 
+
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+Additionally, make sure that the following extensions are enabled in your PHP:
+
+- json (enabled by default - don't turn it off)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
+- xml (enabled by default - don't turn it off)

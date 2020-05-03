@@ -1,0 +1,10 @@
+{
+    "type": "sftp",
+    "host": "tonberry.jemstuff.home",
+    "username": "aesiraonline",
+    "password": "79662pw$AESIRA!",
+    "port": 22,
+    "remotePath": "/var/www/aesiraonline.com/domains/poringadmin",
+    "uploadOnSave": true,
+    "uploadConfigFile": false
+}
