@@ -11,7 +11,6 @@ class UserModel extends Model {
     $result = $sql->getRowArray();
     if ($db->countAllResults() > 0) {
       $pwMatch = password_verify($data['userPass'], $result['userPass']);
-      echo "A";
       if ($pwMatch == True) {
         return $result;
       }
