@@ -10,6 +10,8 @@ class Filters extends BaseConfig
 		'csrf'     => \CodeIgniter\Filters\CSRF::class,
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
+		'logincheck'	=> \App\Filters\LoginCheck::class,
+		'installcheck'	=> \App\Filters\InstallCheck::class,
 	];
 
 	// Always applied before every request
@@ -17,6 +19,8 @@ class Filters extends BaseConfig
 		'before' => [
 			//'honeypot'
 			// 'csrf',
+			'installcheck' => ['except' => ['install/*']],
+			'logincheck' => ['except' => ['user/login', 'user/verifylogin', 'install/*']]
 		],
 		'after'  => [
 			'toolbar',

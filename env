@@ -1,93 +1,29 @@
-#--------------------------------------------------------------------
-# Example Environment Configuration file
+# ===================================================================
+# About the env file
+# ===================================================================
+# The env file in the root directory is designed like an import file.
+# Configuration changes local to your installation are made here. This
+# will allow you to upgrade the panel and not have to worry about
+# over writing your configurations and breaking the panel.
+# After making the changes you need to make, rename this file to ".env"
+# to activate it.
 #
-# This file can be used as a starting point for your own
-# custom .env files, and contains most of the possible settings
-# available in a default install.
+# Note: Not all of the settings here will be changed. At the bottom of this
+# file are some settings that should not be changed under any circumstances.
 #
-# By default, all of the settings are commented out. If you want
-# to override the setting, you must un-comment it by removing the '#'
-# at the beginning of the line.
-#--------------------------------------------------------------------
+# To obtain a description of what these settings mean, consult the UserGuide.
 
-#--------------------------------------------------------------------
-# ENVIRONMENT
-#--------------------------------------------------------------------
+# ===================================================================
+# Do not change the settings in the next section below under any circumstances
+# ===================================================================
+app.indexPage = ''
+app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
+database.hat.DBDriver = MySQLi
+CI_ENVIRONMENT = development
 
-# CI_ENVIRONMENT = production
+# Change the below value before trying to load the panel.
+app.baseURL = 'https://exampleRO.com'
 
-#--------------------------------------------------------------------
-# APP
-#--------------------------------------------------------------------
-
-# app.baseURL = ''
-# app.forceGlobalSecureRequests = false
-
-# app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
-# app.sessionCookieName = 'ci_session'
-# app.sessionSavePath = NULL
-# app.sessionMatchIP = false
-# app.sessionTimeToUpdate = 300
-# app.sessionRegenerateDestroy = false
-
-# app.cookiePrefix = ''
-# app.cookieDomain = ''
-# app.cookiePath = '/'
-# app.cookieSecure = false
-# app.cookieHTTPOnly = false
-
-# app.CSRFProtection  = false
-# app.CSRFTokenName   = 'csrf_test_name'
-# app.CSRFCookieName  = 'csrf_cookie_name'
-# app.CSRFExpire      = 7200
-# app.CSRFRegenerate  = true
-# app.CSRFExcludeURIs = []
-
-# app.CSPEnabled = false
-
-#--------------------------------------------------------------------
-# DATABASE
-#--------------------------------------------------------------------
-
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
-
-# database.tests.hostname = localhost
-# database.tests.database = ci4
-# database.tests.username = root
-# database.tests.password = root
-# database.tests.DBDriver = MySQLi
-
-#--------------------------------------------------------------------
-# CONTENT SECURITY POLICY
-#--------------------------------------------------------------------
-
-# contentsecuritypolicy.reportOnly = false
-# contentsecuritypolicy.defaultSrc = 'none'
-# contentsecuritypolicy.scriptSrc = 'self'
-# contentsecuritypolicy.styleSrc = 'self'
-# contentsecuritypolicy.imageSrc = 'self'
-# contentsecuritypolicy.base_uri = null
-# contentsecuritypolicy.childSrc = null
-# contentsecuritypolicy.connectSrc = 'self'
-# contentsecuritypolicy.fontSrc = null
-# contentsecuritypolicy.formAction = null
-# contentsecuritypolicy.frameAncestors = null
-# contentsecuritypolicy.mediaSrc = null
-# contentsecuritypolicy.objectSrc = null
-# contentsecuritypolicy.pluginTypes = null
-# contentsecuritypolicy.reportURI = null
-# contentsecuritypolicy.sandbox = false
-# contentsecuritypolicy.upgradeInsecureRequests = false
-
-#--------------------------------------------------------------------
-# HONEYPOT
-#--------------------------------------------------------------------
-
-#  honeypot.hidden = 'true'
-#  honeypot.label = 'Fill This Field'
-#  honeypot.name = 'honeypot'
-#  honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
+# ===================================================================
+# ===================================================================
+# ============== Values below added by installer ====================

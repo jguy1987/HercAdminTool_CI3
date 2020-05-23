@@ -1,0 +1,4 @@
+The following tables are part of the Hercules Admin Tool.
+
+* hat_users
+* hat_groups
