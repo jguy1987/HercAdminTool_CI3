@@ -32,6 +32,12 @@
           <p>Incorrect username or password.</p>
         </div>
       <?php } ?>
+      <?php if (isset($validation)) { ?>
+        <div class="alert alert-warning">
+          <h5><i class="icon fas fa-ban"></i> Warning</h5>
+          <?php echo $validation->listErrors(); ?>
+        </div>
+      <?php } ?>
       <?php echo form_open('/user/verifylogin'); ?>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Username" name="userName">

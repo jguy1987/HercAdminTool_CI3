@@ -6,14 +6,12 @@ class Home extends BaseController {
 		$headData = array(
 			'pageTitle'		=> 'HercAdminTool :: Dashboard',
 			'panelName'		=> 'HercAdminTool',
-			'userName'		=> 'admin',
+			'userName'		=> $this->session->get('userName'),
 		);
 		echo view('head', $headData);
 		echo view('sidenav', $headData);
 		echo view('dashboard/index');
 		echo view('footer');
 	}
-
-	//--------------------------------------------------------------------
 
 }
