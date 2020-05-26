@@ -165,7 +165,7 @@ class Install extends BaseController {
 		// Process mail settings, then ask for initial user.
 		$installModel = new \App\Models\InstallModel();
     $val = $this->validate([
-      'emailFrom' => 'required|valid_email',
+      'fromEmail' => 'required|valid_email',
       'sendmailPath' => 'required',
       'smtpHost' => 'required',
       //'smtpUser' => 'required', // SMTP User may not always be required.
@@ -187,13 +187,14 @@ class Install extends BaseController {
 		else {
 			// Valid data. Process in env file.
 			$modelData = array(
-				'emailFrom' => $this->request->getVar('emailFrom'),
+				'fromEmail' => $this->request->getVar('fromEmail'),
 				'protocol' => $this->request->getVar('mailProto'),
 				'mailpath' => $this->request->getVar('sendmailPath'),
 				'SMTPHost' => $this->request->getVar('smtpHost'),
 				'SMTPUser' => $this->request->getVar('smtpUser'),
 				'SMTPPass' => $this->request->getVar('smtpPass'),
 				'SMTPPort' => $this->request->getVar('smtpPort'),
+				'mailType' => 'html',
 			);
 			$err = '';
 			foreach ($modelData as $k => $v) {

@@ -32,6 +32,12 @@
           <p>Incorrect username or password.</p>
         </div>
       <?php } ?>
+      <?php if (isset($disabledAcct)) { ?>
+        <div class="callout callout-warning">
+          <h5><i class="icon fas fa-ban"></i> Alert</h5>
+          <p>This user is currently disabled from logging in. Contact an Administrator.</p>
+        </div>
+      <?php } ?>
       <?php if (isset($validation)) { ?>
         <div class="alert alert-warning">
           <h5><i class="icon fas fa-ban"></i> Warning</h5>

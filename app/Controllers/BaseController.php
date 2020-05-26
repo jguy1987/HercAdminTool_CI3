@@ -28,7 +28,7 @@ class BaseController extends Controller
 	 */
 	protected $helpers = ['form','url'];
 	protected $session;
-	protected $hatConfig;
+	//protected $hatConfig;
 
 	/**
 	 * Constructor.
@@ -44,6 +44,8 @@ class BaseController extends Controller
 		// E.g.:
 		$this->session = \Config\Services::session();
 		$this->hatConfig = config('Hat');
+		$hatModel = new \App\Models\HatModel();
+		$this->hatPerms = $hatModel->checkPerms($this->session->get('userGroupID'));
 	}
 
 }

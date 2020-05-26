@@ -12,14 +12,19 @@ class UserModel extends Model {
     if ($db->countAllResults() > 0) {
       $pwMatch = password_verify($data['userPass'], $result['userPass']);
       if ($pwMatch == True) {
-        return $result;
+        if ($result['userDisableLogin'] == 0) {
+          return $result;
+        }
+        else {
+          return 2;
+        }
       }
       else {
-        return False;
+        return 3;
       }
     }
     else {
-      return False;
+      return 3;
     }
   }
 
@@ -55,5 +60,14 @@ class UserModel extends Model {
     $db->where('userID', $data['userID']);
     $db->update();
     return True;
+  }
+
+  public function updateLastLogin($userID) {
+    $dbConn = \Config\Database::connect('hat');
+    $db = $dbConn->table('users');
+    $lastLogin = date('Y-m-d');
+    $db->set('userLastLogin', $lastLogin);
+    $db->where('userID', $userID);
+    $db->update();
   }
 }

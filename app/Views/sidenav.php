@@ -27,6 +27,30 @@
             </li>
           </ul>
         </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-users-cog"></i>
+            <p>Admin
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?php echo base_url('admin/users'); ?>" class="nav-link">
+                <i class="fas fa-user-shield nav-icon"></i>
+                <p>Admin Users</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?php echo base_url('admin/groups'); ?>" class="nav-link">
+                <i class="fas fa-user-friends nav-icon"></i>
+                <p>Admin Groups</p>
+              </a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>

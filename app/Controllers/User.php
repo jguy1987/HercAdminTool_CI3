@@ -142,9 +142,16 @@ class User extends BaseController {
 				'userPass'	=> $this->request->getVar('userPass'),
 			);
 			$result = $userModel->verifyLogin($modelData);
-			if ($result == False) {
+			if ($result == 3) { // Invalid login.
 				$pageData += array(
 					'loginError' => True,
+				);
+				echo view('user/login', $pageData);
+				die();
+			}
+			else if ($result == 2) {
+				$pageData += array(
+					'disabledAcct' => True,
 				);
 				echo view('user/login', $pageData);
 				die();
@@ -154,6 +161,8 @@ class User extends BaseController {
 				$this->session->set('userName', $result['userName']);
 				$this->session->set('userGroupID', $result['userGroupID']);
 				$this->session->set('userID', $result['userID']);
+				// Set last login date in Database
+				$userModel->updateLastLogin($this->session->get('userID'));
 				// User logged in. Direct to a temp page that simply redirects to dashboard.
 				echo view('user/verifylogin', $pageData);
 			}

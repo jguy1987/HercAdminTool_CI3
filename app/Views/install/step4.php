@@ -47,7 +47,7 @@
         <p>The final step sets up the email settings for your panel.</p>
         <b>Email From Address</b><br />
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name='emailFrom' value="admin@yourro.com">
+          <input type="text" class="form-control" name='fromEmail' value="admin@yourro.com">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
