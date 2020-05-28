@@ -44,3 +44,13 @@ COLLATE latin1_swedish_ci;
 
 INSERT INTO settings VALUES
 ('newUserPassLength', '15', 'The length of the randomly generated password for any new user (admin or player) generated through the panel.');
+
+-- Table `loginlog`
+CREATE TABLE loginlog (
+  userID INT(11) DEFAULT NULL,
+  loginTime DATETIME DEFAULT NULL,
+  loginIP VARCHAR(255) DEFAULT NULL
+)
+ENGINE = INNODB,
+CHARACTER SET latin1,
+COLLATE latin1_swedish_ci;

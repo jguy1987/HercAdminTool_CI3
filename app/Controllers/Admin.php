@@ -17,11 +17,11 @@ class Admin extends BaseController {
       $hatModel = new \App\Models\HatModel();
       // Get the list of users.
       $pageData['users'] = $adminModel->listUsers();
-  		echo view('admin/users', $pageData);
+  		echo view('admin/listusers', $pageData);
     }
     else {
       $pageData['page'] = "permFail";
-      echo view('fail',$pageData);
+      echo view('error',$pageData);
     }
 		echo view('footer');
 	}
@@ -44,7 +44,7 @@ class Admin extends BaseController {
     }
     else {
       $pageData['page'] = "permFail";
-      echo view('fail',$pageData);
+      echo view('error',$pageData);
     }
 		echo view('footer');
   }
@@ -116,7 +116,7 @@ class Admin extends BaseController {
         // Send the email
         if ($newEmail->send() == FALSE) {
           $pageData['page'] = "addadminemail";
-          echo view('fail',$pageData);
+          echo view('error',$pageData);
         }
         else {
           // Display a confirmation page to the user.
@@ -127,4 +127,36 @@ class Admin extends BaseController {
     }
     echo view('footer');
   }
+
+	public function user($userID) {
+		$headData = array(
+      'pageTitle'		=> 'HercAdminTool :: Admin Details',
+      'panelName'		=> 'HercAdminTool',
+      'userName'		=> $this->session->get('userName'),
+    );
+    $pageData = array();
+    echo view('head', $headData);
+    echo view('sidenav', $headData);
+    // Check user permissions
+    if ($this->hatPerms->viewAdmins == True) {
+			$adminModel = new \App\Models\AdminModel();
+			$pageData['groupList'] = $adminModel->listGroups();
+			if ($this->request->getVar('submit') == True) {
+				// User wants to change something.
+				$pageData += $adminModel->loadAdmin($userID);
+
+				echo view('admin/user', $pageData);
+			}
+			else {
+				$pageData += $adminModel->loadAdmin($userID);
+				$pageData['loginLog'] = $adminModel->loadLoginLog($userID);
+				echo view('admin/user', $pageData);
+			}
+		}
+		else {
+			$pageData['page'] = "permFail";
+      echo view('error',$pageData);
+		}
+		echo view('footer');
+	}
 }

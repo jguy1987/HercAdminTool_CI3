@@ -163,6 +163,7 @@ class User extends BaseController {
 				$this->session->set('userID', $result['userID']);
 				// Set last login date in Database
 				$userModel->updateLastLogin($this->session->get('userID'));
+				$userModel->updateLoginLog($this->session->get('userID'), $this->request->getIPAddress());
 				// User logged in. Direct to a temp page that simply redirects to dashboard.
 				echo view('user/verifylogin', $pageData);
 			}
