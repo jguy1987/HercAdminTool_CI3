@@ -4,7 +4,7 @@ class Admin extends BaseController {
 
 	public function users() {
     $headData = array(
-      'pageTitle'		=> 'HercAdminTool :: Add Admin',
+      'pageTitle'		=> 'HercAdminTool :: List Admins',
       'panelName'		=> 'HercAdminTool',
       'userName'		=> $this->session->get('userName'),
     );
@@ -14,7 +14,7 @@ class Admin extends BaseController {
     if ($this->hatPerms->viewAdmins == True) {
       // Load Models
   		$adminModel = new \App\Models\AdminModel();
-      $hatModel = new \App\Models\HatModel();
+			$pageData['addAdmin'] = $this->hatPerms->addAdmin;
       // Get the list of users.
       $pageData['users'] = $adminModel->listUsers();
   		echo view('admin/listusers', $pageData);
@@ -151,6 +151,83 @@ class Admin extends BaseController {
 				$pageData += $adminModel->loadAdmin($userID);
 				$pageData['loginLog'] = $adminModel->loadLoginLog($userID);
 				echo view('admin/user', $pageData);
+			}
+		}
+		else {
+			$pageData['page'] = "permFail";
+      echo view('error',$pageData);
+		}
+		echo view('footer');
+	}
+
+	public function groups() {
+		$headData = array(
+      'pageTitle'		=> 'HercAdminTool :: List Groups',
+      'panelName'		=> 'HercAdminTool',
+      'userName'		=> $this->session->get('userName'),
+    );
+    $pageData = array();
+    echo view('head', $headData);
+    echo view('sidenav', $headData);
+    if ($this->hatPerms->viewGroups == True) {
+			// Load Models
+  		$adminModel = new \App\Models\AdminModel();
+			$pageData['addGroup'] = $this->hatPerms->addGroup;
+      // Get the list of users.
+      $pageData['groups'] = $adminModel->listGroups();
+  		echo view('admin/listgroups', $pageData);
+    }
+    else {
+      $pageData['page'] = "permFail";
+      echo view('error',$pageData);
+    }
+		echo view('footer');
+	}
+
+	public function group($groupID) {
+		$headData = array(
+      'pageTitle'		=> 'HercAdminTool :: Group Details',
+      'panelName'		=> 'HercAdminTool',
+      'userName'		=> $this->session->get('userName'),
+    );
+    $pageData = array();
+    echo view('head', $headData);
+    echo view('sidenav', $headData);
+    // Check user permissions
+    if ($this->hatPerms->viewGroups == True) {
+			$adminModel = new \App\Models\AdminModel();
+			$hatModel = new \App\Models\HatModel();
+			$pageData['userGroupID'] = $this->session->get('userGroupID');
+			$pageData['editGroup'] = $this->hatPerms->editGroup;
+			if ($this->request->getVar('submit') == True) {
+				// User wants to change something.
+				$val = $this->validate([
+		      'groupName'   => 'required',
+		      'groupID'  => 'required|is_numeric',
+		    ]);
+				if (!$val) {
+		      $pageData += array(
+		        'validation' => $this->validator,
+		      );
+		      echo view('admin/group', $pageData);
+		    }
+		    else {
+					$modelData = array(
+						'groupName' => $this->request->getVar('groupName'),
+						'groupID' 	=> $this->request->getVar('groupID'),
+						'perms'			=> $this->request->getVar('perm'),
+					);
+					$adminModel->editGroup($modelData);
+					$pageData['changeConfirm'] = TRUE;
+					$pageData['grpInfo'] = $adminModel->loadGroup($groupID);
+					$pageData['perms'] = $hatModel->loadPerms();
+					echo view('admin/group', $pageData);
+				}
+			}
+			else {
+				$pageData['grpInfo'] = $adminModel->loadGroup($groupID);
+				$pageData['perms'] = $hatModel->loadPerms();
+				echo view('admin/group', $pageData);
 			}
 		}
 		else {

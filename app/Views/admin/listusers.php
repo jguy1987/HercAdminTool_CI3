@@ -19,7 +19,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="btn-group">
-        <a href="/admin/addadmin"><button type="button" class="btn btn-block bg-gradient-info btn-sm">New Admin</button></a>
+        <a href="/admin/addadmin"><button type="button" class="btn btn-block bg-gradient-info btn-sm" <?php if ($addAdmin == 0) { echo "disabled"; } ?>>New Admin</button></a>
       </div><br /><br />
       <div class="row">
         <div class="col-md-12">

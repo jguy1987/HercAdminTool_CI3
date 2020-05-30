@@ -48,4 +48,9 @@ class HatModel extends Model {
     $sql = $db->select('*')->getWhere(['groupID' => $groupID]);
     return $sql->getRow();
   }
+
+  public function loadPerms() {
+    $permReturn = parse_ini_file(ROOTPATH.'/docs/permissions.ini', true);
+    return $permReturn;
+  }
 }

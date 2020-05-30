@@ -47,4 +47,20 @@ class AdminModel extends Model {
     $query = $sql->getWhere(['userID' => $userID]);
     return $query->getResultArray();
   }
+
+  public function loadGroup($groupID) {
+    $sql = $this->db->table('groups');
+    $sql->select('*');
+    $query = $sql->getWhere(['groupID' => $groupID]);
+    return $query->getRowArray();
+  }
+
+  public function editGroup($data) {
+    $sql = $this->db->table('groups');
+    array_fill_keys($data['perms'], 1);
+    $sql->where('groupID', $data['groupID']);
+    $sql->set('groupName', $data['groupName']);
+    $sql->set($data['perms']);
+    $sql->update();
+  }
 }

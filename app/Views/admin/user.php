@@ -39,7 +39,7 @@
         </div>
       <?php } ?>
     <?php } ?>
-    <?php echo form_open("admin/user", '', ['submit' => True]); ?>
+    <?php echo form_open("admin/user/".$userID."", '', ['submit' => True]); ?>
       <div class="container-fluid">
         <?php if ($userDisableLogin == 1) { ?>
           <div class="col-md-12">
