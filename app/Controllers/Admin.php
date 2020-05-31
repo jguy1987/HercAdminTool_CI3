@@ -149,8 +149,14 @@ class Admin extends BaseController {
 			}
 			else {
 				$pageData += $adminModel->loadAdmin($userID);
-				$pageData['loginLog'] = $adminModel->loadLoginLog($userID);
-				echo view('admin/user', $pageData);
+				if ($pageData['userGroupID'] >= $this->session->get('userGroupID')) {
+					$pageData['page'] = "editSameGroup";
+					echo view('error', $pageData);
+				}
+				else {
+					$pageData['loginLog'] = $adminModel->loadLoginLog($userID);
+					echo view('admin/user', $pageData);
+				}
 			}
 		}
 		else {

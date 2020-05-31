@@ -21,6 +21,9 @@
                 case "permFail":
                   echo "You do not have permission to view this page! <a href='".base_url()."'>Return to the dashboard</a>.";
                   break;
+                case "editSameGroup":
+                  echo "You may not view/edit an admin that has a group assignment greater than yours. <a href='".base_url("admin/users")."'>Return to the admin list</a>.";
+                  break;
                 } ?>
             </div>
           </div>
